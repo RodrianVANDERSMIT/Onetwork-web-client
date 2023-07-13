@@ -1,11 +1,13 @@
+import DoublePage from "../pages/DoublePage"
+//import SimplePage from "../pages/SimplePage"
 
 
 function App() {
 
 
   return (
-  <div> O'Network APP !</div>
- 
+    //<SimplePage/>
+    <DoublePage/>
   )
 }
 

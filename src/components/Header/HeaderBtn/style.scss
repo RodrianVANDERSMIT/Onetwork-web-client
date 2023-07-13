@@ -1,0 +1,20 @@
+@use '../../../styles/settings/colors' as v;
+
+.c-buttonContent {
+    display: flex;
+    justify-content: flex-end;
+
+    &.btn {
+        color: v.$light-secondary;
+        border-color: v.$light-secondary;
+
+        &:hover {
+            border-color: v.$light-secondary;
+        }
+    }
+
+    &.icon {
+        color: v.$light-secondary;
+        font-size: 1em;
+    }
+}
