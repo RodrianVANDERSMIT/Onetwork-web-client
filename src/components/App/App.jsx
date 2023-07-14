@@ -1,13 +1,13 @@
-import DoublePage from "../pages/DoublePage"
-//import SimplePage from "../pages/SimplePage"
+import UserProfile from "../../views/UserProfile"
+
+//TODO si pas connecter afficher home / sinon afficher flux d'activité(router)
 
 
 function App() {
 
 
   return (
-    //<SimplePage/>
-    <DoublePage/>
+    <UserProfile/>
   )
 }
 
