@@ -1,0 +1,27 @@
+@use '../../../styles/settings/colors' as v;
+
+.c-organization-form{
+   
+    justify-content: center;
+    align-items: center;
+    padding:10%;
+
+    &__title{}
+
+    &__text{
+       justify-content: center;
+
+    }
+    &__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    }
+
+    &__button{
+       background-color: v.$light-primary;
+      
+    }
+
+}
