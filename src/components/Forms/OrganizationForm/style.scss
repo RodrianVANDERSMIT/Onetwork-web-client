@@ -1,4 +1,4 @@
-@use '../../../styles/settings/colors' as v;
+
 
 .c-organization-form{
    
@@ -16,11 +16,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #00EBBD !important;
     
     }
 
     &__button{
-       background-color: v.$light-primary;
+        background-color: #00EBBD !important ;
+        color: #6e7681 !important ;
       
     }
 
