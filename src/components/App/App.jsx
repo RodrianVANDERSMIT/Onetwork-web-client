@@ -2,7 +2,6 @@ import { Routes, Route} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import UserProfile from "../../views/UserProfile"
 import Home from '../../views/Home'
-import Loading from './Loading'
 import OrganizationCreation from '../../views/OrganizationCreation'
 import Administration from '../../views/Administration'
 import ProfileSettings from '../../views/ProfileSettings'
@@ -13,11 +12,9 @@ import Error from '../Error'
 //TODO si pas connecter afficher home / sinon afficher flux d'activité(router)
 
 
-function App({ loading = false }) {
+function App() {
 
-if (loading) {
-  return <Loading/>
-}
+
   return (
     <Routes>
       <Route path="/" element={<Home/>}/>
