@@ -1,6 +1,6 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
-
+import store from './redux/store'
+import { Provider } from 'react-redux'
 
 import App from './components/App/App'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -10,11 +10,11 @@ import '@fontsource/roboto/700.css'
 import './styles/main.scss'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.Fragment>
+    <Provider store={store}>
 
         <CssBaseline />
         <App />
 
-    </React.Fragment>
+    </Provider>
 
 )
