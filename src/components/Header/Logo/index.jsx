@@ -1,13 +1,10 @@
-import LanguageIcon from '@mui/icons-material/Language';
 import Box from '@mui/material/Box';
 import './style.scss'
-import { Typography } from '@mui/material';
 
 export default function Logo() {
     return (
-        <Box component="div" className='c-logoContent'>
-            <LanguageIcon className='c-logoContent icon' fontSize='large' />
-            <Typography className='c-logoContent name'>ONetwork</Typography>
+        <Box component="div" className="c-logo">
+            <img className="c-logo__img" src="/public/assets/logo.svg" alt="Logo O'Network" />
         </Box>
     );
 }

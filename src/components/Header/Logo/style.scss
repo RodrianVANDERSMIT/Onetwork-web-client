@@ -1,17 +1,9 @@
-@use '../../../styles/settings/colors' as v;
-
-.c-logoContent {
+.c-logo
+{
     display: flex;
-    justify-content: flex-end;
 
-    &.icon {
-        font-size: 2.5em;
-        color: v.$light-secondary;
-    }
-
-    &.name {
-        font-size: 2rem;
-        margin-left: 0rem;
-        color: v.$light-secondary;
+    &__img
+    {
+        height: 40px;
     }
 }
