@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/user";
 import feed from "../reducers/feed";
 import members from "../reducers/members";
+import organization from "../reducers/organization";
 
 
 
@@ -10,7 +11,8 @@ import members from "../reducers/members";
 const reducer = {
     user,
     feed,
-    members
+    members,
+    organization
 
 }
 const store = configureStore({

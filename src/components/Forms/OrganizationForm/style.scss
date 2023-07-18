@@ -1,0 +1,23 @@
+
+
+.c-organization-form{
+   
+    justify-content: center;
+    align-items: center;
+    padding:10%;
+
+
+    &__text{
+       justify-content: center;
+
+    }
+    &__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    
+    }
+
+
+}
