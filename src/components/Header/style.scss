@@ -1,12 +1,11 @@
 @use '../../styles/settings/colors' as v;
 
-.c-header {
-    position: static;
-    height: 10vh;
-    border-bottom: 1px solid v.$light-secondary;
-    background-color: #fff;
+.c-header { 
+    height: 70px;
+    border-bottom: v.$light-secondary;
+    background-color: v.$white;
 
-    &.box {
-        background-color: v.$light-primary;
+    &__toolbar {
+        background-color: v.$white;   
     }
 }

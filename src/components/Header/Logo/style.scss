@@ -5,5 +5,10 @@
     &__img
     {
         height: 40px;
+
+        @media (max-width: 767px)
+        {
+            height: 20px;
+        }
     }
 }
