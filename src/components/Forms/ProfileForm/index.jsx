@@ -3,13 +3,18 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 // import Typography from '@mui/material/Typography';
-
+import {useDispatch} from 'react-redux'
+import {addUser} from '../../../redux/reducers/user'
 import './style.scss'
 
 function ProfileForm() {
     console.log("Formulaire du profil");
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const dispatch = useDispatch();
+    // const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        dispatch(addUser(data))
+    }
 
     return (
         <Box
@@ -18,7 +23,6 @@ function ProfileForm() {
         sx={{
             '& .MuiTextField-root': {
                                         mb: 2,
-                                        px:'10px',
                                         width: '100%'
                                     },
             maxWidth: '400px',
@@ -28,7 +32,8 @@ function ProfileForm() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            px:'10px',
         }}
         onSubmit={handleSubmit(onSubmit)}
         >
@@ -65,12 +70,12 @@ function ProfileForm() {
                 <TextField
                     required
                     label="Nom"
-                    {...register("lastName")}
+                    {...register("surname")}
                 />
                 <TextField
                     required
                     label="Prénom"
-                    {...register("firstName")}
+                    {...register("name")}
                 />
             </Box>
             <Box
@@ -81,6 +86,7 @@ function ProfileForm() {
             }}
             >
                 <p className="c-profile-form__textfield">Votre poste</p>
+                {/* TODO Ajouté texte de description */}
                 <TextField
                     required
                     label="Intitulé de poste"
