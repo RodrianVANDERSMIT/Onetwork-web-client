@@ -8,7 +8,7 @@ export const newOrganization = createAsyncThunk('organization/create', async(org
         const exist = organizations.some(({name}) => name ===organizationName)  
         
         if (exist) {
-            return thunkApi.rejectWithValue({ status: 409, message: 'Le nom de l\'organisation existe déjà.' });
+            return thunkApi.rejectWithValue({ status: 409, message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
         }  
         return organizationName;
     }
