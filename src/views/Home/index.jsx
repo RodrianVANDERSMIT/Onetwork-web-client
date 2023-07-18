@@ -7,6 +7,7 @@ function Home() {
 
   return (
     <SimplePage>
+      <h5>Home</h5>
       <div>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, accusantium!</p>
         <button>TODO to créer organisation</button>
