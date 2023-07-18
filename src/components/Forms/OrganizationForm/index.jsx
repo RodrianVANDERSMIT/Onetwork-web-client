@@ -18,7 +18,7 @@ const onSubmit = ({organizationName}) =>{
 
 return (
     <div className="c-organization-form">
-      <h2>Bienvenue sur la page de création d'une organisation !</h2>
+      <h2>{"Bienvenue sur la page de création d'une organisation !"}</h2>
       <p className="c-organization-form__text">Merci de bien vouloir renseigner le nom de votre organisation et cliquer sur le bouton de validation pour continuer.</p>
       <form className="c-organization-form__form" onSubmit={handleSubmit(onSubmit)}>
         <TextField 
@@ -28,7 +28,7 @@ return (
           {...register('organizationName',{required:true, minLength: 3 })}
         />
         {errors.organizationName && errors.organizationName.type === "minLength" && (
-          <p className="c-organization-form__error">Le nom de l'organisation doit comporter au moins 3 caractères.</p>
+          <p className="c-organization-form__error">{"Le nom de l'organisation doit comporter au moins 3 caractères."}</p>
         )}
         <Button sx={{ m:1,}} className="c-organization-form__button" variant="contained" type="submit" >Valider</Button>
       </form>

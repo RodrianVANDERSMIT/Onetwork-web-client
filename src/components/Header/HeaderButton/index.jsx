@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import './style.scss'
 import { Menu, MenuItem} from '@mui/material'
-import BasicCard from '../../BasicCard'
+import BasicCard from '../../Buttons/BasicCard'
 
 
 export default function HeaderButton() {

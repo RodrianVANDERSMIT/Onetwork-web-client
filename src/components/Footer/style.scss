@@ -3,6 +3,7 @@
 .c-footer {
     background-color: v.$white;
     position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     bottom: 0;
