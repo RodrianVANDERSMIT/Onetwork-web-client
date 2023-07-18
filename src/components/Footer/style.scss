@@ -1,18 +1,24 @@
 @use '../../styles/settings/colors' as v;
 
 .c-footer {
-    background-color: v.$light-primary;
+    background-color: v.$white;
     position: absolute;
     display: flex;
     flex-direction: column;
     bottom: 0;
     width: 100%;
-    height: 10vh;
-    border-top: 1px solid v.$light-secondary;
-    color: v.$light-secondary;
+    height: 70px;
+    border-top: 1px solid v.$dark-secondary;
+    color: v.$dark-secondary;
+    
 
-    &.text {
+    &__text {
         text-align: center;
         padding: 0.5em;
     }
+}
+
+.c-footerBtn {
+    display: flex;
+    justify-content: center;
 }

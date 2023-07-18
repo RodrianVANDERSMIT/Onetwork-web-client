@@ -1,0 +1,18 @@
+@use '../../styles/settings/colors' as v;
+
+.c-btn {
+    color: v.$light-secondary;
+
+    &.footer {
+        width: 8em;
+        color: v.$dark-secondary;
+        border: 1px solid v.$dark-secondary;
+        padding: 0.1em;
+
+        &:hover {
+            border: 1px solid v.$dark-secondary;
+            background-color: v.$dark-secondary;
+            color: v.$white;
+        }
+    }
+}
