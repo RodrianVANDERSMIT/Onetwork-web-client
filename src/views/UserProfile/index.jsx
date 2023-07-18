@@ -9,6 +9,7 @@ function UserProfile() {
 
     return (
         <SimplePage>
+            <h5>UserProfile</h5>
             <CardUser/>
             <Nav/>
             <Feed/>

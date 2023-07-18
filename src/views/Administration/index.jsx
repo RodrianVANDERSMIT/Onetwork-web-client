@@ -12,7 +12,7 @@ function Administration() {
         <SimplePage>
             <UserCard />
             <Nav />
-            <h1> Administration</h1>
+            <h5> Administration</h5>
             <InvitForm />
             <UserCard>
                 <button> BLOQUER</button>

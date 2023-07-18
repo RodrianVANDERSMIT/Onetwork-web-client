@@ -1,4 +1,4 @@
-import HeaderBtn from "./HeaderBtn";
+import HeaderButton from "./HeaderButton";
 import Logo from "./Logo";
 import { AppBar, Box, Toolbar } from '@mui/material'
 import './style.scss'
@@ -10,7 +10,7 @@ function Header() {
             <AppBar className="c-header__appbar" >
                 <Toolbar className="c-header__toolbar" >
                     <Logo />
-                    <HeaderBtn />
+                    <HeaderButton />
                 </Toolbar>
             </AppBar>
         </Box>

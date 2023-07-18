@@ -1,4 +1,4 @@
-import Button from "../../components/Button"
+import Button from "../../components/BasicButton"
 import UserCard from "../../components/UserCard"
 import SimplePage from "../../layout/SimplePage"
 
@@ -8,6 +8,7 @@ function Contact() {
 
     return (
         <SimplePage>
+            <h5>Contact</h5>
             <UserCard/>
             <UserCard/>
             <UserCard/>

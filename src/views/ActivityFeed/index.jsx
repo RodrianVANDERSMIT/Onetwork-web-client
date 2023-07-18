@@ -9,6 +9,7 @@ function ActivityFeed() {
 
     return (
         <SimplePage>
+            <h5>ActivityFeed</h5>
             <CardUser/>
             <Nav/>
             <Feed/>
