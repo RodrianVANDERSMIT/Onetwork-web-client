@@ -6,9 +6,9 @@ import './style.scss'
 //TODO si l'utilisateur est sur les pages en connecter , ne plus afficher le bouton retour
 function Header() {
     return (
-        <Box>
-            <AppBar className="c-header" sx={{ height: '10vh' }} position="static">
-                <Toolbar className="c-header box" >
+        <Box className="c-header">
+            <AppBar className="c-header__appbar" >
+                <Toolbar className="c-header__toolbar" >
                     <Logo />
                     <HeaderBtn />
                 </Toolbar>
