@@ -1,15 +1,19 @@
-import FooterButton from "./FooterButton";
 import {Typography, Box} from '@mui/material'
 import './style.scss'
+import BasicButton from "../BasicButton";
 
 export default function Footer() {
     return (
     <Box className= 'c-footer'>
-        <Typography className= 'c-footer text' variant="subtitle2"  >
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-            blanditiis tenetur
+        <Typography className= 'c-footer__text' variant="subtitle2"  >
+            {"Projet de fin de formation O'clock socle PHP spé REACT"}
         </Typography>
-        <FooterButton/>
+        <Box className='c-footerBtn'>
+        <BasicButton 
+            className='c-btn footer' 
+            variant="outlined" 
+            name="Contact"/>
+        </Box>
     </Box>
     );
 }
