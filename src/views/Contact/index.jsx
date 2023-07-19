@@ -1,13 +1,13 @@
-import Button from "../../components/BasicButton"
+import Button from "../../components/Buttons/BasicButton"
 import UserCard from "../../components/UserCard"
-import SimplePage from "../../layout/SimplePage"
+import SimplePageLayout from "../../layout/SimplePageLayout"
 
 import './style.scss'
 
 function Contact() {
 
     return (
-        <SimplePage>
+        <SimplePageLayout>
             <h5>Contact</h5>
             <UserCard/>
             <UserCard/>
@@ -15,7 +15,7 @@ function Contact() {
             <UserCard/>
            
             <Button/>
-        </SimplePage>
+        </SimplePageLayout>
     )
 }
 

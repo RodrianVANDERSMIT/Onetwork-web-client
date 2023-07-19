@@ -4,7 +4,7 @@ import Header from "../../components/Header"
 import { Grid, Box } from "@mui/material"
 import './style.scss'
 
-const SimplePage = ({ children }) => {
+const SimplePageLayout = ({ children }) => {
     return (
         <Grid>
             <Box className="c-box-main">
@@ -16,8 +16,8 @@ const SimplePage = ({ children }) => {
     )
 }
 
-SimplePage.propTypes = {
+SimplePageLayout.propTypes = {
     children: PropTypes.node,
 };
 
-export default SimplePage
+export default SimplePageLayout

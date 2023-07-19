@@ -1,15 +1,15 @@
 import ProfileForm from "../../components/Forms/ProfileForm"
-import DoublePage from "../../layout/DoublePage"
+import DoublePageLayout from "../../layout/DoublePageLayout"
 
 import './style.scss'
 
 function SignUp() {
 
     return (
-        <DoublePage>
+        <DoublePageLayout>
             <h5>SignUp</h5>
             <ProfileForm/>
-        </DoublePage>
+        </DoublePageLayout>
     )
 }
 

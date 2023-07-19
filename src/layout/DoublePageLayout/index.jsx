@@ -6,7 +6,7 @@ import './style.scss'
 
 
 
-const DoublePage = ({ children }) => {
+const DoublePageLayout = ({ children }) => {
     return (
         <Grid container >
             <Grid md={6} lg={6} sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
@@ -30,8 +30,8 @@ const DoublePage = ({ children }) => {
 }
 
 
-DoublePage.propTypes = {
+DoublePageLayout.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-export default DoublePage
+export default DoublePageLayout

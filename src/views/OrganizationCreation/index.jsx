@@ -1,15 +1,15 @@
 import OrganizationForm from "../../components/Forms/OrganizationForm"
-import DoublePage from "../../layout/DoublePage"
+import DoublePageLayout from "../../layout/DoublePageLayout"
 
 import './style.scss'
 
 function OrganizationCreation() {
 
     return (
-        <DoublePage>
+        <DoublePageLayout>
             <h5>OrganizationCreation</h5>
             <OrganizationForm/>
-        </DoublePage>
+        </DoublePageLayout>
     )
 }
 

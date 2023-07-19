@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom'
+import BasicButton from "../Buttons/BasicButton";
 import {Typography, Box} from '@mui/material'
 import './style.scss'
-import BasicButton from "../BasicButton";
+
 
 export default function Footer() {
     return (
@@ -12,7 +14,8 @@ export default function Footer() {
         <BasicButton 
             className='c-btn footer' 
             variant="outlined" 
-            name="Contact"/>
+            name="Contact"
+            component={Link} route="/about"/>
         </Box>
     </Box>
     );

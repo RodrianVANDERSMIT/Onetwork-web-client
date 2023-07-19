@@ -1,4 +1,4 @@
-import SimplePage from "../../layout/SimplePage"
+import SimplePageLayout from "../../layout/SimplePageLayout"
 import LoginForm from "../../components/Forms/LoginForm"
 
 import './style.scss'
@@ -6,14 +6,14 @@ import './style.scss'
 function Home() {
 
   return (
-    <SimplePage>
+    <SimplePageLayout>
       <h5>Home</h5>
       <div>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, accusantium!</p>
         <button>TODO to créer organisation</button>
       </div>
       <LoginForm />
-    </SimplePage>
+    </SimplePageLayout>
   )
 }
 

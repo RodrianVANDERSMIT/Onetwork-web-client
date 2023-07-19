@@ -1,0 +1,7 @@
+@use '../../styles/settings/breakpoints' as b;
+
+.c-box-main {
+    flex-grow: 1;
+    overflow-y: scroll;
+    height: calc(100vh - 140px);
+}

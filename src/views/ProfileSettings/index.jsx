@@ -1,5 +1,5 @@
 import ProfilForm from "../../components/Forms/ProfileForm"
-import DoublePage from "../../layout/DoublePage"
+import DoublePageLayout from "../../layout/DoublePageLayout"
 
 import './style.scss'
 
@@ -7,10 +7,10 @@ function ProfileSettings() {
 
     return (
         
-        <DoublePage>
+        <DoublePageLayout>
             <h5>ProfilSetting</h5>
             <ProfilForm/>
-        </DoublePage>
+        </DoublePageLayout>
     )
 }
 export default ProfileSettings

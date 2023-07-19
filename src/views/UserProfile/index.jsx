@@ -1,21 +1,19 @@
-import Feed from "../../components/Feed"
-import CardUser from "../../components/UserCard"
-import SimplePage from "../../layout/SimplePage"
-import Nav from "../../components/Nav"
+import { Typography } from "@mui/material"
+import AuthenticatedLayout from "../../layout/AuthenticatedLayout"
 
 import './style.scss'
 
 function UserProfile() {
 
     return (
-        <SimplePage>
-            <h5>UserProfile</h5>
-            <CardUser/>
-            <Nav/>
-            <Feed/>
-        </SimplePage>
+     
+        <AuthenticatedLayout>
+            <Typography>
+                UserProfile
+            </Typography>
+        </AuthenticatedLayout>  
+        
     )
 }
-
 
 export default UserProfile
