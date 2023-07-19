@@ -15,12 +15,16 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
         if (user.disabled)
             return thunkApi.rejectWithValue({
                 status: 403,
-                message: 'Votre compte est desactivée. Veuillez contacté le gérant de lorganisation.'
+                message: "Votre compte est desactivée. Veuillez contacté le gérant de l'organisation."
             })
 
         return user
+
     }
     catch (error) {
-        return thunkApi.rejectWithValue({ status: 500, message: 'Une erreur s\'est produite lors de la connexion.' });
+        return thunkApi.rejectWithValue({ 
+            status: 500, 
+            message: "Une erreur s'est produite lors de la connexion." 
+        });
     }
 })

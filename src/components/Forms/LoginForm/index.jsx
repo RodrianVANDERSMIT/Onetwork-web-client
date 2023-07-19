@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import {login} from "../../../redux/reducers/user"
-import { getIsLogged } from '../../../redux/selectors/user'
+import { getIsLogged, getUserError } from '../../../redux/selectors/user'
 
 import './style.scss'
 
@@ -15,6 +15,7 @@ function LoginForm() {
     const dispatch = useDispatch()
     const isLog = useSelector(getIsLogged)
     const navigate = useNavigate();
+    const userError = useSelector(getUserError);
     
 
     const onSubmit = (user) => {
@@ -46,6 +47,10 @@ function LoginForm() {
                     label="Mot de passe"
                     {...register('password',{required:'Mot de passe requis'})}
                 />
+
+                {userError !== null && (
+                    <p className="c-user-login__error">{userError.message}</p>
+                )}
 
                 <Button type="sumbit" sx={{ m:1,}} className="c-user-login__button" variant="contained" >Connexion</Button>
             </form>
