@@ -9,7 +9,7 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
         if (!user)
             return thunkApi.rejectWithValue({
                 status: 401,
-                message: 'identifiants invalides'
+                message: 'Identifiants invalides'
             })
 
         if (user.disabled)
