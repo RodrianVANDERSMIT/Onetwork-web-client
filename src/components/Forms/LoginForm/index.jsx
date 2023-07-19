@@ -31,14 +31,14 @@ function LoginForm() {
     return (
         <div className="c-user-login">
             <h2 className ="c-user-login___title">Connexion</h2>
-            <p className="c-user-login__text">si vous êtes deja membres d'une organisation, remplissez les champs ci dessous pour vous connecter</p>
+            <p className="c-user-login__text">Si vous êtes déjà membre d'une organisation, veuillez remplir les champs ci-dessous pour vous connecter.</p>
       
             <form className="c-user-login__form" onSubmit={handleSubmit(onSubmit)}>
                 <TextField 
                     name="email"
                     type="email"
                     label="email"
-                    {...register('email',{required: "identifiant requis"})}
+                    {...register('email',{required: "Email requis"})}
                     autoComplete="email"
                 />
                 <TextField 
