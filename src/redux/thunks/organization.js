@@ -13,6 +13,6 @@ export const newOrganization = createAsyncThunk('organization/create', async(org
         return organizationName;
     }
     catch (error) {
-        return thunkApi.rejectWithValue({ status: 500, message: 'Une erreur s\'est produite lors de la création de l\'organisation.' });
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la création de l'organisation." });
     }
 })
