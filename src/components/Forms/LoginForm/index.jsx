@@ -1,24 +1,32 @@
+import { useEffect } from 'react'
 import { TextField, Button } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import { useNavigate } from "react-router-dom"
 import {login} from "../../../redux/reducers/user"
-
-
-
-//import login
-
+import { getIsLogged } from '../../../redux/selectors/user'
 
 import './style.scss'
+
 
 function LoginForm() {
 
     const { register, handleSubmit } = useForm()
     const dispatch = useDispatch()
+    const isLog = useSelector(getIsLogged)
+    const navigate = useNavigate();
+    
 
     const onSubmit = (user) => {
-        console.log(user)
         dispatch(login(user))
     }
+
+    useEffect(() => {
+        if (isLog) {
+          navigate('/:organization-id');
+        }
+      }, [isLog, navigate]);
+
 
     return (
         <div className="c-user-login-form">

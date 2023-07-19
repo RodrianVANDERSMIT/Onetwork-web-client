@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { login } from "../thunks/user";
 
 
-const initialState = {
+export const initialState = {
 
     id: null,
     name: "",
@@ -18,16 +18,27 @@ const initialState = {
 const slice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        logout(state){
+            localStorage.removeItem('user')
+            return {...state, ...initialState}
+        }
+    },
     extraReducers: builder => { 
         builder
         .addCase(login.fulfilled, (state, {payload: user}) => {
-            return { ...state, ...user, error: null };
+
+            localStorage.setItem('user', JSON.stringify(user))
+            return { ...state, ...user, error: null 
+            };   
         })
         .addCase(login.rejected, (state, action) => {
             console.log(action)
             state.error = action.payload
         })
+        
+
+        //deco localStorage.removeItem('user')
 
         //thunks
 
@@ -36,4 +47,5 @@ const slice = createSlice({
 
 
 export default slice.reducer
+export const {logout} = slice.actions
 export {login}
