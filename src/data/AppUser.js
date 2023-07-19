@@ -1,10 +1,10 @@
 export default [
     {
         id: 1,
-        email: 'john.doe@example.com',
+        email: 'roro@roro.com',
         name: 'John',
         surname: 'Doe',
-        password: 'P@ssw0rd',
+        password: 'Roro',
         job: 'Chef',
         role: {
             tag: 'admin',

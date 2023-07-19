@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { login } from "../thunks/user";
 
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
     role: "",
     profilPicture: "",
     disabled: false,
+    error: null,
 }
 
 const slice = createSlice({
@@ -18,6 +20,14 @@ const slice = createSlice({
     initialState,
     reducers: {},
     extraReducers: builder => { 
+        builder
+        .addCase(login.fulfilled, (state, {payload: user}) => {
+            return { ...state, ...user, error: null };
+        })
+        .addCase(login.rejected, (state, action) => {
+            console.log(action)
+            state.error = action.payload
+        })
 
         //thunks
 
@@ -26,3 +36,4 @@ const slice = createSlice({
 
 
 export default slice.reducer
+export {login}
