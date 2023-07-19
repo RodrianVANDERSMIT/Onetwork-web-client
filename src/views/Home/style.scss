@@ -1,0 +1,16 @@
+.c-home{
+
+    display:flex;
+    height:100%; 
+
+    &__left{
+        width:50%;
+        border:1px solid green;
+    }
+
+    &__right{
+        width:50%;
+        border:1px solid green;      
+    }
+
+}

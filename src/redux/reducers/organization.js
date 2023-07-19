@@ -2,14 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { newOrganization } from "../thunks/organization";
 
 
-
 const initialState = {
     name: "",
     error: null,
-
 }
-
-
 
 const slice = createSlice({
     name: 'organization',
@@ -23,8 +19,7 @@ const slice = createSlice({
         .addCase(newOrganization.fulfilled, (state, {payload: organizationName}) => {
             state.name = organizationName
             state.error= null
-            
-            
+                        
         })
         .addCase(newOrganization.rejected, (state, {payload: error}) => { 
             state.name= ""
