@@ -45,6 +45,7 @@ function LoginForm() {
                 <TextField 
                     name="password"
                     label="Mot de passe"
+                    type="password"
                     {...register('password',{required:'Mot de passe requis'})}
                 />
 

@@ -26,16 +26,16 @@ const slice = createSlice({
     },
     extraReducers: builder => { 
         builder
-        .addCase(login.fulfilled, (state, {payload: user}) => {
+            .addCase(login.fulfilled, (state, {payload: user}) => {
 
-            localStorage.setItem('user', JSON.stringify(user))
-            return { ...state, ...user, error: null 
-            };   
-        })
-        .addCase(login.rejected, (state, action) => {
-            console.log(action)
-            state.error = action.payload
-        })
+                localStorage.setItem('user', JSON.stringify(user))
+                return { ...state, ...user, error: null 
+                };   
+            })
+            .addCase(login.rejected, (state, action) => {
+                console.log(action)
+                state.error = action.payload
+            })
         
 
         //deco localStorage.removeItem('user')
