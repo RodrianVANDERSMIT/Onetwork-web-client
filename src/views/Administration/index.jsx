@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material"
-import AuthenticatPage from "../../layout/AuthenticatPage"
+import AuthenticatedLayout from "../../layout/AuthenticatedLayout"
 
 import './style.scss'
 
@@ -7,11 +7,11 @@ function Administration() {
 
     return (
      
-        <AuthenticatPage>
+        <AuthenticatedLayout>
             <Typography>
                 Administration
             </Typography>
-        </AuthenticatPage>  
+        </AuthenticatedLayout>  
         
     )
 }
