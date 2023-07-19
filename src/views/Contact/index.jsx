@@ -1,4 +1,4 @@
-import Button from "../../components/BasicButton"
+import Button from "../../components/Buttons/BasicButton"
 import UserCard from "../../components/UserCard"
 import SimplePage from "../../layout/SimplePage"
 
