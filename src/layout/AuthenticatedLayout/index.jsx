@@ -1,7 +1,6 @@
 import PropTypes from "prop-types"
-import  { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom' 
-import {useDispatch, useSelector} from 'react-redux'
+import { Link } from 'react-router-dom' 
+import {useDispatch, } from 'react-redux'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import BasicCard from '../../components/BasicCard'
@@ -14,7 +13,6 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
 import ForumIcon from '@mui/icons-material/Forum'
 import './style.scss'
 import {logout}  from "../../redux/reducers/user"
-import { getIsLogged } from '../../redux/selectors/user'
 
 const drawerWidth = 240;
 
@@ -29,21 +27,10 @@ const data = [
 function ActivityFeed({children}) {
 
     const dispatch = useDispatch();
-    const isLog = useSelector(getIsLogged)
-    const navigate = useNavigate();
-
+    
     const handleLogout = () => {
         dispatch(logout());
     }
-
-
-    useEffect(() => {
-        if (!isLog) {
-            navigate('/');  
-        }
-    }, [isLog, navigate]);
-
-
 
     return (
         <Grid container>
@@ -82,7 +69,7 @@ function ActivityFeed({children}) {
                             <ListItem
                                 key={"Déconnexion"}
                                 disablePadding
-                                component={Link}
+                                component={Link} to="/"
                                 onClick={handleLogout}
                             >
                                 <ListItemButton>

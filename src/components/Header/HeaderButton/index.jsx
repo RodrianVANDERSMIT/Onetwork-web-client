@@ -1,9 +1,8 @@
 import PropTypes from "prop-types"
-import  { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import {useDispatch, useSelector} from 'react-redux'
+import  { useState } from 'react'
+import { Link } from 'react-router-dom'
+import {useDispatch, } from 'react-redux'
 import { logout } from "../../../redux/reducers/user"
-import { getIsLogged } from '../../../redux/selectors/user'
 
 import BasicButton from '../../Buttons/BasicButton'
 
@@ -22,8 +21,6 @@ export default function HeaderButton() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const dispatch = useDispatch();
-    const isLog = useSelector(getIsLogged)
-    const navigate = useNavigate();
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -39,11 +36,7 @@ export default function HeaderButton() {
     }
     
 
-    useEffect(() => {
-        if (!isLog) {
-            navigate('/');  
-        }
-    }, [isLog, navigate]);
+
 
     return (
         <Box className='c-button-header' sx={{ flexGrow: 1 }}>
@@ -90,7 +83,7 @@ export default function HeaderButton() {
                     onClick={handleClose}>Administration</MenuItem>
                 <MenuItem component={Link} to="/about"
                     onClick={handleClose}>Contact</MenuItem>
-                <MenuItem 
+                <MenuItem component={Link} to="/"
                     onClick={handleLogout}>Déconnexion</MenuItem>
             </Menu>
         </Box>
