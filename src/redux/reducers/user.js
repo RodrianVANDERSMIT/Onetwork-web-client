@@ -1,18 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { login } from "../thunks/user";
-
+import { addUser } from "../../redux/thunks/user"
 
 export const initialState = {
-
     id: null,
     name: "",
     surname: "",
     email: "",
     job: "",
-    role: "",
+    role: null,
     profilPicture: "",
     disabled: false,
-    error: null,
+    error: null
 }
 
 const slice = createSlice({
@@ -37,16 +36,22 @@ const slice = createSlice({
                 console.log(action)
                 state.error = action.payload
             })
-        
 
         //deco localStorage.removeItem('user')
 
-        //thunks
-
+            // .addCase(addUser.pending, state => {
+            //     state.isLoading = true
+            // })
+            .addCase(addUser.fulfilled,(state, {payload: data}) => {
+                return {...state, ...data, error: null}
+            })
+            .addCase(addUser.rejected, (state, {payload: error}) => {
+                // state.isLoading = false
+                state.error = error
+            })
     },
 })
 
-
 export default slice.reducer
 export const {logout} = slice.actions
-export {login}
+export {login, addUser}
