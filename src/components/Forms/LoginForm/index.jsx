@@ -24,6 +24,7 @@ function LoginForm() {
 
     useEffect(() => {
         if (isLog) {
+            
             navigate('/:organization-id');
         }
     }, [isLog, navigate]);
@@ -42,6 +43,8 @@ function LoginForm() {
                     {...register('email',{required: "Email requis"})}
                     autoComplete="email"
                 />
+                
+                
                 <TextField 
                     name="password"
                     label="Mot de passe"
@@ -50,10 +53,10 @@ function LoginForm() {
                 />
 
                 {userError !== null && (
-                    <p className="c-user-login__error">{userError.message}</p>
+                    <p className="c-user-login__error">{userError?.message}</p>
                 )}
 
-                <Button type="sumbit" sx={{ m:1,}} className="c-user-login__button" variant="contained" >Connexion</Button>
+                <Button type="submit" sx={{ m:1,}} className="c-user-login__button" variant="contained" >Connexion</Button>
             </form>
         </div>
     )

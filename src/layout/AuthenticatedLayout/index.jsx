@@ -49,6 +49,7 @@ function ActivityFeed({children}) {
                 key={text}
                 component={Link} to={route} 
                 disablePadding
+                onClick = {() => logout({index})}
                 >
                 <ListItemButton>
                   <ListItemIcon>
