@@ -20,8 +20,9 @@ const slice = createSlice({
     initialState,
     reducers: {
         logout(state){
-            localStorage.removeItem('user')
-            return {...state, ...initialState}
+            Object.assign(state, initialState);
+            localStorage.removeItem('user');
+            console.log("logout")
         }
     },
     extraReducers: builder => { 
