@@ -20,7 +20,6 @@ const slice = createSlice({
     initialState,
     reducers: {
         logout(state){
-        
             Object.assign(state, initialState);
             localStorage.removeItem('user');
             console.log("logout")
