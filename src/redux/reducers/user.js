@@ -11,7 +11,7 @@ export const initialState = {
     role: null,
     profilPicture: "",
     disabled: false,
-    error: null,
+    error: null
 }
 
 const slice = createSlice({
@@ -42,7 +42,7 @@ const slice = createSlice({
             //     state.isLoading = true
             // })
             .addCase(addUser.fulfilled,(state, {payload: data}) => {
-                state = data
+                return {...state, ...data, error: null}
             })
             .addCase(addUser.rejected, (state, {payload: error}) => {
                 // state.isLoading = false

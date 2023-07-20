@@ -11,9 +11,9 @@ function ProfileForm() {
     console.log("Formulaire du profil");
     const { register, handleSubmit } = useForm();
     const dispatch = useDispatch();
-    // const onSubmit = data => console.log(data);
     const onSubmit = data => {
         dispatch(addUser(data))
+
     }
 
     return (
@@ -46,7 +46,7 @@ function ProfileForm() {
                 flexDirection: 'column'
             }}
             >
-                <p className="c-profile-form__textfield">Votre compte</p>
+                <p>Votre compte</p>
                 <TextField
                     required
                     label="Email"
@@ -65,7 +65,7 @@ function ProfileForm() {
                 flexDirection: 'column',
             }}
             >
-                <p className="c-profile-form__textfield">Vous</p>
+                <p>Vous</p>
                 {/* TODO Add Image*/}
                 <TextField
                     required
@@ -86,7 +86,7 @@ function ProfileForm() {
             }}
             >
                 <p className="c-profile-form__textfield">Votre poste</p>
-                {/* TODO Ajouté texte de description */}
+                <p>Indiquez ici l’intitulé du poste que vous occupez au sein de l’organisation (p. ex. : graphiste, responsable markteting, etc.)</p>
                 <TextField
                     required
                     label="Intitulé de poste"
