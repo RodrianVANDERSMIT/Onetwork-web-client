@@ -24,7 +24,6 @@ function LoginForm() {
 
     useEffect(() => {
         if (isLog) {
-            
             navigate('/:organization-id');
         }
     }, [isLog, navigate]);

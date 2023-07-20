@@ -16,15 +16,15 @@ const slice = createSlice({
     extraReducers: builder => { 
         builder
 
-        .addCase(newOrganization.fulfilled, (state, {payload: organizationName}) => {
-            state.name = organizationName
-            state.error= null
+            .addCase(newOrganization.fulfilled, (state, {payload: organizationName}) => {
+                state.name = organizationName
+                state.error= null
                         
-        })
-        .addCase(newOrganization.rejected, (state, {payload: error}) => { 
-            state.name= ""
-            state.error = error
-        });
+            })
+            .addCase(newOrganization.rejected, (state, {payload: error}) => { 
+                state.name= ""
+                state.error = error
+            });
     },
 });
 
