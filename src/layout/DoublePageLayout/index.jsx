@@ -10,15 +10,16 @@ const DoublePageLayout = ({ children }) => {
     return (
         <Grid container >
             <Grid md={6} lg={6} sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
-                <Box className="c-box-img">
+                <Box className="c-double-img">
                     <img 
-                        className="c-box-img__left"
+                        className="c-double-img__left"
                         src="../../../../public/austin-distel-wD1LRb9OeEo-unsplash.jpg" alt="tranquillou les devs!"></img>
                 </Box>
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-                <Box className="c-box-main"> 
-                    <Header />   
+                <Box className="c-double-main"> 
+                    <Header 
+                        className="c-header__double-page"/>   
                     {children}
                 </Box>     
             </Grid>

@@ -24,7 +24,7 @@ const data = [
     // { text: 'Déconnexion', index: <LogoutIcon />, route: "/" },
 ]
 
-function ActivityFeed({children}) {
+function AuthenticatedLayout({children}) {
 
     const dispatch = useDispatch();
     
@@ -35,61 +35,62 @@ function ActivityFeed({children}) {
     return (
         <Grid container>
             <Box sx={{ display: 'flex' }}>
-                <Header/>
-                <Drawer
-                    variant="permanent"
-                    sx={{
-                        display: { xs: 'none', sm: 'block', md: 'block' },  
-                        width: drawerWidth,
-                        flexShrink: 0,
-                        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-                    }}
+                <Header className='c-header__authenticated'/>
+                <Box 
+                    component="main"
+                    className='c-main__authenticated' 
                 >
-                    <Toolbar />
-                    <Box sx={{ overflow: 'auto' }}>
-                        <List>
-                            <Box className='c-box-avatar'>
-                                <BasicCard className="c-card__column"/>
-                            </Box>
-                            <Divider/>
-                            {data.map(({text, index, route}) => (
-                                <ListItem 
-                                    key={text}
-                                    component={Link} to={route} 
+                    <Drawer
+                        variant="permanent"
+                        sx={{
+                            display: { xs: 'none', sm: 'block', md: 'block' },  
+                            width: drawerWidth,
+                            flexShrink: 0,
+                            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+                        }}
+                    >
+                        <Toolbar />
+                        <Box sx={{ overflow: 'auto' }}>
+                            <List>
+                                <Box className='c-box-avatar'>
+                                    <BasicCard className="c-card__column"/>
+                                </Box>
+                                <Divider/>
+                                {data.map(({text, index, route}) => (
+                                    <ListItem 
+                                        key={text}
+                                        component={Link} to={route} 
+                                        disablePadding
+                                    >
+                                        <ListItemButton>
+                                            <ListItemIcon>
+                                                {index}
+                                            </ListItemIcon>
+                                            <ListItemText primary={text} />
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))}  
+                                <ListItem
+                                    key={"Déconnexion"}
                                     disablePadding
+                                    component={Link} to="/"
+                                    onClick={handleLogout}
                                 >
                                     <ListItemButton>
                                         <ListItemIcon>
-                                            {index}
+                                            <LogoutIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary={text} />
+                                        <ListItemText primary={"Déconnexion"} />
                                     </ListItemButton>
                                 </ListItem>
-                            ))}  
-                            <ListItem
-                                key={"Déconnexion"}
-                                disablePadding
-                                component={Link} to="/"
-                                onClick={handleLogout}
-                            >
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <LogoutIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={"Déconnexion"} />
-                                </ListItemButton>
-                            </ListItem>
-                        </List> 
-                    </Box>
-                </Drawer>
-                <Box 
-                    component="main"
-                    className='c-box-main' 
-                    sx={{ flexGrow: 1, p: 0 }}
-                >
-                    <Toolbar/>
-                            
-                    {children}
+                            </List> 
+                        </Box>
+                    </Drawer>
+                
+                    <Box>
+                        {children}
+                    </Box>        
+                
                 </Box>
             </Box>
             <Grid  xs={12} md={12}>
@@ -99,8 +100,8 @@ function ActivityFeed({children}) {
     )
 }
 
-ActivityFeed.propTypes = {
-    children: PropTypes.node, 
+AuthenticatedLayout.propTypes = {
+	children: PropTypes.node, 
 };
 
-export default ActivityFeed
+export default AuthenticatedLayout

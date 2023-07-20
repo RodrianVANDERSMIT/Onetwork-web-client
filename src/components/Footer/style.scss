@@ -1,4 +1,5 @@
 @use '../../styles/settings/colors' as v;
+@use '../../styles/settings/sizes' as s;
 
 .c-footer {
     background-color: v.$white;
@@ -8,7 +9,7 @@
     flex-direction: column;
     bottom: 0;
     width: 100%;
-    height: 70px;
+    height: s.$footer-height;
     border-top: 1px solid v.$dark-secondary;
     color: v.$dark-secondary;
     z-index: 1201;

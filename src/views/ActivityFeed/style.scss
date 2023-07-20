@@ -1,0 +1,28 @@
+@use '../../styles/settings/breakpoints' as b;
+@use '../../styles/settings/colors' as v;
+
+.c-box-main {
+    flex-grow: 1;
+    padding: 0 10em;
+    overflow-y: scroll;
+    height: calc(100vh - 70px);
+
+    &__header {
+        border:1px solid red;
+        overflow: hidden;
+        height: 10em;
+        width: 100%;
+    }
+
+    &__text {
+        padding: 0 10em;
+
+        @media (max-width: b.$breakpoint-lg ) {
+            padding: 0 5em;
+        }
+        
+        @media (max-width: b.$breakpoint-md ) {
+            padding: 0 1em;
+        }
+    }
+}
