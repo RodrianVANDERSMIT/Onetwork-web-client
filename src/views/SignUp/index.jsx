@@ -7,7 +7,6 @@ function SignUp() {
 
     return (
         <DoublePageLayout>
-            <h5>SignUp</h5>
             <ProfileForm/>
         </DoublePageLayout>
     )
