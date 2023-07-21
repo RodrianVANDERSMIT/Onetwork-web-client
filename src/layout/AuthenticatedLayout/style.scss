@@ -12,6 +12,7 @@
     background-color: v.$secondary;
 
     &__authenticated {
+        display: flex;
         height: 100vh;
         padding: s.$header-height-xs 0 s.$footer-height 0;
 

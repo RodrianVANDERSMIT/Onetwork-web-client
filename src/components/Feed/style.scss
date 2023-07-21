@@ -1,0 +1,17 @@
+.c-container-news {
+    padding: 0 10em;
+}
+
+.c-header-news {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1em;
+    padding: 1em;
+
+    &__textarea {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
