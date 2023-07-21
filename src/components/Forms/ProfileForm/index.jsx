@@ -1,16 +1,18 @@
-import { useForm } from "react-hook-form";
+import AvatarForm from "../AvatarForm";
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import {useDispatch} from 'react-redux'
-import {addUser} from '../../../redux/reducers/user'
+import TextField from '@mui/material/TextField';
+import { addUser } from '../../../redux/reducers/user'
+import { useDispatch } from 'react-redux'
+import { useForm } from "react-hook-form";
 import './style.scss'
 
 function ProfileForm() {
-    
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     const dispatch = useDispatch();
     const onSubmit = data => {
+        console.log(data)
         dispatch(addUser(data))
     }
 
@@ -79,7 +81,9 @@ function ProfileForm() {
                 }}
             >
                 <p>Vous</p>
-                {/* TODO Add Image*/}
+                <AvatarForm
+                    register={register}
+                />
                 <TextField
                     label="Nom"
                     helperText= {errors.surname?.message}
@@ -131,14 +135,13 @@ function ProfileForm() {
                 mt:1,
                 mb:3
             }}
-            className="c-organization-form__button"
+            className="c-profile-form__button"
             variant="contained"
             type="submit"
             >
                 Enregistrer
             </Button>
-        </Box>
-    )
+        </Box>    )
 }
 
 export default ProfileForm
