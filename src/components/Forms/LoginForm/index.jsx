@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, Box, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
@@ -30,35 +30,46 @@ function LoginForm() {
 
 
     return (
-        <div className="c-user-login">
-            <h2 className ="c-user-login___title">Connexion</h2>
-            <p className="c-user-login__text">Si vous êtes déjà membre d'une organisation, veuillez remplir les champs ci-dessous pour vous connecter.</p>
-      
-            <form className="c-user-login__form" onSubmit={handleSubmit(onSubmit)}>
-                <TextField 
+        <Box className="c-user-login">
+            <Typography variant="h4" className="c-user-login__title">
+            Connexion
+            </Typography>
+            <Typography variant="body1" className="c-user-login__text">
+            Si vous êtes déjà membre d'une organisation, veuillez remplir les champs ci-dessous pour vous connecter.
+            </Typography>
+
+            <Box component="form" className="c-user-login__form" onSubmit={handleSubmit(onSubmit)}>
+                <TextField
                     name="email"
                     type="email"
-                    label="email"
-                    {...register('email',{required: "Email requis"})}
+                    label="Email"
+                    {...register('email', { required: 'Email requis' })}
                     autoComplete="email"
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
                 />
-                
-                
-                <TextField 
+
+                <TextField
                     name="password"
                     label="Mot de passe"
                     type="password"
-                    {...register('password',{required:'Mot de passe requis'})}
+                    {...register('password', { required: 'Mot de passe requis' })}
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
                 />
 
-                {userError !== null && (
-                    <p className="c-user-login__error">{userError?.message}</p>
-                )}
+                {userError !== null && <p className="c-user-login__error">{userError?.message}</p>}
 
-                <Button type="submit" sx={{ m:1,}} className="c-user-login__button" variant="contained" >Connexion</Button>
-            </form>
-        </div>
-    )
+                <Button type="submit" sx={{ mt: 2 }} fullWidth variant="contained" color="primary">
+                Connexion
+                </Button>
+            </Box>
+        </Box>
+    );
 }
+    
+export default LoginForm;
 
-export default LoginForm
+
