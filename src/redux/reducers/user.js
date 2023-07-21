@@ -21,7 +21,6 @@ const slice = createSlice({
         logout(state){
             Object.assign(state, initialState);
             localStorage.removeItem('user');
-            console.log("logout")
         }
     },
     extraReducers: builder => { 
@@ -33,7 +32,7 @@ const slice = createSlice({
                 };   
             })
             .addCase(login.rejected, (state, action) => {
-                console.log(action)
+                
                 state.error = action.payload
             })
 

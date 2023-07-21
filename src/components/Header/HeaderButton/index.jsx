@@ -1,10 +1,11 @@
 import PropTypes from "prop-types"
 import  { useState } from 'react'
-import { Link } from 'react-router-dom'
-import {useDispatch, } from 'react-redux'
+import { Link, useLocation } from 'react-router-dom'
+import {useDispatch, useSelector } from 'react-redux'
 import { logout } from "../../../redux/reducers/user"
-
+import { getIsLogged } from "../../../redux/selectors/user"
 import BasicButton from '../../Buttons/BasicButton'
+
 
 import { Box, Divider } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
@@ -21,6 +22,10 @@ export default function HeaderButton() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const dispatch = useDispatch();
+    const location = useLocation();
+    const isLog = useSelector(getIsLogged)
+    const currentPath = location.pathname;
+    
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -40,13 +45,28 @@ export default function HeaderButton() {
 
     return (
         <Box className='c-button-header' sx={{ flexGrow: 1 }}>
-            <BasicButton sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }} 
-                className='c-button-header_btn'
-                variant="outlined"
-                name="Retour à l'accueil"
-                component={Link} route="/:organization-id"
-            />
             
+                
+            { (isLog && currentPath === '/about') || (currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about') ? (
+                <BasicButton
+                    sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}
+                    className='c-button-header_btn'
+                    variant="outlined"
+                    name="Retour à l'accueil"
+                    component={Link}
+                    route={isLog ? "/:organization-id" : "/"}
+                />
+            ) : null}
+            {currentPath ==='/' && (
+                <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }} 
+                    className='c-button-header_btn'
+                    variant="outlined"
+                    name="Déjà un compte ?"
+                    component={Link}
+                    route="#connexion"
+                    
+                />)}
+                
             
             <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
                 className='c-button-header_icon'
@@ -92,4 +112,4 @@ export default function HeaderButton() {
 
 HeaderButton.propTypes = {
     open: PropTypes.func,  
-  };
+};

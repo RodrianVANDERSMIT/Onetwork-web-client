@@ -4,7 +4,7 @@ import organizations from "../../data/Organization.js"
 
 export const newOrganization = createAsyncThunk('organization/create', async(organizationName, thunkApi) => {
     try { 
-        console.log(organizations)
+        
         const exist = organizations.some(({name}) => name ===organizationName)  
         
         if (exist) {
