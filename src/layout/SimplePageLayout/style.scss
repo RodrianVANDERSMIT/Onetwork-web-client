@@ -5,7 +5,7 @@
     background-color: v.$secondary;
 
     &__main {
-        height: 100vh;
+        min-height: 100vh;
         padding: s.$header-height-xs 0 s.$footer-height 0;
 
         @media (min-width: 600px) {
