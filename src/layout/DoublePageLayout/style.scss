@@ -4,15 +4,18 @@
 .c-double-img {
     height: 100vh;
     padding-bottom: s.$footer-height;
+    position: fixed;
+    width:50%;
 
     &__left {
         width: 100%;
         height: 100%;
+        object-fit: cover;
     }
 }
 
 .c-double-main {
-    height: 100vh; 
+    min-height: 100vh; 
     padding: s.$header-height-sd 0 s.$footer-height 0;
     background-color: v.$secondary;
 
