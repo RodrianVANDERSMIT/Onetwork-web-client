@@ -1,3 +1,5 @@
+import Post from '../Post'
+
 import {  Typography,Paper, InputBase } from '@mui/material'
 import { Box, Avatar, IconButton } from '@mui/material'
 
@@ -31,6 +33,7 @@ function Feed() {
 				</Paper>
 				</Box>
 			</Box>
+            <Post/>
         </Box>
     )
 }

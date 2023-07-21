@@ -7,7 +7,7 @@ import './style.scss'
 export default function BasicCard({className}) {
     return (
         <Box className={className}>
-            <Avatar className="c-avatar" alt="Remy Sharp" src="https://randomuser.me/api/portraits/women/68.jpg" />
+            <Avatar className="c-avatar" alt="Remy Sharp" src="https://randomuser.me/api/portraits/women/40.jpg" />
                 <Box>
                 <Typography>
                     RORO
