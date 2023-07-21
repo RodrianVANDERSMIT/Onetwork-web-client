@@ -1,16 +1,49 @@
+@use '../../styles/settings/breakpoints' as b;
+@use '../../styles/settings/sizes' as s;
+
 .c-home{
 
     display:flex;
-    height:100%; 
+    flex-wrap: wrap;
+    
+    
+   
+    
+    @media (min-width: b.$breakpoint-md) {
+        flex-wrap: nowrap;
+        margin-bottom: s.$footer-height;
+                
+    }
+    
+    
+
+    &__left,
+    &__right
+    {   
+        display:flex;
+        border: 2px solid #ccc;
+        margin:2em;
+        border-radius: 8px;
+        padding: 2em;
+        background-color: white;
+        
+
+        @media (min-width: b.$breakpoint-md)
+        {
+            flex-basis: 50%;
+            
+        }
+    }
 
     &__left{
-        width:50%;
-        border:1px solid green;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:center;
+        
     }
-
-    &__right{
-        width:50%;
-        border:1px solid green;      
-    }
-
+           
+    
 }
+
+   

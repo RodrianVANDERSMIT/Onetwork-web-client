@@ -2,7 +2,7 @@ import SimplePageLayout from "../../layout/SimplePageLayout"
 import LoginForm from "../../components/Forms/LoginForm"
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Button } from "@mui/material"
+import { Box, Button, Typography } from "@mui/material"
 import './style.scss'
 
 
@@ -11,20 +11,35 @@ function Home() {
 
     return (
         <SimplePageLayout>
-            <div className= "c-home">
-                <div className="c-home__left">
-                    <h2 className = "c-home__left-title">{`Bienvenue sur O'Network - Votre Réseau Social d'Entreprise !`}</h2>
-                    <p className= "C-home__left-textfirst">{`Prêt à transformer votre entreprise en un lieu d'échange, de collaboration et de succès ? Rejoignez O'Network dès maintenant et découvrez une plateforme où les idées prennent vie, où les projets se concrétisent, et où les opportunités se multiplient.`}</p>
-                    <p className= "C-home__left-textsecond">{`Créez votre compte dès aujourd'hui et plongez au cœur d'une communauté professionnelle dynamique, où votre organisation peut s'épanouir et atteindre de nouveaux sommets. Ensemble, construisons un avenir prospère pour votre entreprise !`}</p>
-                    <Button component={RouterLink} to="/new-organization" sx={{ m:1,}} className="c-home__left-button" variant="contained" >Créer mon organisation!</Button>
-                    
-                </div>
-                <div className="c-home__right">
+            <Box className="c-home"
+            >
+                <Box className="c-home__left" sx={{  }}>
+                    <Typography variant="h4" className="c-home__left-title" gutterBottom>
+                        Bienvenue sur O'Network - Votre Réseau Social d'Entreprise !
+                    </Typography>
+                    <Typography variant="body1" className="c-home__left-textfirst" gutterBottom>
+                        Prêt à transformer votre entreprise en un lieu d'échange, de collaboration et de succès ? Rejoignez O'Network dès maintenant et découvrez une plateforme où les idées prennent vie, où les projets se concrétisent, et où les opportunités se multiplient.
+                    </Typography>
+                    <Typography variant="body1" className="c-home__left-textsecond" gutterBottom>
+                        Créez votre compte dès aujourd'hui et plongez au cœur d'une communauté professionnelle dynamique, où votre organisation peut s'épanouir et atteindre de nouveaux sommets. Ensemble, construisons un avenir prospère pour votre entreprise !
+                    </Typography>
+                    <Button
+                        component={RouterLink}
+                        to="/new-organization"
+                        variant="contained"
+                        sx={{ mt: 3 }}
+                    >
+                        Créer mon organisation !
+                    </Button>
+                </Box>
+                <Box className="c-home__right" sx={{  }}>
                     <LoginForm />
-                </div>
-            </div>
+                </Box>
+            </Box>
         </SimplePageLayout>
     )
 }
 
-export default Home
+export default Home;
+
+

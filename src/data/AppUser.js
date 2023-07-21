@@ -15,10 +15,10 @@ export default [
     },
     {
         id: 2,
-        email: 'jane.smith@example.com',
+        email: 'roro@roro.com',
         name: 'Jane',
         surname: 'smith',
-        password: 'Guard1an',
+        password: 'Roro',
         job: 'Nurse',
         role: {
             tag: 'member',
