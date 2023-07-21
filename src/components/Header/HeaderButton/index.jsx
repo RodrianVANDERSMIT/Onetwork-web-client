@@ -26,7 +26,7 @@ export default function HeaderButton() {
     const isLog = useSelector(getIsLogged)
     const currentPath = location.pathname;
     
-    
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -57,6 +57,16 @@ export default function HeaderButton() {
                     route={isLog ? "/:organization-id" : "/"}
                 />
             ) : null}
+            {currentPath ==='/' && (
+                <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }} 
+                    className='c-button-header_btn'
+                    variant="outlined"
+                    name="Déjà un compte ?"
+                    component={Link}
+                    route="#connexion"
+                    
+                />)}
+                
             
             <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
                 className='c-button-header_icon'

@@ -30,7 +30,8 @@ function LoginForm() {
 
 
     return (
-        <Box className="c-user-login">
+        <Box className="c-user-login" >
+            <div id="connexion"></div>
             <Typography variant="h4" className="c-user-login__title">
             Connexion
             </Typography>

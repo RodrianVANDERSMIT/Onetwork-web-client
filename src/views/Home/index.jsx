@@ -33,7 +33,7 @@ function Home() {
                         Créer mon organisation !
                     </Button>
                 </Box>
-                <Box className="c-home__right" sx={{  }}>
+                <Box className="c-home__right" >
                     <LoginForm />
                 </Box>
             </Box>
