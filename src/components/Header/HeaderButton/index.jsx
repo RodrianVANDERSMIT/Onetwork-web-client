@@ -24,10 +24,9 @@ export default function HeaderButton() {
     const dispatch = useDispatch();
     const location = useLocation();
     const isLog = useSelector(getIsLogged)
-    console.log(isLog)
     const currentPath = location.pathname;
-    console.log(currentPath)
-
+    
+    
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };

@@ -20,7 +20,6 @@ let preloadedUser =  initialUser
 if (localStorage.getItem('user')) {
     preloadedUser = JSON.parse(localStorage.getItem('user'))
 }
-console.log(preloadedUser)
 
 const store = configureStore({
     reducer,
