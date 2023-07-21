@@ -7,9 +7,11 @@ import './style.scss'
 const SimplePageLayout = ({ children }) => {
     return (
         <Grid>
-            <Box className="c-box-main">
+            <Box className="c-simple-page">
                 <Header />
-                {children}
+                    <Box className="c-simple-page__main" >
+                        {children}   
+                    </Box>
                 <Footer />
             </Box>   
         </Grid>
