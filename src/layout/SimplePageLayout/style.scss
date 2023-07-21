@@ -6,6 +6,9 @@
 
     &__main {
         min-height: 100vh;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
         padding: s.$header-height-xs 0 s.$footer-height 0;
 
         @media (min-width: 600px) {
