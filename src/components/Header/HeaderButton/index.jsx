@@ -66,7 +66,7 @@ export default function HeaderButton() {
                     route="#connexion"
                 />)}
             {currentPath ==='/sign-up'|| currentPath === '/new-organization' && (
-                <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }} 
+                <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'block' } }} 
                     className='c-button-header_btn'
                     variant="outlined"
                     name="Retour à l'accueil"
