@@ -5,6 +5,7 @@ import {useDispatch, useSelector } from 'react-redux'
 import { logout } from "../../../redux/reducers/user"
 import { getIsLogged } from "../../../redux/selectors/user"
 import BasicButton from '../../Buttons/BasicButton'
+import { HashLink } from 'react-router-hash-link';
 
 
 import { Box, Divider } from '@mui/material'
@@ -62,7 +63,7 @@ export default function HeaderButton() {
                     className='c-button-header_btn'
                     variant="outlined"
                     name="Déjà un compte ?"
-                    component={Link}
+                    component={HashLink}
                     route="#connexion"
                 />)}
             {currentPath ==='/sign-up'|| currentPath === '/new-organization' && (
