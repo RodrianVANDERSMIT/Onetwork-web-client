@@ -15,23 +15,23 @@ import Error from '../Error'
 function App() {
 
 
-  return (
-    <Routes>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/new-organization" element={<OrganizationCreation/>}/>
-      <Route path="/:organization-id" element={<ActivityFeed/>}/>
-      <Route path="/:organization-id/admin/members" element={<Administration/>}/>
-      <Route path="/:organization-id/user/:user-id/edit" element={<ProfileSettings/>}/>
-      <Route path="/:organization-id/user/:user-id" element={<UserProfile/>}/>
-      <Route path="/about" element={<Contact/>}/>
-      <Route path="/sign-up" element={<SignUp/>}/>
-      <Route path="*" element={<Error/>}/>
-    </Routes>
-  )
+    return (
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/new-organization" element={<OrganizationCreation/>}/>
+            <Route path="/:organization-id" element={<ActivityFeed/>}/>
+            <Route path="/:organization-id/admin/members" element={<Administration/>}/>
+            <Route path="/:organization-id/user/:user-id/edit" element={<ProfileSettings/>}/>
+            <Route path="/:organization-id/user/:user-id" element={<UserProfile/>}/>
+            <Route path="/about" element={<Contact/>}/>
+            <Route path="/sign-up" element={<SignUp/>}/>
+            <Route path="*" element={<Error/>}/>
+        </Routes>
+    )
 }
 
 App.propTypes = {
-  loading: PropTypes.bool,
+    loading: PropTypes.bool,
 }
 
 export default App
