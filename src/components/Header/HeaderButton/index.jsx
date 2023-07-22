@@ -64,22 +64,31 @@ export default function HeaderButton() {
                     name="Déjà un compte ?"
                     component={Link}
                     route="#connexion"
-                    
+                />)}
+            {currentPath ==='/sign-up' && (
+                <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }} 
+                    className='c-button-header_btn'
+                    variant="outlined"
+                    name="Retour à l'accueil"
+                    component={Link}
+                    route="/"
                 />)}
                 
-            
-            <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
-                className='c-button-header_icon'
-                edge="start"
-                aria-label="menu"
-                id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
-            >
-                <MenuIcon />
-            </IconButton>
+            { (isLog ) ? (
+                <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
+                    className='c-button-header_icon'
+                    edge="start"
+                    aria-label="menu"
+                    id="basic-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                >
+                    <MenuIcon />
+                </IconButton>
+            ) : null}
+                
             <Menu 
                 id="basic-menu"
                 anchorEl={anchorEl}
@@ -106,6 +115,7 @@ export default function HeaderButton() {
                 <MenuItem component={Link} to="/"
                     onClick={handleLogout}>Déconnexion</MenuItem>
             </Menu>
+            
         </Box>
     );
 }
