@@ -47,7 +47,7 @@ export default function HeaderButton() {
         <Box className='c-button-header' sx={{ flexGrow: 1 }}>
             
                 
-            { (isLog && currentPath === '/about') || (currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about') ? (
+            { (isLog && currentPath === '/about') || (currentPath === '/sign-up' || currentPath === '/:organization-id/user/:user-id/edit' || currentPath === '/about') ? (
                 <BasicButton
                     sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
@@ -65,7 +65,7 @@ export default function HeaderButton() {
                     component={Link}
                     route="#connexion"
                 />)}
-            {currentPath ==='/sign-up' && (
+            {currentPath ==='/sign-up'|| currentPath === '/new-organization' && (
                 <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }} 
                     className='c-button-header_btn'
                     variant="outlined"
