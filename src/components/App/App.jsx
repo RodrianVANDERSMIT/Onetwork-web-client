@@ -9,23 +9,38 @@ import Contact from '../../views/Contact'
 import SignUp from '../../views/SignUp'
 import ActivityFeed from '../../views/ActivityFeed'
 import Error from '../Error'
-//TODO si pas connecter afficher home / sinon afficher flux d'activité(router)
+import { useSelector } from 'react-redux'
+import { getIsLogged } from '../../redux/selectors/user'
 
 
 function App() {
 
-
+    const isLog = useSelector(getIsLogged)
+    
+    
     return (
         <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/new-organization" element={<OrganizationCreation/>}/>
-            <Route path="/:organization-id" element={<ActivityFeed/>}/>
-            <Route path="/:organization-id/admin/members" element={<Administration/>}/>
-            <Route path="/:organization-id/user/:user-id/edit" element={<ProfileSettings/>}/>
-            <Route path="/:organization-id/user/:user-id" element={<UserProfile/>}/>
-            <Route path="/about" element={<Contact/>}/>
-            <Route path="/sign-up" element={<SignUp/>}/>
-            <Route path="*" element={<Error/>}/>
+            <Route path="/" element={<Home />} />
+            <Route path="/new-organization" element={<OrganizationCreation />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/about" element={<Contact />} />
+
+            {isLog ? (
+                <>
+                    <Route path="/:organization-id" element={<ActivityFeed />} />
+                    <Route path="/:organization-id/user/:user-id" element={<UserProfile />} />
+                    <Route path="/:organization-id/user/:user-id/edit" element={<ProfileSettings />} />
+                    <Route path="/:organization-id/admin/members" element={<Administration />} />
+                </>
+            ) :
+                <>
+                    <Route path="/:organization-id" element={<Error />} />
+                    <Route path="/:organization-id/user/:user-id" element={<Error />} />
+                    <Route path="/sign-up" element={<SignUp />} />
+                    <Route path="/:organization-id/admin/members" element={<Error />} />
+                </> 
+            }
+                
         </Routes>
     )
 }
