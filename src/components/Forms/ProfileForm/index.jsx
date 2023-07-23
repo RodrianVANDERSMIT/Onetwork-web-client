@@ -12,13 +12,13 @@ function ProfileForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const dispatch = useDispatch();
     const onSubmit = data => {
-        console.log(data)
+        // console.log(data)
         dispatch(addUser(data))
     }
 
     return (
         <Box
-            className=".c-profile-form"
+            className="c-profile-form"
             component="form"
             noValidate
             sx={{

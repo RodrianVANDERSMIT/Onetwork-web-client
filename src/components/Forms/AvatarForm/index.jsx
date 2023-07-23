@@ -5,33 +5,32 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
 import './style.scss'
-
 function AvatarForm ({ register }) {
-    console.log("AvatarForm");
     const hiddenInputRef = useRef();
 
     const { ref: registerRef, ...rest } = register("profile_picture");
 
     const [preview, setPreview] = useState();
 
-    const handleUploadedFile = (event) => {
+    const onUpdate = (event) => {
         const file = event.target.files[0];
         const urlImage = URL.createObjectURL(file);
         setPreview(urlImage);
     };
 
-    const onUpload = () => {
+    const onBrowse = () => {
         hiddenInputRef.current.click();
     };
 
-    const onDelete = () => {
+    const onRemove = () => {
         setPreview(null);
+        hiddenInputRef.current.value = null;
     };
 
     const uploadButtonLabel = preview ? "Changer l'image" : "Choisir un fichier";
 
     return (
-        <Box
+        <Box className="c-avatar-form"
             sx={{
                 maxWidth: '400px',
                 width: '100%',
@@ -49,13 +48,14 @@ function AvatarForm ({ register }) {
                 type="file"
                 name="profilePicture"
                 {...rest}
-                onChange={handleUploadedFile}
+                onChange={onUpdate}
                 ref={(event) => {
                     registerRef(event);
                     hiddenInputRef.current = event;
                 }}
             />
             <Avatar
+                className="c-avatar-form__avatar"
                 src={preview}
                 sx={{
                     width: 80,
@@ -64,14 +64,16 @@ function AvatarForm ({ register }) {
             />
 
             <Button
+                className="c-avatar-form__button"
                 variant="outlined"
-                onClick={onUpload}
+                onClick={onBrowse}
             >
                 {uploadButtonLabel}
             </Button>
             <Button
+                className="c-avatar-form__button"
                 variant="outlined"
-                onClick={onDelete}
+                onClick={onRemove}
             >
                 X
             </Button>
