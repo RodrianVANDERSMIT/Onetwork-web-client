@@ -1,4 +1,4 @@
 export const getFeed = state => state.feed
 
-export const getText = state => getFeed(state).text;
+export const getList = state => getFeed(state).list;
 

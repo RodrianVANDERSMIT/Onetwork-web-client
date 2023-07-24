@@ -8,6 +8,7 @@ import './style.scss'
 
 export default function BasicCard({className}) {
     const userLogged = useSelector(getUser)
+    
     return (
         <Box className={className}>
             <Avatar className="c-avatar" alt={userLogged.name + userLogged.surname} src={userLogged.profilePicture} />
@@ -18,12 +19,11 @@ export default function BasicCard({className}) {
                 <Typography>
                     {userLogged.name}
                 </Typography>
-            </Box>
-                
+            </Box>              
         </Box>
     );
 }
 
 BasicCard.propTypes = {
     className: PropTypes.string,   
-  };
+};

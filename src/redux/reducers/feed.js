@@ -8,7 +8,8 @@ const initialState = {
     reactionCount: null,
     commentsCount: null,
     author: null,
-    error: null
+    error: null,
+    list: [],
 }
 
 const slice = createSlice({
@@ -20,7 +21,8 @@ const slice = createSlice({
     extraReducers: builder => { 
         builder
             .addCase(fetchFeeds.fulfilled, (state, action ) => {
-                return action.payload
+                //return action.payload
+                state.list = action.payload
             })
              
             .addCase(fetchFeeds.rejected, (state,action) => {

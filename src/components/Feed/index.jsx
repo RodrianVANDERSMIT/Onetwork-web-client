@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { getUser } from '../../redux/selectors/user'
 import { useSelector, useDispatch } from 'react-redux'
 import { getFeed } from '../../redux/selectors/feed'
+import { getList } from '../../redux/selectors/feed'
 import { fetchFeeds } from '../../redux/thunks/feed';
 
 import {  Typography,Paper, InputBase } from '@mui/material'
@@ -15,15 +16,15 @@ import './style.scss'
 function Feed() {
 // Recovery of logged-in user data
     const userLogged = useSelector(getUser);
-console.log(userLogged);
+
     const dispatch = useDispatch();
-    useEffect(()=>{
+    dispatch(fetchFeeds())
+    useEffect(()=>{        
         dispatch(fetchFeeds());
     }, [])
     
-    const posts = useSelector(getFeed);
+    const posts = useSelector(getList);
     console.log(posts)
-    
 
     return (
         <Box className="c-container-news" >
@@ -49,11 +50,11 @@ console.log(userLogged);
                     </Paper>
                 </Box>
             </Box>
-
-            <Grid>
-                <Post />
-            </Grid>
-            
+            {posts.map(post => (   
+                <Grid key={post.id}>
+                    <Post {...post}/>
+                </Grid>
+            ))} 
         </Box>
     )
 }

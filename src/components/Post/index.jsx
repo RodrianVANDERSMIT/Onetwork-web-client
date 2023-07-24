@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux'
+import { getUser } from '../../redux/selectors/user'
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -33,8 +35,10 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-function Post() {
+function Post({id,author,text,reactionsCount,commentsCount}) {
     
+    const userLogged = useSelector(getUser)
+
     const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
@@ -45,26 +49,24 @@ function Post() {
         <Card className='c-card-post'>
             <CardHeader
                 avatar={
-                    <Avatar className="c-avatar" alt="Remy Sharp" src="https://randomuser.me/api/portraits/women/68.jpg" />
+                    <Avatar className="c-avatar" alt="Remy Sharp" src={author.profilePicture} />
                 }       
-                title="Roro"
-                subheader="roro"
+                title={author.surname}
+                subheader={author.name}
             />
             <Divider/>
             <CardContent>
                 <Typography variant="body1" >
-                                This impressive paella is a perfect party dish and a fun meal to cook
-                                together with your guests. Add 1 cup of frozen peas along with the mussels,
-                                if you like.
+                                {text}
                 </Typography>
             </CardContent>
             <Divider/>
             <CardContent className='c-counter'>
                 <Typography variant="body2" color="text.secondary">
-                Xréactions
+                    {reactionsCount}{" réactions"}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                Xcommentaires
+                    {commentsCount}{" commentaires"}
                 </Typography>
             </CardContent>
             <Divider/>
@@ -166,7 +168,7 @@ function Post() {
             </Collapse>
             <Box className="c-header-news">
                 <Box className="c-header-news__textarea" >
-                    <Avatar className="c-avatar" alt="Remy Sharp" src='https://randomuser.me/api/portraits/women/40.jpg' />
+                    <Avatar className="c-avatar" alt="Remy Sharp" src={userLogged.profilePicture} />
                     <Paper
                         component="form"
                         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400,marginLeft: '1em' }}
