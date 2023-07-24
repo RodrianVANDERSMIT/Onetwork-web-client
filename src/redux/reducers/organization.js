@@ -25,6 +25,13 @@ const slice = createSlice({
                 state.name= ""
                 state.error = error
             });
+
+            .addCase(createOrganization.fulfilled, (state, {payload: organizationName})=>{
+                state.name = organizationName
+            })
+            .addCase(createOrganization.rejected, (state, {payload: error})=>{
+                state.error = error
+            })
     },
 });
 
