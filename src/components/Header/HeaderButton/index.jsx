@@ -66,14 +66,16 @@ export default function HeaderButton() {
                     component={HashLink}
                     route="#connexion"
                 />)}
-            {currentPath ==='/sign-up'|| currentPath === '/new-organization' && (
-                <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'block' } }} 
+            {(currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about') && !isLog && (
+                <BasicButton
+                    sx={{ display: { xs: 'block', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
-                    variant="outlined"
+                    variant='outlined'
                     name="Retour à l'accueil"
                     component={Link}
-                    route="/"
-                />)}
+                    route='/'
+                 />
+            )}
                 
             { (isLog ) ? (
                 <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
