@@ -10,7 +10,7 @@ export default [
             tag: 'admin',
             name: 'Administrateur',
         },
-        profile_picture: 'https://randomuser.me/api/portraits/men/0.jpg',
+        profilPicture: 'https://randomuser.me/api/portraits/men/0.jpg',
         disabled: true,
     },
     {
@@ -24,7 +24,7 @@ export default [
             tag: 'member',
             name: 'Membre',
         },
-        profile_picture: 'https://randomuser.me/api/portraits/women/68.jpg',
+        profilPicture: 'https://randomuser.me/api/portraits/women/68.jpg',
         disabled: false,
     },
     {
@@ -38,7 +38,7 @@ export default [
             tag: 'member',
             name: 'Membre',
         },
-        profile_picture: 'https://randomuser.me/api/portraits/men/72.jpg',
+        profilPicture: 'https://randomuser.me/api/portraits/men/72.jpg',
         disabled: true,
     },
     {
@@ -52,7 +52,7 @@ export default [
             tag: 'member',
             name: 'Membre',
         },
-        profile_picture: 'https://randomuser.me/api/portraits/women/33.jpg',
+        profilPicture: 'https://randomuser.me/api/portraits/women/33.jpg',
         disabled: true,
     },
     {
@@ -66,7 +66,7 @@ export default [
             tag: 'member',
             name: 'Membre',
         },
-        profile_picture: 'https://randomuser.me/api/portraits/men/36.jpg',
+        profilPicture: 'https://randomuser.me/api/portraits/men/36.jpg',
         disabled: true,
     },
     {
@@ -80,7 +80,7 @@ export default [
             tag: 'member',
             name: 'Membre',
         },
-        profile_picture: 'https://randomuser.me/api/portraits/women/12.jpg',
+        profilPicture: 'https://randomuser.me/api/portraits/women/12.jpg',
         disabled: true,
     },
     {
@@ -94,7 +94,7 @@ export default [
             tag: 'member',
             name: 'Membre',
         },
-        profile_picture: 'https://randomuser.me/api/portraits/women/3.jpg',
+        profilPicture: 'https://randomuser.me/api/portraits/women/3.jpg',
         disabled: false,
     },
     {
@@ -108,7 +108,7 @@ export default [
             tag: 'member',
             name: 'Membre',
         },
-        profile_picture: 'https://randomuser.me/api/portraits/men/26.jpg',
+        profilPicture: 'https://randomuser.me/api/portraits/men/26.jpg',
         disabled: true,
     },
     {
@@ -122,7 +122,7 @@ export default [
             tag: 'member',
             name: 'Membre',
         },
-        profile_picture: 'https://randomuser.me/api/portraits/women/40.jpg',
+        profilPicture: 'https://randomuser.me/api/portraits/women/40.jpg',
         disabled: true,
     },
 ];
