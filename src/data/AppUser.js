@@ -12,6 +12,7 @@ export default [
         },
         profilePicture: 'https://randomuser.me/api/portraits/men/0.jpg',
         disabled: true,
+        organizationId: 1,
     },
     {
         id: 2,
@@ -26,6 +27,7 @@ export default [
         },
         profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
         disabled: false,
+        organizationId: 2,
     },
     {
         id: 3,
@@ -40,6 +42,7 @@ export default [
         },
         profilePicture: 'https://randomuser.me/api/portraits/men/72.jpg',
         disabled: true,
+        organizationId: 3,
     },
     {
         id: 4,
@@ -54,6 +57,7 @@ export default [
         },
         profilePicture: 'https://randomuser.me/api/portraits/women/33.jpg',
         disabled: true,
+        organizationId: 4,
     },
     {
         id: 5,
@@ -68,6 +72,7 @@ export default [
         },
         profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
         disabled: true,
+        organizationId: 5,
     },
     {
         id: 6,
@@ -82,6 +87,7 @@ export default [
         },
         profilePicture: 'https://randomuser.me/api/portraits/women/12.jpg',
         disabled: true,
+        organizationId: 2,
     },
     {
         id: 7,
@@ -96,6 +102,7 @@ export default [
         },
         profilePicture: 'https://randomuser.me/api/portraits/women/3.jpg',
         disabled: false,
+        organizationId: 1,
     },
     {
         id: 8,
@@ -110,6 +117,7 @@ export default [
         },
         profilePicture: 'https://randomuser.me/api/portraits/men/26.jpg',
         disabled: true,
+        organizationId: 3,
     },
     {
         id: 9,
@@ -124,5 +132,6 @@ export default [
         },
         profilePicture: 'https://randomuser.me/api/portraits/women/40.jpg',
         disabled: true,
+        organizationId: 4,
     },
 ];
