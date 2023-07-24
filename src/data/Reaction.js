@@ -13,7 +13,7 @@ export default [
                 tag: 'member',
                 name: 'Membre',
             },
-            profilPicture: 'https://randomuser.me/api/portraits/men/72.jpg',
+            profilePicture: 'https://randomuser.me/api/portraits/men/72.jpg',
             disabled: true,
         },
         type:{
@@ -35,7 +35,7 @@ export default [
                 tag: 'member',
                 name: 'Membre',
             },
-            profilPicture: 'https://randomuser.me/api/portraits/women/68.jpg',
+            profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             disabled: false,
         },
         type:{
@@ -58,7 +58,7 @@ export default [
                 tag: 'admin',
                 name: 'Administrateur',
             },
-            profilPicture: 'https://randomuser.me/api/portraits/men/0.jpg',
+            profilePicture: 'https://randomuser.me/api/portraits/men/0.jpg',
             disabled: true,
         },
         type:{
@@ -81,7 +81,7 @@ export default [
                 tag: 'member',
                 name: 'Membre',
             },
-            profilPicture: 'https://randomuser.me/api/portraits/women/68.jpg',
+            profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             disabled: false,
         },
         type:{
@@ -104,7 +104,7 @@ export default [
                 tag: 'member',
                 name: 'Membre',
             },
-            profilPicture: 'https://randomuser.me/api/portraits/women/68.jpg',
+            profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             disabled: false,
         },
         type:{
@@ -127,7 +127,7 @@ export default [
                 tag: 'member',
                 name: 'Membre',
             },
-            profilPicture: 'https://randomuser.me/api/portraits/men/72.jpg',
+            profilePicture: 'https://randomuser.me/api/portraits/men/72.jpg',
             disabled: true,
         },
         type:{
@@ -150,7 +150,7 @@ export default [
                 tag: 'admin',
                 name: 'Administrateur',
             },
-            profilPicture: 'https://randomuser.me/api/portraits/men/0.jpg',
+            profilePicture: 'https://randomuser.me/api/portraits/men/0.jpg',
             disabled: true,
         },
         type:{
