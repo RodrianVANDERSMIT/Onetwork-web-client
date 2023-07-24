@@ -8,7 +8,7 @@ import './style.scss'
 function AvatarForm ({ register }) {
     const hiddenInputRef = useRef();
 
-    const { ref: registerRef, ...rest } = register("profile_picture");
+    const { ref: registerRef, ...rest } = register("profilePicture");
 
     const [preview, setPreview] = useState();
 
