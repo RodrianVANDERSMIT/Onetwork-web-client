@@ -20,11 +20,9 @@ const slice = createSlice({
 
             .addCase(validateOrganization.fulfilled, (state, {payload: organizationName}) => {
                 state.name = organizationName
-                state.error= null
-                        
+                state.error= null       
             })
             .addCase(validateOrganization.rejected, (state, {payload: error}) => { 
-                state.id = ""
                 state.name= ""
                 state.error = error
             })
@@ -36,7 +34,7 @@ const slice = createSlice({
             })
 
             .addCase(createOrganization.rejected, (state, {payload: error})=>{
-                state.id = ""
+                state.id = null
                 state.name = ""
                 state.error = error
             })
