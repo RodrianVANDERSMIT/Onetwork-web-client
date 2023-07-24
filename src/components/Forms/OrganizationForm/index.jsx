@@ -3,7 +3,7 @@ import { TextField, Button } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
-import { newOrganization } from '../../../redux/reducers/organization'
+import { validateOrganization } from '../../../redux/reducers/organization'
 import { getOrganizationName, getError} from '../../../redux/selectors/organization'
 
 
@@ -27,7 +27,7 @@ function OrganizationForm() {
     }, [organizationNameChoice, navigate]);
 
     const onSubmit = ({ organizationName }) => {
-        dispatch(newOrganization(organizationName));
+        dispatch(validateOrganization(organizationName));
     };
 
     return (
