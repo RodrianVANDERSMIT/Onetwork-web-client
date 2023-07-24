@@ -1,5 +1,6 @@
 .c-container-news {
-    padding: 0 10em;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .c-header-news {
@@ -7,11 +8,17 @@
     flex-direction: column;
     text-align: center;
     gap: 1em;
-    padding: 1em;
+    padding: 1em 0;
 
     &__textarea {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    &__form {
+        display: flex;
+        flex-grow: 1;
+        margin-left: 1em;
     }
 }

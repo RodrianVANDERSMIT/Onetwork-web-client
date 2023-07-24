@@ -1,21 +1,24 @@
 import PropTypes from "prop-types"
+import { useSelector } from 'react-redux'
+import { getUser } from '../../redux/selectors/user'
 import { Avatar, Box, Typography } from "@mui/material";
 import './style.scss'
 
 
 
 export default function BasicCard({className}) {
+    const userLogged = useSelector(getUser)
     return (
         <Box className={className}>
-            <Avatar className="c-avatar" alt="Remy Sharp" src="https://randomuser.me/api/portraits/women/40.jpg" />
-                <Box>
+            <Avatar className="c-avatar" alt={userLogged.name + userLogged.surname} src={userLogged.profilePicture} />
+            <Box>
                 <Typography>
-                    RORO
+                    {userLogged.surname}
                 </Typography>
                 <Typography>
-                    roro
+                    {userLogged.name}
                 </Typography>
-                </Box>
+            </Box>
                 
         </Box>
     );
