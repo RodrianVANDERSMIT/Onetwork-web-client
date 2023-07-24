@@ -45,3 +45,21 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
         return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
     }
 })
+
+export const updateUser = createAsyncThunk("user/updateUser", async (data, thunkAPI) => {
+    try {
+        console.log(data)
+        // TODO remove fix before Api connect
+        // Temporary profile_picture fix to remove before Api connect
+        data.profilePicture = "https://randomuser.me/api/portraits/women/33.jpg"
+        // End Temporary profile_picture fix
+        const newPasswordValidation = users.find(user => user.password === data.currentPassword)
+        if (!newPasswordValidation) {
+            return thunkAPI.rejectWithValue({status: 418, message: "I’m a teapot"}); // TODO change error message
+        }
+        data
+    }
+    catch (error) {
+        return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
+    }
+})
