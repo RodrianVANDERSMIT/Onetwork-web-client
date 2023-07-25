@@ -47,17 +47,20 @@ export default function HeaderButton() {
     return (
         <Box className='c-button-header' sx={{ flexGrow: 1 }}>
             
-                
-            { (isLog && currentPath === '/about') || (currentPath === '/sign-up' || currentPath === '/:organization-id/user/:user-id/edit' || currentPath === '/about') ? (
+            
+            {/*pour le bouton retour au flux d'activité si on est connecté sur desktop */}
+            {(isLog && (currentPath === '/about' || currentPath === '/:organization-id/user/:user-id/edit')) && (
                 <BasicButton
                     sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
                     variant="outlined"
-                    name="Retour à l'accueil"
+                    name="Retour au flux d'activité"
                     component={Link}
-                    route={isLog ? "/:organization-id" : "/"}
+                    route={isLog ? "/:organizationId" : "/"}
                 />
-            ) : null}
+            )}
+
+            {/*pour le bouton deja un compte sur mobile */}
             {currentPath ==='/' && (
                 <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }} 
                     className='c-button-header_btn'
@@ -66,7 +69,9 @@ export default function HeaderButton() {
                     component={HashLink}
                     route="#connexion"
                 />)}
-            {(currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about') && !isLog && (
+                
+            {/*pour le bouton retour a l'acceuil si l'utilisateur n'est pas connecté */}
+            {(!isLog &&(currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about' )) && (
                 <BasicButton
                     sx={{ display: { xs: 'block', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
@@ -74,9 +79,9 @@ export default function HeaderButton() {
                     name="Retour à l'accueil"
                     component={Link}
                     route='/'
-                 />
+                />
             )}
-                
+            {/*pour le menu de navigation qui s'afiche si on est sur les pages connectés en mobile */}
             { (isLog ) ? (
                 <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
                     className='c-button-header_icon'
@@ -105,13 +110,13 @@ export default function HeaderButton() {
                     <BasicCard className="c-card__column"/>
                 </Box>
                 <Divider/>
-                <MenuItem component={Link} to="/:organization-id"
+                <MenuItem component={Link} to="/:organizationId"
                     onClick={handleClose}>{"Flux d'activité"}</MenuItem>
-                <MenuItem component={Link} to="/:organization-id/user/:user-id"
+                <MenuItem component={Link} to="/:organizationId/user/:userId"
                     onClick={handleClose}>Mon profil</MenuItem>
-                <MenuItem component={Link} to="/:organization-id/user/:user-id/edit"
+                <MenuItem component={Link} to="/:organizationId/user/:userId/edit"
                     onClick={handleClose}>Editer mon profil</MenuItem>
-                <MenuItem component={Link} to="/:organization-id/admin/members"
+                <MenuItem component={Link} to="/:organizationId/admin/members"
                     onClick={handleClose}>Administration</MenuItem>
                 <MenuItem component={Link} to="/about"
                     onClick={handleClose}>Contact</MenuItem>
