@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material"
+import Feed from "../../components/Feed"
 import AuthenticatedLayout from "../../layout/AuthenticatedLayout"
 
 import './style.scss'
@@ -8,9 +8,7 @@ function ActivityFeed() {
     return (
      
         <AuthenticatedLayout>
-            <Typography>
-                ActivityFeed
-            </Typography>
+            <Feed/>
         </AuthenticatedLayout>  
         
     )
