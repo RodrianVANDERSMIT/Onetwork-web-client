@@ -4,9 +4,10 @@ import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import {login} from "../../../redux/reducers/user"
-import { getIsLogged, getUserError } from '../../../redux/selectors/user'
+import { getIsLogged, getUser, getUserError } from '../../../redux/selectors/user'
 
 import './style.scss'
+import { fetchOrganization } from '../../../redux/reducers/organization'
 
 
 function LoginForm() {
@@ -16,6 +17,7 @@ function LoginForm() {
     const isLog = useSelector(getIsLogged)
     const navigate = useNavigate();
     const userError = useSelector(getUserError);
+    const loggedUser = useSelector(getUser)
     
 
     const onSubmit = (user) => {
@@ -24,9 +26,17 @@ function LoginForm() {
 
     useEffect(() => {
         if (isLog) {
-            navigate('/:organization-id');
+            const organizationId = loggedUser.organizationId
+            
+            if (organizationId){
+                dispatch(fetchOrganization(organizationId))
+                navigate(`/${organizationId}`)
+            }
+            else {
+                console.log("organisation introuvable")
+            }
         }
-    }, [isLog, navigate]);
+    }, [isLog, loggedUser, dispatch, navigate]);
 
 
     return (
