@@ -4,4 +4,6 @@ export const getName = state => getUser(state).name;
 
 export const getIsLogged = state => getName(state) !== "";
 
-export const getUserError = state => getUser(state).error
+export const getUserError = state => getUser(state).error;
+
+export const getUserOrganizationId = state => getUser(state).organizationId;
