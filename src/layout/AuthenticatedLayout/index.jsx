@@ -35,7 +35,7 @@ function AuthenticatedLayout({children}) {
 
     const handleLogout = () => {
         dispatch(logout());
-        cleanOrganizationState();
+        dispatch(cleanOrganizationState());
     }
 
     const data = [

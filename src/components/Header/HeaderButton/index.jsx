@@ -40,11 +40,13 @@ export default function HeaderButton() {
 
     const handleLogout = () => {
         dispatch(logout());
-        cleanOrganizationState();
+        dispatch(cleanOrganizationState());
         handleClose();
     }
+
     const handleToHome = () =>{
-        cleanOrganizationState();
+        console.log("jetest")
+        dispatch(cleanOrganizationState());
     }
 
 
@@ -83,8 +85,9 @@ export default function HeaderButton() {
                     variant='outlined'
                     name="Retour à l'accueil"
                     component={Link}
-                    route='/'
-                    onClick={handleToHome}
+                    route="/"
+                    onClick={handleToHome()}
+                    
                 />
             )}
             {/*pour le menu de navigation(burger) qui s'afiche si on est sur les pages connectés en mobile */}
