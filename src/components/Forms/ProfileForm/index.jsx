@@ -24,6 +24,7 @@ function ProfileForm() {
 
     const {
         register,
+        watch,
         handleSubmit,
         formState: { errors }
     } = useForm({
@@ -33,6 +34,9 @@ function ProfileForm() {
             job: job
         }
     });
+
+    const newPassword = watch("newPassword");
+    const currentPassword = watch("currentPassword");
 
     const title = (isLog) => {
         if (!isLog){
@@ -129,7 +133,7 @@ function ProfileForm() {
                         helperText= {errors.currentPassword?.message}
                         error = {!!errors.currentPassword}
                         type="password" {...register("currentPassword",{
-                            // required: "L'ancien mot de passe est requis."
+                            required: newPassword ? "L'ancien mot de passe est requis." : null,
                         })}
                     />
                     <TextField
@@ -138,7 +142,7 @@ function ProfileForm() {
                         helperText= {errors.newPassword?.message}
                         error = {!!errors.newPassword}
                         type="password" {...register("newPassword",{
-                            // required: "Le nouveau mot de passe est requis.",
+                            required: currentPassword ? "Le nouveau mot de passe est requis." : null,
                             pattern: {
                                 value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
                                 message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
