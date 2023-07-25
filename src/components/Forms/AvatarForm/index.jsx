@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { getIsLogged } from '../../../redux/selectors/user'
 import { getUser } from '../../../redux/selectors/user'
 import { useSelector } from 'react-redux';
 
@@ -10,6 +11,7 @@ import './style.scss'
 
 function AvatarForm ({ register }) {
 
+    const isLog = useSelector(getIsLogged)
     const user = (useSelector(getUser));
     const currentProfilePicture = user.profilePicture
 
@@ -77,13 +79,15 @@ function AvatarForm ({ register }) {
             >
                 {uploadButtonLabel}
             </Button>
-            <Button
-                className="c-avatar-form__button"
-                variant="outlined"
-                onClick={onRemove}
-            >
-                X
-            </Button>
+            {isLog === false && (
+                <Button
+                    className="c-avatar-form__button"
+                    variant="outlined"
+                    onClick={onRemove}
+                >
+                    X
+                </Button>
+            )}
         </Box>
     )
 }

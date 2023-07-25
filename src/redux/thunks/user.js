@@ -53,11 +53,16 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
         // Temporary profile_picture fix to remove before Api connect
         data.profilePicture = "https://randomuser.me/api/portraits/women/33.jpg"
         // End Temporary profile_picture fix
-        const newPasswordValidation = users.find((user => user.password === data.currentPassword) || (data.currentPassword === ''))
+        if (data.currentPassword === ""){
+            delete data.currentPassword
+            delete data.newPassword
+            return data;
+        }
+        const newPasswordValidation = users.find(user => user.password === data.currentPassword)
         if (!newPasswordValidation) {
             return thunkAPI.rejectWithValue({status: 422, message: "L'ancien mot de passe est incorrect"});
         }
-        data
+        return data
     }
     catch (error) {
         return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
