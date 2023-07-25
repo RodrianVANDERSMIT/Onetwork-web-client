@@ -3,7 +3,8 @@ import  { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import {useDispatch, useSelector } from 'react-redux'
 import { logout } from "../../../redux/reducers/user"
-import { getIsLogged } from "../../../redux/selectors/user"
+import { cleanOrganizationState } from "../../../redux/reducers/organization"
+import { getIsLogged, getUserOrganizationId } from "../../../redux/selectors/user"
 import BasicButton from '../../Buttons/BasicButton'
 import { HashLink } from 'react-router-hash-link';
 
@@ -18,6 +19,7 @@ import './style.scss'
 
 
 
+
 export default function HeaderButton() {
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -26,7 +28,7 @@ export default function HeaderButton() {
     const location = useLocation();
     const isLog = useSelector(getIsLogged)
     const currentPath = location.pathname;
-    
+    const organizationId = useSelector(getUserOrganizationId)
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -38,9 +40,12 @@ export default function HeaderButton() {
 
     const handleLogout = () => {
         dispatch(logout());
+        cleanOrganizationState();
         handleClose();
     }
-    
+    const handleToHome = () =>{
+        cleanOrganizationState();
+    }
 
 
 
@@ -49,14 +54,14 @@ export default function HeaderButton() {
             
             
             {/*pour le bouton retour au flux d'activité si on est connecté sur desktop */}
-            {(isLog && (currentPath === '/about' || currentPath === '/:organization-id/user/:user-id/edit')) && (
+            {(isLog && (currentPath === '/about' || currentPath === `/${organizationId}/user/:userId/edit`)) && (
                 <BasicButton
                     sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
                     variant="outlined"
                     name="Retour au flux d'activité"
                     component={Link}
-                    route={isLog ? "/:organizationId" : "/"}
+                    route={isLog ? `/${organizationId}` : "/"}
                 />
             )}
 
@@ -79,9 +84,10 @@ export default function HeaderButton() {
                     name="Retour à l'accueil"
                     component={Link}
                     route='/'
+                    onClick={handleToHome}
                 />
             )}
-            {/*pour le menu de navigation qui s'afiche si on est sur les pages connectés en mobile */}
+            {/*pour le menu de navigation(burger) qui s'afiche si on est sur les pages connectés en mobile */}
             { (isLog ) ? (
                 <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
                     className='c-button-header_icon'
@@ -110,13 +116,13 @@ export default function HeaderButton() {
                     <BasicCard className="c-card__column"/>
                 </Box>
                 <Divider/>
-                <MenuItem component={Link} to="/:organizationId"
+                <MenuItem component={Link} to={`/${organizationId}`}
                     onClick={handleClose}>{"Flux d'activité"}</MenuItem>
-                <MenuItem component={Link} to="/:organizationId/user/:userId"
+                <MenuItem component={Link} to={`/${organizationId}/user/:userId`}
                     onClick={handleClose}>Mon profil</MenuItem>
-                <MenuItem component={Link} to="/:organizationId/user/:userId/edit"
+                <MenuItem component={Link} to={`/${organizationId}/user/:userId/edit`}
                     onClick={handleClose}>Editer mon profil</MenuItem>
-                <MenuItem component={Link} to="/:organizationId/admin/members"
+                <MenuItem component={Link} to={`/${organizationId}/admin/members`}
                     onClick={handleClose}>Administration</MenuItem>
                 <MenuItem component={Link} to="/about"
                     onClick={handleClose}>Contact</MenuItem>

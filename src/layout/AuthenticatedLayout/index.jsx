@@ -6,7 +6,7 @@ import  { useEffect } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import BasicCard from '../../components/BasicCard'
-import { getIsLogged } from '../../redux/selectors/user'
+import { getIsLogged, getUserOrganizationId } from "../../redux/selectors/user"
 import {logout}  from "../../redux/reducers/user"
 
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
@@ -16,29 +16,36 @@ import ContactMailIcon from '@mui/icons-material/ContactMail'
 import LogoutIcon from '@mui/icons-material/Logout'
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
 import ForumIcon from '@mui/icons-material/Forum'
+import PersonIcon from '@mui/icons-material/Person';
 import './style.scss'
+import { cleanOrganizationState } from "../../redux/reducers/organization"
 
 const drawerWidth = 240;
 
-const data = [
-    { text: "Flux d'activité", index: <ForumIcon />, route: "/:organization-id"},
-    { text: 'Editer mon profil', index: <ManageAccountsIcon/>, route: "/:organization-id/user/:user-id/edit"},
-    { text: 'Administration', index: <AdminPanelSettingsIcon />, route: "/:organization-id/admin/members" },
-    { text: 'Contact', index: <ContactMailIcon />, route: "/about" },
-    
-]
+
+
+
 
 function AuthenticatedLayout({children}) {
 
     const dispatch = useDispatch();
     const isLog = useSelector(getIsLogged)
     const navigate = useNavigate();
+    const organizationId = useSelector(getUserOrganizationId)
 
     const handleLogout = () => {
         dispatch(logout());
+        cleanOrganizationState();
     }
 
-
+    const data = [
+        { text: "Flux d'activité", index: <ForumIcon />, route: `/${organizationId}` },
+        { text: 'Mon profil', index: <PersonIcon/>, route: `/${organizationId}/user/:userId`},
+        { text: 'Editer mon profil', index: <ManageAccountsIcon/>, route: `/${organizationId}/user/:userId/edit`},
+        { text: 'Administration', index: <AdminPanelSettingsIcon />, route: `/${organizationId}/admin/members`},
+        { text: 'Contact', index: <ContactMailIcon />, route: "/about" },
+    
+]
     useEffect(() => {
         if (!isLog) {
             navigate('/');  
@@ -87,6 +94,7 @@ function AuthenticatedLayout({children}) {
                                 key={"Déconnexion"}
                                 disablePadding
                                 component={Link}
+                                to = "/"
                                 onClick={handleLogout}
                             >
                                 <ListItemButton>
