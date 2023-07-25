@@ -10,6 +10,7 @@ export const initialState = {
     job: "",
     role: null,
     profilePicture: "",
+    organizationId: null,
     disabled: false,
     error: null
 }
@@ -36,16 +37,11 @@ const slice = createSlice({
                 state.error = action.payload
             })
 
-        //deco localStorage.removeItem('user')
-
-            // .addCase(addUser.pending, state => {
-            //     state.isLoading = true
-            // })
+        
             .addCase(addUser.fulfilled,(state, {payload: data}) => {
                 return {...state, ...data, error: null}
             })
             .addCase(addUser.rejected, (state, {payload: error}) => {
-                // state.isLoading = false
                 state.error = error
             })
     },
