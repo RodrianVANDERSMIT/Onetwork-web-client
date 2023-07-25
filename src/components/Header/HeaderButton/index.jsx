@@ -47,17 +47,20 @@ export default function HeaderButton() {
     return (
         <Box className='c-button-header' sx={{ flexGrow: 1 }}>
             
-                
-            { (isLog && currentPath === '/about') || (currentPath === '/sign-up' || currentPath === '/:organizatioId/user/:userId/edit' || currentPath === '/about') ? (
+            
+            {/*pour le bouton retour au flux d'activité si on est connecté sur desktop */}
+            {(isLog && (currentPath === '/about' || currentPath === '/:organization-id/user/:user-id/edit')) && (
                 <BasicButton
                     sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
                     variant="outlined"
-                    name="Retour à l'accueil"
+                    name="Retour au flux d'activité"
                     component={Link}
                     route={isLog ? "/:organizationId" : "/"}
                 />
-            ) : null}
+            )}
+
+            {/*pour le bouton deja un compte sur mobile */}
             {currentPath ==='/' && (
                 <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }} 
                     className='c-button-header_btn'
@@ -66,7 +69,9 @@ export default function HeaderButton() {
                     component={HashLink}
                     route="#connexion"
                 />)}
-            {(currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about') && !isLog && (
+                
+            {/*pour le bouton retour a l'acceuil si l'utilisateur n'est pas connecté */}
+            {(!isLog &&(currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about' )) && (
                 <BasicButton
                     sx={{ display: { xs: 'block', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
@@ -76,7 +81,7 @@ export default function HeaderButton() {
                     route='/'
                 />
             )}
-                
+            {/*pour le menu de navigation qui s'afiche si on est sur les pages connectés en mobile */}
             { (isLog ) ? (
                 <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
                     className='c-button-header_icon'
