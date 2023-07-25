@@ -19,7 +19,7 @@ function App() {
        
     const ProtectedRoute = ({  children }) => {
         if (!isLog) {
-            return <Navigate to="/error" replace />;
+            return <Navigate to="/" replace />;
         }
         return children;
     };
