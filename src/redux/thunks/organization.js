@@ -15,8 +15,7 @@ export const validateOrganization = createAsyncThunk('organization/validateOrgan
     catch (error) {
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la création de l'organisation." });
     }
-})
-
+});
 
 
 
@@ -40,3 +39,25 @@ export const createOrganization = createAsyncThunk('organization/createOrganizat
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la création de l'organisation." });  
     }
 });
+
+
+
+export const fetchOrganization = createAsyncThunk('organization/fetchOrganization', async( organizationId , thunkApi) =>{
+
+    try {
+        const organization = organizations.find(({id}) => id === organizationId)
+        
+        if (organization) {
+            return organization 
+        }
+        else {
+            return thunkApi.rejectWithValue({status: 404, message : "l'organisation avec cette id n'a pas été trouvée."});
+        }
+        
+    }
+    catch (error) {
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la recupération de l'organisation." });  
+    }
+})
+
+
