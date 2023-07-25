@@ -1,8 +1,9 @@
 import PropTypes from "prop-types"
 import  { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import {useDispatch, useSelector } from 'react-redux'
 import { logout } from "../../../redux/reducers/user"
+import { cleanOrganizationState } from "../../../redux/reducers/organization"
 import { getIsLogged, getUserOrganizationId } from "../../../redux/selectors/user"
 import BasicButton from '../../Buttons/BasicButton'
 import { HashLink } from 'react-router-hash-link';
@@ -15,6 +16,7 @@ import { Menu, MenuItem} from '@mui/material'
 import BasicCard from '../../BasicCard'
 
 import './style.scss'
+
 
 
 
@@ -38,9 +40,12 @@ export default function HeaderButton() {
 
     const handleLogout = () => {
         dispatch(logout());
+        cleanOrganizationState();
         handleClose();
     }
-    
+    const handleToHome = () =>{
+        cleanOrganizationState();
+    }
 
 
 
@@ -79,9 +84,10 @@ export default function HeaderButton() {
                     name="Retour à l'accueil"
                     component={Link}
                     route='/'
+                    onClick={handleToHome}
                 />
             )}
-            {/*pour le menu de navigation qui s'afiche si on est sur les pages connectés en mobile */}
+            {/*pour le menu de navigation(burger) qui s'afiche si on est sur les pages connectés en mobile */}
             { (isLog ) ? (
                 <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
                     className='c-button-header_icon'

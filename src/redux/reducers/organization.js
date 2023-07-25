@@ -13,6 +13,11 @@ const slice = createSlice({
     name: 'organization',
     initialState,
     reducers: {
+        cleanOrganizationState(state){
+            state.id = null,
+            state.name = "",
+            state.error = null
+        }
        
     },
     extraReducers: builder => { 
@@ -53,5 +58,6 @@ const slice = createSlice({
 
 
 export default slice.reducer
+export const {cleanOrganizationState} = slice.actions
 export { validateOrganization, createOrganization, fetchOrganization } 
 
