@@ -3,14 +3,21 @@ import { useRef, useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { getUser } from '../../../redux/selectors/user'
+import { useSelector } from 'react-redux';
 
 import './style.scss'
+
 function AvatarForm ({ register }) {
+
+    const user = (useSelector(getUser));
+    const currentProfilePicture = user.profilePicture
+
     const hiddenInputRef = useRef();
 
     const { ref: registerRef, ...rest } = register("profilePicture");
 
-    const [preview, setPreview] = useState();
+    const [preview, setPreview] = useState(currentProfilePicture);
 
     const onUpdate = (event) => {
         const file = event.target.files[0];

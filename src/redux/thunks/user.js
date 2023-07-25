@@ -55,7 +55,7 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
         // End Temporary profile_picture fix
         const newPasswordValidation = users.find(user => user.password === data.currentPassword)
         if (!newPasswordValidation) {
-            return thunkAPI.rejectWithValue({status: 418, message: "I’m a teapot"}); // TODO change error message
+            return thunkAPI.rejectWithValue({status: 422, message: "L'ancien mot de passe est incorrect"});
         }
         data
     }
