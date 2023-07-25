@@ -2,10 +2,11 @@ import AvatarForm from "../AvatarForm";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { addUser, updateUser } from '../../../redux/reducers/user' // added updateUser
+import { addUser, updateUser } from '../../../redux/reducers/user'
 import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom"
 
 import './style.scss'
 
@@ -13,6 +14,7 @@ function ProfileForm() {
 
     const dispatch = useDispatch();
     const isLog = useSelector(getIsLogged)
+    const navigate = useNavigate();
     const userError = useSelector(getUserError);
 
     const user = (useSelector(getUser));
@@ -42,8 +44,10 @@ function ProfileForm() {
     const onSubmit = (data) => {
         if (!isLog){
             dispatch(addUser(data))
+            navigate(`/`)
         }
         dispatch(updateUser(data))
+        navigate(`/`)
     }
 
     return (
@@ -125,12 +129,7 @@ function ProfileForm() {
                         helperText= {errors.currentPassword?.message}
                         error = {!!errors.currentPassword}
                         type="password" {...register("currentPassword",{
-                            required: "L'ancien mot de passe est requis.",
-                            pattern: {
-                                value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
-                                // message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
-                                message: "Le mot de passe n'est pas valide"
-                            }
+                            // required: "L'ancien mot de passe est requis."
                         })}
                     />
                     <TextField
@@ -139,7 +138,7 @@ function ProfileForm() {
                         helperText= {errors.newPassword?.message}
                         error = {!!errors.newPassword}
                         type="password" {...register("newPassword",{
-                            required: "Le nouveau mot de passe est requis.",
+                            // required: "Le nouveau mot de passe est requis.",
                             pattern: {
                                 value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
                                 message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
