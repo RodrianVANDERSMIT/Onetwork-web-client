@@ -1,9 +1,9 @@
 import PropTypes from "prop-types"
 import  { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector } from 'react-redux'
 import { logout } from "../../../redux/reducers/user"
-import { getIsLogged } from "../../../redux/selectors/user"
+import { getIsLogged, getUserOrganizationId } from "../../../redux/selectors/user"
 import BasicButton from '../../Buttons/BasicButton'
 import { HashLink } from 'react-router-hash-link';
 
@@ -26,7 +26,7 @@ export default function HeaderButton() {
     const location = useLocation();
     const isLog = useSelector(getIsLogged)
     const currentPath = location.pathname;
-    
+    const organizationId = useSelector(getUserOrganizationId)
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -49,14 +49,14 @@ export default function HeaderButton() {
             
             
             {/*pour le bouton retour au flux d'activité si on est connecté sur desktop */}
-            {(isLog && (currentPath === '/about' || currentPath === '/:organization-id/user/:user-id/edit')) && (
+            {(isLog && (currentPath === '/about' || currentPath === `/${organizationId}/user/:userId/edit`)) && (
                 <BasicButton
                     sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
                     variant="outlined"
                     name="Retour au flux d'activité"
                     component={Link}
-                    route={isLog ? "/:organizationId" : "/"}
+                    route={isLog ? `/${organizationId}` : "/"}
                 />
             )}
 
@@ -110,13 +110,13 @@ export default function HeaderButton() {
                     <BasicCard className="c-card__column"/>
                 </Box>
                 <Divider/>
-                <MenuItem component={Link} to="/:organizationId"
+                <MenuItem component={Link} to={`/${organizationId}`}
                     onClick={handleClose}>{"Flux d'activité"}</MenuItem>
-                <MenuItem component={Link} to="/:organizationId/user/:userId"
+                <MenuItem component={Link} to={`/${organizationId}/user/:userId`}
                     onClick={handleClose}>Mon profil</MenuItem>
-                <MenuItem component={Link} to="/:organizationId/user/:userId/edit"
+                <MenuItem component={Link} to={`/${organizationId}/user/:userId/edit`}
                     onClick={handleClose}>Editer mon profil</MenuItem>
-                <MenuItem component={Link} to="/:organizationId/admin/members"
+                <MenuItem component={Link} to={`/${organizationId}/admin/members`}
                     onClick={handleClose}>Administration</MenuItem>
                 <MenuItem component={Link} to="/about"
                     onClick={handleClose}>Contact</MenuItem>
