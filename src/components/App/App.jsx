@@ -10,13 +10,14 @@ import SignUp from '../../views/SignUp'
 import ActivityFeed from '../../views/ActivityFeed'
 import Error from '../Error'
 import { useSelector } from 'react-redux'
-import { getIsLogged, getUserOrganizationId } from '../../redux/selectors/user'
+import { getIsLogged, getUserId, getUserOrganizationId } from '../../redux/selectors/user'
 
 
 function App() {
 
     const isLog = useSelector(getIsLogged)
     const organizationId = useSelector(getUserOrganizationId)
+    const userId = useSelector(getUserId)
     
        
     const ProtectedRoute = ({  children }) => {
@@ -43,7 +44,7 @@ function App() {
                 }
             />
             <Route
-                path={`/${organizationId}/user/:userId`}
+                path={`/${organizationId}/user/${userId}`}
                 element={
                     <ProtectedRoute >
                         <UserProfile />
@@ -51,7 +52,7 @@ function App() {
                 }
             />
             <Route
-                path={`/${organizationId}/user/:userId/edit`}
+                path={`/${organizationId}/user/${userId}/edit`}
                 element={
                     <ProtectedRoute >
                         <ProfileSettings />
