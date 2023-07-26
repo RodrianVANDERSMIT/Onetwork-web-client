@@ -30,11 +30,10 @@ const drawerWidth = 240;
 function AuthenticatedLayout({children}) {
 
     const dispatch = useDispatch();
-    const isLog = useSelector(getIsLogged)
+    const isLog = useSelector(getIsLogged);
     const navigate = useNavigate();
-    const organizationId = useSelector(getUserOrganizationId)
-    const userId = useSelector(getUserId)
-    console.log(userId)
+    const organizationId = useSelector(getUserOrganizationId);
+    const userId = useSelector(getUserId);
 
     const handleLogout = () => {
         dispatch(logout());
