@@ -41,12 +41,10 @@ export default function HeaderButton() {
 
     const handleLogout = () => {
         dispatch(logout());
-        dispatch(cleanOrganizationState());
         handleClose();
     }
 
     const handleToHome = () =>{
-        console.log("jetest")
         dispatch(cleanOrganizationState());
     }
 
