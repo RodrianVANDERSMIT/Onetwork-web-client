@@ -8,9 +8,9 @@ import ProfileSettings from '../../views/ProfileSettings'
 import Contact from '../../views/Contact'
 import SignUp from '../../views/SignUp'
 import ActivityFeed from '../../views/ActivityFeed'
-import Error from '../Error'
 import { useSelector } from 'react-redux'
 import { getIsLogged, getUserId, getUserOrganizationId } from '../../redux/selectors/user'
+import Error from '../../views/Error'
 
 
 function App() {
