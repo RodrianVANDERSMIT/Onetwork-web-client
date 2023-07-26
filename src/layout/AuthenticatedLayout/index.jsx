@@ -18,6 +18,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
 import ForumIcon from '@mui/icons-material/Forum'
 import PersonIcon from '@mui/icons-material/Person';
 import './style.scss'
+import { cleanOrganizationState } from "../../redux/reducers/organization"
 
 
 const drawerWidth = 240;
@@ -37,6 +38,7 @@ function AuthenticatedLayout({children}) {
 
     const handleLogout = () => {
         dispatch(logout());
+        dispatch(cleanOrganizationState());
     }
 
     const data = [

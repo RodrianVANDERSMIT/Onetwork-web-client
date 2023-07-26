@@ -7,6 +7,7 @@ import { cleanOrganizationState } from "../../../redux/reducers/organization"
 import { getIsLogged, getUserId, getUserOrganizationId } from "../../../redux/selectors/user"
 import BasicButton from '../../Buttons/BasicButton'
 import { HashLink } from 'react-router-hash-link';
+import Button from '@mui/material/Button';
 
 
 import { Box, Divider } from '@mui/material'
@@ -16,8 +17,6 @@ import { Menu, MenuItem} from '@mui/material'
 import BasicCard from '../../BasicCard'
 
 import './style.scss'
-
-
 
 
 export default function HeaderButton() {
@@ -41,6 +40,7 @@ export default function HeaderButton() {
 
     const handleLogout = () => {
         dispatch(logout());
+        dispatch(cleanOrganizationState());
         handleClose();
     }
 
@@ -78,16 +78,13 @@ export default function HeaderButton() {
                 
             {/*pour le bouton retour a l'acceuil si l'utilisateur n'est pas connecté */}
             {(!isLog &&(currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about' )) && (
-                <BasicButton
+                <Button
                     sx={{ display: { xs: 'block', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
                     variant='outlined'
-                    name="Retour à l'accueil"
-                    component={Link}
-                    route="/"
-                    onClick={handleToHome()}
-                    
-                />
+                    component={Link} to={"/"}
+                    onClick={handleToHome} 
+                >{"Retour à l'accueil"}</Button>
             )}
             {/*pour le menu de navigation(burger) qui s'afiche si on est sur les pages connectés en mobile */}
             { (isLog ) ? (
