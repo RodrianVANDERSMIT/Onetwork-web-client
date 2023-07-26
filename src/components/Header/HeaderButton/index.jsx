@@ -57,7 +57,7 @@ export default function HeaderButton() {
             {/*pour le bouton retour au flux d'activité si on est connecté sur desktop */}
             {(isLog && (currentPath === '/about' || currentPath === `/${organizationId}/user/${userId}/edit`)) && (
                 <BasicButton
-                    sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}
+                    sx={{ display: { xs: 'none', sm: 'block' } }}
                     className='c-button-header_btn'
                     variant="outlined"
                     name="Retour au flux d'activité"
@@ -68,7 +68,7 @@ export default function HeaderButton() {
 
             {/*pour le bouton deja un compte sur mobile */}
             {currentPath ==='/' && (
-                <BasicButton sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }} 
+                <BasicButton sx={{ display: { sm: 'block', md: 'none' } }} 
                     className='c-button-header_btn'
                     variant="outlined"
                     name="Déjà un compte ?"
@@ -79,7 +79,6 @@ export default function HeaderButton() {
             {/*pour le bouton retour a l'acceuil si l'utilisateur n'est pas connecté */}
             {(!isLog &&(currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about' )) && (
                 <Button
-                    sx={{ display: { xs: 'block', sm: 'block', md: 'block' } }}
                     className='c-button-header_btn'
                     variant='outlined'
                     component={Link} to={"/"}
@@ -88,7 +87,7 @@ export default function HeaderButton() {
             )}
             {/*pour le menu de navigation(burger) qui s'afiche si on est sur les pages connectés en mobile */}
             { (isLog ) ? (
-                <IconButton sx={{ display: { xs: 'block', sm: 'none', md: 'none' } }}
+                <IconButton sx={{ display: { xs: 'block', sm: 'none' } }}
                     className='c-button-header_icon'
                     edge="start"
                     aria-label="menu"
