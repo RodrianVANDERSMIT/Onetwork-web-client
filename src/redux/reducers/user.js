@@ -22,6 +22,11 @@ const slice = createSlice({
         logout(state){
             Object.assign(state, initialState);
             localStorage.removeItem('user');
+        },
+
+        setError(state, {payload: error }){
+            console.log(error)
+            state.error = error
         }
     },
     extraReducers: builder => { 
@@ -54,5 +59,5 @@ const slice = createSlice({
 })
 
 export default slice.reducer
-export const {logout} = slice.actions
+export const {logout, setError} = slice.actions
 export {login, addUser, updateUser}

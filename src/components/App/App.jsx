@@ -8,20 +8,23 @@ import ProfileSettings from '../../views/ProfileSettings'
 import Contact from '../../views/Contact'
 import SignUp from '../../views/SignUp'
 import ActivityFeed from '../../views/ActivityFeed'
-import { useSelector } from 'react-redux'
-import { getIsLogged, getUserId, getUserOrganizationId } from '../../redux/selectors/user'
+import {useDispatch, useSelector} from 'react-redux'
+import { getIsLogged } from '../../redux/selectors/user'
 import Error from '../../views/Error'
+import { setError } from '../../redux/reducers/user';
 
 
 function App() {
 
+    const dispatch = useDispatch();
     const isLog = useSelector(getIsLogged)
-    const organizationId = useSelector(getUserOrganizationId)
-    const userId = useSelector(getUserId)
     
        
     const ProtectedRoute = ({  children }) => {
+        
         if (!isLog) {
+            dispatch(setError({ id: 403, message: "Accès refusé : Vous devez être connecté pour accéder à cette page." }));
+            console.log("je navigue")
             return <Navigate to="/error" replace />;
         }
         return children;
@@ -36,7 +39,7 @@ function App() {
             <Route path="/about" element={<Contact />} />
             <Route path="/error" element={<Error />} />
             <Route
-                path={`/${organizationId}`}
+                path={`/:organizationId`}
                 element={
                     <ProtectedRoute >
                         <ActivityFeed />
@@ -44,15 +47,16 @@ function App() {
                 }
             />
             <Route
-                path={`/${organizationId}/user/${userId}`}
+                path={`/:organizationId/user/:userId`}
                 element={
                     <ProtectedRoute >
                         <UserProfile />
                     </ProtectedRoute>
                 }
             />
+            
             <Route
-                path={`/${organizationId}/user/${userId}/edit`}
+                path={`/:organizationId/user/:userId/edit`}
                 element={
                     <ProtectedRoute >
                         <ProfileSettings />
@@ -60,19 +64,24 @@ function App() {
                 }
             />
             <Route
-                path={`/${organizationId}/admin/members`}
+                path={`/:organizationId/admin/members`}
                 element={
                     <ProtectedRoute >
                         <Administration />
                     </ProtectedRoute>
                 }
             />
+            <Route 
+                path="/*" 
+                element={
+                    <ProtectedRoute>
+                        <Error />
+                    </ProtectedRoute> } />
         </Routes>
     )
 }
 
 App.propTypes = {
-    loading: PropTypes.bool,
     children: PropTypes.node,
 }
 
