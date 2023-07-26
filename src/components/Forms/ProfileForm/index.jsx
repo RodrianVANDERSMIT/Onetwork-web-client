@@ -46,13 +46,17 @@ function ProfileForm() {
     }
 
     const onSubmit = (data) => {
-        if (!isLog){
-            dispatch(addUser(data))
-            navigate(`/`)
+        if (!isLog) {
+            dispatch(addUser(data)).unwrap()
+                .then(() => navigate(`/`))
+                .catch(() => {})
         }
-        dispatch(updateUser(data))
-        navigate(`/`)
-    }
+        if (isLog) {
+            dispatch(updateUser(data)).unwrap()
+                .then(() => navigate(`/`))
+                .catch(() => {})
+        }
+    };
 
     return (
         <Box
@@ -113,6 +117,7 @@ function ProfileForm() {
                             }
                         })}
                     />
+                    {userError !== null && <p className="c-profile-form__error">{userError?.message}</p>}
                 </Box>
             )}
             {/* **************************** End if is notLogged ****************************** */}

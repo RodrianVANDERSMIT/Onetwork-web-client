@@ -37,9 +37,8 @@ const slice = createSlice({
                 state.error = action.payload
             })
 
-        
-            .addCase(addUser.fulfilled,(state, {payload: data}) => {
-                return {...state, ...data, error: null}
+            .addCase(addUser.fulfilled,state => {
+                state.error= null
             })
             .addCase(addUser.rejected, (state, {payload: error}) => {
                 state.error = error

@@ -35,8 +35,10 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
         // Temporary profile_picture fix to remove before Api connect
         data.profilePicture = "https://randomuser.me/api/portraits/women/33.jpg"
         // End Temporary profile_picture fix
-        const exist = users.some(({email}) => email === data.email)
-        if (exist) {
+
+        const newUserEmail = users.find(({email}) => email === data.email)
+        console.log(data.email)
+        if (newUserEmail) {
             return thunkAPI.rejectWithValue({status: 409, message: "Cette adresse e-mail est déjà associée à un compte"});
         }
         return data
@@ -48,20 +50,31 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
 
 export const updateUser = createAsyncThunk("user/updateUser", async (data, thunkAPI) => {
     try {
-        console.log(data)
+        if (!data.currentPassword) {
+            delete data.currentPassword
+            delete data.newPassword
+        }
+        // TODO: Remove the else part when the server is ready
+        else {
+            const user = thunkAPI.getState().user;
+
+            const isValid = users.some(({email, password}) =>
+                email === user.email &&
+                password === data.currentPassword
+            );
+
+            if (!isValid) {
+                return thunkAPI.rejectWithValue({status: 422, message: "L'ancien mot de passe est incorrect"});
+            }
+    
+            delete data.currentPassword;
+            delete data.newPassword;
+        }
+
         // TODO remove fix before Api connect
         // Temporary profile_picture fix to remove before Api connect
         data.profilePicture = "https://randomuser.me/api/portraits/women/33.jpg"
         // End Temporary profile_picture fix
-        if (data.currentPassword === ""){
-            delete data.currentPassword
-            delete data.newPassword
-            return data;
-        }
-        const newPasswordValidation = users.find(user => user.password === data.currentPassword)
-        if (!newPasswordValidation) {
-            return thunkAPI.rejectWithValue({status: 422, message: "L'ancien mot de passe est incorrect"});
-        }
         return data
     }
     catch (error) {
