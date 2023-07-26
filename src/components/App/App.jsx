@@ -21,7 +21,7 @@ function App() {
        
     const ProtectedRoute = ({  children }) => {
         if (!isLog) {
-            return <Navigate to="/" replace />;
+            return <Navigate to="/error" replace />;
         }
         return children;
     };

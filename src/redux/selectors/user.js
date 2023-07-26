@@ -7,3 +7,5 @@ export const getIsLogged = state => getName(state) !== "";
 export const getUserError = state => getUser(state).error;
 
 export const getUserOrganizationId = state => getUser(state).organizationId;
+
+export const getUserId = state => getUser(state).Id
