@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { login } from "../thunks/user";
-import { addUser } from "../../redux/thunks/user"
+import { addUser, updateUser } from "../../redux/thunks/user"
 
 export const initialState = {
     id: null,
@@ -37,11 +37,17 @@ const slice = createSlice({
                 state.error = action.payload
             })
 
-        
-            .addCase(addUser.fulfilled,(state, {payload: data}) => {
-                return {...state, ...data, error: null}
+            .addCase(addUser.fulfilled,state => {
+                state.error= null
             })
             .addCase(addUser.rejected, (state, {payload: error}) => {
+                state.error = error
+            })
+            .addCase(updateUser.fulfilled,(state, {payload: data}) => {
+                return {...state, ...data, error: null}
+            })
+            .addCase(updateUser.rejected, (state, {payload: error}) => {
+                // state.isLoading = false
                 state.error = error
             })
     },
@@ -49,4 +55,4 @@ const slice = createSlice({
 
 export default slice.reducer
 export const {logout} = slice.actions
-export {login, addUser}
+export {login, addUser, updateUser}

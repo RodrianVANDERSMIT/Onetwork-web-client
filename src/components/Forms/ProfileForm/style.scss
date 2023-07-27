@@ -1,13 +1,25 @@
 .c-profile-form {
-    &__title {
-        text-align: center;
-    }
-
     &__group {
         width: 100%;
     }
 
+    &__title {
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    &__subtitle {
+        margin-bottom: 1;
+    }
+
     &__textfield {
+        margin-top: 0;
+        margin-bottom: 1;
+    }
+
+    &__error {
+        color: #d32f2f;
+        margin-top: 0;
         margin-bottom: 0;
     }
 }

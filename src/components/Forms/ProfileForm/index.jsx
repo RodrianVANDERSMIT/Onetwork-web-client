@@ -2,19 +2,61 @@ import AvatarForm from "../AvatarForm";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { addUser } from '../../../redux/reducers/user'
-import { useDispatch } from 'react-redux'
+import { addUser, updateUser } from '../../../redux/reducers/user'
+import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom"
+
 import './style.scss'
 
 function ProfileForm() {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
     const dispatch = useDispatch();
-    const onSubmit = data => {
-        // console.log(data)
-        dispatch(addUser(data))
+    const isLog = useSelector(getIsLogged)
+    const navigate = useNavigate();
+    const userError = useSelector(getUserError);
+
+    const user = (useSelector(getUser));
+    const surname = user.surname
+    const name = user.name
+    const job = user.job
+
+    const {
+        register,
+        watch,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        defaultValues: {
+            surname: surname,
+            name: name,
+            job: job
+        }
+    });
+
+    const newPassword = watch("newPassword");
+    const currentPassword = watch("currentPassword");
+
+    const title = (isLog) => {
+        if (!isLog){
+            return "Bienvenue sur la création de votre profil utilisateur"
+        }
+        return "Bienvenue sur la modification votre profil utilisateur"
     }
+
+    const onSubmit = (data) => {
+        if (!isLog) {
+            dispatch(addUser(data)).unwrap()
+                .then(() => navigate(`/`))
+                .catch(() => {})
+        }
+        if (isLog) {
+            dispatch(updateUser(data)).unwrap()
+                .then(() => navigate(`/`))
+                .catch(() => {})
+        }
+    };
 
     return (
         <Box
@@ -38,41 +80,86 @@ function ProfileForm() {
             }}
             onSubmit={handleSubmit(onSubmit)}
         >
-            <h3 className="c-profile-form__title">Bienvenue sur la création de votre profil utilisateur</h3>
+            {/* ****************************** If is notLogged ******************************** */}
+            <h3 className="c-profile-form__title">{title(isLog)}</h3>
+            {isLog === false && (
+                <Box
+                    className="c-profile-form__group"
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}
+                >
+                    <p className="c-profile-form__subtitle">Votre compte</p>
+                    <TextField 
+                        className="c-profile-form__input"
+                        label="Email"
+                        helperText= {errors.email?.message}
+                        error = {!!errors.email}
+                        type="email"{...register("email", {
+                            required: "L'email est requis",
+                            pattern: {
+                                value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                message: "L'email doit être valide.",
+                            },
+                        })}
+                    />
+                    <TextField
+                        className="c-profile-form__input"
+                        label="Mot de passe"
+                        helperText= {errors.password?.message}
+                        error = {!!errors.password}
+                        type="password" {...register("password",{
+                            required: "Le mot de passe est requis.",
+                            pattern: {
+                                value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
+                                message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
+                            }
+                        })}
+                    />
+                    {userError !== null && <p className="c-profile-form__error">{userError?.message}</p>}
+                </Box>
+            )}
+            {/* **************************** End if is notLogged ****************************** */}
 
-            <Box
-                className="c-profile-form__group"
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}
-            >
-                <p>Votre compte</p>
-                <TextField
-                    label="Email"
-                    helperText= {errors.email?.message}
-                    error = {!!errors.email}
-                    type="email"{...register("email", {
-                        required: "L'email est requis",
-                        pattern: {
-                            value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                            message: "L'email doit être valide.",
-                        },
-                    })}
-                />
-                <TextField
-                    label="Mot de passe"
-                    helperText= {errors.password?.message}
-                    error = {!!errors.password}
-                    type="password" {...register("password",{
-                        required: "Le mot de passe est requis.",
-                        pattern: {
-                            value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
-                            message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
-                        }
-                    })}
-                />
-            </Box>
+            {/* ******************************** If is logged ********************************** */}
+            {isLog === true && (
+                <Box
+                    className="c-profile-form__group"
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}
+                >
+                    <p className="c-profile-form__subtitle">Votre compte</p>
+                    <TextField
+                        className="c-profile-form__input"
+                        label="Ancien mot de passe"
+                        helperText= {errors.currentPassword?.message}
+                        error = {!!errors.currentPassword}
+                        type="password" {...register("currentPassword",{
+                            required: newPassword ? "L'ancien mot de passe est requis." : null,
+                        })}
+                    />
+                    <TextField
+                        className="c-profile-form__input"
+                        label="Nouveau mot de passe"
+                        helperText= {errors.newPassword?.message}
+                        error = {!!errors.newPassword}
+                        type="password" {...register("newPassword",{
+                            required: currentPassword ? "Le nouveau mot de passe est requis." : null,
+                            pattern: {
+                                value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
+                                message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
+                            }
+                        })}
+                    />
+
+                    {userError !== null && <p className="c-profile-form__error">{userError?.message}</p>}
+
+                </Box>
+            )}
+            {/* ****************************** End if is logged ******************************** */ }
             <Box
                 className="c-profile-form__group"
                 sx={{
@@ -80,11 +167,13 @@ function ProfileForm() {
                     flexDirection: 'column',
                 }}
             >
-                <p>Vous</p>
+                <p className="c-profile-form__subtitle">Vous</p>
                 <AvatarForm
+                    className="c-profile-form__avatar"
                     register={register}
                 />
                 <TextField
+                    className="c-profile-form__input"
                     label="Nom"
                     helperText= {errors.surname?.message}
                     error = {!!errors.surname}
@@ -97,6 +186,7 @@ function ProfileForm() {
                     })}
                 />
                 <TextField
+                    className="c-profile-form__input"
                     label="Prénom"
                     helperText= {errors.name?.message}
                     error = {!!errors.name}
@@ -116,9 +206,10 @@ function ProfileForm() {
                     flexDirection: 'column',
                 }}
             >
-                <p className="c-profile-form__textfield">Votre poste</p>
-                <p>Indiquez ici l’intitulé du poste que vous occupez au sein de l’organisation (p. ex. : graphiste, responsable markteting, etc.)</p>
+                <p className="c-profile-form__subtitle">Votre poste</p>
+                <p className="c-profile-form__textfield">Indiquez ici l’intitulé du poste que vous occupez au sein de l’organisation (p. ex. : graphiste, responsable markteting, etc.)</p>
                 <TextField
+                    className="c-profile-form__input"
                     label="Intitulé de poste"
                     helperText= {errors.job?.message}
                     error = {!!errors.job}
@@ -131,13 +222,14 @@ function ProfileForm() {
                     })}
                 />
             </Box>
-            <Button sx={{
-                mt:1,
-                mb:3
-            }}
-            className="c-profile-form__button"
-            variant="contained"
-            type="submit"
+            <Button
+                className="c-profile-form__button"
+                sx={{
+                    mt:1,
+                    mb:3
+                }}
+                variant="contained"
+                type="submit"
             >
                 Enregistrer
             </Button>
