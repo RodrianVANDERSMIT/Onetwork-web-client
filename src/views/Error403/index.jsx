@@ -8,7 +8,7 @@ function Error403({message = "Désolé, vous n'avez pas l'autorisation d'accéde
         <Error 
             code = {403}
             message = {message}
-            image = "../../../../public/sorcier403.jpg" 
+            image = "../../../../public/interdit403.jpg" 
         />       
     )
 }

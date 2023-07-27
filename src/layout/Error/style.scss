@@ -1,0 +1,38 @@
+@use '../../styles/settings/breakpoints' as b;
+@use '../../styles/settings/sizes' as s;
+
+
+
+.c-error{
+
+
+    display:flex;
+    justify-content: center;
+
+    &__content{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 10px;
+    }
+
+
+    &__content-info-id,
+    &__content-info-message{
+        
+        text-align: center;
+        
+    }
+
+    &__content-image{
+        text-align: center;
+        padding-top: 15px;
+            width:300px;
+
+
+        @media (min-width: b.$breakpoint-md) {
+            width:500px;
+        }
+    }
+}

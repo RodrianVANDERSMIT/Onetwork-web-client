@@ -18,17 +18,17 @@ const Error = ({code , message, image }) => {
 
     return (
         <SimplePageLayout>
-            <Box className="c-error" >
-                <Box className="c-error__content" > 
-                    <Box component="h3" className="c-error__id" >{code}</Box>
-                    <Box  className="c-error__message">{message}</Box>
-                    <Box className="c-error__image">
-                        <img 
-                            src={image} alt="error image"></img>
+            <Box className="c-error">
+                <Box className="c-error__content">
+                    <Box className="c-error__content-info">
+                        <Box className="c-error__content-info-id"  component="h3" >{code} </Box>
+                        <Box className="c-error__content-info-message">{message} </Box>
                     </Box>
+
+                    <img className="c-error__content-image" src={image} alt="error image" />
+                    
                 </Box>
             </Box>
-
         </SimplePageLayout>
     )
     
