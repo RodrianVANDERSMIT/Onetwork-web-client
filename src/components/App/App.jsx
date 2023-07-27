@@ -21,7 +21,6 @@ function App() {
 
     const isLog = useSelector(getIsLogged);
     const userRole = useSelector(getUserRole);
-    console.log(userRole)
 
     const ProtectedRoute = ({  children }) => {
         
