@@ -12,10 +12,13 @@ import { Box, Avatar, IconButton, Grid } from '@mui/material'
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 
 import './style.scss'
+import { useParams } from 'react-router-dom';
 
 function Feed() {
 // Recovery of logged-in user data
     const userLogged = useSelector(getUser);
+    const {organizationId} = useParams();
+    console.log (organizationId)
 
     const dispatch = useDispatch();
     dispatch(fetchFeeds())
