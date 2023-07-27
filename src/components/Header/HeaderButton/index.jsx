@@ -55,7 +55,7 @@ export default function HeaderButton() {
             
             
             {/*pour le bouton retour au flux d'activité si on est connecté sur desktop */}
-            {(isLog && (currentPath === '/about' || currentPath === `/${organizationId}/user/${userId}/edit`)) && (
+            {(isLog && (currentPath === '/about' || currentPath === `/${organizationId}/user/${userId}/edit`|| currentPath === '/error/403' )) && (
                 <BasicButton
                     sx={{ display: { xs: 'none', sm: 'block' } }}
                     className='c-button-header_btn'
@@ -77,7 +77,7 @@ export default function HeaderButton() {
                 />)}
                 
             {/*pour le bouton retour a l'acceuil si l'utilisateur n'est pas connecté */}
-            {(!isLog &&(currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about' )) && (
+            {(!isLog &&(currentPath === '/sign-up' || currentPath === '/new-organization' || currentPath === '/about' || currentPath === '/error/401' || currentPath === '/error/404' || currentPath === '/error/500' )) && (
                 <Button
                     className='c-button-header_btn'
                     variant='outlined'
