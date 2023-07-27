@@ -3,7 +3,7 @@ import Error from '../../layout/Error'
 
 
 
-function Error404({message = "Accès refusé : La page que vous recherchez est perdue dans l'espace."}){
+function Error404({message = "La page que vous recherchez est perdue dans l'espace."}){
 
     return (
         <Error 
