@@ -39,7 +39,7 @@ function App() {
         return children
     };
     const AdminRoute = ({ children }) => {
-        if (userRole.tag === "admin"){
+        if (userRole.tag !== "admin"){
             return <Navigate to="/error/403" replace/>
         }
         return children
