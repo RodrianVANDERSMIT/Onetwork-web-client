@@ -55,7 +55,7 @@ export default function HeaderButton() {
             
             
             {/*pour le bouton retour au flux d'activité si on est connecté sur desktop */}
-            {(isLog && (currentPath === '/about' || currentPath === `/${organizationId}/user/${userId}/edit`|| currentPath === '/error/403' )) && (
+            {(isLog && (currentPath === '/about' || currentPath === `/${organizationId}/user/${userId}/edit`|| currentPath === '/error/403' || currentPath === '/error/404' )) && (
                 <BasicButton
                     sx={{ display: { xs: 'none', sm: 'block' } }}
                     className='c-button-header_btn'

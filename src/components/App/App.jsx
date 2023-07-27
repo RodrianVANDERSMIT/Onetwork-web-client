@@ -24,15 +24,16 @@ function App() {
    
 
     const ProtectedRoute = ({  children }) => {
+
         const { organizationId } = useParams();
-        console.log(organizationId)
         const organizationIdIsValid = Number.isInteger(parseInt(organizationId))
-        console.log(organizationIdIsValid)
-        if (!isLog) {
-            return <Navigate to="/error/401" replace/>
-        }
+        
+       
         if (!organizationIdIsValid){
             return <Navigate to="/error/404" replace/>
+        }
+        if (!isLog) {
+            return <Navigate to="/error/401" replace/>
         }
         
         return children
