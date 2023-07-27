@@ -8,26 +8,33 @@ import ProfileSettings from '../../views/ProfileSettings'
 import Contact from '../../views/Contact'
 import SignUp from '../../views/SignUp'
 import ActivityFeed from '../../views/ActivityFeed'
-import {useDispatch, useSelector} from 'react-redux'
-import { getIsLogged } from '../../redux/selectors/user'
-import Error from '../../views/Error'
-import { setError } from '../../redux/reducers/user';
+import { useSelector} from 'react-redux'
+import { getIsLogged, getUserRole } from '../../redux/selectors/user'
+import Error401 from '../../views/Error401'
+import Error403 from '../../views/Error403'
+import Error404 from '../../views/Error404'
+import Error500 from '../../views/Error500'
+
 
 
 function App() {
 
-    const dispatch = useDispatch();
-    const isLog = useSelector(getIsLogged)
-    
-       
+    const isLog = useSelector(getIsLogged);
+    const userRole = useSelector(getUserRole);
+    console.log(userRole)
+
     const ProtectedRoute = ({  children }) => {
         
         if (!isLog) {
-            dispatch(setError({ id: 403, message: "Accès refusé : Vous devez être connecté pour accéder à cette page." }));
-            console.log("je navigue")
-            return <Navigate to="/error" replace />;
+            return <Navigate  to="/error/401" replace/>
         }
-        return children;
+        return children
+    };
+    const AdminRoute = ({ children }) => {
+        if (userRole.tag === "admin"){
+            return <Navigate to="/error/403" replace/>
+        }
+        return children
     };
     
     
@@ -37,7 +44,10 @@ function App() {
             <Route path="/new-organization" element={<OrganizationCreation />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/about" element={<Contact />} />
-            <Route path="/error" element={<Error />} />
+            <Route path="/error/401" element={<Error401 />} />
+            <Route path="/error/403" element={<Error403 />} />
+            <Route path="/error/404" element={<Error404 />} />
+            <Route path="/error/500" element={<Error500 />} />
             <Route
                 path={`/:organizationId`}
                 element={
@@ -67,19 +77,20 @@ function App() {
                 path={`/:organizationId/admin/members`}
                 element={
                     <ProtectedRoute >
-                        <Administration />
+                        <AdminRoute>
+                            <Administration />
+                        </AdminRoute>
                     </ProtectedRoute>
                 }
             />
             <Route 
                 path="/*" 
-                element={
-                    <ProtectedRoute>
-                        <Error />
-                    </ProtectedRoute> } />
-        </Routes>
+                element={ <Error404 />}
+            />
+        </Routes>  
     )
 }
+
 
 App.propTypes = {
     children: PropTypes.node,

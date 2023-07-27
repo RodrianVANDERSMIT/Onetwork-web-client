@@ -22,8 +22,8 @@ export default [
         password: 'Roro',
         job: 'Nurse',
         role: {
-            tag: 'member',
-            name: 'Membre',
+            tag: 'admintest',
+            name: 'Administrateur',
         },
         profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
         disabled: false,
