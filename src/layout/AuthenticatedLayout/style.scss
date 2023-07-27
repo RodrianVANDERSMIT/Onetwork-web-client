@@ -3,11 +3,12 @@
 @use '../../styles/settings/colors' as v;
 
 .c-main {
-    background-color: v.$secondary;
+    
 
     &__authenticated {
         min-height: 100vh;
         padding: s.$header-height-xs 0 s.$footer-height 0;
+        background-color: v.$secondary;
 
         @media (min-width: 600px) {
             padding: s.$header-height-sd 0 s.$footer-height 0;

@@ -3,7 +3,7 @@ import  users  from "../../data/AppUser"
 
 export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
     try { 
-        console.log(users)
+        
         const user = users.find(user => user.email === credentials.email && user.password === credentials.password);
 
         if (!user)

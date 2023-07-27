@@ -9,9 +9,9 @@ const SimplePageLayout = ({ children }) => {
         <Grid>
             <Box className="c-simple-page">
                 <Header />
-                    <Box className="c-simple-page__main" >
-                        {children}   
-                    </Box>
+                <Box className="c-simple-page__main" >
+                    {children}   
+                </Box>
                 <Footer />
             </Box>   
         </Grid>

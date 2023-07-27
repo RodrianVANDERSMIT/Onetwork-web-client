@@ -18,7 +18,7 @@ export default [
             disabled: true,
         },
         createdAt: '12-10-2015 18:27:09',
-        updatedAt: '29-12-2016 14:28:10',
+        updatedAt: '12-29-2016 14:28:10',
     },
     {
         id: 2,
@@ -38,8 +38,8 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/women/3.jpg',
             disabled: false,
         },
-        createdAt: '15-05-2022 11:29:58',
-        updatedAt: '21-11-2023 17:19:40',
+        createdAt: '05-15-2022 11:29:58',
+        updatedAt: '11-21-2023 17:19:40',
     },
     {
         id: 3,
@@ -59,8 +59,8 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
             disabled: true,
         },
-        createdAt: '11-01-2020 15:12:08',
-        updatedAt: '15-08-2022 21:18:54',
+        createdAt: '01-11-2020 15:12:08',
+        updatedAt: '08-15-2022 21:18:54',
     },
     {
         id: 4,
@@ -80,8 +80,8 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/men/0.jpg',
             disabled: true,
         },
-        createdAt: '12-09-2018 10:52:30',
-        updatedAt: '19-01-2019 01:28:55',
+        createdAt: '09-12-2018 10:52:30',
+        updatedAt: '01-19-2019 01:28:55',
     },
     {
         id: 5,
@@ -101,8 +101,8 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/women/3.jpg',
             disabled: false,
         },
-        createdAt: '14-02-2018 15:12:08',
-        updatedAt: '18-12-2018 17:19:40',
+        createdAt: '02-14-2018 15:12:08',
+        updatedAt: '12-18-2018 17:19:40',
     },
     {
         id: 6,
@@ -122,8 +122,8 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/men/0.jpg',
             disabled: true,
         },
-        createdAt: '18-04-2021 10:52:30',
-        updatedAt: '25-12-2022 21:18:54',
+        createdAt: '04-18-2021 10:52:30',
+        updatedAt: '12-25-2022 21:18:54',
     },
     {
         id: 7,

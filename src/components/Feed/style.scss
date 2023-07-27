@@ -1,14 +1,20 @@
-.c-container-news {
+@use '../../styles/settings/breakpoints' as b;
+
+.c-feed {
     max-width: 600px;
     margin: 0 auto;
 }
 
-.c-header-news {
+.c-feed-header {
     display: flex;
     flex-direction: column;
     text-align: center;
     gap: 1em;
-    padding: 1em 0;
+    padding: 1em 0.5em;
+
+    @media (min-width: b.$breakpoint-sm) {
+        padding: 1em 0  
+    }
 
     &__textarea {
         display: flex;

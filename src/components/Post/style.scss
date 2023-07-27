@@ -1,8 +1,17 @@
+@use '../../styles/settings/breakpoints' as b;
+@use '../../styles/settings/colors' as v;
+
 .c-counter {
     display: flex;
     justify-content: space-between;
 }
 
 .c-card-post {
-    padding: 0 3em;
+    padding: 0 0.5em;
+    margin-bottom: 1.5em;
+    border:1px solid v.$secondary;
+
+    @media (max-width: b.$breakpoint-sm) {
+        padding: 0  
+    }
 }
