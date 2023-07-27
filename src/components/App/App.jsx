@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate} from 'react-router-dom'
+import { Routes, Route, Navigate, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import UserProfile from "../../views/UserProfile"
 import Home from '../../views/Home'
@@ -21,12 +21,20 @@ function App() {
 
     const isLog = useSelector(getIsLogged);
     const userRole = useSelector(getUserRole);
+   
 
     const ProtectedRoute = ({  children }) => {
-        
+        const { organizationId } = useParams();
+        console.log(organizationId)
+        const organizationIdIsValid = Number.isInteger(parseInt(organizationId))
+        console.log(organizationIdIsValid)
         if (!isLog) {
-            return <Navigate  to="/error/401" replace/>
+            return <Navigate to="/error/401" replace/>
         }
+        if (!organizationIdIsValid){
+            return <Navigate to="/error/404" replace/>
+        }
+        
         return children
     };
     const AdminRoute = ({ children }) => {
