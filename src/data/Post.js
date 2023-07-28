@@ -4,7 +4,7 @@ export default [
         text: 'ipsum dolor, sit amet consectetur adipisicing elit. Suscipit nostrum nemo id natus totam provident et consequatur ea aut omnis atque impedit, magnam, delectus debitis eum modi quae mollitia nam? Ea illo ipsum incidunt natus iure veniam doloremque tempora architecto dignissimos officia voluptate, odio, iusto aut assumenda inventore molestiae asperiores?',
         reactions:[{
             author:{
-                userId: 5,
+                id: 5,
                 name: 'David',
                 surname: 'Brown',
                 job: 'Pilot',
@@ -39,7 +39,7 @@ export default [
         text: 'dolor sit amet consectetur adipisicing elit. Impedit non quia voluptates repellat sed ducimus facere ex corporis, iste id quidem inventore magnam a in odit reprehenderit quasi, dolor fugit iure quisquam repellendus eligendi voluptatum rerum aliquam. Vero, cumque architecto! Vero est distinctio non quisquam!',
         reactions:[{
             author:{
-                userId: 2,
+                id: 2,
                 name: 'Roro',
                 surname: 'roro',
                 job: 'Pilot',
@@ -54,7 +54,7 @@ export default [
         },
         {
             author:{
-                userId: 5,
+                id: 5,
                 name: 'jon',
                 surname: 'jon',
                 job: 'Pilot',
@@ -90,7 +90,7 @@ export default [
         text: 'ipsum dolor sit amet consectetur adipisicing elit. Sunt, nisi blanditiis. Excepturi, iure fuga optio, dolore ut labore voluptatum officiis, ea accusamus facere a quas. Ad iure dolorum animi, ipsa esse iusto aspernatur, at odio labore unde in incidunt placeat officia quod, dignissimos ea a. Eligendi nihil aspernatur officiis praesentium molestias. Porro excepturi dolore laboriosam.',
         reactions:[{
             author:{
-                userId: 2,
+                id: 2,
                 name: 'Roro',
                 surname: 'roro',
                 job: 'Pilot',
@@ -105,7 +105,7 @@ export default [
         },
         {
             author:{
-                userId: 5,
+                id: 5,
                 name: 'jon',
                 surname: 'jon',
                 job: 'Pilot',
@@ -119,7 +119,7 @@ export default [
             updatedAt: '12-29-2016 14:28:10',
         },{
             author:{
-                userId: 10,
+                id: 10,
                 name: 'pierre',
                 surname: 'pierre',
                 job: 'Pilot',
@@ -175,7 +175,7 @@ export default [
         text: 'consectetur adipisicing elit. Culpa incidunt delectus assumenda, quidem similique voluptatum cupiditate dolorum ducimus qui tempora quod voluptate maxime dolorem, veritatis blanditiis quisquam commodi earum. Cum inventore ducimus unde saepe distinctio. Earum culpa explicabo quis mollitia, minus qui odio, obcaecati possimus voluptatibus repudiandae facere dolores optio, ipsa omnis!',
         reactions:[{
             author:{
-                userId: 5,
+                id: 5,
                 name: 'David',
                 surname: 'Brown',
                 job: 'Pilot',
@@ -210,7 +210,7 @@ export default [
         text: 'ipsum Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, doloribus.Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, doloribus.Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, doloribus.Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, doloribus.',
         reactions:[{
             author:{
-                userId: 5,
+                id: 5,
                 name: 'David',
                 surname: 'Brown',
                 job: 'Pilot',
