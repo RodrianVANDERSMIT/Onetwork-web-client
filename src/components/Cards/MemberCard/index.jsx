@@ -1,26 +1,28 @@
-import {Avatar, Box, Button, Typography} from '@mui/material';
+import PropTypes from 'prop-types';
+import {Avatar, Box, Button, Typography, Paper} from '@mui/material';
 import { useForm } from "react-hook-form";
 // import { useDispatch } from 'react-redux';
 import './style.scss'
 
-function MemberCard () {
+function MemberCard ({name, surname, job, profilePicture}) {
     console.log('carte de membre du club des winners')
 
     // const dispatch = useDispatch();
 
     const {
-        // register, // TODO Inutile en theorie
+        // register, // TODO
         handleSubmit,
-        formState: { errors }  // TODO a voir si on affiche une erreur
+        // formState: { errors }  // TODO a voir si on affiche une erreur
     } = useForm();
 
     const onSubmit = (data) => {console.log(data)}
 
     return (
-        <Box
+        <Paper
             className="c-member-card__group"
             component="form"
             noValidate
+            elevation={3}
             sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -39,7 +41,7 @@ function MemberCard () {
             >
                 <Avatar
                     className="c-member-card__avatar"
-                    src="https://randomuser.me/api/portraits/women/33.jpg"
+                    src={profilePicture}
                     sx={{
                         width: 80,
                         height: 80,
@@ -58,13 +60,13 @@ function MemberCard () {
                         variant="body1"
                         sx={{mb:0.5}}
                     >
-                        Prénom Nom
+                        {name} {surname}
                     </Typography>
                     <Typography
                         className="c-member-card__job"
                         variant="body1"
                     >
-                        job
+                        {job}
                     </Typography>
                 </Box>
             </Box>
@@ -76,8 +78,15 @@ function MemberCard () {
             >
                 Bloquer
             </Button>
-        </Box>
+        </Paper>
     )
 }
+
+MemberCard.propTypes = {
+    name: PropTypes.string,
+    surname: PropTypes.string,
+    job: PropTypes.string,
+    profilePicture: PropTypes.string
+};
 
 export default MemberCard

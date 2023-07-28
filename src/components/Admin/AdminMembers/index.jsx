@@ -1,10 +1,17 @@
-import {Box, Grid, Typography} from '@mui/material';
 import InvitForm from '../../Forms/InvitForm';
 import MemberCard from '../../Cards/MemberCard';
+import {Box, Grid, Typography} from '@mui/material';
+import { useSelector } from 'react-redux';
+import { getUserOrganizationId } from '../../../redux/selectors/user';
+import users from '../../../data/AppUser' // TODO delete when connected to the API
 
 import './style.scss'
 
+
 function AdminMembers () {
+
+    const organizationId = useSelector(getUserOrganizationId)
+    const allOrganizationMembers = users.filter(user => user.organizationId === organizationId && user.role.tag !== 'admin')
     return (
         <Box
             className="c-admin-members__group"
@@ -50,15 +57,11 @@ function AdminMembers () {
                     className="c-admin-members__cards"
                     container spacing={2}
                 >
-                    <Grid item xs={12} lg={6} >
-                        <MemberCard/>
-                    </Grid>
-                    <Grid item xs={12} lg={6} >
-                        <MemberCard/>
-                    </Grid>
-                    <Grid item xs={12} lg={6} >
-                        <MemberCard/>
-                    </Grid>
+                    {allOrganizationMembers.map(organizationMember => (
+                        <Grid key={organizationMember.id} item xs={12} lg={6} >
+                            <MemberCard {...organizationMember}/>
+                        </Grid>
+                    ))}
                 </Grid>
             </Box>
         </Box>
