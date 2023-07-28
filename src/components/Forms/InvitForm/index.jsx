@@ -1,6 +1,4 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Box, Button, TextField, Typography } from '@mui/material';
 // import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import './style.scss'
@@ -28,10 +26,20 @@ function InvitForm() {
                 width: '100%',
                 marginLeft: 'auto',
                 marginRight: 'auto',
+                mb: 2
             }}
             onSubmit={handleSubmit(onSubmit)}
         >
-            <p className="c-invit-form__text">Inviter un nouveau membre par email</p>
+            <Typography
+                className="c-invit-form__invit"
+                variant="body1"
+                sx={{
+                    mt:2,
+                    mb:1
+                }}
+            >
+                Inviter un nouveau membre par email
+            </Typography>
             <Box
                 className="c-invit-form__content"
             >

@@ -1,32 +1,65 @@
-import Box from '@mui/material/Box';
+import {Box, Grid, Typography} from '@mui/material';
 import InvitForm from '../../Forms/InvitForm';
+import MemberCard from '../../Cards/MemberCard';
 
 import './style.scss'
 
 function AdminMembers () {
-    console.log('Administration des membres')
     return (
         <Box
             className="c-admin-members__group"
             sx={{
-                // maxWidth: '900px',
+                maxWidth: 900,
                 width: '100%',
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 px:'10px'
             }}
         >
-            <h1 className="c-admin-members__title">Administration</h1>
-            <Box
-                className="c-admin-members__invit"
+            <Typography
+                className="c-admin-members__title"
+                component="h1"
+                variant="h3"
+                sx={{mt:3}}
             >
-                <h2 className="c-admin-members__title">Gestion des membres</h2>
-                <InvitForm/>
-            </Box>
-            <Box
-                className="c-admin-members__cards"
+                Administration
+            </Typography>
+            <Typography
+                className="c-admin-members__subtitle"
+                component="h2"
+                variant="h4"
+                sx={{mt:2}}
             >
-                <p className="c-admin-members__text">Ici toutes les members cards</p>
+                Gestion des membres
+            </Typography>
+            <Box
+                className="c-admin-members__container"
+                sx={{
+                    width: '100%',
+                }}
+            >
+                <Box
+                    className="c-admin-members__invit"
+                    sx={{
+                        width: '100%',
+                    }}
+                >
+                    <InvitForm/>
+                </Box>
+                <Grid
+                    className="c-admin-members__cards"
+                    container spacing={2}
+                >
+                    <Grid item xs={12} lg={6} >
+                        <MemberCard/>
+                    </Grid>
+                    <Grid item xs={12} lg={6} >
+                        <MemberCard/>
+                    </Grid>
+                    <Grid item xs={12} lg={6} >
+                        <MemberCard/>
+                    </Grid>
+                </Grid>
             </Box>
         </Box>
     )
