@@ -8,8 +8,6 @@ import Button from '@mui/material/Button';
 
 function ReactionButton(postId) {
 
-    console.log(postId)
-
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (event) => {
