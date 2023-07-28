@@ -25,3 +25,37 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
         throw new Error( "Une erreur s'est produite");
     }
 })
+
+export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
+    
+    
+    try {
+        const exist = posts.some(({id}) => id ===postId)  
+        
+        if (!exist) {
+            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        } 
+
+        const  newReaction = {
+            
+            author:{
+                id: 2,
+                name: 'Roro',
+                surname: 'Roro',
+                job: 'Pilot',
+                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
+            },
+            type:{
+                tag: `${reaction}`,
+                name: `${reaction}`,
+            },
+        };
+       
+        return {newReaction, postId}
+        
+    }
+    catch (error) {
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la création de l'organisation." });  
+    }
+})
+

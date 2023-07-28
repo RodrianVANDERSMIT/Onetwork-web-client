@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPosts, fetchComments } from '../thunks/feed'
+import { fetchPosts, fetchComments, addReaction } from '../thunks/feed'
 
 
 
@@ -32,6 +32,12 @@ const slice = createSlice({
              
             .addCase(fetchComments.rejected, (state,action) => {
                 state.error = action.payload
+            })
+
+            .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction }}) => {
+                const post = state.posts.find(post => post.id === postId)
+                post.reactions.push(newReaction)
+                
             })
 
             
