@@ -16,6 +16,8 @@ import Comment from '../Comment';
 import moment from 'moment'
 import './style.scss'
 
+import ReactionButton from '../Buttons/ReactionButton'
+
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -82,11 +84,7 @@ function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
             </CardContent>
             <Divider/>
             <CardActions className="c-post-card-action"  disableSpacing>
-                <BasicButton 
-                    className='c-btn footer' 
-                    variant="outlined" 
-                    name="J'aime"
-                /> 
+                <ReactionButton/>
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
