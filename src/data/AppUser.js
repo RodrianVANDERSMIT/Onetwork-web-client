@@ -22,7 +22,7 @@ export default [
         password: 'Roro',
         job: 'Nurse',
         role: {
-            tag: 'admintest',
+            tag: 'admin',
             name: 'Administrateur',
         },
         profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
