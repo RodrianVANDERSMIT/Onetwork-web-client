@@ -30,7 +30,8 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
+function Post({id, author,text,reactions,commentsCount,createdAt}) {
+    console.log(reactions)
 
     //Date and time reformatting
     const date = moment(createdAt).format('DD/MM/YYYY');
@@ -76,7 +77,7 @@ function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
             <Divider/>
             <CardContent className='c-counter'>
                 <Typography variant="body2" color="text.secondary">
-                    {reactionsCount}{" réactions"}
+                    {reactions.length}{" réactions"}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {commentsCount}{" commentaires"}
@@ -84,7 +85,9 @@ function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
             </CardContent>
             <Divider/>
             <CardActions className="c-post-card-action"  disableSpacing>
-                <ReactionButton/>
+                <ReactionButton
+                    postId={id}   
+                />
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
@@ -122,7 +125,21 @@ Post.propTypes = {
     id: PropTypes.number,
     author: PropTypes.object,
     text: PropTypes.string,
-    reactionsCount: PropTypes.number,
+    reactions: PropTypes.arrayOf(PropTypes.shape({
+        author: PropTypes.shape({
+            userId: PropTypes.number,
+            name: PropTypes.string,
+            surname: PropTypes.string,
+            job: PropTypes.string,
+            profilePicture: PropTypes.string,
+        }),
+        type: PropTypes.shape({
+            tag: PropTypes.string,
+            name: PropTypes.string,
+        }),
+        createdAt: PropTypes.string,
+        updatedAt: PropTypes.string,
+    })),
     commentsCount: PropTypes.number,
     createdAt: PropTypes.string,   
 };

@@ -20,7 +20,7 @@ function Feed() {
     console.log(organizationName)
     // fetch all posts    
     const posts = useSelector(getPosts);
-
+    console.log(posts)
     const dispatch = useDispatch();
     
     useEffect(()=>{        

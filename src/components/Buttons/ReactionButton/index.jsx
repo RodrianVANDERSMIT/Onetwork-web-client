@@ -5,9 +5,10 @@ import Button from '@mui/material/Button';
 
 
 
-function ReactionButton() {
 
-    
+function ReactionButton(postId) {
+
+    console.log(postId)
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -40,7 +41,26 @@ function ReactionButton() {
                     horizontal: 'left',
                 }}
             >
-                <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+                <Typography sx={{ p: 2 }}>
+                    <Button onClick={() => console.log('Button like clicked')}>
+                        <img src="../../../../public/emoji/emoji-like.png" alt="Emoji like" />
+                    </Button>
+                    <Button onClick={() => console.log('Button love clicked')}>
+                        <img src="../../../../public/emoji/emoji-love.png" alt="Emoji love" />
+                    </Button>
+                    <Button onClick={() => console.log('Button haha clicked')}>
+                        <img src="../../../../public/emoji/emoji-haha.png" alt="Emoji haha" />
+                    </Button>
+                    <Button onClick={() => console.log('Button chock clicked')}>
+                        <img src="../../../../public/emoji/emoji-cry.png" alt="Emoji cry" />
+                    </Button>
+                    <Button onClick={() => console.log('Button chock clicked')}>
+                        <img src="../../../../public/emoji/emoji-chock.png" alt="Emoji chock" />
+                    </Button>
+                    <Button onClick={() => console.log('Button angry')}>
+                        <img src="../../../../public/emoji/emoji-angry.png" alt="Emoji angry" />
+                    </Button>
+                </Typography>
             </Popover>
         </div>
     );
