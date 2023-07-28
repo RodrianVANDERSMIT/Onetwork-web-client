@@ -1,17 +1,16 @@
 import PropTypes from "prop-types"
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getUser } from '../../redux/selectors/user'
 import { getPostComments } from '../../redux/selectors/feed'
 import { fetchComments } from '../../redux/thunks/feed';
+import { getUser } from '../../redux/selectors/user'
 
 import { Card, CardActions, CardHeader, CardContent } from '@mui/material';
-import { Box, Grid, Typography, Button, Divider } from '@mui/material'
-import {Avatar, Collapse, List} from '@mui/material';
+import { Grid, Typography, Button, Divider } from '@mui/material'
+import {Avatar, Collapse, List, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
-
-import BasicButton from '../Buttons/BasicButton';
 import FormComment from '../Forms/CommentForm';
+import BasicButton from '../Buttons/BasicButton';
 import Comment from '../Comment';
 
 import moment from 'moment'
@@ -63,7 +62,7 @@ function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
                 avatar={
                     <Avatar className="c-avatar" alt="Remy Sharp" src={author.profilePicture} />
                 }       
-                title={`${author.name}  ${author.surname}  ${date} à ${time}`}
+                title={`${author.name}  ${author.surname} - ${date} à ${time}`}
                 subheader={author.job}
             />
             <Divider/>
@@ -82,7 +81,7 @@ function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
                 </Typography>
             </CardContent>
             <Divider/>
-            <CardActions disableSpacing>
+            <CardActions className="c-post-card-action"  disableSpacing>
                 <BasicButton 
                     className='c-btn footer' 
                     variant="outlined" 
@@ -100,7 +99,7 @@ function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
+                <CardContent className="c-post-card-content">
                     <List>
                         {comments?.map(comment => (   
                             <Grid key={comment.id}>
@@ -109,15 +108,14 @@ function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
                         ))} 
                         
                     </List>
-                                                    
+                    <Box className="c-feed-header">
+                        <Box className="c-feed-header__textarea" >
+                            <Avatar className="c-avatar" alt="Remy Sharp" src={userLogged.profilePicture} />
+                            <FormComment/>
+                        </Box>
+                    </Box>                                
                 </CardContent>
             </Collapse>
-            <Box className="c-feed-header">
-                <Box className="c-feed-header__textarea" >
-                    <Avatar className="c-avatar" alt="Remy Sharp" src={userLogged.profilePicture} />
-                    <FormComment/>
-                </Box>
-            </Box>
         </Card>
     )   
 }

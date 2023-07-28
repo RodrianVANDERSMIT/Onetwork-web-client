@@ -6,18 +6,19 @@ import { fetchPosts } from '../../redux/thunks/feed';
 
 import { Box, Avatar, Grid } from '@mui/material'
 import {  Typography } from '@mui/material'
-
+import { getOrganizationName } from '../../redux/selectors/organization'
 import PostForm from '../Forms/PostForm';
 import Post from '../Post'
 import './style.scss'
 
 function Feed() {
 
-    // Recovery of logged-in user data
+    // Fetch of logged-in user data
     const userLogged = useSelector(getUser);
     
-    
-    // Recovery all posts    
+    const organizationName = useSelector(getOrganizationName);
+    console.log(organizationName)
+    // fetch all posts    
     const posts = useSelector(getPosts);
 
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function Feed() {
         <Box className="c-feed" >
             <Box className="c-feed-header">
                 <Typography variant="h5" >
-                    {"Nom de l'organisation"}
+                    {organizationName}
                 </Typography>
                 <Box className="c-feed-header__textarea" >
                     <Avatar 

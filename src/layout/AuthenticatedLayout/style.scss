@@ -1,6 +1,6 @@
 @use '../../styles/settings/breakpoints' as b;
 @use '../../styles/settings/sizes' as s;
-@use '../../styles/settings/colors' as v;
+@use '../../styles/settings/colors' as c;
 
 .c-main {
     
@@ -8,7 +8,7 @@
     &__authenticated {
         min-height: 100vh;
         padding: s.$header-height-xs 0 s.$footer-height 0;
-        background-color: v.$secondary;
+        background-color: c.$secondary;
 
         @media (min-width: 600px) {
             padding: s.$header-height-sd 0 s.$footer-height 0;

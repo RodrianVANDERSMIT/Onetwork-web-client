@@ -1,0 +1,11 @@
+@use '../../styles/settings/colors' as c;
+
+.c-comment-list {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    &_paper {
+        padding: 0.5em;
+        background-color: c.$secondary !important;
+    }
+}

@@ -1,29 +1,41 @@
-import { ListItem, ListItemText, ListItemAvatar } from '@mui/material';
-import { Avatar, Typography } from '@mui/material';
+import PropTypes from "prop-types"
+import moment from 'moment'
+
+import { ListItem, ListItemAvatar, Paper } from '@mui/material';
+import { Avatar, Typography, } from '@mui/material';
 import './style.scss'
 
-function Comment() {
-    
+
+function Comment({ author,text,createdAt}) {
+
+    //Date and time reformatting
+    const date = moment(createdAt).format('DD/MM/YYYY');
+    const time = moment(createdAt).format('HH[h]mm')
+   
     return (
-        <ListItem alignItems="flex-start">
+        <ListItem className="c-comment-list" alignItems="flex-start">
             <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                <Avatar alt="Remy Sharp" src={author.profilePicture} />
             </ListItemAvatar>
-            <ListItemText
-                primary="Ali Connors"
-                secondary={
-                    <Typography
-                        sx={{ display: 'inline' }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                    >
-                        {"— I'll be in your neighborhood in your neighborhood doing errands in your neighborhood doing errands doing errands in your neighborhood doing errands in your neighborhood doing errands this…"}
-                    </Typography>
-                }
-            />
+            <Paper className="c-comment-list_paper" >
+                <Typography variant="body2">
+                    {`${author.name}  ${author.surname} - ${date} à ${time}`}
+                </Typography>
+                <Typography variant="body2">
+                    {author.job}
+                </Typography>
+                <Typography variant="body1" mt={2}>
+                    {text}
+                </Typography>
+            </Paper>
         </ListItem>
     )
 }
+
+Comment.propTypes = {
+    author: PropTypes.object,
+    text: PropTypes.string,
+    createdAt: PropTypes.string,   
+};
 
 export default Comment
