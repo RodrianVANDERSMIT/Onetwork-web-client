@@ -1,27 +1,20 @@
+import PropTypes from "prop-types"
 import { useState } from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getPostComments } from '../../redux/selectors/feed'
+import { fetchComments } from '../../redux/thunks/feed';
 import { getUser } from '../../redux/selectors/user'
 
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import Avatar from '@mui/material/Avatar';
-import Collapse from '@mui/material/Collapse';
-import CardContent from '@mui/material/CardContent';
-import { CardActions, Divider } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Card, CardActions, CardHeader, CardContent } from '@mui/material';
+import { Grid, Typography, Button, Divider } from '@mui/material'
+import {Avatar, Collapse, List, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
-
-import Button from '@mui/material/Button';
-import { Paper, InputBase } from '@mui/material'
-import { Box, IconButton } from '@mui/material'
-import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
-import './style.scss'
+import FormComment from '../Forms/CommentForm';
 import BasicButton from '../Buttons/BasicButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import Comment from '../Comment';
 
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
+import moment from 'moment'
+import './style.scss'
 
 
 const ExpandMore = styled((props) => {
@@ -35,29 +28,47 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-function Post({id,author,text,reactionsCount,commentsCount}) {
-    
+function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
+
+    //Date and time reformatting
+    const date = moment(createdAt).format('DD/MM/YYYY');
+    const time = moment(createdAt).format('HH[h]mm')
+
+    // fetch of logged-in user data
     const userLogged = useSelector(getUser)
 
+    // expanding list of post comments
     const [expanded, setExpanded] = useState(false);
 
+    const dispatch = useDispatch();
+
+    // fetch all comments by post    
+    const comments = useSelector(getPostComments(id));
+
     const handleExpandClick = () => {
+        if (!comments) {
+            dispatch(fetchComments(id));
+        }
+
         setExpanded(!expanded);
     };
 
     return (
-        <Card className='c-card-post'>
+        <Card 
+            sx = {{ borderRadius: { sm: 0 ,md: 3}}}
+            className='c-card-post'
+        >
             <CardHeader
                 avatar={
                     <Avatar className="c-avatar" alt="Remy Sharp" src={author.profilePicture} />
                 }       
-                title={author.surname}
-                subheader={author.name}
+                title={`${author.name}  ${author.surname} - ${date} à ${time}`}
+                subheader={author.job}
             />
             <Divider/>
             <CardContent>
                 <Typography variant="body1" >
-                                {text}
+                    {text}
                 </Typography>
             </CardContent>
             <Divider/>
@@ -70,7 +81,7 @@ function Post({id,author,text,reactionsCount,commentsCount}) {
                 </Typography>
             </CardContent>
             <Divider/>
-            <CardActions disableSpacing>
+            <CardActions className="c-post-card-action"  disableSpacing>
                 <BasicButton 
                     className='c-btn footer' 
                     variant="outlined" 
@@ -88,104 +99,34 @@ function Post({id,author,text,reactionsCount,commentsCount}) {
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
+                <CardContent className="c-post-card-content">
                     <List>
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="Ali Connors"
-                                secondary={
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                        {"— I'll be in your neighborhood in your neighborhood doing errands in your neighborhood doing errands doing errands in your neighborhood doing errands in your neighborhood doing errands this…"}
-                                    </Typography>
-                                }
-                            />
-                        </ListItem>
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="Ali Connors"
-                                secondary={
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                        {"— I'll be in your neighborhood in your neighborhood doing errands in your neighborhood doing errands doing errands in your neighborhood doing errands in your neighborhood doing errands this…"}
-                                    </Typography>
-                                }
-                            />
-                        </ListItem>
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="Ali Connors"
-                                secondary={
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                        {"— I'll be in your neighborhood in your neighborhood doing errands in your neighborhood doing errands doing errands in your neighborhood doing errands in your neighborhood doing errands this…"}
-                                    </Typography>
-                                }
-                            />
-                        </ListItem>
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="Ali Connors"
-                                secondary={
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                        {"— I'll be in your neighborhood in your neighborhood doing errands in your neighborhood doing errands doing errands in your neighborhood doing errands in your neighborhood doing errands this…"}
-                                    </Typography>
-                                }
-                            />
-                        </ListItem>
+                        {comments?.map(comment => (   
+                            <Grid key={comment.id}>
+                                <Comment {...comment}/>
+                            </Grid>
+                        ))} 
+                        
                     </List>
-                                                    
+                    <Box className="c-feed-header">
+                        <Box className="c-feed-header__textarea" >
+                            <Avatar className="c-avatar" alt="Remy Sharp" src={userLogged.profilePicture} />
+                            <FormComment/>
+                        </Box>
+                    </Box>                                
                 </CardContent>
             </Collapse>
-            <Box className="c-header-news">
-                <Box className="c-header-news__textarea" >
-                    <Avatar className="c-avatar" alt="Remy Sharp" src={userLogged.profilePicture} />
-                    <Paper
-                        component="form"
-                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400,marginLeft: '1em' }}
-                    >
-                        <InputBase
-                            sx={{ ml: 1, flex: 1 }}
-                            placeholder="Commenter..."
-                            multiline
-                        />
-                        <IconButton type="button" sx={{ p: '10px' }} >
-                            <HistoryEduIcon />
-                        </IconButton>
-                    </Paper>
-                </Box>
-            </Box>
         </Card>
     )   
 }
+
+Post.propTypes = {
+    id: PropTypes.number,
+    author: PropTypes.object,
+    text: PropTypes.string,
+    reactionsCount: PropTypes.number,
+    commentsCount: PropTypes.number,
+    createdAt: PropTypes.string,   
+};
 
 export default Post
