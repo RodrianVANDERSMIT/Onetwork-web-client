@@ -1,7 +1,5 @@
 import AvatarForm from "../AvatarForm";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { addUser, updateUser } from '../../../redux/reducers/user'
 import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
 import { useDispatch, useSelector } from 'react-redux';
@@ -81,7 +79,14 @@ function ProfileForm() {
             onSubmit={handleSubmit(onSubmit)}
         >
             {/* ****************************** If is notLogged ******************************** */}
-            <h3 className="c-profile-form__title">{title(isLog)}</h3>
+            <Typography
+                className="c-profile-form__title"
+                component="h1"
+                variant="h4"
+                sx={{my:2}}
+            >
+                {title(isLog)}
+            </Typography>
             {isLog === false && (
                 <Box
                     className="c-profile-form__group"
@@ -90,7 +95,14 @@ function ProfileForm() {
                         flexDirection: 'column'
                     }}
                 >
-                    <p className="c-profile-form__subtitle">Votre compte</p>
+                    <Typography
+                        className="c-profile-form__subtitle"
+                        component="body1"
+                        variant="h6"
+                        sx={{mb:1}}
+                    >
+                        Votre compte
+                    </Typography>
                     <TextField 
                         className="c-profile-form__input"
                         label="Email"
@@ -131,7 +143,14 @@ function ProfileForm() {
                         flexDirection: 'column'
                     }}
                 >
-                    <p className="c-profile-form__subtitle">Votre compte</p>
+                    <Typography
+                        className="c-profile-form__subtitle"
+                        component="body1"
+                        variant="h6"
+                        sx={{mb:1}}
+                    >
+                        Votre compte
+                    </Typography>
                     <TextField
                         className="c-profile-form__input"
                         label="Ancien mot de passe"
@@ -167,7 +186,14 @@ function ProfileForm() {
                     flexDirection: 'column',
                 }}
             >
-                <p className="c-profile-form__subtitle">Vous</p>
+                <Typography
+                    className="c-profile-form__subtitle"
+                    component="body1"
+                    variant="h6"
+                    sx={{mb:1}}
+                >
+                    Vous
+                </Typography>
                 <AvatarForm
                     className="c-profile-form__avatar"
                     register={register}
@@ -206,8 +232,21 @@ function ProfileForm() {
                     flexDirection: 'column',
                 }}
             >
-                <p className="c-profile-form__subtitle">Votre poste</p>
-                <p className="c-profile-form__textfield">Indiquez ici l’intitulé du poste que vous occupez au sein de l’organisation (p. ex. : graphiste, responsable markteting, etc.)</p>
+                <Typography
+                    className="c-profile-form__subtitle"
+                    component="body1"
+                    variant="h6"
+                    sx={{mb:1}}
+                >
+                    Votre poste
+                </Typography>
+                <Typography
+                    className="c-profile-form__textfield"
+                    component="body1"
+                    sx={{mb:2}}
+                >
+                    Indiquez ici l’intitulé du poste que vous occupez au sein de l’organisation (p. ex. : graphiste, responsable markteting, etc.)
+                </Typography>
                 <TextField
                     className="c-profile-form__input"
                     label="Intitulé de poste"
