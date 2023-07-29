@@ -48,7 +48,7 @@ export const addNewPost = createAsyncThunk("feed/addNewPost", async (text, thunk
         const newPost = {
             id: newId,
             text: text,
-            reactionsCount: 0,
+            reactions:[],
             commentsCount: 0,
             author: {
                 id: userLogged.id,
