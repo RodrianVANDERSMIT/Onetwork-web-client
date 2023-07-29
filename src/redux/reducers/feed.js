@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPosts, fetchComments,addNewPost addReaction, updateReaction, removeReaction } from '../thunks/feed'
+import { fetchPosts, fetchComments,addNewPost, addReaction, updateReaction, removeReaction } from '../thunks/feed'
 
 
 
@@ -67,7 +67,7 @@ const slice = createSlice({
             })
             .addCase(removeReaction.rejected, (state,action) => {
                 state.error = action.payload
-            });
+            })
             
             .addCase(addNewPost.fulfilled, (state, action) => {
                 state.posts.unshift(action.payload)
