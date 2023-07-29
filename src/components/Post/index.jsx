@@ -76,9 +76,9 @@ function Post({id, author,text,commentsCount,createdAt}) {
             </CardContent>
             <Divider/>
             <CardContent className='c-counter'>
-                <Typography variant="body2" color="text.secondary">
+                <Box >
                     <PostReaction postId={id} />
-                </Typography>
+                </Box>
                 <Typography variant="body2" color="text.secondary">
                     {commentsCount}{" commentaires"}
                 </Typography>

@@ -33,9 +33,9 @@ function PostReaction({postId}) {
         <div className="c-reaction-post">
             <Button onClick={handleClick} className ="c-reaction-post__button" sx={{ p: 0  }}>
                 {postReactions.length === 0 ? (
-                    <Box>
+                    <Typography variant="body2" color="text.secondary">
                         {postReactions.length} réactions 
-                    </Box>
+                    </Typography>
                 ) : (
                     <>
                         {tagExists(postReactions, 'like') && (
@@ -69,9 +69,9 @@ function PostReaction({postId}) {
                     horizontal: 'left',
                 }}
             >
-                <Typography className ="c-reaction-post__info" sx={{ p: 2 }}>
+                <Box className ="c-reaction-post__info" sx={{ p: 2 }}>
                     {postReactions.map((reaction) => (
-                        <Box className ="c-reaction-post__info-emoji" key={reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
+                        <Box className ="c-reaction-post__info-emoji" key={postId+ reaction.author.name + reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
                             <img src={`/public/emoji/emoji-${reaction.type.tag}.png`}/>
                             <Box className ="c-reaction-post__info-container-picture" sx={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden', marginRight: '8px' }}>
                                 <img className ="c-reaction-post__info-picture"
@@ -80,12 +80,14 @@ function PostReaction({postId}) {
                                     
                                 />
                             </Box>
-                            <Typography className ="c-reaction-post__info-user" variant="body2">{`${reaction.author.name} ${reaction.author.surname}`}</Typography>
+                            <Typography 
+                                className ="c-reaction-post__info-user" variant="body2">{`${reaction.author.name} ${reaction.author.surname}`}
+                            </Typography>
                             
                             
                         </Box>
                     ))}
-                </Typography>
+                </Box>
             </Popover>
         </div>
     )
