@@ -5,7 +5,7 @@ import  { useEffect } from 'react'
 
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
-import BasicCard from '../../components/BasicCard'
+import UserCard from "../../components/Cards/UserCard"
 import { getIsLogged, getUserId, getUserOrganizationId } from "../../redux/selectors/user"
 import {logout}  from "../../redux/reducers/user"
 
@@ -75,7 +75,7 @@ function AuthenticatedLayout({children}) {
                     <Box sx={{ overflow: 'auto' }}>
                         <List>
                             <Box className='c-box-avatar'>
-                                <BasicCard className="c-card__column"/>
+                                <UserCard/>
                             </Box>
                             <Divider/>
                             {data.map(({text, index, route}) => (
