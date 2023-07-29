@@ -11,13 +11,14 @@ import {Avatar, Collapse, List, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import FormComment from '../Forms/CommentForm';
 import BasicButton from '../Buttons/BasicButton';
+
 import Comment from '../Comment';
 
 import moment from 'moment'
 import './style.scss'
 
 import ReactionButton from '../Buttons/ReactionButton'
-
+import PostReaction from '../PostReaction'
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -30,7 +31,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-function Post({id, author,text,reactions,commentsCount,createdAt}) {
+function Post({id, author,text,commentsCount,createdAt}) {
 
     //Date and time reformatting
     const date = moment(createdAt).format('DD/MM/YYYY');
@@ -76,7 +77,7 @@ function Post({id, author,text,reactions,commentsCount,createdAt}) {
             <Divider/>
             <CardContent className='c-counter'>
                 <Typography variant="body2" color="text.secondary">
-                    {reactions.length}{" réactions"}
+                    <PostReaction postId={id} />
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {commentsCount}{" commentaires"}
