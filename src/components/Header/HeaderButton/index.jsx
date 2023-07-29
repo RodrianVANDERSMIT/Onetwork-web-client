@@ -14,7 +14,7 @@ import { Box, Divider } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Menu, MenuItem} from '@mui/material'
-import BasicCard from '../../BasicCard'
+import UserCard from "../../Cards/UserCard"
 
 import './style.scss'
 
@@ -124,7 +124,7 @@ export default function HeaderButton() {
                 }}
             >
                 <Box className='c-box-avatar' >
-                    <BasicCard className="c-card__column"/>
+                    <UserCard/>
                 </Box>
                 <Divider/>
                 <MenuItem component={Link} to={`/${organizationId}`}

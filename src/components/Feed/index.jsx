@@ -17,7 +17,7 @@ function Feed() {
     const userLogged = useSelector(getUser);
     
     const organizationName = useSelector(getOrganizationName);
-    console.log(organizationName)
+    
     // fetch all posts    
     const posts = useSelector(getPosts);
 
