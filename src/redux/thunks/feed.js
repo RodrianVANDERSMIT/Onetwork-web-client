@@ -78,6 +78,7 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
     
     
     try {
+        const posts = thunkApi.getState().feed.posts
         const exist = posts.some(({id}) => id ===postId)  
         
         if (!exist) {
@@ -111,7 +112,7 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 
 export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction}, thunkApi) => {
 
-    try {
+    try {const posts = thunkApi.getState().feed.posts
         const exist = posts.some(({id}) => id ===postId)  
         
         if (!exist) {
@@ -144,7 +145,7 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
 
 export const removeReaction = createAsyncThunk("post/removeReaction", async ({postId, reaction}, thunkApi) => {
 
-    try {
+    try {const posts = thunkApi.getState().feed.posts
         const exist = posts.some(({id}) => id ===postId)  
         
         if (!exist) {
