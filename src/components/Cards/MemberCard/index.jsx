@@ -1,21 +1,27 @@
 import PropTypes from 'prop-types';
 import {Avatar, Box, Button, Typography, Paper} from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-// import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { updateMemberStatus } from '../../../redux/thunks/members'
 import './style.scss'
 
-function MemberCard ({name, surname, job, profilePicture}) {
+function MemberCard ({id, name, surname, job, profilePicture, disabled}) {
     console.log('carte de membre du club des winners')
+    console.log(id, name, surname, job)
 
-    // const dispatch = useDispatch();
-
+    const dispatch = useDispatch();
+    const [isDisabled, setIsDisabled] = useState(disabled)
+    console.log(isDisabled)
     const {
-        // register, // TODO
-        handleSubmit,
-        // formState: { errors }  // TODO a voir si on affiche une erreur
+        handleSubmit
     } = useForm();
 
-    const onSubmit = (data) => {console.log(data)}
+    const onSubmit = () => {
+        const updatedDisabled = !isDisabled
+        dispatch(updateMemberStatus({ id, disabled: isDisabled }))
+        setIsDisabled(updatedDisabled)
+    }
 
     return (
         <Paper
@@ -74,19 +80,21 @@ function MemberCard ({name, surname, job, profilePicture}) {
                 className="c-member-card__button"
                 variant="outlined"
                 sx={{m:2}}
-                onClick={handleSubmit}
+                type="submit"
             >
-                Bloquer
+                {isDisabled ? 'Débloquer' : 'Bloquer'}
             </Button>
         </Paper>
     )
 }
 
 MemberCard.propTypes = {
+    id: PropTypes.number,
     name: PropTypes.string,
     surname: PropTypes.string,
     job: PropTypes.string,
-    profilePicture: PropTypes.string
+    profilePicture: PropTypes.string,
+    disabled: PropTypes.bool
 };
 
 export default MemberCard
