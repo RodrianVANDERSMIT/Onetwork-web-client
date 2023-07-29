@@ -35,10 +35,8 @@ export const addNewPost = createAsyncThunk("feed/addNewPost", async (text, thunk
 
         const posts = thunkApi.getState().feed.posts
         
-        const lastIndex = posts.length - 1;
-        const lastId = posts[lastIndex].id;
-        const newId = lastId + 1
-        
+        const newId = posts.length +1 ;
+
         const now = moment() ;
 
         const date = now.format('YYYY-MM-DD');
@@ -77,8 +75,10 @@ export const addNewPost = createAsyncThunk("feed/addNewPost", async (text, thunk
 export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
     
     
-    try {
+    try 
+    {const userLogged = thunkApi.getState().user
         const posts = thunkApi.getState().feed.posts
+        console.log(posts)
         const exist = posts.some(({id}) => id ===postId)  
         
         if (!exist) {
@@ -88,11 +88,11 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
         const  newReaction = {
             
             author:{
-                id: 2,
-                name: 'Roro',
-                surname: 'Roro',
-                job: 'Pilot',
-                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
+                id: userLogged.id,
+                name: userLogged.name,
+                surname: userLogged.surname,
+                job: userLogged.job,
+                profilePicture: userLogged.profilePicture,
             },
             type:{
                 tag: `${reaction}`,

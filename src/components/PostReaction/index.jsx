@@ -27,7 +27,6 @@ function PostReaction({postId}) {
         return false;
     };
     
-    console.log(postReactions)
     
     return (
         <div className="c-reaction-post">
