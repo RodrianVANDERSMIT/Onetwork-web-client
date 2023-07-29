@@ -18,7 +18,6 @@ function LoginForm() {
     const navigate = useNavigate();
     const userError = useSelector(getUserError);
     const loggedUser = useSelector(getUser)
-    
 
     const onSubmit = (user) => {
         dispatch(login(user))

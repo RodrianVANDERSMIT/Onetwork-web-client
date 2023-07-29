@@ -1,0 +1,30 @@
+@use '../../../styles/settings/breakpoints' as b;
+@use '../../../styles/settings/sizes' as s;
+
+.c-reaction-selector{
+
+    &__emoji-button{
+
+        width: 20px !important ;
+        
+        padding:0px ;
+        
+        
+        
+        @media (min-width: b.$breakpoint-md) {
+            
+        }
+
+    }
+    &__image{
+        
+        width: 25px;
+        padding:0px;
+        margin:0px;
+
+
+        @media (min-width: b.$breakpoint-md) {
+            width:30px;
+        }
+    }
+}

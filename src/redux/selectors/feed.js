@@ -15,3 +15,4 @@ export const getPost  = postId => state => getPosts(state).find((post) => post.i
 
 export const  getPostComments = postId => state => getPost(postId)(state).comments;
 
+export const getPostReactions = postId => state => getPost(postId)(state).reactions;

@@ -11,11 +11,14 @@ import {Avatar, Collapse, List, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import FormComment from '../Forms/CommentForm';
 import BasicButton from '../Buttons/BasicButton';
+
 import Comment from '../Comment';
 
 import moment from 'moment'
 import './style.scss'
 
+import ReactionButton from '../Buttons/ReactionButton'
+import PostReaction from '../PostReaction'
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -28,7 +31,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
+function Post({id, author,text,commentsCount,createdAt}) {
 
     //Date and time reformatting
     const date = moment(createdAt).format('DD/MM/YYYY');
@@ -74,7 +77,7 @@ function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
             <Divider/>
             <CardContent className='c-counter'>
                 <Typography variant="body2" color="text.secondary">
-                    {reactionsCount}{" réactions"}
+                    <PostReaction postId={id} />
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {commentsCount}{" commentaires"}
@@ -82,11 +85,9 @@ function Post({id, author,text,reactionsCount,commentsCount,createdAt}) {
             </CardContent>
             <Divider/>
             <CardActions className="c-post-card-action"  disableSpacing>
-                <BasicButton 
-                    className='c-btn footer' 
-                    variant="outlined" 
-                    name="J'aime"
-                /> 
+                <ReactionButton
+                    postId={id}   
+                />
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
@@ -124,7 +125,21 @@ Post.propTypes = {
     id: PropTypes.number,
     author: PropTypes.object,
     text: PropTypes.string,
-    reactionsCount: PropTypes.number,
+    reactions: PropTypes.arrayOf(PropTypes.shape({
+        author: PropTypes.shape({
+            userId: PropTypes.number,
+            name: PropTypes.string,
+            surname: PropTypes.string,
+            job: PropTypes.string,
+            profilePicture: PropTypes.string,
+        }),
+        type: PropTypes.shape({
+            tag: PropTypes.string,
+            name: PropTypes.string,
+        }),
+        createdAt: PropTypes.string,
+        updatedAt: PropTypes.string,
+    })),
     commentsCount: PropTypes.number,
     createdAt: PropTypes.string,   
 };

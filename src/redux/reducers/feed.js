@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPosts, fetchComments, addNewPost } from '../thunks/feed'
+import { fetchPosts, fetchComments,addNewPost addReaction, updateReaction, removeReaction } from '../thunks/feed'
 
 
 
@@ -35,6 +35,39 @@ const slice = createSlice({
                 state.error = action.payload
             })
 
+            .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction }}) => {
+                const post = state.posts.find(post => post.id === postId)
+                post.reactions.push(newReaction)
+                
+            })
+            
+            .addCase(addReaction.rejected, ( state,action) => {
+                state.error = action.payload
+            })
+            
+            .addCase(updateReaction.fulfilled, (state, { payload: { postId, updatedReaction }}) => {
+                const post = state.posts.find(post => post.id === postId)
+
+                const reactionIndex = post.reactions.findIndex(reaction => reaction.author.id === updatedReaction.author.id);
+                
+                post.reactions[reactionIndex] = updatedReaction;
+                
+            })
+            .addCase(updateReaction.rejected, (state,action) => {
+                state.error = action.payload
+            })
+            
+            .addCase(removeReaction.fulfilled, (state, { payload: { postId, removedReaction }}) => {
+                const post = state.posts.find(post => post.id === postId)
+
+                const reactionIndex = post.reactions.findIndex(reaction => reaction.author.id === removedReaction.author.id);
+                
+                post.reactions.splice(reactionIndex, 1);
+                
+            })
+            .addCase(removeReaction.rejected, (state,action) => {
+                state.error = action.payload
+            });
             
             .addCase(addNewPost.fulfilled, (state, action) => {
                 state.posts.unshift(action.payload)

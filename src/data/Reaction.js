@@ -42,7 +42,6 @@ export default [
             tag: 'haha',
             name: 'Haha',
         },
-        post_id: 2,
     },
     {
         id: 3,
@@ -65,7 +64,6 @@ export default [
             tag: 'love',
             name: 'J\'adore',
         },
-        post_id: 2,
     },
     {
         id: 4,
@@ -88,7 +86,6 @@ export default [
             tag: 'haha',
             name: 'Haha',
         },
-        post_id: 5,
     },
     {
         id: 5,
@@ -111,7 +108,6 @@ export default [
             tag: 'love',
             name: 'J\'adore',
         },
-        post_id: 7,
     },
     {
         id: 6,
@@ -134,7 +130,6 @@ export default [
             tag: 'like',
             name: 'J\'aime',
         },
-        post_id: 3,
     },
     {
         id: 7,
@@ -157,7 +152,6 @@ export default [
             tag: 'like',
             name: 'J\'aime',
         },
-        post_id: 5,
     },
     
 ];
