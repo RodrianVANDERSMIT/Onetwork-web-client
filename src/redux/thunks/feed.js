@@ -75,8 +75,8 @@ export const addNewPost = createAsyncThunk("feed/addNewPost", async (text, thunk
 export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
     
     
-    try 
-    {const userLogged = thunkApi.getState().user
+    try {
+        const userLogged = thunkApi.getState().user
         const posts = thunkApi.getState().feed.posts
         console.log(posts)
         const exist = posts.some(({id}) => id ===postId)  
@@ -112,7 +112,9 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 
 export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction}, thunkApi) => {
 
-    try {const posts = thunkApi.getState().feed.posts
+    try {
+        const userLogged = thunkApi.getState().user
+        const posts = thunkApi.getState().feed.posts
         const exist = posts.some(({id}) => id ===postId)  
         
         if (!exist) {
@@ -122,11 +124,11 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
         const  updatedReaction = {
             
             author:{
-                id: 2,
-                name: 'Roro',
-                surname: 'Roro',
-                job: 'Pilot',
-                profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
+                id: userLogged.id,
+                name: userLogged.name,
+                surname: userLogged.surname,
+                job: userLogged.job,
+                profilePicture: userLogged.profilePicture,
             },
             type:{
                 tag: `${reaction}`,
@@ -145,7 +147,9 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
 
 export const removeReaction = createAsyncThunk("post/removeReaction", async ({postId, reaction}, thunkApi) => {
 
-    try {const posts = thunkApi.getState().feed.posts
+    try {
+        const userLogged = thunkApi.getState().user
+        const posts = thunkApi.getState().feed.posts
         const exist = posts.some(({id}) => id ===postId)  
         
         if (!exist) {
@@ -155,11 +159,11 @@ export const removeReaction = createAsyncThunk("post/removeReaction", async ({po
         const  removedReaction = {
             
             author:{
-                id: 2,
-                name: 'Roro',
-                surname: 'Roro',
-                job: 'Pilot',
-                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
+                id: userLogged.id,
+                name: userLogged.name,
+                surname: userLogged.surname,
+                job: userLogged.job,
+                profilePicture: userLogged.profilePicture,
             },
             type:{
                 tag: `${reaction}`,
