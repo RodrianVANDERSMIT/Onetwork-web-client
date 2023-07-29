@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getPostReactions } from '../../../redux/selectors/feed';
 import { getUserId } from '../../../redux/selectors/user';
-import { addReaction, updateReaction } from '../../../redux/thunks/feed';
+import { addReaction, updateReaction, removeReaction } from '../../../redux/thunks/feed';
 import './style.scss'
 
 
@@ -35,13 +35,15 @@ function ReactionButton({postId}) {
     const id = open ? 'simple-popover' : undefined;
 
     const handleReaction = (reaction)=>{
-        console.log(reaction)
-        
-        loggedUserReaction?(
+        if (loggedUserReaction && loggedUserReaction.type.tag === reaction){
+            dispatch(removeReaction({postId, reaction}))
+        }
+        else if (loggedUserReaction){
             dispatch(updateReaction({postId, reaction}))
-        ):
+        }
+        else {
             dispatch(addReaction({postId, reaction}))
-        
+        }
         setAnchorEl(null);
     }
 
@@ -54,7 +56,7 @@ function ReactionButton({postId}) {
                 </Button>
                 : 
                 <Button className='c-reaction-selector__emoji-button' aria-describedby={id} onClick={handleClick}>
-                    J'aime
+                    {"J'aime"}
                 </Button>
             }
             <Popover

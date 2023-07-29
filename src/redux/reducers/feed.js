@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPosts, fetchComments, addReaction, updateReaction } from '../thunks/feed'
+import { fetchPosts, fetchComments, addReaction, updateReaction, removeReaction } from '../thunks/feed'
 
 
 
@@ -53,6 +53,18 @@ const slice = createSlice({
                 
             })
             .addCase(updateReaction.rejected, (state,action) => {
+                state.error = action.payload
+            })
+            
+            .addCase(removeReaction.fulfilled, (state, { payload: { postId, removedReaction }}) => {
+                const post = state.posts.find(post => post.id === postId)
+
+                const reactionIndex = post.reactions.findIndex(reaction => reaction.author.id === removedReaction.author.id);
+                
+                post.reactions.splice(reactionIndex, 1);
+                
+            })
+            .addCase(removeReaction.rejected, (state,action) => {
                 state.error = action.payload
             });
             
