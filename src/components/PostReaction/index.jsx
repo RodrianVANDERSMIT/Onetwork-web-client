@@ -73,8 +73,8 @@ function PostReaction({postId}) {
                     {postReactions.map((reaction) => (
                         <Box className ="c-reaction-post__info-emoji" key={reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
                             <img src={`/public/emoji/emoji-${reaction.type.tag}.png`}/>
-                            <Box className ="c-reaction-post__info-picture" style={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden', marginRight: '8px' }}>
-                                <img
+                            <Box className ="c-reaction-post__info-container-picture" sx={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden', marginRight: '8px' }}>
+                                <img className ="c-reaction-post__info-picture"
                                     src={reaction.author.profilePicture}
                                     alt={reaction.author.name}
                                     

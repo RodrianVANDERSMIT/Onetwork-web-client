@@ -8,7 +8,7 @@ export default [
                 name: 'David',
                 surname: 'Brown',
                 job: 'Pilot',
-                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
+                profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             },
             type:{
                 tag: 'angry',
