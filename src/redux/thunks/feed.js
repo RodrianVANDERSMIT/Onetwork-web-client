@@ -55,7 +55,41 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
         
     }
     catch (error) {
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la création de l'organisation." });  
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });  
+    }
+})
+
+
+
+export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction}, thunkApi) => {
+
+    try {
+        const exist = posts.some(({id}) => id ===postId)  
+        
+        if (!exist) {
+            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        } 
+
+        const  updatedReaction = {
+            
+            author:{
+                id: 2,
+                name: 'Roro',
+                surname: 'Roro',
+                job: 'Pilot',
+                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
+            },
+            type:{
+                tag: `${reaction}`,
+                name: `${reaction}`,
+            },
+        };
+       
+        return {updatedReaction, postId}
+        
+    }
+    catch (error) {
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });  
     }
 })
 

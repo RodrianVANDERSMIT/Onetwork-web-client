@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getPostReactions } from '../../../redux/selectors/feed';
 import { getUserId } from '../../../redux/selectors/user';
-import { addReaction } from '../../../redux/thunks/feed';
+import { addReaction, updateReaction } from '../../../redux/thunks/feed';
 
 
 
@@ -36,7 +36,11 @@ function ReactionButton({postId}) {
 
     const handleReaction = (reaction)=>{
         console.log(reaction)
-        dispatch(addReaction({postId, reaction}))
+        
+        loggedUserReaction?(
+            dispatch(updateReaction({postId, reaction}))
+        ):
+            dispatch(addReaction({postId, reaction}))
         
         setAnchorEl(null);
     }
@@ -48,7 +52,7 @@ function ReactionButton({postId}) {
                 <Button className='c-reaction-selector__emoji-button' aria-describedby={id} onClick={handleClick}>
                     <img src={`/public/emoji/emoji-${loggedUserReaction.type.tag}.png`} alt={`Emoji ${loggedUserReaction.type.tag}`}/>
                 </Button>
-            : 
+                : 
                 <Button className='c-btn footer' aria-describedby={id} onClick={handleClick}>
                     J'aime
                 </Button>
