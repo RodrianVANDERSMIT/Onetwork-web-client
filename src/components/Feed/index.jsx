@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getUser } from '../../redux/selectors/user'
@@ -11,21 +13,26 @@ import PostForm from '../Forms/PostForm';
 import Post from '../Post'
 import './style.scss'
 
-function Feed() {
+function Feed({userIdUrl}) {
 
     // Fetch of logged-in user data
     const userLogged = useSelector(getUser);
     
     const organizationName = useSelector(getOrganizationName);
     
-    // fetch all posts    
-    const posts = useSelector(getPosts);
-
+    // fetch all posts
+    const postList = useSelector(getPosts);
+    
+    //filter posts if an user is select
+    const posts = userIdUrl?
+        postList.filter(post => post.author.id === parseInt(userIdUrl, 10))
+        : postList;
+    
     const dispatch = useDispatch();
     
     useEffect(()=>{        
         dispatch(fetchPosts());
-    }, [])
+    }, [dispatch])
 
     return (
         <Box className="c-feed" >
@@ -52,5 +59,9 @@ function Feed() {
         </Box>
     )
 }
+
+Feed.propTypes = {
+    userIdUrl: PropTypes.string
+};
 
 export default Feed
