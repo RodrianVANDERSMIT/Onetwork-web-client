@@ -78,7 +78,6 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
     try {
         const userLogged = thunkApi.getState().user
         const posts = thunkApi.getState().feed.posts
-        console.log(posts)
         const exist = posts.some(({id}) => id ===postId)  
         
         if (!exist) {
