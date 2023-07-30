@@ -1,0 +1,13 @@
+@use '../../../styles/settings/breakpoints' as b;
+@use '../../../styles/settings/colors' as colors;
+
+.c-member-card {
+    &__group {
+        background-color: colors.$white;
+        border-radius: 5px;
+    }
+
+    &__job {
+        color: colors.$light-secondary;
+    }
+}
