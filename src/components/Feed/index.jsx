@@ -12,6 +12,7 @@ import { getOrganizationName } from '../../redux/selectors/organization'
 import PostForm from '../Forms/PostForm';
 import Post from '../Post'
 import './style.scss'
+import SelectedUserCard from '../Cards/SelectedUserCard';
 
 function Feed({userIdUrl}) {
 
@@ -27,19 +28,23 @@ function Feed({userIdUrl}) {
     const posts = userIdUrl?
         postList.filter(post => post.author.id === parseInt(userIdUrl, 10))
         : postList;
-    
+    console.log(posts)
     const dispatch = useDispatch();
     
     useEffect(()=>{        
         dispatch(fetchPosts());
+        
     }, [dispatch])
 
     return (
         <Box className="c-feed" >
             <Box className="c-feed-header">
-                <Typography variant="h5" >
-                    {organizationName}
-                </Typography>
+                {userIdUrl ?(
+                    <SelectedUserCard/>
+                ):(
+                    <Typography variant="h5" >
+                        {organizationName}
+                    </Typography>)}
                 <Box className="c-feed-header__textarea" >
                     <Avatar 
                         className="c-avatar" 
