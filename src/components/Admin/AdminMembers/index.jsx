@@ -1,17 +1,29 @@
 import InvitForm from '../../Forms/InvitForm';
 import MemberCard from '../../Cards/MemberCard';
 import {Box, Grid, Typography} from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchMembers } from '../../../redux/thunks/members';
+import { getMembers } from '../../../redux/selectors/members';
 import { getUserOrganizationId } from '../../../redux/selectors/user';
-import users from '../../../data/AppUser' // TODO delete when connected to the API
 
 import './style.scss'
 
-
 function AdminMembers () {
 
+    const dispatch = useDispatch()
     const organizationId = useSelector(getUserOrganizationId)
-    const allOrganizationMembers = users.filter(user => user.organizationId === organizationId && user.role.tag !== 'admin')
+    const {list} = useSelector(getMembers)
+
+    useEffect(() => {
+        if (organizationId) {
+            dispatch(fetchMembers(organizationId))
+        }
+        else {
+            console.log("membres introuvable")
+        }
+    }, [organizationId, dispatch])
+
     return (
         <Box
             className="c-admin-members__group"
@@ -57,9 +69,9 @@ function AdminMembers () {
                     className="c-admin-members__cards"
                     container spacing={2}
                 >
-                    {allOrganizationMembers.map(organizationMember => (
-                        <Grid key={organizationMember.id} item xs={12} lg={6} >
-                            <MemberCard {...organizationMember}/>
+                    {list.map(member => (
+                        <Grid key={member.id} item xs={12} lg={6} >
+                            <MemberCard {...member}/>
                         </Grid>
                     ))}
                 </Grid>

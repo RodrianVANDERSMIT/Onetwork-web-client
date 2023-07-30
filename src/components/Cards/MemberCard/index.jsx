@@ -2,25 +2,18 @@ import PropTypes from 'prop-types';
 import {Avatar, Box, Button, Typography, Paper} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-import { useState } from 'react';
 import { updateMemberStatus } from '../../../redux/thunks/members'
 import './style.scss'
 
 function MemberCard ({id, name, surname, job, profilePicture, disabled}) {
-    console.log('carte de membre du club des winners')
-    console.log(id, name, surname, job)
 
     const dispatch = useDispatch();
-    const [isDisabled, setIsDisabled] = useState(disabled)
-    console.log(isDisabled)
     const {
         handleSubmit
     } = useForm();
 
     const onSubmit = () => {
-        const updatedDisabled = !isDisabled
-        dispatch(updateMemberStatus({ id, disabled: isDisabled }))
-        setIsDisabled(updatedDisabled)
+        dispatch(updateMemberStatus({ id, disabled}))
     }
 
     return (
@@ -82,7 +75,7 @@ function MemberCard ({id, name, surname, job, profilePicture, disabled}) {
                 sx={{m:2}}
                 type="submit"
             >
-                {isDisabled ? 'Débloquer' : 'Bloquer'}
+                {disabled ? 'Débloquer' : 'Bloquer'}
             </Button>
         </Paper>
     )

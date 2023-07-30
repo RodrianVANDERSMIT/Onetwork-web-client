@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateMemberStatus } from "../../redux/thunks/members"
+import { fetchMembers, updateMemberStatus } from "../../redux/thunks/members"
 
 const initialState = {
     list: [],
-
 }
 
 const slice = createSlice({
@@ -12,9 +11,16 @@ const slice = createSlice({
     reducers: {},
     extraReducers: builder => { 
         builder
+            .addCase(fetchMembers.fulfilled,(state, {payload: data}) => {
+                state.list = data
+                state.error = null
+            })
+            .addCase(fetchMembers.rejected, (state, {payload: error}) => {
+                state.error = error
+            })
             .addCase(updateMemberStatus.fulfilled,(state, {payload: data}) => {
-                console.log("In tha reducer - update status")
-                return {...state, ...data, error: null}
+                state.list = data
+                state.error = null
             })
             .addCase(updateMemberStatus.rejected, (state, {payload: error}) => {
                 state.error = error
@@ -23,4 +29,4 @@ const slice = createSlice({
 })
 
 export default slice.reducer
-export {updateMemberStatus}
+export {fetchMembers, updateMemberStatus}
