@@ -1,16 +1,17 @@
-import { Typography } from "@mui/material"
-import AuthenticatedLayout from "../../layout/AuthenticatedLayout"
+import Feed from "../../components/Feed"
+import { useParams } from 'react-router-dom';
 
+import AuthenticatedLayout from "../../layout/AuthenticatedLayout"
 import './style.scss'
 
 function UserProfile() {
 
+    const { userId } = useParams();
+
     return (
      
         <AuthenticatedLayout>
-            <Typography>
-                UserProfile
-            </Typography>
+            <Feed userIdchoice={userId}/>
         </AuthenticatedLayout>  
         
     )
