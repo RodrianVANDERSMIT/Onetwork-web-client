@@ -17,6 +17,7 @@ import SelectedUserCard from '../Cards/SelectedUserCard';
 function Feed({userIdUrl}) {
 
     // Fetch of logged-in user data
+    const dispatch = useDispatch();
     const userLogged = useSelector(getUser);
     
     const organizationName = useSelector(getOrganizationName);
@@ -29,7 +30,7 @@ function Feed({userIdUrl}) {
         postList.filter(post => post.author.id === parseInt(userIdUrl, 10))
         : postList;
     console.log(posts)
-    const dispatch = useDispatch();
+    
     
     useEffect(()=>{        
         dispatch(fetchPosts());
@@ -42,25 +43,33 @@ function Feed({userIdUrl}) {
                 {userIdUrl ?(
                     <SelectedUserCard/>
                 ):(
-                    <Typography variant="h5" >
+                    <>  <Typography variant="h5" >
                         {organizationName}
-                    </Typography>)}
-                <Box className="c-feed-header__textarea" >
-                    <Avatar 
-                        className="c-avatar" 
-                        alt="Remy Sharp" 
-                        src={userLogged.profilePicture} 
-                    />
-                    <PostForm
-                        
-                    />
-                </Box>
+                    </Typography>
+                
+                
+                    <Box className="c-feed-header__textarea" >
+                        <Avatar 
+                            className="c-avatar" 
+                            alt="Remy Sharp" 
+                            src={userLogged.profilePicture} 
+                        />
+                        <PostForm
+                        />
+                    </Box> 
+                    </>
+                )}
             </Box>
-            {posts.map(post => (   
-                <Grid key={post.id}>
-                    <Post {...post}/>
-                </Grid>
-            ))} 
+
+            {posts.length === 0 ? (
+                <Typography variant="body1">{"Cet utilisateur n'a pas encore rédigé de post"}</Typography>
+            ) : (
+                posts.map((post) => (
+                    <Grid key={post.id}>
+                        <Post {...post} />
+                    </Grid>
+                ))
+            )}
         </Box>
     )
 }

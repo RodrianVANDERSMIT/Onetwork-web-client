@@ -3,7 +3,7 @@ import users from '../../data/AppUser'
 
 export const fetchMembers = createAsyncThunk("members/fetchMembers", async (organization, thunkAPI) => {
     try {
-        const members = users.filter(({organizationId, role}) => organizationId === organization && role.tag !== 'admin')
+        const members = users.filter(({organizationId}) => organizationId === organization )
 
         if (members) {
             return members
