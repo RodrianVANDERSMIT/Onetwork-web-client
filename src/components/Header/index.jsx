@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
-import HeaderButton from "./HeaderButton";
+
+import Nav from "../Nav";
 import Logo from "./Logo";
 import { AppBar, Toolbar } from '@mui/material'
 import './style.scss'
@@ -13,7 +14,8 @@ const Header = ({className}) => {
         <AppBar className={className} >
             <Toolbar className="c-header__toolbar" >
                 <Logo />
-                <HeaderButton />
+                <Nav/>
+
             </Toolbar>
         </AppBar>       
     );
