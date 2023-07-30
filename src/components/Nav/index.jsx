@@ -1,11 +1,15 @@
+import ButtonHome from "./ButtonHome"
+import MobileMenu from "./MobileMenu";
 import './style.scss'
 
 function Nav() {
-    console.log("Navigation");
+    
     return (
-        <div>
-            Ceci est la Barre de navigation
-        </div>
+        <>
+            <ButtonHome/>
+            <MobileMenu/>
+        </>
+        
     )
 }
 
