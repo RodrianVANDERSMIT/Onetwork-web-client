@@ -3,7 +3,7 @@ import  users  from "../../data/AppUser"
 
 export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
     try { 
-        
+
         const user = users.find(user => user.email === credentials.email && user.password === credentials.password);
 
         if (!user)
@@ -17,7 +17,6 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
                 status: 403,
                 message: "Votre compte est desactivée. Veuillez contacté le gérant de l'organisation."
             })
-
         return user
 
     }
@@ -37,7 +36,6 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
         // End Temporary profile_picture fix
 
         const newUserEmail = users.find(({email}) => email === data.email)
-        console.log(data.email)
         if (newUserEmail) {
             return thunkAPI.rejectWithValue({status: 409, message: "Cette adresse e-mail est déjà associée à un compte"});
         }
@@ -66,7 +64,6 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
             if (!isValid) {
                 return thunkAPI.rejectWithValue({status: 422, message: "L'ancien mot de passe est incorrect"});
             }
-    
             delete data.currentPassword;
             delete data.newPassword;
         }

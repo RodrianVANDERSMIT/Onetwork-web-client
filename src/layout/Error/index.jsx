@@ -5,12 +5,6 @@ import { getUserError } from '../../redux/selectors/user';
 import {  Box } from "@mui/material"
 import './style.scss';
 
-
-
-
-
-
-
 const Error = ({code , message, image }) => {
 
     const error= useSelector(getUserError)
@@ -24,16 +18,12 @@ const Error = ({code , message, image }) => {
                         <Box className="c-error__content-info-id"  component="h3" >{code} </Box>
                         <Box className="c-error__content-info-message">{message} </Box>
                     </Box>
-
                     <img className="c-error__content-image" src={image} alt="error image" />
-                    
                 </Box>
             </Box>
         </SimplePageLayout>
     )
-    
 };
-
 
 Error.propTypes = {
     code: PropTypes.number.isRequired,
