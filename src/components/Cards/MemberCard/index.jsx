@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { updateMemberStatus } from '../../../redux/thunks/members'
 import './style.scss'
+import { Link } from 'react-router-dom';
 
-function MemberCard ({id, name, surname, job, profilePicture, disabled}) {
+function MemberCard ({id, organizationId, name, surname, job, profilePicture, disabled}) {
 
     const dispatch = useDispatch();
     const {
@@ -38,15 +39,18 @@ function MemberCard ({id, name, surname, job, profilePicture, disabled}) {
                     alignItems: 'center',
                 }}
             >
-                <Avatar
-                    className="c-member-card__avatar"
-                    src={profilePicture}
-                    sx={{
-                        width: 80,
-                        height: 80,
-                        m: 2
-                    }}
-                />
+            
+                <Link to={`/${organizationId}/user/${id}`}>
+                    <Avatar
+                        className="c-member-card__avatar"
+                        src={profilePicture}
+                        sx={{
+                            width: 80,
+                            height: 80,
+                            m: 2
+                        }}
+                    />
+                </Link>
                 <Box
                     className="c-member-card__member"
                     sx={{
@@ -83,6 +87,7 @@ function MemberCard ({id, name, surname, job, profilePicture, disabled}) {
 
 MemberCard.propTypes = {
     id: PropTypes.number,
+    organizationId: PropTypes.number,
     name: PropTypes.string,
     surname: PropTypes.string,
     job: PropTypes.string,
