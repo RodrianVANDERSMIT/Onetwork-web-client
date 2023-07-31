@@ -17,7 +17,7 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
         // Sinon, on renvoie tous les posts de l'organisation
         const postsOrganization = posts.filter(post => post.organizationId === stateUserOrganizationId);
         return postsOrganization;
-
+        
     } catch (error) {
         throw new Error("Une erreur s'est produite");
     }
@@ -47,7 +47,7 @@ export const addNewPost = createAsyncThunk("feed/addNewPost", async (text, thunk
         const lastpost = posts[posts.length - 1];
         const newId = lastpost + 1;
         
-
+        
         const now = moment() ;
 
         const date = now.format('YYYY-MM-DD');
@@ -134,8 +134,8 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
         } 
 
         const updatedReaction = {
-                tag: `${reaction}`,
-                name: `${reaction}`,
+            tag: `${reaction}`,
+            name: `${reaction}`,
         };
        
         return {updatedReaction, postId, authorId: post.author.id}

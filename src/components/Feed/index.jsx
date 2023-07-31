@@ -31,10 +31,10 @@ function Feed({userIdUrl}) {
         if (userIdUrl) {  
             dispatch(fetchPosts( userIdUrl ));
         } else {
-        dispatch(fetchPosts());
+            dispatch(fetchPosts());
         }
     }, [userIdUrl, organizationId, dispatch]);
-        
+
     return (
         <Box className="c-feed" >
             <Box className="c-feed-header">
