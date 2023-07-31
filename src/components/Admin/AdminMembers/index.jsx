@@ -15,6 +15,9 @@ function AdminMembers () {
     const organizationId = useSelector(getUserOrganizationId)
     const {list} = useSelector(getMembers)
 
+    //filter the organization member withn't the admin
+    const memberList = list.filter(member => member.role && member.role.tag !=="admin")
+    
     useEffect(() => {
         if (organizationId) {
             dispatch(fetchMembers(organizationId))
@@ -69,7 +72,7 @@ function AdminMembers () {
                     className="c-admin-members__cards"
                     container spacing={2}
                 >
-                    {list.map(member => (
+                    {memberList.map(member => (
                         <Grid key={member.id} item xs={12} lg={6} >
                             <MemberCard {...member}/>
                         </Grid>

@@ -7,7 +7,7 @@ import './style.scss'
 function UserProfile() {
 
     const { userId } = useParams();
-    console.log(userId)
+    
     return (
      
         <AuthenticatedLayout>
