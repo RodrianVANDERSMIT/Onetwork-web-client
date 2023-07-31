@@ -70,7 +70,7 @@ function PostReaction({postId}) {
             >
                 <Box className ="c-reaction-post__info" sx={{ p: 2 }}>
                     {postReactions.map((reaction) => (
-                        <Box className ="c-reaction-post__info-emoji" key={postId+ reaction.author.name + reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
+                        <Box className ="c-reaction-post__info-emoji" key={reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
                             <img src={`/public/emoji/emoji-${reaction.type.tag}.png`}/>
                             <Box className ="c-reaction-post__info-container-picture" sx={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden', marginRight: '8px' }}>
                                 <img className ="c-reaction-post__info-picture"

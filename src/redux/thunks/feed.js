@@ -3,16 +3,25 @@ import posts from "../../data/Post.js"
 import comments from "../../data/Comment.js"
 import moment from 'moment'
 
-export const fetchPosts = createAsyncThunk("feed/fetchPosts", async () => {
+export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
+    
+    const stateUserOrganizationId = thunkApi.getState().user.organizationId;
+
     try {
+        // Si userIdUrl est défini, on filtre les posts pour l'utilisateur spécifique
+        if (userIdUrl) {
+            const filteredUserPosts = posts.filter(post => post.organizationId === stateUserOrganizationId && post.author.id === userIdUrl);
 
-        return posts;
-
+            return filteredUserPosts;
+        } 
+        // Sinon, on renvoie tous les posts de l'organisation
+        const postsOrganization = posts.filter(post => post.organizationId === stateUserOrganizationId);
+        return postsOrganization;
+        
+    } catch (error) {
+        throw new Error("Une erreur s'est produite");
     }
-    catch (error) {
-        throw new Error( "Une erreur s'est produite");
-    }
-})
+});
 
 export const fetchComments = createAsyncThunk("feed/fetchComments", async (postId) => {
     try {
@@ -35,8 +44,10 @@ export const addNewPost = createAsyncThunk("feed/addNewPost", async (text, thunk
 
         const posts = thunkApi.getState().feed.posts
         
-        const newId = posts.length +1 ;
-
+        const lastpost = posts[posts.length - 1];
+        const newId = lastpost + 1;
+        
+        
         const now = moment() ;
 
         const date = now.format('YYYY-MM-DD');
@@ -78,14 +89,17 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
     try {
         const userLogged = thunkApi.getState().user
         const posts = thunkApi.getState().feed.posts
-        const exist = posts.some(({id}) => id ===postId)  
+        const post = posts.find(({id}) => id === postId)  
         
-        if (!exist) {
+        if (!post) {
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         } 
 
+        const lastReaction = post.reactions[post.reactions.length - 1];
+        const newId = lastReaction + 1;
+        
         const  newReaction = {
-            
+            id: newId, 
             author:{
                 id: userLogged.id,
                 name: userLogged.name,
@@ -112,31 +126,19 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction}, thunkApi) => {
 
     try {
-        const userLogged = thunkApi.getState().user
         const posts = thunkApi.getState().feed.posts
-        const exist = posts.some(({id}) => id ===postId)  
+        const post = posts.find(({id}) => id === postId)  
         
-        if (!exist) {
+        if (!post) {
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         } 
 
-        const  updatedReaction = {
-            
-            author:{
-                id: userLogged.id,
-                name: userLogged.name,
-                surname: userLogged.surname,
-                job: userLogged.job,
-                profilePicture: userLogged.profilePicture,
-            },
-            type:{
-                tag: `${reaction}`,
-                name: `${reaction}`,
-            },
+        const updatedReaction = {
+            tag: `${reaction}`,
+            name: `${reaction}`,
         };
        
-        return {updatedReaction, postId}
-        
+        return {updatedReaction, postId, authorId: post.author.id}
     }
     catch (error) {
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });  
@@ -176,5 +178,4 @@ export const removeReaction = createAsyncThunk("post/removeReaction", async ({po
     catch (error) {
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });  
     }
-})
-
+});

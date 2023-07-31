@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getUser } from '../../redux/selectors/user'
+import { getUser, getUserOrganizationId } from '../../redux/selectors/user'
 import { getPosts } from '../../redux/selectors/feed'
 import { fetchPosts } from '../../redux/thunks/feed';
 
@@ -21,21 +21,19 @@ function Feed({userIdUrl}) {
     const userLogged = useSelector(getUser);
     
     const organizationName = useSelector(getOrganizationName);
-    
+    const organizationId = useSelector(getUserOrganizationId)
     // fetch all posts
-    const postList = useSelector(getPosts);
-    
-    //filter posts if an user is select
-    const posts = userIdUrl?
-        postList.filter(post => post.author.id === parseInt(userIdUrl, 10))
-        : postList;
-    console.log(posts)
+    const posts = useSelector(getPosts);
     
     
-    useEffect(()=>{        
-        dispatch(fetchPosts());
-        
-    }, [dispatch])
+    useEffect(() => {
+              
+        if (userIdUrl) {  
+            dispatch(fetchPosts( userIdUrl ));
+        } else {
+            dispatch(fetchPosts());
+        }
+    }, [userIdUrl, organizationId, dispatch]);
 
     return (
         <Box className="c-feed" >
@@ -75,7 +73,7 @@ function Feed({userIdUrl}) {
 }
 
 Feed.propTypes = {
-    userIdUrl: PropTypes.string
+    userIdUrl: PropTypes.number
 };
 
 export default Feed
