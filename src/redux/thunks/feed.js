@@ -3,16 +3,25 @@ import posts from "../../data/Post.js"
 import comments from "../../data/Comment.js"
 import moment from 'moment'
 
-export const fetchPosts = createAsyncThunk("feed/fetchPosts", async () => {
+export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
+    
+    const stateUserOrganizationId = thunkApi.getState().user.organizationId;
+
     try {
+        // Si userIdUrl est défini, on filtre les posts pour l'utilisateur spécifique
+        if (userIdUrl) {
+            const filteredUserPosts = posts.filter(post => post.organizationId === stateUserOrganizationId && post.author.id === userIdUrl);
 
-        return posts;
+            return filteredUserPosts;
+        } 
+        // Sinon, on renvoie tous les posts de l'organisation
+        const postsOrganization = posts.filter(post => post.organizationId === stateUserOrganizationId);
+        return postsOrganization;
 
+    } catch (error) {
+        throw new Error("Une erreur s'est produite");
     }
-    catch (error) {
-        throw new Error( "Une erreur s'est produite");
-    }
-})
+});
 
 export const fetchComments = createAsyncThunk("feed/fetchComments", async (postId) => {
     try {

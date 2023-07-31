@@ -19,7 +19,7 @@ const slice = createSlice({
         builder
             .addCase(fetchPosts.fulfilled, (state, action ) => {
                 state.posts = action.payload
-                state.posts.forEach(post => post.comments = null)
+                state.error = null
             })
              
             .addCase(fetchPosts.rejected, (state,action) => {

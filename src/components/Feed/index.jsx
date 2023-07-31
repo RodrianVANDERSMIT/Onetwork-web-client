@@ -21,22 +21,20 @@ function Feed({userIdUrl}) {
     const userLogged = useSelector(getUser);
     
     const organizationName = useSelector(getOrganizationName);
-    
+    const organizationId = useSelector(getUserOrganizationId)
     // fetch all posts
-    const postList = useSelector(getPosts);
-    
-    //filter posts if an user is select
-    const posts = userIdUrl?
-        postList.filter(post => post.author.id === parseInt(userIdUrl, 10))
-        : postList;
-    console.log(posts)
+    const posts = useSelector(getPosts);
     
     
-    useEffect(()=>{        
+    useEffect(() => {
+              
+        if (userIdUrl) {  
+            dispatch(fetchPosts( userIdUrl ));
+        } else {
         dispatch(fetchPosts());
+        }
+    }, [userIdUrl, organizationId, dispatch]);
         
-    }, [dispatch])
-
     return (
         <Box className="c-feed" >
             <Box className="c-feed-header">
