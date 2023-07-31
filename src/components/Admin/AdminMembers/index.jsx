@@ -17,10 +17,7 @@ function AdminMembers () {
 
     //filter the organization member withn't the admin
     const memberList = list.filter(member => member.role && member.role.tag !=="admin")
-    console.log(memberList)
-
-
-    console.log(list)
+    
     useEffect(() => {
         if (organizationId) {
             dispatch(fetchMembers(organizationId))
