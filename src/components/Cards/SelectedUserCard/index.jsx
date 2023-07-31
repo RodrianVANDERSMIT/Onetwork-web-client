@@ -5,6 +5,7 @@ import { getMembers } from "../../../redux/selectors/members";
 import { getUserOrganizationId } from "../../../redux/selectors/user";
 import { useEffect } from "react";
 import { fetchMembers } from "../../../redux/thunks/members";
+import { Link } from "react-router-dom";
 
 import './style.scss'
 
@@ -48,16 +49,18 @@ function SelectedUserCard() {
                 height:'170px'
             }}
         >
-            <Avatar
-                className= "c-user-card__avatar"
-                src= {selectedMember.profilePicture}
-                alt= {selectedMember.name + selectedMember.surname}
-                sx= {{
-                    width: '100px',
-                    height: '100px',
-                    my: 1
-                }}
-            />
+            <Link to={`/${selectedMember.organizationId}/user/${selectedMember.id}`}>
+                <Avatar
+                    className= "c-user-card__avatar"
+                    src= {selectedMember.profilePicture}
+                    alt= {selectedMember.name + selectedMember.surname}
+                    sx= {{
+                        width: '100px',
+                        height: '100px',
+                        my: 1
+                    }}
+                />
+            </Link>
             <Box
                 className= "c-user-card__info"
                 sx= {{

@@ -3,13 +3,16 @@ import  PropTypes from 'prop-types';
 import './style.scss'
 import { useSelector } from 'react-redux';
 import { getPostReactions } from '../../redux/selectors/feed';
+import {getUserOrganizationId } from '../../redux/selectors/user'
 import { Box, Button } from '@mui/material';
 import { Popover, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function PostReaction({postId}) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const postReactions = useSelector(getPostReactions(postId));
+    const organizationId = useSelector(getUserOrganizationId)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -73,11 +76,12 @@ function PostReaction({postId}) {
                         <Box className ="c-reaction-post__info-emoji" key={reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
                             <img src={`/public/emoji/emoji-${reaction.type.tag}.png`}/>
                             <Box className ="c-reaction-post__info-container-picture" sx={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden', marginRight: '8px' }}>
-                                <img className ="c-reaction-post__info-picture"
-                                    src={reaction.author.profilePicture}
-                                    alt={reaction.author.name}
-                                    
-                                />
+                                <Link to={`/${organizationId}/user/${reaction.author.id}`}>
+                                    <img className ="c-reaction-post__info-picture"
+                                        src={reaction.author.profilePicture}
+                                        alt={reaction.author.name}
+                                    />
+                                </Link>
                             </Box>
                             <Typography 
                                 className ="c-reaction-post__info-user" variant="body2">{`${reaction.author.name} ${reaction.author.surname}`}

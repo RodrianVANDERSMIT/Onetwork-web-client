@@ -19,6 +19,7 @@ import './style.scss'
 
 import ReactionButton from '../Buttons/ReactionButton'
 import PostReaction from '../PostReaction'
+import { Link } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -63,9 +64,14 @@ function Post({id, author,text,commentsCount,createdAt}) {
         >
             <CardHeader
                 avatar={
-                    <Avatar className="c-avatar" alt="Remy Sharp" src={author.profilePicture} />
+                    <Link to={`/${userLogged.organizationId}/user/${author.id}`}>
+                        <Avatar className="c-avatar" alt="Remy Sharp" src={author.profilePicture} />
+                    </Link>
                 }       
-                title={`${author.name}  ${author.surname} - ${date} à ${time}`}
+                title={<> 
+                    <Link to={`/${userLogged.organizationId}/user/${author.id}`}>{`${author.name} ${author.surname}`}</Link> - {date} à {time}
+                </>
+                }
                 subheader={author.job}
             />
             <Divider/>

@@ -3,6 +3,7 @@ import { getUser } from "../../../redux/selectors/user";
 import { useSelector } from 'react-redux'
 
 import './style.scss'
+import { Link } from "react-router-dom";
 
 function UserCard() {
     const userLogged = useSelector(getUser)
@@ -20,16 +21,18 @@ function UserCard() {
                 height:'170px'
             }}
         >
-            <Avatar
-                className= "c-user-card__avatar"
-                src= {userLogged.profilePicture}
-                alt= {userLogged.name + userLogged.surname}
-                sx= {{
-                    width: '100px',
-                    height: '100px',
-                    my: 1
-                }}
-            />
+            <Link to={`/${userLogged.organizationId}/user/${userLogged.id}`}>
+                <Avatar
+                    className= "c-user-card__avatar"
+                    src= {userLogged.profilePicture}
+                    alt= {userLogged.name + userLogged.surname}
+                    sx= {{
+                        width: '100px',
+                        height: '100px',
+                        my: 1
+                    }}
+                />
+            </Link>
             <Box
                 className= "c-user-card__info"
                 sx= {{
