@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getUser, getUserOrganizationId } from '../../redux/selectors/user'
 import { getPosts } from '../../redux/selectors/feed'
 import { fetchPosts } from '../../redux/thunks/feed';
-
+import {fetchOrganization } from '../../redux/thunks/organization'
 import { Box, Avatar, Grid } from '@mui/material'
 import {  Typography } from '@mui/material'
 import { getOrganizationName } from '../../redux/selectors/organization'
@@ -27,8 +27,10 @@ function Feed({userIdUrl}) {
     
     
     useEffect(() => {
-              
-        if (userIdUrl) {  
+        dispatch(fetchOrganization(organizationId))
+
+        if (userIdUrl) {
+            
             dispatch(fetchPosts( userIdUrl ));
         } else {
             dispatch(fetchPosts());

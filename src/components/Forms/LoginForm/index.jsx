@@ -7,18 +7,18 @@ import {login} from "../../../redux/reducers/user"
 import { getIsLogged, getUser, getUserError } from '../../../redux/selectors/user'
 
 import './style.scss'
-import { fetchOrganization } from '../../../redux/reducers/organization'
 
 
 function LoginForm() {
 
     const { register, handleSubmit } = useForm()
     const dispatch = useDispatch()
-    const isLog = useSelector(getIsLogged)
     const navigate = useNavigate();
+
     const userError = useSelector(getUserError);
     const loggedUser = useSelector(getUser)
-
+    const isLog = useSelector(getIsLogged)
+    
     const onSubmit = (user) => {
         dispatch(login(user))
     }
@@ -28,7 +28,6 @@ function LoginForm() {
             const organizationId = loggedUser.organizationId
             
             if (organizationId){
-                dispatch(fetchOrganization(organizationId))
                 navigate(`/${organizationId}`)
             }
             else {
