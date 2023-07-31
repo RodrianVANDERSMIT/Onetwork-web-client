@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getUser } from '../../redux/selectors/user'
+import { getUser, getUserOrganizationId } from '../../redux/selectors/user'
 import { getPosts } from '../../redux/selectors/feed'
 import { fetchPosts } from '../../redux/thunks/feed';
 
@@ -73,7 +73,7 @@ function Feed({userIdUrl}) {
 }
 
 Feed.propTypes = {
-    userIdUrl: PropTypes.string
+    userIdUrl: PropTypes.number
 };
 
 export default Feed
