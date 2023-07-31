@@ -4,8 +4,7 @@ import { useForm } from "react-hook-form";
 import './style.scss'
 
 function InvitForm() {
-    console.log("Formulaire d'invitation");
-
+    
     // const dispatch = useDispatch();
 
     const {

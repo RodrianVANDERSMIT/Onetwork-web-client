@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import './style.scss'
 
 function Admin () {
-    console.log('Admin')
+
     return (
         <Box>
             <AdminMembers />
