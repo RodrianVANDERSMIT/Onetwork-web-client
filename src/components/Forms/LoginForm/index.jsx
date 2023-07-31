@@ -13,11 +13,12 @@ function LoginForm() {
 
     const { register, handleSubmit } = useForm()
     const dispatch = useDispatch()
-    const isLog = useSelector(getIsLogged)
     const navigate = useNavigate();
+
     const userError = useSelector(getUserError);
     const loggedUser = useSelector(getUser)
-
+    const isLog = useSelector(getIsLogged)
+    
     const onSubmit = (user) => {
         dispatch(login(user))
     }

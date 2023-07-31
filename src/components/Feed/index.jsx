@@ -27,7 +27,8 @@ function Feed({userIdUrl}) {
     
     
     useEffect(() => {
-        dispatch(fetchOrganization(organizationId)) 
+        dispatch(fetchOrganization(organizationId))
+
         if (userIdUrl) {
             
             dispatch(fetchPosts( userIdUrl ));
