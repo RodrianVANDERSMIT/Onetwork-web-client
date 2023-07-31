@@ -124,24 +124,9 @@ function Post({id, author,text,commentsCount,createdAt}) {
 Post.propTypes = {
     id: PropTypes.number,
     author: PropTypes.object,
-    text: PropTypes.string,
-    reactions: PropTypes.arrayOf(PropTypes.shape({
-        author: PropTypes.shape({
-            userId: PropTypes.number,
-            name: PropTypes.string,
-            surname: PropTypes.string,
-            job: PropTypes.string,
-            profilePicture: PropTypes.string,
-        }),
-        type: PropTypes.shape({
-            tag: PropTypes.string,
-            name: PropTypes.string,
-        }),
-        createdAt: PropTypes.string,
-        updatedAt: PropTypes.string,
-    })),
-    commentsCount: PropTypes.number,
-    createdAt: PropTypes.string,   
+    text: PropTypes.string,   
+    createdAt: PropTypes.string,
+    commentsCount: PropTypes.number,  
 };
 
 export default Post

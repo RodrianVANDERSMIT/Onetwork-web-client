@@ -45,8 +45,7 @@ export const addNewPost = createAsyncThunk("feed/addNewPost", async (text, thunk
         const posts = thunkApi.getState().feed.posts
         
         const lastpost = posts[posts.length - 1];
-        const newId = lastpost + 1;
-        
+        const newId = lastpost.id + 1;
         
         const now = moment() ;
 
@@ -96,7 +95,7 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
         } 
 
         const lastReaction = post.reactions[post.reactions.length - 1];
-        const newId = lastReaction + 1;
+        const newId = lastReaction.id + 1;
         
         const  newReaction = {
             id: newId, 

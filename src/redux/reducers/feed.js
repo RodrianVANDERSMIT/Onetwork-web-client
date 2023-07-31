@@ -38,7 +38,6 @@ const slice = createSlice({
             .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction }}) => {
                 const post = state.posts.find(post => post.id === postId)
                 post.reactions.push(newReaction)
-                
             })
             
             .addCase(addReaction.rejected, ( state,action) => {
@@ -70,7 +69,7 @@ const slice = createSlice({
             })
             
             .addCase(addNewPost.fulfilled, (state, action) => {
-                state.posts.unshift(action.payload)
+                state.posts.push(action.payload)
             })
              
             .addCase(addNewPost.rejected, (state,action) => {

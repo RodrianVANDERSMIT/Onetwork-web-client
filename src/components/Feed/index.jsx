@@ -64,7 +64,7 @@ function Feed({userIdUrl}) {
             {posts.length === 0 ? (
                 <Typography variant="body1">{"Cet utilisateur n'a pas encore rédigé de post"}</Typography>
             ) : (
-                posts.map((post) => (
+                posts.slice().reverse().map((post) => (
                     <Grid key={post.id}>
                         <Post {...post} />
                     </Grid>
