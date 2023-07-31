@@ -25,23 +25,19 @@ const slice = createSlice({
         },
 
         setError(state, {payload: error }){
-            console.log(error)
             state.error = error
         }
     },
     extraReducers: builder => { 
         builder
             .addCase(login.fulfilled, (state, {payload: user}) => {
-
                 localStorage.setItem('user', JSON.stringify(user))
-                return { ...state, ...user, error: null 
-                };   
+                return { ...state, ...user, error: null
+                };
             })
             .addCase(login.rejected, (state, action) => {
-                
                 state.error = action.payload
             })
-
             .addCase(addUser.fulfilled,state => {
                 state.error= null
             })
@@ -52,7 +48,6 @@ const slice = createSlice({
                 return {...state, ...data, error: null}
             })
             .addCase(updateUser.rejected, (state, {payload: error}) => {
-                // state.isLoading = false
                 state.error = error
             })
     },

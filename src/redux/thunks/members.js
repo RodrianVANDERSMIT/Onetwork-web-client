@@ -27,7 +27,6 @@ export const updateMemberStatus = createAsyncThunk("user/updateMemberStatus", as
             }
             return member;
         });
-        console.log(updatedList);
         if (list === updatedList) {
             return thunkAPI.rejectWithValue({ status: 404, message: "Il n'y a aucun membre a mettre a jour" });
         }

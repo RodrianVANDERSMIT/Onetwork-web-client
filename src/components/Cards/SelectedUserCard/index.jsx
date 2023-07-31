@@ -1,13 +1,12 @@
-
 import { useParams } from "react-router-dom";
 import { Avatar, Box, Typography } from "@mui/material";
-import './style.scss'
 import { useDispatch, useSelector } from "react-redux";
 import { getMembers } from "../../../redux/selectors/members";
 import { getUserOrganizationId } from "../../../redux/selectors/user";
 import { useEffect } from "react";
 import { fetchMembers } from "../../../redux/thunks/members";
 
+import './style.scss'
 
 function SelectedUserCard() {
     const dispatch = useDispatch();
@@ -35,7 +34,6 @@ function SelectedUserCard() {
             </Box>
         );
     }
-    
 
     return (
         <Box
@@ -85,7 +83,5 @@ function SelectedUserCard() {
         </Box>
     );
 }
-
-
 
 export default SelectedUserCard
