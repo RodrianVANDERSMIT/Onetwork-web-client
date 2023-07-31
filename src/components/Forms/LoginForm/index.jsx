@@ -7,7 +7,6 @@ import {login} from "../../../redux/reducers/user"
 import { getIsLogged, getUser, getUserError } from '../../../redux/selectors/user'
 
 import './style.scss'
-import { fetchOrganization } from '../../../redux/reducers/organization'
 
 
 function LoginForm() {
@@ -28,7 +27,6 @@ function LoginForm() {
             const organizationId = loggedUser.organizationId
             
             if (organizationId){
-                dispatch(fetchOrganization(organizationId))
                 navigate(`/${organizationId}`)
             }
             else {

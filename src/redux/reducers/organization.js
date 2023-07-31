@@ -44,8 +44,8 @@ const slice = createSlice({
                 state.error = error
             })
 
-            .addCase(fetchOrganization.fulfilled, (state, {payload: organization })=>{
-                
+            .addCase(fetchOrganization.fulfilled, (state, {payload:  organization })=>{
+                state.id = organization.id
                 state.name = organization.name
                 state.error = null
             })

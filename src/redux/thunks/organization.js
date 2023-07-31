@@ -43,10 +43,10 @@ export const createOrganization = createAsyncThunk('organization/createOrganizat
 
 
 export const fetchOrganization = createAsyncThunk('organization/fetchOrganization', async( organizationId , thunkApi) =>{
-
+console.log(organizationId)
     try {
         const organization = organizations.find(({id}) => id === organizationId)
-        
+        console.log(organization)
         if (organization) {
             return organization 
         }
