@@ -11,7 +11,7 @@ function UserProfile() {
     return (
      
         <AuthenticatedLayout>
-            <Feed userIdUrl={userId}/>
+            <Feed userIdUrl={parseInt(userId)}/>
         </AuthenticatedLayout>  
         
     )
