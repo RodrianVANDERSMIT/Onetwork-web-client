@@ -89,14 +89,17 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
     try {
         const userLogged = thunkApi.getState().user
         const posts = thunkApi.getState().feed.posts
-        const exist = posts.some(({id}) => id ===postId)  
+        const post = posts.find(({id}) => id === postId)  
         
-        if (!exist) {
+        if (!post) {
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         } 
 
+        const lastReaction = post.reactions[post.reactions.length - 1];
+        const newId = lastReaction + 1;
+        
         const  newReaction = {
-            
+            id: newId, 
             author:{
                 id: userLogged.id,
                 name: userLogged.name,
@@ -123,31 +126,19 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction}, thunkApi) => {
 
     try {
-        const userLogged = thunkApi.getState().user
         const posts = thunkApi.getState().feed.posts
-        const exist = posts.some(({id}) => id ===postId)  
+        const post = posts.find(({id}) => id === postId)  
         
-        if (!exist) {
+        if (!post) {
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         } 
 
-        const  updatedReaction = {
-            
-            author:{
-                id: userLogged.id,
-                name: userLogged.name,
-                surname: userLogged.surname,
-                job: userLogged.job,
-                profilePicture: userLogged.profilePicture,
-            },
-            type:{
+        const updatedReaction = {
                 tag: `${reaction}`,
                 name: `${reaction}`,
-            },
         };
        
-        return {updatedReaction, postId}
-        
+        return {updatedReaction, postId, authorId: post.author.id}
     }
     catch (error) {
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });  
@@ -187,5 +178,4 @@ export const removeReaction = createAsyncThunk("post/removeReaction", async ({po
     catch (error) {
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });  
     }
-})
-
+});
