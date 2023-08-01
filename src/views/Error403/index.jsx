@@ -10,7 +10,7 @@ function Error403({message = "Désolé, vous n'avez pas l'autorisation d'accéde
         <Error 
             code = {403}
             message = {message}
-            image = "../../../../public/interdit403.jpg" 
+            image = "/assets/errors/interdit403.jpg"
         />       
     )
 }
@@ -22,5 +22,3 @@ Error403.propTypes = {
 };
 
 export default Error403
-
-

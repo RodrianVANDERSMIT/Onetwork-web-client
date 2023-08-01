@@ -8,7 +8,7 @@ function Error401({message = "Accès refusé : Vous devez être connecté pour a
         <Error 
             code = {401}
             message = {message} 
-            image = "../../../../public/closedoor401.jpg"
+            image = "/assets/errors/closedoor401.jpg"
         />       
     )
 }
@@ -20,5 +20,3 @@ Error401.propTypes = {
 };
 
 export default Error401
-
-

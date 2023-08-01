@@ -9,7 +9,7 @@ function Error404({message = "La page que vous recherchez est perdue dans l'espa
         <Error 
             code = {404}
             message = {message}
-            image = "../../../../public/espace404.jpg"
+            image = "/assets/errors/espace404.jpg"
         />       
     )
 }
@@ -21,5 +21,3 @@ Error404.propTypes = {
 };
 
 export default Error404
-
-
