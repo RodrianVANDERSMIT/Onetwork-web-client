@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Grid, Paper, Typography, useTheme } from "@mui/material";
-import SimplePageLayout from "../../layout/SimplePageLayout"
+import SimplePageLayout from "../../layout/SimplePageLayout";
 import { Email } from '@mui/icons-material';
 
 import './style.scss'
@@ -50,7 +50,7 @@ function Contact() {
                         >
                             <Avatar
                                 className= "c-team-card__avatar"
-                                src= "https://randomuser.me/api/portraits/women/33.jpg"
+                                src= "/assets/team/Jon-avatar.png"
                                 alt= "Jon Garbayo"
                                 sx= {{
                                     width: '100px',
@@ -87,7 +87,7 @@ function Contact() {
                         >
                             <Avatar
                                 className= "c-team-card__avatar"
-                                src= "https://randomuser.me/api/portraits/women/66.jpg"
+                                src= "/assets/team/Pierre-avatar.png"
                                 alt= "Pierre Hego"
                                 sx= {{
                                     width: '100px',
@@ -124,7 +124,7 @@ function Contact() {
                         >
                             <Avatar
                                 className= "c-team-card__avatar"
-                                src= "https://randomuser.me/api/portraits/women/64.jpg"
+                                src= "/assets/team/Bruno-avatar.png"
                                 alt= "Bruno Provost"
                                 sx= {{
                                     width: '100px',
@@ -161,7 +161,7 @@ function Contact() {
                         >
                             <Avatar
                                 className= "c-team-card__avatar"
-                                src= "https://randomuser.me/api/portraits/women/68.jpg"
+                                src= "/assets/team/Rodrian-avatar.png"
                                 alt= "Rodrian Van Der Smit"
                                 sx= {{
                                     width: '100px',
