@@ -36,6 +36,46 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
     }
 })
 
+
+export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text, postId}, thunkApi) => {
+    
+    
+    try {
+        
+
+        // fetch of logged-in user data
+        const userLogged = thunkApi.getState().user
+
+        const comments = thunkApi.getState().feed.posts.find((post) => post.id === postId).comments
+        
+        const lastcomment = comments[comments.length - 1];
+        const newId = (lastcomment?.id || 0) + 1;
+        
+        const now = moment() ;
+
+        const date = now.format('YYYY-MM-DD');
+        const time = now.format('HH:mm:ss');
+        const formattedDate = `${date} ${time}`
+
+        const newComment = {
+            id: newId,
+            text: text,
+            author: userLogged,
+            createdAt: formattedDate,
+            post_id: postId
+        };
+
+        delete newComment.author.error
+        console.log("je console mon newComment:", newComment)
+        return {newComment, postId}
+
+    }
+    catch (error) {
+        throw new Error( "Une erreur s'est produite");
+    }
+})
+
+
 export const addNewPost = createAsyncThunk("feed/addNewPost", async (text, thunkApi) => {
     try {
 

@@ -19,7 +19,8 @@ function CommentForm({postId}) {
     
         dispatch(addNewComment({text, postId}));
         reset();
-    }
+        
+    };
     
     return (
         <Paper
@@ -33,7 +34,8 @@ function CommentForm({postId}) {
                 placeholder="Commenter..."
                 multiline
                 type="text"
-                {...register('text')}
+                {...register('text', {required: 'Veuillez saisir un texte!'})}
+                
             />
             <IconButton 
                 type="submit" 

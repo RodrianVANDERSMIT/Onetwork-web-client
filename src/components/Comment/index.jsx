@@ -17,14 +17,14 @@ function Comment({ author,text,createdAt}) {
             <ListItemAvatar>
                 <Avatar alt="Remy Sharp" src={author.profilePicture} />
             </ListItemAvatar>
-            <Paper className="c-comment-list_paper" >
+            <Paper className="c-comment-list__paper" >
                 <Typography variant="body2">
                     {`${author.name}  ${author.surname} - ${date} à ${time}`}
                 </Typography>
                 <Typography variant="body2">
                     {author.job}
                 </Typography>
-                <Typography variant="body1" mt={2}>
+                <Typography className="c-comment-list__text" variant="body1" mt={2}>
                     {text}
                 </Typography>
             </Paper>

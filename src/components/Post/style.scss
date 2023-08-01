@@ -14,12 +14,17 @@
     @media (max-width: b.$breakpoint-sm) {
         padding: 0  
     }
+
+    &__text {
+        overflow-wrap: normal;
+    }
+
+    &__action {
+        padding: 8px 16px !important;
+    }
+
+    &__list {
+        padding: 0 16px !important;
+    }
 }
 
-.c-post-card-content {
-    padding: 0 16px !important;
-}
-
-.c-post-card-action {
-    padding: 8px 16px !important;
-}

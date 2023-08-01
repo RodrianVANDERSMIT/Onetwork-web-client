@@ -4,8 +4,13 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
 
-    &_paper {
+    &__paper {
+        min-width: 0;
         padding: 0.5em;
         background-color: c.$secondary !important;
+    }
+
+    &__text {
+        overflow-wrap: break-word;
     }
 }

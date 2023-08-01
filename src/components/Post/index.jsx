@@ -75,7 +75,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
             />
             <Divider/>
             <CardContent>
-                <Typography variant="body1" >
+                <Typography className="c-card-post__text" variant="body1" >
                     {text}
                 </Typography>
             </CardContent>
@@ -89,7 +89,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 </Typography>
             </CardContent>
             <Divider/>
-            <CardActions className="c-post-card-action"  disableSpacing>
+            <CardActions className="c-post-card__action"  disableSpacing>
                 <ReactionButton
                     postId={id}   
                 />
@@ -105,7 +105,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent className="c-post-card-content">
+                <CardContent className="c-post-card__list">
                     <List>
                         {comments?.map(comment => (   
                             <Grid key={comment.id}>
