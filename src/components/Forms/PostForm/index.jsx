@@ -18,7 +18,7 @@ function PostForm() {
     const onSubmit = ({text}) => {
 
         dispatch(addNewPost(text));
-        reset();
+        reset(); 
     }
 
     return (
@@ -33,7 +33,7 @@ function PostForm() {
                 placeholder='Nouveau Post...'
                 multiline
                 type="text"
-                {...register('text')}
+                {...register('text', {required: 'Veuillez saisir un texte!'})}
 
             />
             <IconButton

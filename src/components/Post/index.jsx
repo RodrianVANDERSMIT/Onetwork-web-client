@@ -1,25 +1,24 @@
 import PropTypes from "prop-types"
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { getPostComments } from '../../redux/selectors/feed'
 import { fetchComments } from '../../redux/thunks/feed';
 import { getUser } from '../../redux/selectors/user'
 
+import moment from 'moment'
+
+import CommentForm from '../Forms/CommentForm';
+import Comment from '../Comment';
+import ReactionButton from '../Buttons/ReactionButton'
+import PostReaction from '../PostReaction'
+
 import { Card, CardActions, CardHeader, CardContent } from '@mui/material';
 import { Grid, Typography, Button, Divider } from '@mui/material'
 import {Avatar, Collapse, List, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import FormComment from '../Forms/CommentForm';
-import BasicButton from '../Buttons/BasicButton';
 
-import Comment from '../Comment';
-
-import moment from 'moment'
 import './style.scss'
-
-import ReactionButton from '../Buttons/ReactionButton'
-import PostReaction from '../PostReaction'
-import { Link } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -76,7 +75,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
             />
             <Divider/>
             <CardContent>
-                <Typography variant="body1" >
+                <Typography className="c-card-post__text" variant="body1" >
                     {text}
                 </Typography>
             </CardContent>
@@ -90,7 +89,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 </Typography>
             </CardContent>
             <Divider/>
-            <CardActions className="c-post-card-action"  disableSpacing>
+            <CardActions className="c-post-card__action"  disableSpacing>
                 <ReactionButton
                     postId={id}   
                 />
@@ -106,7 +105,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent className="c-post-card-content">
+                <CardContent className="c-post-card__list">
                     <List>
                         {comments?.map(comment => (   
                             <Grid key={comment.id}>
@@ -118,7 +117,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     <Box className="c-feed-header">
                         <Box className="c-feed-header__textarea" >
                             <Avatar className="c-avatar" alt="Remy Sharp" src={userLogged.profilePicture} />
-                            <FormComment/>
+                            <CommentForm postId={id}/>
                         </Box>
                     </Box>                                
                 </CardContent>
