@@ -41,22 +41,22 @@ function PostReaction({postId}) {
                 ) : (
                     <>
                         {tagExists(postReactions, 'like') && (
-                            <img className='c-reaction-post__image' src="/public/assets/reactions/emoji-like.png" alt="Emoji like" />
+                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-like.png" alt="Emoji like" />
                         )}
                         {tagExists(postReactions, 'love') && (
-                            <img className='c-reaction-post__image' src="/public/assets/reactions/emoji-love.png" alt="Emoji love" />
+                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-love.png" alt="Emoji love" />
                         )}
                         {tagExists(postReactions, 'haha') && (
-                            <img className='c-reaction-post__image' src="/public/assets/reactions/emoji-haha.png" alt="Emoji haha" />
+                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-haha.png" alt="Emoji haha" />
                         )}
                         {tagExists(postReactions, 'wow') && (
-                            <img className='c-reaction-post__image' src="/public/assets/reactions/emoji-wow.png" alt="Emoji wow" />
+                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-wow.png" alt="Emoji wow" />
                         )}
                         {tagExists(postReactions, 'sad') && (
-                            <img className='c-reaction-post__image' src="/public/assets/reactions/emoji-sad.png" alt="Emoji sad" />
+                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-sad.png" alt="Emoji sad" />
                         )}
                         {tagExists(postReactions, 'angry') && (
-                            <img className='c-reaction-post__image' src="/public/assets/reactions/emoji-angry.png" alt="Emoji angry" />
+                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-angry.png" alt="Emoji angry" />
                         )}
                         {postReactions.length}
                     </>
@@ -74,7 +74,7 @@ function PostReaction({postId}) {
                 <Box className ="c-reaction-post__info" sx={{ p: 2 }}>
                     {postReactions.map((reaction) => (
                         <Box className ="c-reaction-post__info-emoji" key={reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
-                            <img src={`/public/assets/reactions/emoji-${reaction.type.tag}.png`}/>
+                            <img src={`/assets/reactions/emoji-${reaction.type.tag}.png`}/>
                             <Box className ="c-reaction-post__info-container-picture" sx={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden', marginRight: '8px' }}>
                                 <Link to={`/${organizationId}/user/${reaction.author.id}`}>
                                     <img className ="c-reaction-post__info-picture"

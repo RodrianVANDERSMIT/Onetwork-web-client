@@ -13,7 +13,7 @@ const DoublePageLayout = ({ children }) => {
                 <Box className="c-double-img">
                     <img 
                         className="c-double-img__left"
-                        src="/public/assets/austin-distel-wD1LRb9OeEo-unsplash.jpg" alt="tranquillou les devs!"></img>
+                        src="/assets/austin-distel-wD1LRb9OeEo-unsplash.jpg" alt="tranquillou les devs!"></img>
                 </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6}>

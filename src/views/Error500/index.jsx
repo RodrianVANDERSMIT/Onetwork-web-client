@@ -8,7 +8,7 @@ function Error500({message = "Oups ! Quelque chose s'est mal passé de notre cô
         <Error 
             code = {500}
             message = {message}
-            image = "/public/assets/errors/cable500.jpg"
+            image = "/assets/errors/cable500.jpg"
         />       
     )
 }
