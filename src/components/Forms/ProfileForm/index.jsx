@@ -27,6 +27,8 @@ function ProfileForm() {
     const {
         register,
         watch,
+        control,
+        resetField,
         handleSubmit,
         formState: { errors }
     } = useForm({
@@ -201,7 +203,8 @@ function ProfileForm() {
                 </Typography>
                 <AvatarForm
                     className="c-profile-form__avatar"
-                    register={register}
+                    control={control}
+                    resetField={resetField}
                 />
                 <TextField
                     className="c-profile-form__input"
