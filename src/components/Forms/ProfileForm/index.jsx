@@ -35,7 +35,7 @@ function ProfileForm() {
         defaultValues: {
             surname: surname,
             name: name,
-            job: job
+            job: job,
         }
     });
 
@@ -104,13 +104,12 @@ function ProfileForm() {
                 >
                     <Typography
                         className="c-profile-form__subtitle"
-                        component="body1"
-                        variant="h6"
+                        variant="body1"
                         sx={{mb:1}}
                     >
                         Votre compte
                     </Typography>
-                    <TextField 
+                    <TextField
                         className="c-profile-form__input"
                         label="Email"
                         helperText= {errors.email?.message}
@@ -152,8 +151,7 @@ function ProfileForm() {
                 >
                     <Typography
                         className="c-profile-form__subtitle"
-                        component="body1"
-                        variant="h6"
+                        variant="body1"
                         sx={{mb:1}}
                     >
                         Votre compte
@@ -195,8 +193,7 @@ function ProfileForm() {
             >
                 <Typography
                     className="c-profile-form__subtitle"
-                    component="body1"
-                    variant="h6"
+                    variant="body1"
                     sx={{mb:1}}
                 >
                     Vous
@@ -242,15 +239,14 @@ function ProfileForm() {
             >
                 <Typography
                     className="c-profile-form__subtitle"
-                    component="body1"
-                    variant="h6"
+                    variant="body1"
                     sx={{mb:1}}
                 >
                     Votre poste
                 </Typography>
                 <Typography
                     className="c-profile-form__textfield"
-                    component="body1"
+                    variant="body1"
                     sx={{mb:2}}
                 >
                     Indiquez ici l’intitulé du poste que vous occupez au sein de l’organisation (p. ex. : graphiste, responsable markteting, etc.)
