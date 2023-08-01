@@ -7,7 +7,6 @@ function OrganizationCreation() {
 
     return (
         <DoublePageLayout>
-            <h5>OrganizationCreation</h5>
             <OrganizationForm/>
         </DoublePageLayout>
     )

@@ -8,7 +8,6 @@ function ProfileSettings() {
     return (
         
         <DoublePageLayout>
-            <h5>ProfilSetting</h5>
             <ProfilForm/>
         </DoublePageLayout>
     )
