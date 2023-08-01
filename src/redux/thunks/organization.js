@@ -1,19 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import organizations from "../../data/Organization.js"
+import { api } from "../../services/api"
+
 
 
 export const validateOrganization = createAsyncThunk('organization/validateOrganization', async(organizationName, thunkApi) => {
     try { 
-        
-        const exist = organizations.some(({name}) => name ===organizationName)  
-        
-        if (exist) {
-            return thunkApi.rejectWithValue({ status: 409, message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
-        }  
+        await api('/organizations/validation', {params: {name: organizationName}})
+
         return organizationName;
     }
     catch (error) {
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la création de l'organisation." });
+        console.log(error)
+        if (error.response.status === 409) {
+            return thunkApi.rejectWithValue({ status: 409 , message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
+        }  
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création de l'organisation." });
     }
 });
 
@@ -22,21 +23,19 @@ export const validateOrganization = createAsyncThunk('organization/validateOrgan
 export const createOrganization = createAsyncThunk('organization/createOrganization', async( organizationName ,thunkApi)=>{
     
     try {
-        const exist = organizations.some(({name}) => name ===organizationName)  
-        
-        if (exist) {
-            return thunkApi.rejectWithValue({ status: 409, message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
-        }  
-
-        const  newOrganization = {
-            id: organizations.lenght +1,
-            name: organizationName
-        };
-        
+        const { data } = await api.post('/organizations',  {name: organizationName})
+                
+        const newOrganization = data
+      
         return newOrganization
     }
     catch (error) {
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la création de l'organisation." });  
+        
+        if (error.response.status === 409) {
+            return thunkApi.rejectWithValue({ status: 409, message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
+        }  
+
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création de l'organisation." });  
     }
 });
 
@@ -45,18 +44,18 @@ export const createOrganization = createAsyncThunk('organization/createOrganizat
 export const fetchOrganization = createAsyncThunk('organization/fetchOrganization', async( organizationId , thunkApi) =>{
     
     try {
-        const organization = organizations.find(({id}) => id === organizationId)
-       
-        if (organization) {
-            return organization 
-        }
-        else {
+        const { data } = await api(`/organizations/${organizationId}`)
+                
+        const organization = data
+
+        return organization
+    }
+    catch (error) { 
+        
+        if (error.response.status === 404) {
             return thunkApi.rejectWithValue({status: 404, message : "l'organisation avec cette id n'a pas été trouvée."});
         }
-        
-    }
-    catch (error) {
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la recupération de l'organisation." });  
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la recupération de l'organisation." });  
     }
 })
 
