@@ -10,13 +10,14 @@
     padding: 0 0.5em;
     margin-bottom: 1.5em;
     border:1px solid v.$secondary;
+    
 
     @media (max-width: b.$breakpoint-sm) {
         padding: 0  
     }
 
     &__text {
-        overflow-wrap: normal;
+        overflow-wrap: break-word; 
     }
 
     &__action {

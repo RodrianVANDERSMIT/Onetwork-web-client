@@ -6,7 +6,7 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
    
     try { 
         
-        const { data } = await api.post('/users/1/session', {email: credentials.email, password: credentials.password} )
+        const { data } = await api.post('/users/session', {email: credentials.email, password: credentials.password} )
         
         const user = data
         return user
@@ -39,7 +39,7 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
    
     try { 
         
-        const { data } = await api.delete('/users/1/session', )
+        const { data } = await api.delete('/users/session', )
         
         const user = data
         return user
