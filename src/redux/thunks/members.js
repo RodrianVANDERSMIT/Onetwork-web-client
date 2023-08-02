@@ -1,19 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import users from '../../data/AppUser'
+import { api } from "../../services/api"
 
-export const fetchMembers = createAsyncThunk("members/fetchMembers", async (organization, thunkAPI) => {
+export const fetchMembers = createAsyncThunk("members/fetchMembers", async (organizationId, thunkApi) => {
     try {
-        const members = users.filter(({organizationId}) => organizationId === organization )
-
-        if (members) {
-            return members
-        }
-        else {
-            return thunkAPI.rejectWithValue({status: 404, message : "Il n'y a aucun membre dans cette organisation"});
-        }
+        
+        const { data : members} = await api(`/organizations/${organizationId}/users`)
+        
+        return members
+                
     }
     catch (error) {
-        return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
+        
+        if (error.response.status === 404) {
+            return thunkApi.rejectWithValue({status: 404, message : "Il n'y a aucun membre dans cette organisation"});
+        }
+       
+        return thunkApi.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
     }
 })
 
