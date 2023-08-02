@@ -66,7 +66,6 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
         };
 
         delete newComment.author.error
-        console.log("je console mon newComment:", newComment)
         return {newComment, postId}
 
     }
