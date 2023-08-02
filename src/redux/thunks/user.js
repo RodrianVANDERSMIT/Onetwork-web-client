@@ -1,20 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import  users  from "../../data/AppUser"
 import { api } from "../../services/api"
 
 export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
-   
-    try { 
-        
+
+    try {
         const { data } = await api.post('/users/session', {email: credentials.email, password: credentials.password} )
-        
+
         const user = data
         return user
-
     }
     catch (error) {
         console.log(error)
-        
+
         if (error.response.status === 401)
             return thunkApi.rejectWithValue({
                 status: 401,
@@ -32,13 +29,11 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
             message: "Une erreur s'est produite lors de la connexion." 
         });
     }
-    
 })
 
 export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
-   
-    try { 
-        
+
+    try {        
         const { data } = await api.delete('/users/session', )
         
         const user = data
@@ -47,7 +42,7 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
     }
     catch (error) {
         console.log(error)
-        
+
         if (error.response.status === 401)
             return thunkApi.rejectWithValue({
                 status: 401,
@@ -65,7 +60,6 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
             message: "Une erreur s'est produite lors de la connexion." 
         });
     }
-    
 })
 
 export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {
@@ -94,33 +88,37 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
 
 export const updateUser = createAsyncThunk("user/updateUser", async (data, thunkAPI) => {
     try {
-        if (!data.currentPassword) {
-            delete data.currentPassword
-            delete data.newPassword
+        const id = thunkAPI.getState().user.id;
+        const formData = new FormData()
+        for (let [key,value] of Object.entries(data)) {
+            if (key === 'currentPassword' && !value) continue
+            if (key === 'newPassword' && !value) continue
+            if (key === 'profilePicture' && !value) continue
+            formData.append(key, value)
         }
-        // TODO: Remove the else part when the server is ready
-        else {
-            const user = thunkAPI.getState().user;
 
-            const isValid = users.some(({email, password}) =>
-                email === user.email &&
-                password === data.currentPassword
-            );
-
-            if (!isValid) {
-                return thunkAPI.rejectWithValue({status: 422, message: "L'ancien mot de passe est incorrect"});
+        const response = api.post(`/users/${id}`,formData, {
+            params: {
+                _method: 'PATCH'
+            },
+            headers: {
+                'Content-Type': 'multipart/form-data',
             }
-            delete data.currentPassword;
-            delete data.newPassword;
-        }
-
-        // TODO remove fix before Api connect
-        // Temporary profile_picture fix to remove before Api connect
-        data.profilePicture = "https://randomuser.me/api/portraits/women/33.jpg"
-        // End Temporary profile_picture fix
-        return data
+        })
+        return response
     }
     catch (error) {
-        return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
+        console.log(error)
+        if (error.response.status === 422)
+            return thunkAPI.rejectWithValue({
+                status: 422,
+                message: "L'ancien mot de passe est incorrect"
+            })
+
+        if (error.response.status === 500)
+            return thunkAPI.rejectWithValue({
+                status: 500,
+                message: "Une erreur s'est produite"
+            })
     }
 })
