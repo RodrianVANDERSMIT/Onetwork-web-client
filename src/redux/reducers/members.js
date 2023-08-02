@@ -8,7 +8,12 @@ const initialState = {
 const slice = createSlice({
     name: 'members',
     initialState,
-    reducers: {},
+    reducers: {
+
+        cleanMembersState(state){
+            Object.assign(state, initialState);
+        },
+    },
     extraReducers: builder => { 
         builder
             .addCase(fetchMembers.fulfilled,(state, {payload: data}) => {
@@ -29,4 +34,5 @@ const slice = createSlice({
 })
 
 export default slice.reducer
+export const { cleanMembersState } = slice.actions
 export {fetchMembers, updateMemberStatus}

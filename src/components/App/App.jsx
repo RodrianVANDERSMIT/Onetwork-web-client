@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useParams } from 'react-router-dom'
+import { Routes, Route, Navigate, useParams,} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import UserProfile from "../../views/UserProfile"
 import Home from '../../views/Home'
@@ -17,8 +17,9 @@ import Error500 from '../../views/Error500'
 
 
 
-function App() {
 
+function App() {
+    
     const isLog = useSelector(getIsLogged);
     const userRole = useSelector(getUserRole);
    
@@ -44,7 +45,8 @@ function App() {
         }
         return children
     };
-    
+
+
     
     return (
         <Routes>
