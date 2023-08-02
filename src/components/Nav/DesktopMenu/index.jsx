@@ -1,10 +1,11 @@
-import  { useEffect } from 'react'
+
 import {useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom' 
-import { getIsLogged, getUserId, getUserOrganizationId } from "../../../redux/selectors/user"
+import { Link,  } from 'react-router-dom' 
+import { getUserId, getUserOrganizationId } from "../../../redux/selectors/user"
 import {logout}  from "../../../redux/reducers/user"
 import { cleanOrganizationState } from "../../../redux/reducers/organization"
-
+import { cleanMembersState } from "../../../redux/reducers/members"
+import { cleanFeedState } from "../../../redux/reducers/feed"
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
@@ -16,21 +17,18 @@ import PersonIcon from '@mui/icons-material/Person';
 const DesktopMenu = () => {
 
     const dispatch = useDispatch();
-    const isLog = useSelector(getIsLogged);
-    const navigate = useNavigate();
     const organizationId = useSelector(getUserOrganizationId);
     const userId = useSelector(getUserId);
 
     const handleLogout = () => {
-        dispatch(logout());
+        
         dispatch(cleanOrganizationState());
+        dispatch(cleanMembersState());
+        dispatch(cleanFeedState());
+        dispatch(logout());
     }
 
-    useEffect(() => {
-        if (!isLog) {
-            navigate('/');
-        }
-    }, [isLog, navigate]);
+    
 
     const data = [
         { text: "Flux d'activité", index: <ForumIcon />, route: `/${organizationId}` },

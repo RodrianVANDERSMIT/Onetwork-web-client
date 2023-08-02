@@ -3,30 +3,69 @@ import  users  from "../../data/AppUser"
 import { api } from "../../services/api"
 
 export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
-    try {
+   
+    try { 
+        
+        const { data } = await api.post('/users/1/session', {email: credentials.email, password: credentials.password} )
+        
+        const user = data
+        return user
 
-        const user = users.find(user => user.email === credentials.email && user.password === credentials.password);
-
-        if (!user)
+    }
+    catch (error) {
+        console.log(error)
+        
+        if (error.response.status === 401)
             return thunkApi.rejectWithValue({
                 status: 401,
                 message: 'Identifiants invalides'
             })
 
-        if (user.disabled)
+        if (error.response.status === 403)
             return thunkApi.rejectWithValue({
                 status: 403,
                 message: "Votre compte est desactivée. Veuillez contacté le gérant de l'organisation."
             })
+
+        return thunkApi.rejectWithValue({ 
+            status: 500, 
+            message: "Une erreur s'est produite lors de la connexion." 
+        });
+    }
+    
+})
+
+export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
+   
+    try { 
+        
+        const { data } = await api.delete('/users/1/session', )
+        
+        const user = data
         return user
 
     }
     catch (error) {
-        return thunkApi.rejectWithValue({
-            status: 500,
-            message: "Une erreur s'est produite lors de la connexion."
+        console.log(error)
+        
+        if (error.response.status === 401)
+            return thunkApi.rejectWithValue({
+                status: 401,
+                message: 'Identifiants invalides'
+            })
+
+        if (error.response.status === 403)
+            return thunkApi.rejectWithValue({
+                status: 403,
+                message: "Votre compte est desactivée. Veuillez contacté le gérant de l'organisation."
+            })
+
+        return thunkApi.rejectWithValue({ 
+            status: 500, 
+            message: "Une erreur s'est produite lors de la connexion." 
         });
     }
+    
 })
 
 export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {

@@ -13,6 +13,9 @@ const slice = createSlice({
     name: 'feed',
     initialState,
     reducers: {
+        cleanFeedState(state){
+            Object.assign(state, initialState);
+        },
        
     },
     extraReducers: builder => { 
@@ -86,4 +89,6 @@ const slice = createSlice({
     },
 })
 
+
+export const { cleanFeedState } = slice.actions
 export default slice.reducer
