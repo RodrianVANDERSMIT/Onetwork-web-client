@@ -2,13 +2,13 @@ import AvatarForm from "../AvatarForm";
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { addUser, updateUser } from '../../../redux/reducers/user'
 import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
-import {getOrganizationName } from '../../../redux/selectors/organization'
+import { getOrganizationName } from '../../../redux/selectors/organization'
+import { createOrganization } from "../../../redux/thunks/organization";
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom"
 
 import './style.scss'
-import { createOrganization } from "../../../redux/thunks/organization";
 
 function ProfileForm() {
 
@@ -21,8 +21,6 @@ function ProfileForm() {
     const surname = user.surname
     const name = user.name
     const job = user.job
-
-    
 
     const {
         register,
@@ -49,17 +47,15 @@ function ProfileForm() {
         return "Bienvenue sur la modification votre profil utilisateur"
     }
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         if (!isLog) {
-            dispatch(createOrganization(organizationName))
-            dispatch(addUser(data)).unwrap()
-                .then(() => navigate(`/`))
-                .catch(() => {})
+            await dispatch(createOrganization(organizationName))
+            await dispatch(addUser(data))
+            navigate(`/`)
         }
         if (isLog) {
-            dispatch(updateUser(data)).unwrap()
-                .then(() => navigate(`/`))
-                .catch(() => {})
+            await dispatch(updateUser(data))
+            navigate(`/`)
         }
     };
 
