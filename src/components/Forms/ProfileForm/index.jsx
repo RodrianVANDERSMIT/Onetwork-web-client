@@ -49,12 +49,12 @@ function ProfileForm() {
 
     const onSubmit = async (data) => {
         if (!isLog) {
-            await dispatch(createOrganization(organizationName))
-            await dispatch(addUser(data))
+            await dispatch(createOrganization(organizationName)).unwrap()
+            await dispatch(addUser(data)).unwrap()
             navigate(`/`)
         }
         if (isLog) {
-            await dispatch(updateUser(data))
+            await dispatch(updateUser(data)).unwrap()
             navigate(`/`)
         }
     };

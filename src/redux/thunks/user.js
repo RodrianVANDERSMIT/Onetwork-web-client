@@ -97,7 +97,7 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
             formData.append(key, value)
         }
 
-        const response = api.post(`/users/${id}`,formData, {
+        const response = await api.post(`/users/${id}`,formData, {
             params: {
                 _method: 'PATCH'
             },
@@ -105,7 +105,7 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
                 'Content-Type': 'multipart/form-data',
             }
         })
-        return response
+        return response.data
     }
     catch (error) {
         console.log(error)
