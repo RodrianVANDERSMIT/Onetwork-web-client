@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import  users  from "../../data/AppUser"
+import { api } from "../../services/api"
 
 export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
-    try { 
+    try {
 
         const user = users.find(user => user.email === credentials.email && user.password === credentials.password);
 
@@ -21,25 +22,31 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
 
     }
     catch (error) {
-        return thunkApi.rejectWithValue({ 
-            status: 500, 
-            message: "Une erreur s'est produite lors de la connexion." 
+        return thunkApi.rejectWithValue({
+            status: 500,
+            message: "Une erreur s'est produite lors de la connexion."
         });
     }
 })
 
 export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {
     try {
-        // TODO remove fix before Api connect
-        // Temporary profile_picture fix to remove before Api connect
-        data.profilePicture = "https://randomuser.me/api/portraits/women/33.jpg"
-        // End Temporary profile_picture fix
+        const organizationId = thunkAPI.getState().organization.id;
 
-        const newUserEmail = users.find(({email}) => email === data.email)
-        if (newUserEmail) {
-            return thunkAPI.rejectWithValue({status: 409, message: "Cette adresse e-mail est déjà associée à un compte"});
+        const formData = new FormData()
+        for (let [key,value] of Object.entries(data)) {
+            if (key === 'profilePicture' && !value) continue
+            formData.append(key, value)
         }
-        return data
+        formData.append('organizationId', organizationId)
+
+        const response = await api.post('/users',formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+
+        return response
     }
     catch (error) {
         return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Controller } from "react-hook-form"
 // import PropTypes from 'prop-types'; // TODO restore prop-types when Api is connected
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -9,31 +10,28 @@ import { useSelector } from 'react-redux';
 
 import './style.scss'
 
-function AvatarForm ({ register }) {
+function AvatarForm ({ control, resetField }) {
 
     const isLog = useSelector(getIsLogged)
     const user = (useSelector(getUser));
     const currentProfilePicture = user.profilePicture
 
-    const hiddenInputRef = useRef();
-
-    const { ref: registerRef, ...rest } = register("profilePicture");
-
+    const inputRef = useRef(null)
     const [preview, setPreview] = useState(currentProfilePicture);
 
-    const onUpdate = (event) => {
-        const file = event.target.files[0];
+    const onUpdate = (file) => {
         const urlImage = URL.createObjectURL(file);
         setPreview(urlImage);
     };
 
     const onBrowse = () => {
-        hiddenInputRef.current.click();
+        inputRef.current.click();
     };
 
     const onRemove = () => {
         setPreview(null);
-        hiddenInputRef.current.value = null;
+        resetField('profilePicture')
+        inputRef.current.value = null;
     };
 
     const uploadButtonLabel = preview ? "Changer l'image" : "Choisir un fichier";
@@ -52,17 +50,25 @@ function AvatarForm ({ register }) {
                 pb: 2,
             }}
         >
-            <input
-                className="c-avatar-form__input"
-                type="file"
+            <Controller
                 name="profilePicture"
-                {...rest}
-                onChange={onUpdate}
-                ref={(event) => {
-                    registerRef(event);
-                    hiddenInputRef.current = event;
-                }}
+                control={control}
+                render={({field}) => (
+                    <input
+                        className="c-avatar-form__input"
+                        type="file"
+                        onChange={(e) => {
+                            field.onChange(e.target.files[0])
+                            onUpdate(e.target.files[0]);
+                        }}
+                        ref={(e) => {
+                            field.ref(e);
+                            inputRef.current = e;
+                        }}
+                    />
+                )}
             />
+
             <Avatar
                 className="c-avatar-form__avatar"
                 src={preview}

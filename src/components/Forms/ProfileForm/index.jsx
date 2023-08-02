@@ -2,13 +2,13 @@ import AvatarForm from "../AvatarForm";
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { addUser, updateUser } from '../../../redux/reducers/user'
 import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
-import {getOrganizationName } from '../../../redux/selectors/organization'
+import { getOrganizationName } from '../../../redux/selectors/organization'
+import { createOrganization } from "../../../redux/thunks/organization";
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom"
 
 import './style.scss'
-import { createOrganization } from "../../../redux/thunks/organization";
 
 function ProfileForm() {
 
@@ -22,18 +22,18 @@ function ProfileForm() {
     const name = user.name
     const job = user.job
 
-    
-
     const {
         register,
         watch,
+        control,
+        resetField,
         handleSubmit,
         formState: { errors }
     } = useForm({
         defaultValues: {
             surname: surname,
             name: name,
-            job: job
+            job: job,
         }
     });
 
@@ -47,17 +47,15 @@ function ProfileForm() {
         return "Bienvenue sur la modification votre profil utilisateur"
     }
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         if (!isLog) {
-            dispatch(createOrganization(organizationName))
-            dispatch(addUser(data)).unwrap()
-                .then(() => navigate(`/`))
-                .catch(() => {})
+            await dispatch(createOrganization(organizationName))
+            await dispatch(addUser(data))
+            navigate(`/`)
         }
         if (isLog) {
-            dispatch(updateUser(data)).unwrap()
-                .then(() => navigate(`/`))
-                .catch(() => {})
+            await dispatch(updateUser(data))
+            navigate(`/`)
         }
     };
 
@@ -102,13 +100,12 @@ function ProfileForm() {
                 >
                     <Typography
                         className="c-profile-form__subtitle"
-                        component="body1"
-                        variant="h6"
+                        variant="body1"
                         sx={{mb:1}}
                     >
                         Votre compte
                     </Typography>
-                    <TextField 
+                    <TextField
                         className="c-profile-form__input"
                         label="Email"
                         helperText= {errors.email?.message}
@@ -150,8 +147,7 @@ function ProfileForm() {
                 >
                     <Typography
                         className="c-profile-form__subtitle"
-                        component="body1"
-                        variant="h6"
+                        variant="body1"
                         sx={{mb:1}}
                     >
                         Votre compte
@@ -193,15 +189,15 @@ function ProfileForm() {
             >
                 <Typography
                     className="c-profile-form__subtitle"
-                    component="body1"
-                    variant="h6"
+                    variant="body1"
                     sx={{mb:1}}
                 >
                     Vous
                 </Typography>
                 <AvatarForm
                     className="c-profile-form__avatar"
-                    register={register}
+                    control={control}
+                    resetField={resetField}
                 />
                 <TextField
                     className="c-profile-form__input"
@@ -239,15 +235,14 @@ function ProfileForm() {
             >
                 <Typography
                     className="c-profile-form__subtitle"
-                    component="body1"
-                    variant="h6"
+                    variant="body1"
                     sx={{mb:1}}
                 >
                     Votre poste
                 </Typography>
                 <Typography
                     className="c-profile-form__textfield"
-                    component="body1"
+                    variant="body1"
                     sx={{mb:2}}
                 >
                     Indiquez ici l’intitulé du poste que vous occupez au sein de l’organisation (p. ex. : graphiste, responsable markteting, etc.)
