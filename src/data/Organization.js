@@ -17,7 +17,7 @@ export default [
     },
     {
         id: 5,
-        name: 'OOomondieu',
+        name: "O'Mondieu",
     },
     
 ];

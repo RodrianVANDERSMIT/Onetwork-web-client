@@ -18,7 +18,7 @@ export default [
         id: 2,
         email: 'roro@roro.com',
         name: 'Jane',
-        surname: 'smith',
+        surname: 'Smith',
         password: 'Roro',
         job: 'Nurse',
         role: {
