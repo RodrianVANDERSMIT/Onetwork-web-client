@@ -80,7 +80,7 @@ const slice = createSlice({
             })
 
             .addCase(addNewComment.fulfilled, (state, { payload: { postId, newComment } } ) => {
-                state.posts.find(post => post.id === postId).comments.unshift(newComment)
+                state.posts.find(post => post.id === postId).comments.push(newComment)
             })
              
             .addCase(addNewComment.rejected, (state,action) => {
