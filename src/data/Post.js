@@ -10,7 +10,7 @@ export default [
                 name: 'David',
                 surname: 'Brown',
                 job: 'Pilot',
-                profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
+                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
             },
             type:{
                 tag: 'angry',
@@ -19,7 +19,7 @@ export default [
             createdAt: '12-10-2015 18:27:09',
             updatedAt: '12-29-2016 14:28:10',
         }],
-        commentsCount: 8,
+        commentsCount: 3,
         author:{
             id: 5,
             email: 'david.brown@example.com',
@@ -44,8 +44,8 @@ export default [
             id: 2,
             author:{
                 id: 2,
-                name: 'Smith',
-                surname: 'Jane',
+                name: 'Jane',
+                surname: 'Smith',
                 job: 'Pilot',
                 profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             },
@@ -73,7 +73,7 @@ export default [
             updatedAt: '12-29-2016 14:28:10',
         }],
         
-        commentsCount: 8,
+        commentsCount: 0,
         author: {
             id: 7,
             email: 'lisa.anderson@example.com',
@@ -98,8 +98,8 @@ export default [
             id: 3,
             author:{
                 id: 2,
-                name: 'Smith',
-                surname: 'Jane',
+                name: 'Jane',
+                surname: 'Smith',
                 job: 'Pilot',
                 profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             },
@@ -117,7 +117,7 @@ export default [
                 name: 'David',
                 surname: 'Brown',
                 job: 'Pilot',
-                profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
+                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
             },
             type:{
                 tag: 'haha',
@@ -126,13 +126,12 @@ export default [
             createdAt: '12-10-2015 18:27:09',
             updatedAt: '12-29-2016 14:28:10',
         }],
-        commentsCount: 8,
+        commentsCount: 2,
         author: {
             id: 2,
             email: 'roro@roro.com',
             name: 'Jane',
-            surname: 'smith',
-            password: 'Roro',
+            surname: 'Smith',
             job: 'Nurse',
             role: {
                 tag: 'admin',
@@ -150,7 +149,7 @@ export default [
         text: ' post 4amet consectetur adipisicing elit. Fugit esse ipsam dolor hic labore, accusamus sint et nemo totam, qui eaque laudantium saepe facilis nulla consectetur officiis molestias voluptas quos quidem adipisci, dolores inventore. Aliquam quaerat voluptate error sapiente cupiditate? Vero, error! Debitis assumenda non in, qui architecto numquam nisi omnis odit ab, dicta error sit neque atque cumque iusto?',
         organizationId: 4,
         reactions:[],
-        commentsCount: 8,
+        commentsCount: 0,
         author: {
             id: 1,
             email: 'john.doe@example.com',
@@ -188,7 +187,7 @@ export default [
             createdAt: '12-10-2015 18:27:09',
             updatedAt: '12-29-2016 14:28:10',
         }],
-        commentsCount: 8,
+        commentsCount: 0,
         author: {
             id: 7,
             email: 'lisa.anderson@example.com',
@@ -225,7 +224,7 @@ export default [
             createdAt: '12-10-2015 18:27:09',
             updatedAt: '12-29-2016 14:28:10',
         }],
-        commentsCount: 8,
+        commentsCount: 2,
         author: {
             id: 1,
             email: 'john.doe@example.com',
@@ -247,7 +246,7 @@ export default [
         text: 'POST 7 ipsum dolor sit amet consectetur adipisicing elit. Architecto natus consequuntur sit nobis sint exercitationem expedita omnis, voluptatibus est ullam? Quos totam iure non ea doloremque molestias ipsa laboriosam? Cum sapiente ad repudiandae voluptas sequi, quod vel quo cupiditate cumque! Consectetur quia necessitatibus numquam ut sapiente quo dicta beatae ipsam enim dolorum, laudantium, fugiat libero hic harum. Facere numquam quas voluptatibus harum? Voluptatibus corrupti distinctio cum quas, natus laborum, adipisci recusandae beatae perspiciatis maiores eum optio, molestiae ad labore velit!',
         organizationId: 2,
         reactions:[],
-        commentsCount: 8,
+        commentsCount: 0,
         author: {
             id: 7,
             email: 'lisa.anderson@example.com',
@@ -275,7 +274,7 @@ export default [
                 name: 'David',
                 surname: 'Brown',
                 job: 'Pilot',
-                profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
+                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
             },
             type:{
                 tag: 'angry',
@@ -284,7 +283,7 @@ export default [
             createdAt: '12-10-2015 18:27:09',
             updatedAt: '12-29-2016 14:28:10',
         }],
-        commentsCount: 8,
+        commentsCount: 0,
         author:{
             id: 5,
             email: 'david.brown@example.com',
@@ -312,7 +311,7 @@ export default [
                 name: 'David',
                 surname: 'Brown',
                 job: 'Pilot',
-                profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
+                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
             },
             type:{
                 tag: 'angry',
@@ -321,7 +320,7 @@ export default [
             createdAt: '12-10-2015 18:27:09',
             updatedAt: '12-29-2016 14:28:10',
         }],
-        commentsCount: 8,
+        commentsCount: 0,
         author:{
             id: 5,
             email: 'david.brown@example.com',
@@ -349,7 +348,7 @@ export default [
                 name: 'David',
                 surname: 'Brown',
                 job: 'Pilot',
-                profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
+                profilePicture: 'https://randomuser.me/api/portraits/men/36.jpg',
             },
             type:{
                 tag: 'angry',
@@ -358,12 +357,12 @@ export default [
             createdAt: '12-10-2015 18:27:09',
             updatedAt: '12-29-2016 14:28:10',
         }],
-        commentsCount: 8,
+        commentsCount: 0,
         author:{
             id: 2,
             email: 'roro@roro.com',
             name: 'Jane',
-            surname: 'smith',
+            surname: 'Smith',
             password: 'Roro',
             job: 'Nurse',
             role: {
