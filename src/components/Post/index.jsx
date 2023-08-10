@@ -105,7 +105,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent className="c-post-card__list">
+                <CardContent sx={{padding: '0 16px'}} className="c-post-card__list">
                     <List>
                         {comments?.map(comment => (   
                             <Grid key={comment.id}>

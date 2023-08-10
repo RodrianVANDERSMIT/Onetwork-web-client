@@ -10,11 +10,7 @@
     flex-direction: column;
     text-align: center;
     gap: 1em;
-    padding: 1em 0.5em;
-
-    @media (min-width: b.$breakpoint-sm) {
-        padding: 1em 0  
-    }
+    
 
     &__textarea {
         display: flex;
