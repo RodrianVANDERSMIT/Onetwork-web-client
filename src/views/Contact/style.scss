@@ -1,0 +1,43 @@
+@use '../../styles/settings/breakpoints' as b;
+@use '../../styles/settings/colors' as colors;
+
+// Contact Page Sass
+
+.c-contact-page {
+    text-align: center;
+    padding: 0 16px;
+
+    &__title {
+        text-align: center;
+    }
+}
+
+// Team Card Sass
+
+.c-team-card {
+    &__member {
+        background-color: colors.$white;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        @media (min-width: b.$breakpoint-sm) {
+            flex-direction: column;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        @media (min-width: b.$breakpoint-sm) {
+            align-items: center;
+            margin-left: 0px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+    }
+
+    &__role {
+        color: colors.$light-secondary;
+    }
+}

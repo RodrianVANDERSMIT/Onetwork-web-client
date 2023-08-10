@@ -1,0 +1,26 @@
+@use '../../styles/settings/colors' as v;
+
+.c-header { 
+    border-bottom: v.$light-secondary;
+    background-color: v.$white;
+    z-index: 1201; 
+    
+    &__toolbar {
+        background-color: v.$white;   
+    }
+
+    &__double-page {
+        width: 50% !important;
+
+        @media (max-width: 900px) {
+            width: 100% !important;
+        }
+    }
+
+    &__authenticated {
+        z-index: 1201!important;
+    }
+}
+
+
+

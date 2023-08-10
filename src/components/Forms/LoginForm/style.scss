@@ -1,0 +1,29 @@
+.c-user-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+    
+  
+    &___title {
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      background-color: red;
+     
+    }
+  
+    &__text {
+     
+    }
+  
+    &__form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  
+     
+      }
+    }
+  
