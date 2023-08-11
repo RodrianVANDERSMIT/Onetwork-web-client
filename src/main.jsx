@@ -9,13 +9,15 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import './styles/main.scss'
+import ScrollToTop from './components/ScrollToTop'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
-    <Provider store={store}>
-        <CssBaseline />
-        <App />
-    </Provider>
+        <ScrollToTop />
+        <Provider store={store}>
+            <CssBaseline />
+            <App />
+        </Provider>
     </BrowserRouter>
 
 )
