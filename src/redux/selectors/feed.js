@@ -5,6 +5,12 @@ export const getPosts = state => getFeed(state).posts;
 
 export const getPost  = postId => state => getPosts(state).find((post) => post.id === postId)
 
+export const getCurrentPage = state => getFeed(state).pagination.currentPage;
+
+export const getAvailablePosts = state => getFeed(state).pagination.availablePosts;
+
+export const getIsLoading = state => getFeed(state).loading;
+
 /*export function getPost(postId) {
 
     return function (state) {
@@ -16,3 +22,4 @@ export const getPost  = postId => state => getPosts(state).find((post) => post.i
 export const  getPostComments = postId => state => getPost(postId)(state).comments;
 
 export const getPostReactions = postId => state => getPost(postId)(state).reactions;
+

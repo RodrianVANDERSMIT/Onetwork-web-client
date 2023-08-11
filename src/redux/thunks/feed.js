@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { setAvailablePosts } from '../reducers/feed'
 import posts from "../../data/Post.js"
 import comments from "../../data/Comment.js"
 import moment from 'moment'
@@ -6,17 +7,31 @@ import moment from 'moment'
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
     
     const stateUserOrganizationId = thunkApi.getState().user.organizationId;
-
+    const currentPage = thunkApi.getState().feed.pagination.currentPage
+    const postsPerPage = thunkApi.getState().feed.pagination.postsPerPage
+    
+    const startIndex = (currentPage - 1) * postsPerPage;
     try {
-        // Si userIdUrl est défini, on filtre les posts pour l'utilisateur spécifique
-        if (userIdUrl) {
-            const filteredUserPosts = posts.filter(post => post.organizationId === stateUserOrganizationId && post.author.id === userIdUrl);
+        let filteredPosts = [];
 
-            return filteredUserPosts;
-        } 
-        // Sinon, on renvoie tous les posts de l'organisation
-        const postsOrganization = posts.filter(post => post.organizationId === stateUserOrganizationId);
-        return postsOrganization;
+        if (userIdUrl) {
+            filteredPosts = posts.filter(post => post.organizationId === stateUserOrganizationId && post.author.id === userIdUrl);
+        }
+        else{
+            filteredPosts = posts.filter(post => post.organizationId === stateUserOrganizationId);
+        }
+        
+        const sortedPosts = filteredPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        const endIndex = startIndex + Math.min(postsPerPage, sortedPosts.length - startIndex);
+
+        const totalPosts = sortedPosts.length;
+
+        const availablePosts = totalPosts > endIndex;
+        thunkApi.dispatch(setAvailablePosts(availablePosts));
+
+        const slicedPosts = sortedPosts.slice(startIndex, endIndex);
+        return slicedPosts;
         
     } catch (error) {
         throw new Error("Une erreur s'est produite");
