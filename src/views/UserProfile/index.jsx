@@ -1,8 +1,9 @@
 import Feed from "../../components/Feed"
 import { useParams } from 'react-router-dom';
-
+import ScrollTopButton from "../../components/Buttons/ScrollTopButton";
 import AuthenticatedLayout from "../../layout/AuthenticatedLayout"
 import './style.scss'
+
 
 function UserProfile() {
 
@@ -12,6 +13,7 @@ function UserProfile() {
      
         <AuthenticatedLayout>
             <Feed userIdUrl={parseInt(userId)}/>
+            <ScrollTopButton/>
         </AuthenticatedLayout>  
         
     )
