@@ -132,23 +132,3 @@ PostReaction.propTypes = {
 };
 
 export default PostReaction
-
-/*
-{postReactions.map((reaction) => (
-                        <Box className ="c-reaction-post__info-emoji" key={reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
-                            <img src={`/assets/reactions/emoji-${reaction.type.tag}.png`}/>
-                            <Box className ="c-reaction-post__info-container-picture" sx={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden', marginRight: '8px' }}>
-                                <Link to={`/${organizationId}/user/${reaction.author.id}`}>
-                                    <img className ="c-reaction-post__info-picture"
-                                        src={reaction.author.profilePicture}
-                                        alt={reaction.author.name}
-                                    />
-                                </Link>
-                            </Box>
-                            <Typography 
-                                className ="c-reaction-post__info-user" variant="body2">{`${reaction.author.name} ${reaction.author.surname}`}
-                            </Typography>
-                            
-                            
-                        </Box>
-                    ))}*/

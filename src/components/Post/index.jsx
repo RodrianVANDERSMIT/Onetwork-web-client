@@ -84,9 +84,16 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 <Box >
                     <PostReaction postId={id} />
                 </Box>
-                <Typography variant="body2" color="text.secondary">
+                <ExpandMore
+                    expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                    className='c-counter__btn' 
+                     
+                >
                     {commentsCount}{" commentaires"}
-                </Typography>
+                </ExpandMore>
             </CardContent>
             <Divider/>
             <CardActions className="c-post-card__action"  disableSpacing>
@@ -135,3 +142,7 @@ Post.propTypes = {
 };
 
 export default Post
+
+/*<Typography variant="body2" color="text.secondary">
+                    {commentsCount}{" commentaires"}
+                </Typography>*/

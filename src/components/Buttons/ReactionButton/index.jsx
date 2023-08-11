@@ -55,7 +55,7 @@ function ReactionButton({postId}) {
                     <img className='c-reaction-selector__image-choice' src={`/assets/reactions/emoji-${loggedUserReaction.type.tag}.png`} alt={`Emoji ${loggedUserReaction.type.tag}`}/>
                 </Button>
                 : 
-                <Button variant="outlined" className='c-reaction-selector__choice-button' aria-describedby={id} onClick={handleClick}>
+                <Button variant="outlined" className='c-btn footer' aria-describedby={id} onClick={handleClick}>
                     {"J'aime"}
                 </Button>
             }

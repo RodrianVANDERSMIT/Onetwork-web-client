@@ -4,6 +4,19 @@
 
 .c-reaction-post{
 
+    &__button {
+        text-transform: lowercase !important;
+        padding: 0 !important;
+        color: c.$light-secondary !important;
+        font-weight: 400 !important;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: c.$white !important;
+        }
+    }
+
     &__info-emoji {
         text-decoration: none;
     }
