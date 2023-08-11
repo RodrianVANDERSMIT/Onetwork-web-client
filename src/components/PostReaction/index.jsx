@@ -7,8 +7,22 @@ import {getUserOrganizationId } from '../../redux/selectors/user'
 import { Box, Button } from '@mui/material';
 import { Popover, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+import Avatar from '@mui/material/Avatar';
+import { useTheme } from '@mui/material/styles';
+
+
+const SmallAvatar = styled(Avatar)(({ theme }) => ({
+    width: 20,
+    height: 20,
+    background: `${theme.palette.background.paper}`,
+    padding: 2,
+}));
 
 function PostReaction({postId}) {
+
+    const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const postReactions = useSelector(getPostReactions(postId));
@@ -71,8 +85,56 @@ function PostReaction({postId}) {
                     horizontal: 'left',
                 }}
             >
-                <Box className ="c-reaction-post__info" sx={{ p: 2 }}>
+                <Box className ="c-reaction-post__info" sx={{ p: 1 }}>
                     {postReactions.map((reaction) => (
+                        <Box 
+                            component={Link} 
+                            to={`/${organizationId}/user/${reaction.author.id}`}
+                            className ="c-reaction-post__info-emoji" 
+                            key={reaction.id} 
+                            sx={{ display: 'flex', alignItems: 'center', padding: '0' }}>
+                            <Badge 
+                                className ="c-reaction-post__info-container-picture" 
+                                sx={{  marginRight: '0.5em' }}
+                                overlap="circular"
+                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                badgeContent={
+                                    <SmallAvatar src={`/assets/reactions/emoji-${reaction.type.tag}.png`} />
+                                }
+                            >
+                                <Avatar 
+                                    alt={reaction.author.name} 
+                                    src={reaction.author.profilePicture} 
+                                />
+                            </Badge>
+                            <Box>
+                                <Typography variant="body2" className ="c-reaction-post__text">
+                                    {`${reaction.author.name} ${reaction.author.surname}`}
+                                </Typography>
+                                <Typography 
+                                    variant="body2"
+                                    style={{ color: theme.palette.text.secondary }}
+                                >
+                                    {reaction.author.job}
+                                </Typography>
+                            </Box>
+                            
+                        </Box>
+                    ))}
+                </Box>
+            </Popover>
+        </div>
+    )
+}
+
+PostReaction.propTypes = {
+    postId: PropTypes.number.isRequired,
+};
+
+export default PostReaction
+
+/*
+{postReactions.map((reaction) => (
                         <Box className ="c-reaction-post__info-emoji" key={reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
                             <img src={`/assets/reactions/emoji-${reaction.type.tag}.png`}/>
                             <Box className ="c-reaction-post__info-container-picture" sx={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden', marginRight: '8px' }}>
@@ -89,15 +151,4 @@ function PostReaction({postId}) {
                             
                             
                         </Box>
-                    ))}
-                </Box>
-            </Popover>
-        </div>
-    )
-}
-
-PostReaction.propTypes = {
-    postId: PropTypes.number.isRequired,
-};
-
-export default PostReaction
+                    ))}*/
