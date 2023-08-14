@@ -42,25 +42,14 @@ const DesktopMenu = () => {
     return (
         <List>
             {data.map(({ text, index, route }) => (
-                <ListItem key={text} 
-                    component={Link} 
-                    to={route} 
-                    disablePadding    
-                    style={{ textDecoration: 'none', color: 'inherit' }} 
-                >
+                <ListItem key={text} component={Link} to={route} disablePadding>
                     <ListItemButton>
                         <ListItemIcon>{index}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItemButton>
                 </ListItem>
             ))}
-            <ListItem key="Déconnexion" 
-                disablePadding 
-                component={Link} 
-                to="/" 
-                onClick={handleLogout}
-                style={{ textDecoration: 'none', color: 'inherit' }} 
-            >
+            <ListItem key="Déconnexion" disablePadding component={Link} to="/" onClick={handleLogout}>
                 <ListItemButton>
                     <ListItemIcon>
                         <LogoutIcon />
