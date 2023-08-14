@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import { validateOrganization } from '../../../redux/reducers/organization'
-import { getOrganizationName, getError} from '../../../redux/selectors/organization'
+import { getOrganizationName, getError, getOrganizationLoader} from '../../../redux/selectors/organization'
 
 
 import './style.scss'
@@ -18,7 +18,7 @@ function OrganizationForm() {
     const navigate = useNavigate();
     const organizationNameChoice = useSelector(getOrganizationName);
     const organizationError = useSelector(getError)
-
+    const isLoading = useSelector(getOrganizationLoader)
 
     useEffect(() => {
         if (organizationNameChoice !== "") {
@@ -42,7 +42,7 @@ function OrganizationForm() {
                     label="Nom de votre organisation"
                     {...register('organizationName',{required:true, minLength: 3 })}
                 />
-
+                {isLoading ? <CircularProgress/> : null}
                 {errors.organizationName && errors.organizationName.type === "minLength" && (
                     <p className="c-organization-form__error">{"Le nom de l'organisation doit comporter au moins 3 caractères."}</p>
                 )}
