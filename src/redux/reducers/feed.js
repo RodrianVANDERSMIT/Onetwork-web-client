@@ -49,10 +49,14 @@ const slice = createSlice({
 
             .addCase(fetchComments.fulfilled, (state, { payload: { postId, postComments } } ) => {
                 state.posts.find(post => post.id === postId).comments = postComments
+                state.loading = false;
             })
-            
+            .addCase(fetchComments.pending, (state) => {
+                state.loading = true;
+            })            
             .addCase(fetchComments.rejected, (state,action) => {
                 state.error = action.payload
+                state.loading = false;
             })
 
             .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction }}) => {
