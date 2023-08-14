@@ -145,7 +145,3 @@ Post.propTypes = {
 };
 
 export default Post
-
-/*<Typography variant="body2" color="text.secondary">
-                    {commentsCount}{" commentaires"}
-                </Typography>*/
