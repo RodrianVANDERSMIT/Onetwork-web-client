@@ -12,3 +12,5 @@ export const getUserId = state => getUser(state).id;
 
 export const getUserRole = state => getUser(state).role;
 
+export const getUserLoading = state => getUser(state).loading;
+

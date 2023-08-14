@@ -1,23 +1,24 @@
 import { useEffect } from 'react'
-import { TextField, Button, Box, Typography } from '@mui/material'
+import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import {login} from "../../../redux/reducers/user"
-import { getIsLogged, getUser, getUserError } from '../../../redux/selectors/user'
+import { getIsLogged, getUser, getUserError, getUserLoading } from '../../../redux/selectors/user'
 
 import './style.scss'
 
 
 function LoginForm() {
 
-    const { register, handleSubmit } = useForm()
-    const dispatch = useDispatch()
+    const { register, handleSubmit } = useForm();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const userError = useSelector(getUserError);
-    const loggedUser = useSelector(getUser)
-    const isLog = useSelector(getIsLogged)
+    const loggedUser = useSelector(getUser);
+    const isLog = useSelector(getIsLogged);
+    const isLoading = useSelector(getUserLoading);
     
     const onSubmit = (user) => {
         dispatch(login(user))
@@ -68,7 +69,7 @@ function LoginForm() {
                     margin="normal"
                     variant="outlined"
                 />
-
+                {isLoading ? <CircularProgress/> : null}
                 {userError !== null && <p className="c-user-login__error">{userError?.message}</p>}
 
                 <Button type="submit" sx={{ mt: 2 }} fullWidth variant="contained" color="primary">
