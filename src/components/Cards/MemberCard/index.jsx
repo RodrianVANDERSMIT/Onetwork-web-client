@@ -58,13 +58,15 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                         flexDirection: 'column',
                     }}
                 >
-                    <Typography 
-                        className="c-member-card__identity"
-                        variant="body1"
-                        sx={{mb:0.5}}
-                    >
-                        {name} {surname}
-                    </Typography>
+                    <Link to={`/${organizationId}/user/${id}`}>
+                        <Typography 
+                            className="c-member-card__identity"
+                            variant="body1"
+                            sx={{mb:0.5}}
+                        >
+                            {name} {surname}
+                        </Typography>
+                    </Link>
                     <Typography
                         className="c-member-card__job"
                         variant="body1"
