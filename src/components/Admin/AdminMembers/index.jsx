@@ -82,7 +82,7 @@ function AdminMembers () {
                 </Grid>
             </Box>
             <Box className="c-admin-members__loader">
-                {!isLoading ? <CircularProgress/> : null}
+                {isLoading ? <CircularProgress/> : null}
             </Box>
         </Box>
     )
