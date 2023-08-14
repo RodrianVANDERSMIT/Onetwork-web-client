@@ -6,7 +6,7 @@ import {logout}  from "../../../redux/reducers/user"
 import { cleanOrganizationState } from "../../../redux/reducers/organization"
 import { cleanMembersState } from "../../../redux/reducers/members"
 import { cleanFeedState } from "../../../redux/reducers/feed"
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -40,7 +40,9 @@ const DesktopMenu = () => {
     ]
 
     return (
-        <List>
+       
+        <List> 
+            <Divider/>
             {data.map(({ text, index, route }) => (
                 <ListItem key={text} 
                     component={Link} 

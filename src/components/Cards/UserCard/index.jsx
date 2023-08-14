@@ -42,12 +42,14 @@ function UserCard() {
                     pb: 1
                 }}
             >
-                <Typography
-                    className= "c-user-card__identity"
-                    variant= "body1"
-                >
-                    {userLogged.name} {userLogged.surname}
-                </Typography>
+                <Link to={`/${userLogged.organizationId}/user/${userLogged.id}`}>
+                    <Typography
+                        className= "c-user-card__identity"
+                        variant= "body1"
+                    >
+                        {userLogged.name} {userLogged.surname}
+                    </Typography>
+                </Link>
                 <Typography
                     className= "c-user-card__job"
                     variant= "body1"

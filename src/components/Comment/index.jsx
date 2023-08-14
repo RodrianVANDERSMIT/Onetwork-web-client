@@ -4,6 +4,7 @@ import moment from 'moment'
 import { ListItem, ListItemAvatar, Paper } from '@mui/material';
 import { Avatar, Typography, } from '@mui/material';
 import './style.scss'
+import { Link } from "react-router-dom";
 
 
 function Comment({ author,text,createdAt}) {
@@ -15,12 +16,16 @@ function Comment({ author,text,createdAt}) {
     return (
         <ListItem className="c-comment-list" alignItems="flex-start">
             <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src={author.profilePicture} />
+                <Link to={`/${author.organizationId}/user/${author.id}`}>
+                    <Avatar alt="Remy Sharp" src={author.profilePicture} />
+                </Link>
             </ListItemAvatar>
             <Paper className="c-comment-list__paper" >
-                <Typography variant="body2">
-                    {`${author.name}  ${author.surname} - ${date} à ${time}`}
-                </Typography>
+                <Link to={`/${author.organizationId}/user/${author.id}`}>
+                    <Typography variant="body2">
+                        {`${author.name}  ${author.surname} - ${date} à ${time}`}
+                    </Typography>
+                </Link>
                 <Typography variant="body2">
                     {author.job}
                 </Typography>
