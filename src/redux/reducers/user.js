@@ -12,7 +12,8 @@ export const initialState = {
     profilePicture: "",
     organizationId: null,
     disabled: false,
-    error: null
+    loading: false,
+    error: null,
 }
 
 const slice = createSlice({
@@ -32,11 +33,15 @@ const slice = createSlice({
         builder
             .addCase(login.fulfilled, (state, {payload: user}) => {
                 localStorage.setItem('user', JSON.stringify(user))
-                return { ...state, ...user, error: null
+                return { ...state, ...user, error: null, loading: false,
                 };
+            })
+            .addCase(login.pending, (state) => {
+                state.loading = true;
             })
             .addCase(login.rejected, (state, action) => {
                 state.error = action.payload
+                state.loading = false;
             })
             .addCase(addUser.fulfilled,state => {
                 state.error= null
