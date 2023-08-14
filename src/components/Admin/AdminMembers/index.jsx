@@ -1,10 +1,10 @@
 import InvitForm from '../../Forms/InvitForm';
 import MemberCard from '../../Cards/MemberCard';
-import {Box, Grid, Typography} from '@mui/material';
+import {Box, CircularProgress, Grid, Typography} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchMembers } from '../../../redux/thunks/members';
-import { getMembers } from '../../../redux/selectors/members';
+import { getMembers, getMembersLoader } from '../../../redux/selectors/members';
 import { getUserOrganizationId } from '../../../redux/selectors/user';
 
 import './style.scss'
@@ -14,6 +14,7 @@ function AdminMembers () {
     const dispatch = useDispatch()
     const organizationId = useSelector(getUserOrganizationId)
     const {list} = useSelector(getMembers)
+    const isLoading = useSelector(getMembersLoader)
 
     //filter the organization member withn't the admin
     const memberList = list.filter(member => member.role && member.role.tag !=="admin")
@@ -29,7 +30,7 @@ function AdminMembers () {
 
     return (
         <Box
-            className="c-admin-members__group"
+            className="c-admin-members"
             sx={{
                 maxWidth: 900,
                 width: '100%',
@@ -79,6 +80,9 @@ function AdminMembers () {
                         </Grid>
                     ))}
                 </Grid>
+            </Box>
+            <Box className="c-admin-members__loader">
+                {isLoading ? <CircularProgress/> : null}
             </Box>
         </Box>
     )
