@@ -9,7 +9,7 @@ export const getCurrentPage = state => getFeed(state).pagination.currentPage;
 
 export const getAvailablePosts = state => getFeed(state).pagination.availablePosts;
 
-export const getPostLoading = state => getFeed(state).loading;
+export const getIsLoading = state => getFeed(state).loading;
 
 /*export function getPost(postId) {
 

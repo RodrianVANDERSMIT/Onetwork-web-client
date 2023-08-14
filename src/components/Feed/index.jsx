@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getUser, getUserOrganizationId } from '../../redux/selectors/user'
-import { getPosts, getCurrentPage, getAvailablePosts, getPostLoading } from '../../redux/selectors/feed'
+import { getPosts, getCurrentPage, getAvailablePosts, getIsLoading } from '../../redux/selectors/feed'
 import { fetchPosts } from '../../redux/thunks/feed';
 import { cleanFeedState, setCurrentPage } from '../../redux/reducers/feed'
 import {fetchOrganization } from '../../redux/thunks/organization'
@@ -33,7 +33,7 @@ function Feed({userIdUrl}) {
     const posts = useSelector(getPosts);
     const currentPage = useSelector(getCurrentPage)
     const availablePosts = useSelector(getAvailablePosts)
-    const isLoading = useSelector(getPostLoading)
+    const isLoading = useSelector(getIsLoading)
     
     useEffect(() => {
         dispatch(fetchOrganization(organizationId)); 
