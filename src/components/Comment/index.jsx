@@ -21,11 +21,9 @@ function Comment({ author,text,createdAt}) {
                 </Link>
             </ListItemAvatar>
             <Paper className="c-comment-list__paper" >
-                <Link to={`/${author.organizationId}/user/${author.id}`}>
-                    <Typography variant="body2">
-                        {`${author.name}  ${author.surname} - ${date} à ${time}`}
-                    </Typography>
-                </Link>
+                <Typography variant="body2">
+                    <Link to={`/${author.organizationId}/user/${author.id}`}>{`${author.name} ${author.surname}`}</Link> - {date} à {time} 
+                </Typography>              
                 <Typography variant="body2">
                     {author.job}
                 </Typography>
