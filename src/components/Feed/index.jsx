@@ -71,7 +71,10 @@ function Feed({userIdUrl}) {
                     </Typography>
 
 
-                    <Box className="c-feed-header__textarea" >
+                    <Box
+                        className="c-feed-header__textarea"
+                        sx={{ marginBottom: '1em' }}
+                    >
                         <Avatar
                             className="c-avatar"
                             alt="Remy Sharp"
