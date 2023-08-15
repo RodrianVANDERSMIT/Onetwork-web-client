@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useDispatch} from 'react-redux'
 
-import { addNewPost } from '../../../redux/thunks/feed';
+import { createPost } from '../../../redux/thunks/feed';
 
 import { InputBase, Paper } from '@mui/material'
 import { IconButton } from '@mui/material'
@@ -17,7 +17,7 @@ function PostForm() {
 
     const onSubmit = ({text}) => {
 
-        dispatch(addNewPost(text));
+        dispatch(createPost(text));
         reset(); 
     }
 
