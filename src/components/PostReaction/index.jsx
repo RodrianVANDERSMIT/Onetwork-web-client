@@ -85,14 +85,14 @@ function PostReaction({postId}) {
                     horizontal: 'left',
                 }}
             >
-                <Box className ="c-reaction-post__info" sx={{ p: 1 }}>
+                <Box className ="c-reaction-post__info" >
                     {postReactions.map((reaction) => (
                         <Box 
                             component={Link} 
                             to={`/${organizationId}/user/${reaction.author.id}`}
                             className ="c-reaction-post__info-emoji" 
                             key={reaction.id} 
-                            sx={{ display: 'flex', alignItems: 'center', padding: '0' }}>
+                            sx={{ display: 'flex', alignItems: 'center', padding: '0', margin: 1 }}>
                             <Badge 
                                 className ="c-reaction-post__info-container-picture" 
                                 sx={{  marginRight: '0.5em' }}
