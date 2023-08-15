@@ -76,7 +76,7 @@ function Feed({userIdUrl}) {
 
                     <Box
                         className="c-feed-header__textarea"
-                        sx={{ marginBottom: '1em' }}
+                        sx={{ marginBottom: '1em', marginLeft: { xs: 1 ,md: 0} }}
                     >
                         <Avatar
                             className="c-avatar"
