@@ -23,7 +23,7 @@ function PostForm() {
 
     return (
         <Paper
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, marginLeft: '1em' }}
+            sx={{ p: '2px 4px',m:'20px', display: 'flex', alignItems: 'center', width: 400, marginLeft: '1em' }}
             className="c-feed-header__form"
             component="form"
             onSubmit={ handleSubmit(onSubmit)}
