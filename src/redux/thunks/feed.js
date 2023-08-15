@@ -34,25 +34,49 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
         thunkApi.dispatch(setAvailablePosts(availablePosts));
 
         const slicedPosts = sortedPosts.slice(startIndex, endIndex);
+               
+        slicedPosts.forEach(actualPost => { 
+            actualPost.reactions = [];
+            actualPost.commentsCount = 0;
 
-        const actualPosts = slicedPosts.map(actualPost => {
             const matchingMockPost = posts.find(post => post.id === actualPost.id);
             if (matchingMockPost) {
-                return {
-                    ...actualPost,
-                    reactions: matchingMockPost.reactions,
-                    commentsCount: matchingMockPost.commentsCount,
-                };
+                actualPost.reactions = matchingMockPost.reactions;
+                actualPost.commentsCount = matchingMockPost.commentsCount;
             }
-            return actualPost;
         });
-
-        return actualPosts;
+        
+        return slicedPosts;
 
     } catch (error) {
         return thunkApi.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
     }
 });
+
+export const createPost = createAsyncThunk("feed/createPost", async (text, thunkApi) => {
+    try {
+
+        // fetch of logged-in user data
+        const organizationId = thunkApi.getState().user.organizationId
+
+        const { data } = await api.post(`/organizations/${organizationId}/posts`,  {text: text})
+
+        
+        const newPost = {
+            ...data,
+            reactions: [],
+            commentsCount: 0, 
+        };
+
+        return newPost
+
+
+    }
+    catch (error) {
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création du nouveau post." });
+    }
+})
+
 
 export const fetchComments = createAsyncThunk("feed/fetchComments", async (postId) => {
     try {
@@ -106,51 +130,6 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
 })
 
 
-export const addNewPost = createAsyncThunk("feed/addNewPost", async (text, thunkApi) => {
-    try {
-
-        // fetch of logged-in user data
-        const userLogged = thunkApi.getState().user
-
-        const posts = thunkApi.getState().feed.posts
-
-        const lastpost = posts[posts.length - 1];
-        const newId = (lastpost?.id || 0) + 1;
-
-        const now = moment() ;
-
-        const date = now.format('YYYY-MM-DD');
-        const time = now.format('HH:mm:ss');
-        const formattedDate = `${date} ${time}`
-
-        const newPost = {
-            id: newId,
-            text: text,
-            reactions:[],
-            commentsCount: 0,
-            author: {
-                id: userLogged.id,
-                email: userLogged.email,
-                name: userLogged.name,
-                surname: userLogged.surname,
-                job: userLogged.job,
-                role: {
-                    tag: userLogged.role.tag,
-                    name: userLogged.role.name,
-                },
-                profilePicture: userLogged.profilePicture,
-                disabled: userLogged.disabled,
-            },
-            createdAt: formattedDate
-        };
-
-        return newPost;
-
-    }
-    catch (error) {
-        throw new Error( "Une erreur s'est produite");
-    }
-})
 
 export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
     try {
