@@ -59,7 +59,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
 
     return (
         <Card 
-            sx = {{ borderRadius: { sm: 0 ,md: 3}}}
+            sx = {{ borderRadius: { xs: 0 ,md: 3}}}
             className='c-card-post'
         >
             <CardHeader
