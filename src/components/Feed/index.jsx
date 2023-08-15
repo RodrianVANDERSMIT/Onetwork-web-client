@@ -60,7 +60,10 @@ function Feed({userIdUrl}) {
 
 
     return (
-        <Box className="c-feed"  >
+        <Box
+            className="c-feed"
+            sx={{ paddingTop: '1.5em', paddingBottom: '1.5em' }}
+        >
 
             <Box className="c-feed-header" id="back-to-top-anchor">
                 {userIdUrl ?(
