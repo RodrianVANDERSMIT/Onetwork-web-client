@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getUser, getUserOrganizationId } from '../../redux/selectors/user'
-import { getPosts, getCurrentPage, getAvailablePosts, getPostLoading } from '../../redux/selectors/feed'
+import { getPosts, getAvailablePosts, getPostLoading } from '../../redux/selectors/feed'
 import { fetchPosts } from '../../redux/thunks/feed';
-import { cleanFeedState, setCurrentPage } from '../../redux/reducers/feed'
+import { cleanFeedState } from '../../redux/reducers/feed'
 import {fetchOrganization } from '../../redux/thunks/organization'
 import { getOrganizationName } from '../../redux/selectors/organization'
 
@@ -17,63 +17,51 @@ import Post from '../Post'
 
 import './style.scss'
 
-
-
-
-
 function Feed({userIdUrl}) {
     // Fetch of logged-in user data
     const dispatch = useDispatch();
     const userLogged = useSelector(getUser);
-    
+
     const organizationName = useSelector(getOrganizationName);
     const organizationId = useSelector(getUserOrganizationId);
-    
+
     // fetch all posts
     const posts = useSelector(getPosts);
-    const currentPage = useSelector(getCurrentPage)
     const availablePosts = useSelector(getAvailablePosts)
     const isLoading = useSelector(getPostLoading)
-    
+
     useEffect(() => {
-        dispatch(fetchOrganization(organizationId)); 
-        return () =>{
+        dispatch(fetchOrganization(organizationId));
+        dispatch(fetchPosts(userIdUrl))
+
+        return () => {
             dispatch(cleanFeedState())
         }
     }, []);
 
-    useEffect(() => {
-        if (!isLoading && availablePosts === true ) {
-            dispatch(fetchPosts(userIdUrl))
+    const handleScroll = () => {
+        if (!isLoading && availablePosts === true &&
+            window.innerHeight + window.scrollY >=
+            document.body.offsetHeight - 100
+        ) {
+            dispatch(fetchPosts(userIdUrl));
         }
-    }, [currentPage, availablePosts]);
+    };
 
     useEffect(() => {
-        const handleScroll = () => {
-        
-            if ( !isLoading &&
-                availablePosts === true &&
-                window.innerHeight + window.scrollY >=
-                document.body.offsetHeight - 100
-            ) {
-                dispatch(setCurrentPage(currentPage + 1));      
-            }
-        };
+        window.addEventListener('scroll', handleScroll);
 
-        if (availablePosts) {
-            window.addEventListener('scroll', handleScroll);
-        }
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [availablePosts, currentPage]);
+    }, [isLoading, availablePosts]);
 
 
 
 
     return (
         <Box className="c-feed"  >
-            
+
             <Box className="c-feed-header" id="back-to-top-anchor">
                 {userIdUrl ?(
                     <SelectedUserCard/>
@@ -81,17 +69,17 @@ function Feed({userIdUrl}) {
                     <>  <Typography variant="h5" >
                         {organizationName}
                     </Typography>
-                
-                
+
+
                     <Box className="c-feed-header__textarea" >
-                        <Avatar 
-                            className="c-avatar" 
-                            alt="Remy Sharp" 
-                            src={userLogged.profilePicture} 
+                        <Avatar
+                            className="c-avatar"
+                            alt="Remy Sharp"
+                            src={userLogged.profilePicture}
                         />
                         <PostForm
                         />
-                    </Box> 
+                    </Box>
                     </>
                 )}
             </Box>
@@ -107,16 +95,16 @@ function Feed({userIdUrl}) {
             )}
             <Box className="c-feed__loader" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
 
-                {isLoading && ( 
+                {isLoading && (
                     <CircularProgress/>
                 )}
                 {!isLoading && !availablePosts && (
                     <Typography variant="body1">Pas de messages plus anciens</Typography>
                 )}
-                
+
             </Box>
-        
-            
+
+
         </Box>
     )
 }
