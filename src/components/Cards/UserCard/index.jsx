@@ -15,10 +15,8 @@ function UserCard() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                width: '170px',
-                height:'170px'
+                width: '100%',
+                padding: '0.5em'
             }}
         >
             <Link to={`/${userLogged.organizationId}/user/${userLogged.id}`}>
@@ -36,9 +34,7 @@ function UserCard() {
             <Box
                 className= "c-user-card__info"
                 sx= {{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    textAlign: 'center',
                     pb: 1
                 }}
             >

@@ -43,10 +43,9 @@ function SelectedUserCard() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                width: '170px',
-                height:'170px'
+                margin: 'auto',
+                maxWidth: '300px',
+                padding: '0.5em'
             }}
         >
             <Link to={`/${selectedMember.organizationId}/user/${selectedMember.id}`}>
