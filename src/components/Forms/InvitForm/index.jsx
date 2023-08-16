@@ -54,6 +54,10 @@ function InvitForm() {
                             value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                             message: "L'email doit être valide.",
                         },
+                        maxLength: {
+                            value : 255,
+                            message: "L'email doit comporter 255 lettres maximum.",
+                        }
                     })}
                 />
                 <Button
