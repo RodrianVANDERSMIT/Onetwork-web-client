@@ -40,7 +40,19 @@ function OrganizationForm() {
                     name="organization"
                     type="text"
                     label="Nom de votre organisation"
-                    {...register('organizationName',{required:true, minLength: 3 })}
+                    helperText= {errors.organizationName?.message}
+                    error = {!!errors.organizationName}
+                    {...register('organizationName',{
+                        required:"Le nom de l'organisation est requis",
+                        minLength: {
+                            value : 3,
+                            message: "Le nom de l'organisation doit comporter 3 lettres minimum.",
+                        },
+                        maxLength: {
+                            value : 50,
+                            message: "Le nom de l'organisation doit comporter 50 lettres maximum.",
+                        }
+                    })}
                 />
                 {isLoading ? <CircularProgress/> : null}
                 {errors.organizationName && errors.organizationName.type === "minLength" && (
