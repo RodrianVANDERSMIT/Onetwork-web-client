@@ -33,9 +33,9 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
 
 export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
-    try {        
+    try {
         const { data } = await api.delete('/users/session', )
-        
+
         const user = data
         return user
 
@@ -93,7 +93,7 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
         for (let [key,value] of Object.entries(data)) {
             if (key === 'currentPassword' && !value) continue
             if (key === 'newPassword' && !value) continue
-            if (key === 'profilePicture' && !value) continue
+            if (key === 'profilePicture' && value === undefined) continue
             formData.append(key, value)
         }
 
