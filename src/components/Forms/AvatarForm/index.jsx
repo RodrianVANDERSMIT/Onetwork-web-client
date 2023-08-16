@@ -18,7 +18,6 @@ function AvatarForm ({ control, resetField, onDeletePictureChange }) {
     const [preview, setPreview] = useState(currentProfilePicture);
 
     const [deleteUserPicture, setDeleteUserPicture] = useState(false);
-    console.log('avatar form', deleteUserPicture)
 
     const onUpdate = (file) => {
         const urlImage = URL.createObjectURL(file);
