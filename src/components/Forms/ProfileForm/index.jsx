@@ -7,6 +7,7 @@ import { createOrganization } from "../../../redux/thunks/organization";
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom"
+import { useState } from "react";
 
 import './style.scss'
 
@@ -47,6 +48,12 @@ function ProfileForm() {
         return "Bienvenue sur la modification votre profil utilisateur"
     }
 
+    const [deleteUserPicture, setDeleteUserPicture] = useState(false);
+
+    const handleDeletePictureChange = (value) => {
+        setDeleteUserPicture(value);
+    };
+
     const onSubmit = async (data) => {
         if (!isLog) {
             await dispatch(createOrganization(organizationName)).unwrap()
@@ -54,6 +61,9 @@ function ProfileForm() {
             navigate(`/`)
         }
         if (isLog) {
+            if (deleteUserPicture) {
+                data.profilePicture = "";
+            }
             await dispatch(updateUser(data)).unwrap()
             navigate(`/`)
         }
@@ -198,6 +208,7 @@ function ProfileForm() {
                     className="c-profile-form__avatar"
                     control={control}
                     resetField={resetField}
+                    onDeletePictureChange={handleDeletePictureChange}
                 />
                 <TextField
                     className="c-profile-form__input"

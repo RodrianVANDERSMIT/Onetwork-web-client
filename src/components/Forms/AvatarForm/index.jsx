@@ -4,24 +4,26 @@ import { Controller } from "react-hook-form"
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { getIsLogged } from '../../../redux/selectors/user'
 import { getUser } from '../../../redux/selectors/user'
 import { useSelector } from 'react-redux';
 
 import './style.scss'
 
-function AvatarForm ({ control, resetField }) {
+function AvatarForm ({ control, resetField, onDeletePictureChange }) {
 
-    const isLog = useSelector(getIsLogged)
     const user = (useSelector(getUser));
     const currentProfilePicture = user.profilePicture
 
     const inputRef = useRef(null)
     const [preview, setPreview] = useState(currentProfilePicture);
 
+    const [deleteUserPicture, setDeleteUserPicture] = useState(false);
+
     const onUpdate = (file) => {
         const urlImage = URL.createObjectURL(file);
         setPreview(urlImage);
+        setDeleteUserPicture(false)
+        onDeletePictureChange(false);
     };
 
     const onBrowse = () => {
@@ -32,6 +34,8 @@ function AvatarForm ({ control, resetField }) {
         setPreview(null);
         resetField('profilePicture')
         inputRef.current.value = null;
+        setDeleteUserPicture(true)
+        onDeletePictureChange(true);
     };
 
     const uploadButtonLabel = preview ? "Changer l'image" : "Choisir un fichier";
@@ -85,13 +89,23 @@ function AvatarForm ({ control, resetField }) {
             >
                 {uploadButtonLabel}
             </Button>
-            {isLog === false && (
+            {deleteUserPicture === true && (
+                <Button
+                    className="c-avatar-form__button"
+                    variant="outlined"
+                    onClick={onRemove}
+                    disabled
+                >
+                X
+                </Button>
+            )}
+            {deleteUserPicture === false && (
                 <Button
                     className="c-avatar-form__button"
                     variant="outlined"
                     onClick={onRemove}
                 >
-                    X
+                X
                 </Button>
             )}
         </Box>
