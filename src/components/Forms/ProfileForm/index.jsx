@@ -49,14 +49,12 @@ function ProfileForm() {
     }
 
     const [deleteUserPicture, setDeleteUserPicture] = useState(false);
-    console.log('Profile Form', deleteUserPicture) //TODO Delete
 
     const handleDeletePictureChange = (value) => {
         setDeleteUserPicture(value);
     };
 
     const onSubmit = async (data) => {
-        console.log(data.profilePicture)
         if (!isLog) {
             await dispatch(createOrganization(organizationName)).unwrap()
             await dispatch(addUser(data)).unwrap()
@@ -64,11 +62,8 @@ function ProfileForm() {
         }
         if (isLog) {
             if (deleteUserPicture) {
-                console.log('Image Delete', deleteUserPicture) //TODO Delete
                 data.profilePicture = "";
-                console.log('new data', data.profilePicture) //TODO Delete
             }
-            console.log('No Image Delete', deleteUserPicture) //TODO Delete
             await dispatch(updateUser(data)).unwrap()
             navigate(`/`)
         }
