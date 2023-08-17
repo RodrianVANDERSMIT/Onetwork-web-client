@@ -4,7 +4,7 @@ import {Box, CircularProgress, Grid, Typography} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchMembers } from '../../../redux/thunks/members';
-import { getMembers, getMembersLoader } from '../../../redux/selectors/members';
+import { getMembersList, getMembersLoader } from '../../../redux/selectors/members';
 import { getUserOrganizationId } from '../../../redux/selectors/user';
 
 import './style.scss'
@@ -13,7 +13,7 @@ function AdminMembers () {
 
     const dispatch = useDispatch()
     const organizationId = useSelector(getUserOrganizationId)
-    const {list} = useSelector(getMembers)
+    const list = useSelector(getMembersList)
     const isLoading = useSelector(getMembersLoader)
 
     //filter the organization member withn't the admin
@@ -76,7 +76,7 @@ function AdminMembers () {
                 >
                     {memberList.map(member => (
                         <Grid key={member.id} item xs={12} lg={6} >
-                            <MemberCard {...member}/>
+                            <MemberCard {...member} isLoading={isLoading}/>
                         </Grid>
                     ))}
                 </Grid>
