@@ -32,11 +32,17 @@ const slice = createSlice({
             })
 
             .addCase(updateMemberStatus.fulfilled,(state, {payload: data}) => {
-                state.list = data,
-                state.error = null
+                
+                state.list.find(member => member.id === data.id).disabled = data.disabled
+
+                state.loading = false
+            })
+            .addCase(updateMemberStatus.pending, (state) => {
+                state.loading = true
             })
             .addCase(updateMemberStatus.rejected, (state, {payload: error}) => {
                 state.error = error
+                state.loading = false
             })
     },
 })

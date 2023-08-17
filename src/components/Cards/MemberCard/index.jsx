@@ -1,20 +1,19 @@
 import PropTypes from 'prop-types';
 import {Avatar, Box, Button, Typography, Paper} from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { updateMemberStatus } from '../../../redux/thunks/members'
+import CircularProgress from '@mui/material/CircularProgress';
 import './style.scss'
 import { Link } from 'react-router-dom';
 
-function MemberCard ({id, organizationId, name, surname, job, profilePicture, disabled}) {
+function MemberCard ({id, organizationId, name, surname, job, profilePicture, disabled, isLoading}) {
 
     const dispatch = useDispatch();
-    const {
-        handleSubmit
-    } = useForm();
+    const { handleSubmit } = useForm();
 
     const onSubmit = () => {
-        dispatch(updateMemberStatus({ id, disabled}))
+        dispatch(updateMemberStatus({ id, disabled: !disabled }));
     }
 
     return (
@@ -75,13 +74,19 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                     </Typography>
                 </Box>
             </Box>
+            
             <Button
                 className="c-member-card__button"
                 variant="outlined"
                 sx={{m:2}}
                 type="submit"
+                disabled={isLoading}
             >
-                {disabled ? 'Débloquer' : 'Bloquer'}
+                {isLoading ? (
+                    <CircularProgress size={24}/>
+                ) : (
+                    disabled ? 'Débloquer' : 'Bloquer'
+                )}
             </Button>
         </Paper>
     )
@@ -94,7 +99,8 @@ MemberCard.propTypes = {
     surname: PropTypes.string,
     job: PropTypes.string,
     profilePicture: PropTypes.string,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    isLoading: PropTypes.bool
 };
 
 export default MemberCard
