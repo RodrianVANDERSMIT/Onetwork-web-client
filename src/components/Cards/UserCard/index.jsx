@@ -3,7 +3,7 @@ import { getUser } from "../../../redux/selectors/user";
 import { useSelector } from 'react-redux'
 
 import './style.scss'
-import { Link } from "react-router-dom";
+import Link from '@mui/material/Link';
 
 function UserCard() {
     const userLogged = useSelector(getUser)
@@ -19,7 +19,7 @@ function UserCard() {
                 padding: '0.5em'
             }}
         >
-            <Link to={`/${userLogged.organizationId}/user/${userLogged.id}`}>
+            <Link href={`/${userLogged.organizationId}/user/${userLogged.id}`}>
                 <Avatar
                     className= "c-user-card__avatar"
                     src= {userLogged.profilePicture}
@@ -38,7 +38,7 @@ function UserCard() {
                     pb: 1
                 }}
             >
-                <Link to={`/${userLogged.organizationId}/user/${userLogged.id}`}>
+                <Link href={`/${userLogged.organizationId}/user/${userLogged.id}`}>
                     <Typography
                         className= "c-user-card__identity"
                         variant= "body1"
