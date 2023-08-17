@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import Link from '@mui/material/Link';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPostComments, getPostLoading } from '../../redux/selectors/feed'
 import { fetchComments } from '../../redux/thunks/feed';
@@ -64,12 +64,12 @@ function Post({id, author,text,commentsCount,createdAt}) {
         >
             <CardHeader
                 avatar={
-                    <Link to={`/${userLogged.organizationId}/user/${author.id}`}>
+                    <Link href={`/${userLogged.organizationId}/user/${author.id}`}>
                         <Avatar className="c-avatar" alt="Remy Sharp" src={author.profilePicture} />
                     </Link>
                 }       
                 title={<> 
-                    <Link to={`/${userLogged.organizationId}/user/${author.id}`}>{`${author.name} ${author.surname}`}</Link> - {date} à {time}
+                    <Link href={`/${userLogged.organizationId}/user/${author.id}`}>{`${author.name} ${author.surname}`}</Link> - {date} à {time}
                 </>
                 }
                 subheader={author.job}
