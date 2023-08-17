@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { updateMemberStatus } from '../../../redux/thunks/members'
 import CircularProgress from '@mui/material/CircularProgress';
 import './style.scss'
-import { Link } from 'react-router-dom';
+import Link from '@mui/material/Link';
 
 function MemberCard ({id, organizationId, name, surname, job, profilePicture, disabled, isLoading}) {
 
@@ -39,7 +39,7 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                 }}
             >
             
-                <Link to={`/${organizationId}/user/${id}`}>
+                <Link href={`/${organizationId}/user/${id}`}>
                     <Avatar
                         className="c-member-card__avatar"
                         src={profilePicture}
@@ -57,7 +57,7 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                         flexDirection: 'column',
                     }}
                 >
-                    <Link to={`/${organizationId}/user/${id}`}>
+                    <Link href={`/${organizationId}/user/${id}`}>
                         <Typography 
                             className="c-member-card__identity"
                             variant="body1"
