@@ -50,6 +50,13 @@ const Theme = createTheme({
                     }
                 }
             }
+        },
+        MuiListItemIcon: {
+            styleOverrides: {
+                root: {
+                    color: '#00b894'
+                }
+            }
         }
     },
 });
