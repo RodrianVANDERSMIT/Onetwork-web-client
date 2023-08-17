@@ -21,7 +21,6 @@ export const fetchMembers = createAsyncThunk("members/fetchMembers", async (orga
 
 export const updateMemberStatus = createAsyncThunk("user/updateMemberStatus", async ({ id, disabled }, thunkAPI) => {
     try {
-        console.log(id, disabled)
         const response = await api.patch(`/users/${id}`,{disabled: disabled}, )
        
         const updatedMember = response.data
