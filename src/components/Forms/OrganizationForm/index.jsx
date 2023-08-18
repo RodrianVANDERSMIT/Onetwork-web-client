@@ -46,18 +46,15 @@ function OrganizationForm() {
                         required:"Le nom de l'organisation est requis",
                         minLength: {
                             value : 3,
-                            message: "Le nom de l'organisation doit comporter 3 lettres minimum.",
+                            message: "Le nom de l'organisation doit comporter au moins 3 caractères.",
                         },
                         maxLength: {
                             value : 50,
-                            message: "Le nom de l'organisation doit comporter 50 lettres maximum.",
+                            message: "Le nom de l'organisation doit comporter 50 caractères maximum.",
                         }
                     })}
                 />
                 {isLoading ? <CircularProgress/> : null}
-                {errors.organizationName && errors.organizationName.type === "minLength" && (
-                    <p className="c-organization-form__error">{"Le nom de l'organisation doit comporter au moins 3 caractères."}</p>
-                )}
 
                 {organizationError !== null && (
                     <p className="c-organization-form__error">{organizationError.message}</p>
