@@ -48,16 +48,23 @@ const Theme = createTheme({
                     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         borderColor: '#00b894',
                     }
-                }
-            }
+                },
+            },
         },
         MuiListItemIcon: {
             styleOverrides: {
                 root: {
                     color: '#00b894'
-                }
-            }
-        }
+                },
+            },
+        },
+        MuiCircularProgress: {
+            styleOverrides: {
+                root: {
+                    color: '#00b894'
+                },
+            },
+        },
     },
 });
 
