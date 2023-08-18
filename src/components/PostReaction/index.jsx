@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
-import { useTheme } from '@mui/material/styles';
 
 
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
@@ -21,8 +20,6 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 function PostReaction({postId}) {
-
-    const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const postReactions = useSelector(getPostReactions(postId));
@@ -88,12 +85,10 @@ function PostReaction({postId}) {
                 <Box className ="c-reaction-post__info" >
                     {postReactions.map((reaction) => (
                         <Box 
-                            component={Link} 
-                            to={`/${organizationId}/user/${reaction.author.id}`}
                             className ="c-reaction-post__info-emoji" 
                             key={reaction.id} 
                             sx={{ display: 'flex', alignItems: 'center', padding: '0', margin: 1 }}>
-                            <Badge 
+                            <Badge
                                 className ="c-reaction-post__info-container-picture" 
                                 sx={{  marginRight: '0.5em' }}
                                 overlap="circular"
@@ -103,22 +98,28 @@ function PostReaction({postId}) {
                                 }
                             >
                                 <Avatar 
+                                    component={Link} 
+                                    to={`/${organizationId}/user/${reaction.author.id}`}
                                     alt={reaction.author.name} 
                                     src={reaction.author.profilePicture} 
                                 />
                             </Badge>
                             <Box>
-                                <Typography variant="body2" className ="c-reaction-post__text">
+                                <Typography 
+                                    component={Link} 
+                                    to={`/${organizationId}/user/${reaction.author.id}`}
+                                    variant="body2" 
+                                    className ="c-reaction-post__identity"
+                                >
                                     {`${reaction.author.name} ${reaction.author.surname}`}
                                 </Typography>
                                 <Typography 
                                     variant="body2"
-                                    style={{ color: theme.palette.text.secondary }}
+                                    className ="c-reaction-post__job"
                                 >
                                     {reaction.author.job}
                                 </Typography>
                             </Box>
-                            
                         </Box>
                     ))}
                 </Box>

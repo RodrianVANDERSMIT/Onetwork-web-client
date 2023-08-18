@@ -45,8 +45,9 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                 }}
             >
             
-                <Link to={`/${organizationId}/user/${id}`}>
                     <Avatar
+                        component={Link}
+                        to={`/${organizationId}/user/${id}`}
                         className="c-member-card__avatar"
                         src={profilePicture}
                         sx={{
@@ -55,7 +56,6 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                             m: 2
                         }}
                     />
-                </Link>
                 <Box
                     className="c-member-card__member"
                     sx={{
@@ -63,15 +63,15 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                         flexDirection: 'column',
                     }}
                 >
-                    <Link to={`/${organizationId}/user/${id}`}>
-                        <Typography 
-                            className="c-member-card__identity"
-                            variant="body1"
-                            sx={{mb:0.5}}
-                        >
-                            {name} {surname}
-                        </Typography>
-                    </Link>
+                    <Typography 
+                        component={Link}
+                        to={`/${organizationId}/user/${id}`}
+                        className="c-member-card__identity"
+                        variant="body1"
+                        sx={{mb:0.5}}
+                    >
+                        {name} {surname}
+                    </Typography>
                     <Typography
                         className="c-member-card__job"
                         variant="body1"

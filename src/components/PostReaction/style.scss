@@ -21,19 +21,10 @@
         text-decoration: none;
     }
 
-    &__text {
+    &__identity {
         font-weight: 500 !important;
-        color: c.$dark-secondary;
-        transition: color 0.2s, text-decoration 0.2s;
-
-        &:hover,
-        &:focus {
-            color: c.$dark-primary;
-            text-decoration: underline;
-        }
     }    
 
-   
     &__image{
         
         width: 20px;
@@ -44,7 +35,5 @@
         @media (min-width: b.$breakpoint-md) {
             width:20px;
         }
-     } 
-    
-     
+    } 
 }

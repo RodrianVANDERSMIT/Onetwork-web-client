@@ -1,9 +1,9 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import { getUser } from "../../../redux/selectors/user";
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 import './style.scss'
-import { Link } from "react-router-dom";
 
 function UserCard() {
     const userLogged = useSelector(getUser)
@@ -19,18 +19,18 @@ function UserCard() {
                 padding: '0.5em'
             }}
         >
-            <Link to={`/${userLogged.organizationId}/user/${userLogged.id}`}>
-                <Avatar
-                    className= "c-user-card__avatar"
-                    src= {userLogged.profilePicture}
-                    alt= {userLogged.name + userLogged.surname}
-                    sx= {{
-                        width: '100px',
-                        height: '100px',
-                        my: 1
-                    }}
-                />
-            </Link>
+            <Avatar
+                component={Link}
+                to={`/${userLogged.organizationId}/user/${userLogged.id}`}
+                className= "c-user-card__avatar"
+                src= {userLogged.profilePicture}
+                alt= {userLogged.name + userLogged.surname}
+                sx= {{
+                    width: '100px',
+                    height: '100px',
+                    my: 1
+                }}
+            />
             <Box
                 className= "c-user-card__info"
                 sx= {{
@@ -38,14 +38,14 @@ function UserCard() {
                     pb: 1
                 }}
             >
-                <Link to={`/${userLogged.organizationId}/user/${userLogged.id}`}>
-                    <Typography
-                        className= "c-user-card__identity"
-                        variant= "body1"
-                    >
-                        {userLogged.name} {userLogged.surname}
-                    </Typography>
-                </Link>
+                <Typography
+                    component={Link}
+                    to={`/${userLogged.organizationId}/user/${userLogged.id}`}
+                    className= "c-user-card__identity"
+                    variant= "body1"
+                >
+                    {userLogged.name} {userLogged.surname}
+                </Typography>
                 <Typography
                     className= "c-user-card__job"
                     variant= "body1"
