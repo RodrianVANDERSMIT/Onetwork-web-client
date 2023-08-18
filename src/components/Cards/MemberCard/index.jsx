@@ -1,20 +1,26 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {Avatar, Box, Button, Typography, Paper} from '@mui/material';
 import { useDispatch, } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { updateMemberStatus } from '../../../redux/thunks/members'
 import CircularProgress from '@mui/material/CircularProgress';
 import './style.scss'
-import { Link } from 'react-router-dom';
 
-function MemberCard ({id, organizationId, name, surname, job, profilePicture, disabled, isLoading}) {
+
+
+function MemberCard ({id, organizationId, name, surname, job, profilePicture, disabled}) {
 
     const dispatch = useDispatch();
     const { handleSubmit } = useForm();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = () => {
-        dispatch(updateMemberStatus({ id, disabled: !disabled }));
-    }
+    const onSubmit = async () => {
+        setIsLoading(true);
+        await dispatch(updateMemberStatus({ id, disabled: !disabled }));
+        setIsLoading(false);
+    };
 
     return (
         <Paper
