@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import { useState } from 'react';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPostComments, getPostLoading } from '../../redux/selectors/feed'
 import { fetchComments } from '../../redux/thunks/feed';
@@ -64,13 +64,21 @@ function Post({id, author,text,commentsCount,createdAt}) {
         >
             <CardHeader
                 avatar={
-                    <Link href={`/${userLogged.organizationId}/user/${author.id}`}>
+                    <Link to={`/${userLogged.organizationId}/user/${author.id}`}>
                         <Avatar className="c-avatar" alt="Remy Sharp" src={author.profilePicture} />
                     </Link>
                 }       
-                title={<> 
-                    <Link href={`/${userLogged.organizationId}/user/${author.id}`}>{`${author.name} ${author.surname}`}</Link> - {date} à {time}
-                </>
+                title={
+                    <>
+                    <Typography
+                    component={Link}
+                    to={`/${userLogged.organizationId}/user/${author.id}`}
+                    className= "c-user-post__identity"
+                    variant= "body1"
+                    >
+                    {`${author.name} ${author.surname}`}
+                    </Typography> - {date} à {time}
+                    </>
                 }
                 subheader={author.job}
             />
@@ -91,7 +99,6 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     aria-expanded={expanded}
                     aria-label="show more"
                     className='c-counter__btn' 
-                     
                 >
                     {commentsCount}{" commentaires"}
                 </ExpandMore>
@@ -109,7 +116,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     className='c-btn footer' 
                     variant="outlined" 
                 >
-                   Commenter
+                Commenter
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>

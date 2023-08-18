@@ -6,7 +6,7 @@ import { getPostReactions } from '../../redux/selectors/feed';
 import {getUserOrganizationId } from '../../redux/selectors/user'
 import { Box, Button } from '@mui/material';
 import { Popover, Typography } from '@mui/material';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
@@ -89,8 +89,6 @@ function PostReaction({postId}) {
                             key={reaction.id} 
                             sx={{ display: 'flex', alignItems: 'center', padding: '0', margin: 1 }}>
                             <Badge
-                                component={Link} 
-                                href={`/${organizationId}/user/${reaction.author.id}`}
                                 className ="c-reaction-post__info-container-picture" 
                                 sx={{  marginRight: '0.5em' }}
                                 overlap="circular"
@@ -100,6 +98,8 @@ function PostReaction({postId}) {
                                 }
                             >
                                 <Avatar 
+                                    component={Link} 
+                                    to={`/${organizationId}/user/${reaction.author.id}`}
                                     alt={reaction.author.name} 
                                     src={reaction.author.profilePicture} 
                                 />
@@ -107,9 +107,9 @@ function PostReaction({postId}) {
                             <Box>
                                 <Typography 
                                     component={Link} 
-                                    href={`/${organizationId}/user/${reaction.author.id}`}
+                                    to={`/${organizationId}/user/${reaction.author.id}`}
                                     variant="body2" 
-                                    className ="c-reaction-post__text"
+                                    className ="c-reaction-post__identity"
                                 >
                                     {`${reaction.author.name} ${reaction.author.surname}`}
                                 </Typography>
@@ -120,7 +120,6 @@ function PostReaction({postId}) {
                                     {reaction.author.job}
                                 </Typography>
                             </Box>
-                            
                         </Box>
                     ))}
                 </Box>

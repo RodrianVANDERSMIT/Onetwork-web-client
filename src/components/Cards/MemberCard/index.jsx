@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { updateMemberStatus } from '../../../redux/thunks/members'
 import CircularProgress from '@mui/material/CircularProgress';
 import './style.scss'
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 
 function MemberCard ({id, organizationId, name, surname, job, profilePicture, disabled, isLoading}) {
 
@@ -39,8 +39,9 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                 }}
             >
             
-                <Link href={`/${organizationId}/user/${id}`}>
                     <Avatar
+                        component={Link}
+                        to={`/${organizationId}/user/${id}`}
                         className="c-member-card__avatar"
                         src={profilePicture}
                         sx={{
@@ -49,7 +50,6 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                             m: 2
                         }}
                     />
-                </Link>
                 <Box
                     className="c-member-card__member"
                     sx={{
@@ -57,15 +57,15 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                         flexDirection: 'column',
                     }}
                 >
-                    <Link href={`/${organizationId}/user/${id}`}>
-                        <Typography 
-                            className="c-member-card__identity"
-                            variant="body1"
-                            sx={{mb:0.5}}
-                        >
-                            {name} {surname}
-                        </Typography>
-                    </Link>
+                    <Typography 
+                        component={Link}
+                        to={`/${organizationId}/user/${id}`}
+                        className="c-member-card__identity"
+                        variant="body1"
+                        sx={{mb:0.5}}
+                    >
+                        {name} {surname}
+                    </Typography>
                     <Typography
                         className="c-member-card__job"
                         variant="body1"
