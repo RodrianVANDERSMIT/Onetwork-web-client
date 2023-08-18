@@ -13,4 +13,14 @@
     &__text {
         overflow-wrap: break-word;
     }
+
+    &__identity {
+        display: inline;
+        overflow-wrap: break-word;
+    }
+
+    &__job {
+        color: c.$light-secondary;
+        overflow-wrap: break-word;
+    }
 }

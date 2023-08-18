@@ -21,16 +21,14 @@ const Theme = createTheme({
                 },
             },
         },
-        MuiTypography: {
+        MuiLink: {
             styleOverrides: {
                 root: {
-                    '&.c-member-card__identity, &.c-user-card__identity, &.c-user-post__identity, &.c-reaction-post__identity': {
-                        color: '#3b3f45',
+                    color: '#3b3f45',
+                    textDecoration: 'none',
+                    '&:hover': {
+                        color: '#00b894',
                         textDecoration: 'none',
-                        '&:hover': {
-                            color: '#00b894',
-                            textDecoration: 'underline',
-                        },
                     },
                 },
             },
