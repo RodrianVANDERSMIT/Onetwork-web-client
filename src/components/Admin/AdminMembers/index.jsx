@@ -76,7 +76,7 @@ function AdminMembers () {
                 >
                     {memberList.map(member => (
                         <Grid key={member.id} item xs={12} lg={6} >
-                            <MemberCard {...member} isLoading={isLoading}/>
+                            <MemberCard {...member} />
                         </Grid>
                     ))}
                 </Grid>
