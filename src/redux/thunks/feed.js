@@ -85,8 +85,8 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 
     }
     catch (error) {
-        
-        return thunkApi.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
+
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la récupération des commentaires." });
     }
 })
 
@@ -95,36 +95,16 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
 
 
     try {
+        const id = thunkApi.getState().user.organizationId
+
+        const { data : newComment } = await api.post(`/organizations/${id}/posts/${postId}/comments`,  {text: text})
 
 
-        // fetch of logged-in user data
-        const userLogged = thunkApi.getState().user
-
-        const comments = thunkApi.getState().feed.posts.find((post) => post.id === postId).comments
-
-        const lastcomment = comments[comments.length - 1];
-        const newId = (lastcomment?.id || 0) + 1;
-
-        const now = moment() ;
-
-        const date = now.format('YYYY-MM-DD');
-        const time = now.format('HH:mm:ss');
-        const formattedDate = `${date} ${time}`
-
-        const newComment = {
-            id: newId,
-            text: text,
-            author: userLogged,
-            createdAt: formattedDate,
-            post_id: postId
-        };
-
-        delete newComment.author.error
         return {newComment, postId}
 
     }
     catch (error) {
-        throw new Error( "Une erreur s'est produite");
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création du commentaire." });
     }
 })
 
