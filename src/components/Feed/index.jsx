@@ -37,7 +37,7 @@ function Feed({userIdUrl}) {
         return () => {
             dispatch(cleanFeedState())
         }
-    }, []);
+    }, [userIdUrl]);
 
     const handleScroll = () => {
         if (!isLoading && availablePosts === true &&
