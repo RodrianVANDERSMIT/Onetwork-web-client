@@ -72,23 +72,19 @@ const slice = createSlice({
                 state.error = action.payload
             })
 
-            .addCase(updateReaction.fulfilled, (state, { payload: { postId, updatedReaction, authorId }}) => {
+            .addCase(updateReaction.fulfilled, (state, { payload: { postId, reactionId, updatedReaction}}) => {
                 const post = state.posts.find(post => post.id === postId)
-
-                const reactionIndex = post.reactions.findIndex(reaction => reaction.author.id === authorId);
-
-                post.reactions[reactionIndex].type = updatedReaction;
+                const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
+                post.reactions[reactionIndex] = updatedReaction;
 
             })
             .addCase(updateReaction.rejected, (state,action) => {
                 state.error = action.payload
             })
 
-            .addCase(removeReaction.fulfilled, (state, { payload: { postId, removedReaction }}) => {
+            .addCase(removeReaction.fulfilled, (state, { payload: { postId, reactionId}}) => {
                 const post = state.posts.find(post => post.id === postId)
-
-                const reactionIndex = post.reactions.findIndex(reaction => reaction.author.id === removedReaction.author.id);
-
+                const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
                 post.reactions.splice(reactionIndex, 1);
 
             })

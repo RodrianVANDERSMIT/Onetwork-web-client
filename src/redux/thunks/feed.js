@@ -79,7 +79,9 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 
     }
     catch (error) {
-
+        if (error.response.status === 409){
+            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        }
         return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la récupération des commentaires." });
     }
 })
@@ -92,7 +94,6 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
         const { data : newComment } = await api.post(`/organizations/${id}/posts/${postId}/comments`,  {text: text})
 
         return {newComment, postId}
-
     }
     catch (error) {
         if (error.response.status === 409){
@@ -111,71 +112,47 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 
         return {newReaction, postId}
     }
-
     catch (error) {
         if (error.response.status === 409){
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         }
-
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });
     }
 })
 
 
 
-export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction}, thunkApi) => {
+export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction, reactionId}, thunkApi) => {
 
     try {
-        const posts = thunkApi.getState().feed.posts
-        const post = posts.find(({id}) => id === postId)
-
-        if (!post) {
+        const id = thunkApi.getState().user.organizationId
+        
+        const { data : updatedReaction } = await api.patch(`/organizations/${id}/reactions/${reactionId}`,  {type: reaction})
+    
+        return {updatedReaction, postId, reactionId}
+    }
+    catch (error) { 
+        if (error.response.status === 409){
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         }
-
-        const updatedReaction = {
-            tag: `${reaction}`,
-            name: `${reaction}`,
-        };
-
-        return {updatedReaction, postId, authorId: post.author.id}
-    }
-    catch (error) {
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });
     }
 })
 
 
-export const removeReaction = createAsyncThunk("post/removeReaction", async ({postId, reaction}, thunkApi) => {
+export const removeReaction = createAsyncThunk("post/removeReaction", async ({postId, reactionId}, thunkApi) => {
 
     try {
-        const userLogged = thunkApi.getState().user
-        const posts = thunkApi.getState().feed.posts
-        const exist = posts.some(({id}) => id ===postId)
+        const id = thunkApi.getState().user.organizationId
 
-        if (!exist) {
-            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
-        }
-
-        const  removedReaction = {
-
-            author:{
-                id: userLogged.id,
-                name: userLogged.name,
-                surname: userLogged.surname,
-                job: userLogged.job,
-                profilePicture: userLogged.profilePicture,
-            },
-            type:{
-                tag: `${reaction}`,
-                name: `${reaction}`,
-            },
-        };
-
-        return {removedReaction, postId}
-
+        await api.delete(`/organizations/${id}/reactions/${reactionId}`,)
+        
+        return { postId, reactionId}
     }
     catch (error) {
+        if (error.response.status === 409){
+            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        }
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });
     }
 });
