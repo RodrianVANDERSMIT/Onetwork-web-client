@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { setAvailablePosts } from '../reducers/feed'
 import { api } from "../../services/api"
-import posts from "../../data/Post.js"
-import moment from 'moment'
 
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
 
@@ -34,14 +32,7 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
 
         const slicedPosts = sortedPosts.slice(startIndex, endIndex);
                
-        slicedPosts.forEach(actualPost => { 
-            actualPost.reactions = [];
-
-            const matchingMockPost = posts.find(post => post.id === actualPost.id);
-            if (matchingMockPost) {
-                actualPost.reactions = matchingMockPost.reactions;
-            }
-        });
+        
         
         return slicedPosts;
 
@@ -67,6 +58,9 @@ export const createPost = createAsyncThunk("feed/createPost", async (text, thunk
 
     }
     catch (error) {
+        if (error.response.status === 409){
+            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        }
         return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création du nouveau post." });
     }
 })
@@ -92,57 +86,37 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 
 
 export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text, postId}, thunkApi) => {
-
-
     try {
         const id = thunkApi.getState().user.organizationId
 
         const { data : newComment } = await api.post(`/organizations/${id}/posts/${postId}/comments`,  {text: text})
 
-
         return {newComment, postId}
 
     }
     catch (error) {
+        if (error.response.status === 409){
+            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        }
         return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création du commentaire." });
     }
 })
 
 
-
 export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
     try {
-        const userLogged = thunkApi.getState().user
-        const posts = thunkApi.getState().feed.posts
-        const post = posts.find(({id}) => id === postId)
+        const id = thunkApi.getState().user.organizationId
+        
+        const { data : newReaction } = await api.post(`/organizations/${id}/posts/${postId}/reactions`,  {type: reaction})
 
-        if (!post) {
+        return {newReaction, postId}
+    }
+
+    catch (error) {
+        if (error.response.status === 409){
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         }
 
-        const lastReaction = post.reactions[post.reactions.length - 1];
-
-        const newId = (lastReaction?.id || 0) + 1 ;
-
-        const  newReaction = {
-            id: newId,
-            author:{
-                id: userLogged.id,
-                name: userLogged.name,
-                surname: userLogged.surname,
-                job: userLogged.job,
-                profilePicture: userLogged.profilePicture,
-            },
-            type:{
-                tag: `${reaction}`,
-                name: `${reaction}`,
-            },
-        };
-
-        return {newReaction, postId}
-
-    }
-    catch (error) {
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });
     }
 })
