@@ -5,6 +5,7 @@ import { ListItem, ListItemAvatar, Paper } from '@mui/material';
 import { Avatar, Typography, } from '@mui/material';
 import './style.scss'
 import { Link } from "react-router-dom";
+import { Link as MuiLink } from '@mui/material'
 
 
 function Comment({ author,text,createdAt}) {
@@ -21,10 +22,18 @@ function Comment({ author,text,createdAt}) {
                 </Link>
             </ListItemAvatar>
             <Paper className="c-comment-list__paper" >
-                <Typography variant="body2">
-                    <Link to={`/${author.organizationId}/user/${author.id}`}>{`${author.name} ${author.surname}`}</Link> - {date} à {time} 
-                </Typography>              
-                <Typography variant="body2">
+                <MuiLink 
+                    component={Link}
+                    to={`/${author.organizationId}/user/${author.id}`}
+                >
+                    <Typography
+                        className= "c-comment-list__identity"
+                        variant= "body1"
+                        >
+                        {`${author.name} ${author.surname}`}
+                    </Typography>
+                </MuiLink> - {date} à {time}
+                <Typography className="c-comment-list__job" variant="body2">
                     {author.job}
                 </Typography>
                 <Typography className="c-comment-list__text" variant="body1" mt={2}>

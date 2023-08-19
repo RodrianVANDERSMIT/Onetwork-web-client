@@ -17,6 +17,7 @@ import { Card, CardActions, CardHeader, CardContent, CircularProgress } from '@m
 import { Grid, Typography, Button, Divider } from '@mui/material'
 import {Avatar, Collapse, List, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Link as MuiLink } from '@mui/material'
 
 import './style.scss'
 
@@ -70,14 +71,17 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 }       
                 title={
                     <>
-                    <Typography
+                    <MuiLink 
                     component={Link}
                     to={`/${userLogged.organizationId}/user/${author.id}`}
-                    className= "c-user-post__identity"
-                    variant= "body1"
                     >
-                    {`${author.name} ${author.surname}`}
-                    </Typography> - {date} à {time}
+                        <Typography
+                        className= "c-card-post__identity"
+                        variant= "body1"
+                        >
+                        {`${author.name} ${author.surname}`}
+                        </Typography>
+                    </MuiLink> - {date} à {time}
                     </>
                 }
                 subheader={author.job}

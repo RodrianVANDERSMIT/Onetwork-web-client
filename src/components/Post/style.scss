@@ -34,6 +34,10 @@
         overflow-wrap: break-word; 
     }
 
+    &__identity {
+        display: inline;
+    }
+
     &__action {
         padding: 8px 16px !important;
     }

@@ -6,6 +6,7 @@ import { getUserOrganizationId } from "../../../redux/selectors/user";
 import { useEffect } from "react";
 import { fetchMembers } from "../../../redux/thunks/members";
 import { Link } from "react-router-dom";
+import { Link as MuiLink } from '@mui/material'
 
 import './style.scss'
 
@@ -48,7 +49,10 @@ function SelectedUserCard() {
                 padding: '0.5em'
             }}
         >
-            <Link to={`/${selectedMember.organizationId}/user/${selectedMember.id}`}>
+            <MuiLink 
+                component={Link}
+                to={`/${selectedMember.organizationId}/user/${selectedMember.id}`}
+            >
                 <Avatar
                     className= "c-user-card__avatar"
                     src= {selectedMember.profilePicture}
@@ -56,10 +60,10 @@ function SelectedUserCard() {
                     sx= {{
                         width: '100px',
                         height: '100px',
-                        my: 1
+                        my: 1,
+                        mx: 'auto'
                     }}
                 />
-            </Link>
             <Box
                 className= "c-user-card__info"
                 sx= {{
@@ -82,6 +86,7 @@ function SelectedUserCard() {
                     {selectedMember.job}
                 </Typography>
             </Box>
+            </MuiLink>
         </Box>
     );
 }

@@ -6,6 +6,7 @@ import { useDispatch, } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { updateMemberStatus } from '../../../redux/thunks/members'
 import CircularProgress from '@mui/material/CircularProgress';
+import { Link as MuiLink } from '@mui/material'
 import './style.scss'
 
 
@@ -44,18 +45,17 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                     alignItems: 'center',
                 }}
             >
-            
-                    <Avatar
-                        component={Link}
-                        to={`/${organizationId}/user/${id}`}
-                        className="c-member-card__avatar"
-                        src={profilePicture}
-                        sx={{
-                            width: 80,
-                            height: 80,
-                            m: 2
-                        }}
-                    />
+                <Avatar
+                    component={Link}
+                    to={`/${organizationId}/user/${id}`}
+                    className="c-member-card__avatar"
+                    src={profilePicture}
+                    sx={{
+                        width: 80,
+                        height: 80,
+                        m: 2
+                    }}
+                />
                 <Box
                     className="c-member-card__member"
                     sx={{
@@ -63,15 +63,18 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                         flexDirection: 'column',
                     }}
                 >
-                    <Typography 
-                        component={Link}
-                        to={`/${organizationId}/user/${id}`}
-                        className="c-member-card__identity"
-                        variant="body1"
-                        sx={{mb:0.5}}
+                    <MuiLink 
+                    component={Link}
+                    to={`/${organizationId}/user/${id}`}
                     >
-                        {name} {surname}
-                    </Typography>
+                        <Typography 
+                            className="c-member-card__identity"
+                            variant="body1"
+                            sx={{mb:0.5}}
+                        >
+                            {name} {surname}
+                        </Typography>
+                    </MuiLink>
                     <Typography
                         className="c-member-card__job"
                         variant="body1"

@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
+import { Link as MuiLink } from '@mui/material'
 
 
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
@@ -105,14 +106,17 @@ function PostReaction({postId}) {
                                 />
                             </Badge>
                             <Box>
-                                <Typography 
-                                    component={Link} 
+                                <MuiLink 
+                                    component={Link}
                                     to={`/${organizationId}/user/${reaction.author.id}`}
-                                    variant="body2" 
-                                    className ="c-reaction-post__identity"
                                 >
-                                    {`${reaction.author.name} ${reaction.author.surname}`}
-                                </Typography>
+                                    <Typography 
+                                        variant="body2" 
+                                        className ="c-reaction-post__identity"
+                                    >
+                                        {`${reaction.author.name} ${reaction.author.surname}`}
+                                    </Typography>
+                                </MuiLink>
                                 <Typography 
                                     variant="body2"
                                     className ="c-reaction-post__job"
