@@ -22,7 +22,7 @@ function ReactionButton({postId}) {
     const userId = useSelector(getUserId)
 	
     const loggedUserReaction = postReactions.find( reaction => userId === reaction.author.id)
-	
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -36,10 +36,10 @@ function ReactionButton({postId}) {
 
     const handleReaction = (reaction)=>{
         if (loggedUserReaction && loggedUserReaction.type.tag === reaction){
-            dispatch(removeReaction({postId, reaction}))
+            dispatch(removeReaction({postId, reaction, reactionId: loggedUserReaction.id}))
         }
         else if (loggedUserReaction){
-            dispatch(updateReaction({postId, reaction}))
+            dispatch(updateReaction({postId, reaction, reactionId: loggedUserReaction.id}))
         }
         else {
             dispatch(addReaction({postId, reaction}))
