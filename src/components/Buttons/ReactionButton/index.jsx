@@ -36,7 +36,7 @@ function ReactionButton({postId}) {
 
     const handleReaction = (reaction)=>{
         if (loggedUserReaction && loggedUserReaction.type.tag === reaction){
-            dispatch(removeReaction({postId, reaction, reactionId: loggedUserReaction.id}))
+            dispatch(removeReaction({postId, reactionId: loggedUserReaction.id}))
         }
         else if (loggedUserReaction){
             dispatch(updateReaction({postId, reaction, reactionId: loggedUserReaction.id}))
