@@ -20,7 +20,8 @@ function UserCard() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    width: '100%',
+                    width: '180px',
+                    margin: 'auto',
                     padding: '0.5em'
                 }}
             >
