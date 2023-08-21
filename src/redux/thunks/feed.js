@@ -5,36 +5,25 @@ import { api } from "../../services/api"
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
 
     const currentPage = thunkApi.getState().feed.pagination.currentPage
-    const postsPerPage = thunkApi.getState().feed.pagination.postsPerPage
+    const id = thunkApi.getState().user.organizationId;
 
-    const startIndex = currentPage * postsPerPage;
     try {
-        let filteredPosts = [];
+        const url = userIdUrl ?
+            `/organizations/${id}/users/${userIdUrl}/posts?page=${currentPage}` :
+            `/organizations/${id}/posts?page=${currentPage}`
 
-        const id = thunkApi.getState().user.organizationId;
+        const { data: response } = await api.get(url);
+        const filteredPosts = response.data;
+        const meta = {
+            currentPage: response.meta.current_page, 
+            lastPage: response.meta.last_page
+        };
 
-        if (userIdUrl) {
-            const response = await api.get(`/organizations/${id}/users/${userIdUrl}/posts`);
-            filteredPosts = response.data;
+        if (meta.currentPage === meta.lastPage) {
+            thunkApi.dispatch(setAvailablePosts(false));
         }
-        else {
-            const response = await api.get(`/organizations/${id}/posts`);
-            filteredPosts = response.data;
-        }
-
-        const sortedPosts = filteredPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-        const endIndex = startIndex + Math.min(postsPerPage, sortedPosts.length - startIndex);
-        const totalPosts = sortedPosts.length;
-
-        const availablePosts = totalPosts > endIndex;
-        thunkApi.dispatch(setAvailablePosts(availablePosts));
-
-        const slicedPosts = sortedPosts.slice(startIndex, endIndex);
-               
-        
-        
-        return slicedPosts;
+                     
+        return filteredPosts;
 
     } catch (error) {
         return thunkApi.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
@@ -64,7 +53,6 @@ export const createPost = createAsyncThunk("feed/createPost", async (text, thunk
         return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création du nouveau post." });
     }
 })
-
 
 export const fetchComments = createAsyncThunk("feed/fetchComments", async (postId, thunkApi) => {
 
