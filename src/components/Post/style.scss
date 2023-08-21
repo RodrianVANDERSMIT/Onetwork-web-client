@@ -24,7 +24,6 @@
     padding: 0 0.5em;
     margin-bottom: 1.5em;
     border:1px solid c.$secondary;
-    
 
     @media (max-width: b.$breakpoint-sm) {
         padding: 0  
@@ -36,6 +35,7 @@
 
     &__identity {
         display: inline;
+        overflow-wrap: break-word;
     }
 
     &__action {
@@ -46,5 +46,9 @@
         text-align: center;
     }
     
+}
+
+.MuiCardHeader-content {
+    min-width: 0;
 }
 
