@@ -5,19 +5,16 @@ import { api } from "../../services/api"
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
 
     const currentPage = thunkApi.getState().feed.pagination.currentPage
+    const id = thunkApi.getState().user.organizationId;
 
     try {
-       
-        const id = thunkApi.getState().user.organizationId;
-
         const url = userIdUrl ?
             `/organizations/${id}/users/${userIdUrl}/posts?page=${currentPage}` :
             `/organizations/${id}/posts?page=${currentPage}`
 
         const { data: response } = await api.get(url);
         const filteredPosts = response.data;
-        console.log(filteredPosts)
-        const meta = { 
+        const meta = {
             currentPage: response.meta.current_page, 
             lastPage: response.meta.last_page
         };
