@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react";
 
 import './style.scss'
+import { cleanOrganizationState } from "../../../redux/reducers/organization";
 
 function ProfileForm() {
 
@@ -58,6 +59,7 @@ function ProfileForm() {
         if (!isLog) {
             await dispatch(createOrganization(organizationName)).unwrap()
             await dispatch(addUser(data)).unwrap()
+            dispatch(cleanOrganizationState())
             navigate(`/`)
         }
         if (isLog) {
