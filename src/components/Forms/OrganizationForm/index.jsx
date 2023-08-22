@@ -3,7 +3,7 @@ import { TextField, Button, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
-import { validateOrganization } from '../../../redux/reducers/organization'
+import { cleanOrganizationState, validateOrganization } from '../../../redux/reducers/organization'
 import { getOrganizationName, getError, getOrganizationLoader} from '../../../redux/selectors/organization'
 
 
@@ -20,6 +20,10 @@ function OrganizationForm() {
     const organizationError = useSelector(getError)
     const isLoading = useSelector(getOrganizationLoader)
 
+    useEffect(() => {
+        dispatch(cleanOrganizationState())
+    },[]);
+    
     useEffect(() => {
         if (organizationNameChoice !== "") {
             navigate('/sign-up');
