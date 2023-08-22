@@ -9,7 +9,7 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
 
     try {
         const url = userIdUrl ?
-            `/organizations/${id}/users/${userIdUrl}/posts?page=${currentPage}` :
+            `/users/${userIdUrl}/posts?page=${currentPage}` :
             `/organizations/${id}/posts?page=${currentPage}`
 
         const { data: response } = await api.get(url);
