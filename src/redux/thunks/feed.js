@@ -89,9 +89,7 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
 
 export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
     try {
-        const id = thunkApi.getState().user.organizationId
-        
-        const { data : newReaction } = await api.post(`/organizations/${id}/posts/${postId}/reactions`,  {type: reaction})
+        const { data : newReaction } = await api.post(`/posts/${postId}/reactions`,  {type: reaction})
 
         return {newReaction, postId}
     }
@@ -108,9 +106,7 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction, reactionId}, thunkApi) => {
 
     try {
-        const id = thunkApi.getState().user.organizationId
-        
-        const { data : updatedReaction } = await api.patch(`/organizations/${id}/reactions/${reactionId}`,  {type: reaction})
+        const { data : updatedReaction } = await api.patch(`/reactions/${reactionId}`,  {type: reaction})
     
         return {updatedReaction, postId, reactionId}
     }
@@ -126,9 +122,7 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
 export const removeReaction = createAsyncThunk("post/removeReaction", async ({postId, reactionId}, thunkApi) => {
 
     try {
-        const id = thunkApi.getState().user.organizationId
-
-        await api.delete(`/organizations/${id}/reactions/${reactionId}`,)
+        await api.delete(`/reactions/${reactionId}`,)
         
         return { postId, reactionId}
     }
