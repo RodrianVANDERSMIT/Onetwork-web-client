@@ -55,12 +55,9 @@ export const createPost = createAsyncThunk("feed/createPost", async (text, thunk
 })
 
 export const fetchComments = createAsyncThunk("feed/fetchComments", async (postId, thunkApi) => {
-
-    const id = thunkApi.getState().user.organizationId;
-
     try {
         
-        const response = await api.get(`/organizations/${id}/posts/${postId}/comments`);
+        const response = await api.get(`/posts/${postId}/comments`);
         const postComments = response.data;
         
         return {postComments, postId}
@@ -77,9 +74,7 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 
 export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text, postId}, thunkApi) => {
     try {
-        const id = thunkApi.getState().user.organizationId
-
-        const { data : newComment } = await api.post(`/organizations/${id}/posts/${postId}/comments`,  {text: text})
+        const { data : newComment } = await api.post(`/posts/${postId}/comments`,  {text: text})
 
         return {newComment, postId}
     }
