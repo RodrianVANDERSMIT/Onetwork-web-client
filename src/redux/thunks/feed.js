@@ -9,7 +9,7 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
 
     try {
         const url = userIdUrl ?
-            `/organizations/${id}/users/${userIdUrl}/posts?page=${currentPage}` :
+            `/users/${userIdUrl}/posts?page=${currentPage}` :
             `/organizations/${id}/posts?page=${currentPage}`
 
         const { data: response } = await api.get(url);
@@ -55,12 +55,9 @@ export const createPost = createAsyncThunk("feed/createPost", async (text, thunk
 })
 
 export const fetchComments = createAsyncThunk("feed/fetchComments", async (postId, thunkApi) => {
-
-    const id = thunkApi.getState().user.organizationId;
-
     try {
         
-        const response = await api.get(`/organizations/${id}/posts/${postId}/comments`);
+        const response = await api.get(`/posts/${postId}/comments`);
         const postComments = response.data;
         
         return {postComments, postId}
@@ -77,9 +74,7 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 
 export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text, postId}, thunkApi) => {
     try {
-        const id = thunkApi.getState().user.organizationId
-
-        const { data : newComment } = await api.post(`/organizations/${id}/posts/${postId}/comments`,  {text: text})
+        const { data : newComment } = await api.post(`/posts/${postId}/comments`,  {text: text})
 
         return {newComment, postId}
     }
@@ -94,9 +89,7 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
 
 export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
     try {
-        const id = thunkApi.getState().user.organizationId
-        
-        const { data : newReaction } = await api.post(`/organizations/${id}/posts/${postId}/reactions`,  {type: reaction})
+        const { data : newReaction } = await api.post(`/posts/${postId}/reactions`,  {type: reaction})
 
         return {newReaction, postId}
     }
@@ -113,9 +106,7 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction, reactionId}, thunkApi) => {
 
     try {
-        const id = thunkApi.getState().user.organizationId
-        
-        const { data : updatedReaction } = await api.patch(`/organizations/${id}/reactions/${reactionId}`,  {type: reaction})
+        const { data : updatedReaction } = await api.patch(`/reactions/${reactionId}`,  {type: reaction})
     
         return {updatedReaction, postId, reactionId}
     }
@@ -131,9 +122,7 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
 export const removeReaction = createAsyncThunk("post/removeReaction", async ({postId, reactionId}, thunkApi) => {
 
     try {
-        const id = thunkApi.getState().user.organizationId
-
-        await api.delete(`/organizations/${id}/reactions/${reactionId}`,)
+        await api.delete(`/reactions/${reactionId}`,)
         
         return { postId, reactionId}
     }
