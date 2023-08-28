@@ -4,7 +4,7 @@ import { api } from "../../services/api"
 export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
 
     try {
-        const { data } = await api.post('/users/session', {email: credentials.email, password: credentials.password} )
+        const { data } = await api.post('/session', {email: credentials.email, password: credentials.password} )
 
         const user = data
         return user
@@ -34,7 +34,7 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
 export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
     try {
-        const { data } = await api.delete('/users/session', )
+        const { data } = await api.delete('/session', )
 
         const user = data
         return user
