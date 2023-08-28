@@ -27,7 +27,6 @@ const DesktopMenu = () => {
 
         dispatch(cleanOrganizationState());
         dispatch(cleanMembersState());
-        dispatch(cleanFeedState());
     }
 
     

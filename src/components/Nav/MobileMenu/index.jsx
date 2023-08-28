@@ -42,7 +42,6 @@ export default function MobileMenu() {
 
         dispatch(cleanOrganizationState());
         dispatch(cleanMembersState());
-        dispatch(cleanFeedState());
     }
 
     return (
