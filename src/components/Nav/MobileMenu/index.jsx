@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 import { getIsLogged, getUserId, getUserOrganizationId } from '../../../redux/selectors/user';
@@ -21,6 +21,7 @@ export default function MobileMenu() {
     const open = Boolean(anchorEl);
 
     const dispatch= useDispatch();
+    const navigate = useNavigate();
 
     const organizationId = useSelector(getUserOrganizationId);
     const isLog = useSelector(getIsLogged);
@@ -35,12 +36,13 @@ export default function MobileMenu() {
         setAnchorEl(null);
     };
 
-    const handleLogout = () => {
-        
+    const handleLogout = async () => {
+        await dispatch(logout()).unwrap()
+        navigate('/')
+
         dispatch(cleanOrganizationState());
         dispatch(cleanMembersState());
         dispatch(cleanFeedState());
-        dispatch(logout());
     }
 
     return (
@@ -90,7 +92,7 @@ export default function MobileMenu() {
                 <MenuItem component={Link} to="/about" onClick={handleClose}>
                 Contact
                 </MenuItem>
-                <MenuItem component={Link} to="/" onClick={handleLogout}>
+                <MenuItem onClick={handleLogout}>
                 Déconnexion
                 </MenuItem>
             </Menu>

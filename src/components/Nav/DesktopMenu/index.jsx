@@ -1,6 +1,6 @@
 
 import {useDispatch, useSelector } from 'react-redux'
-import { Link,  } from 'react-router-dom' 
+import { Link, useNavigate } from 'react-router-dom'
 import { getUserId, getUserOrganizationId } from "../../../redux/selectors/user"
 import {logout}  from "../../../redux/reducers/user"
 import { cleanOrganizationState } from "../../../redux/reducers/organization"
@@ -17,15 +17,17 @@ import PersonIcon from '@mui/icons-material/Person';
 const DesktopMenu = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const organizationId = useSelector(getUserOrganizationId);
     const userId = useSelector(getUserId);
 
-    const handleLogout = () => {
-        
+    const handleLogout = async () => {
+        await dispatch(logout()).unwrap()
+        navigate('/')
+
         dispatch(cleanOrganizationState());
         dispatch(cleanMembersState());
         dispatch(cleanFeedState());
-        dispatch(logout());
     }
 
     
@@ -58,8 +60,6 @@ const DesktopMenu = () => {
             ))}
             <ListItem key="Déconnexion" 
                 disablePadding 
-                component={Link} 
-                to="/" 
                 onClick={handleLogout}
                 style={{ textDecoration: 'none', color: 'inherit' }} 
             >
