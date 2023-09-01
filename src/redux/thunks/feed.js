@@ -32,13 +32,8 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
 
 export const createPost = createAsyncThunk("feed/createPost", async (text, thunkApi) => {
     try {
+        const { data } = await api.post('/posts',  {text: text})
 
-        // fetch of logged-in user data
-        const organizationId = thunkApi.getState().user.organizationId
-
-        const { data } = await api.post(`/organizations/${organizationId}/posts`,  {text: text})
-
-        
         const newPost = {
             ...data,
             reactions: [],
