@@ -25,6 +25,7 @@ function LoginForm() {
     const onSubmit = (user) => {
         dispatch(login(user))
     }
+    
     // Redirect user to organization page if he is logged in.
     useEffect(() => {
         if (isLog) {
@@ -79,5 +80,3 @@ function LoginForm() {
 }
     
 export default LoginForm;
-
-
