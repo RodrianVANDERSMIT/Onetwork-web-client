@@ -31,11 +31,8 @@ function LoginForm() {
             if (organizationId){
                 navigate(`/${organizationId}`)
             }
-            else {
-                console.log("organisation introuvable")
-            }
         }
-    }, [isLog, loggedUser, dispatch, navigate]);
+    }, [isLog, loggedUser]);
 
 
     return (
