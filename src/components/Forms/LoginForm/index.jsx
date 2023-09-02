@@ -15,15 +15,17 @@ function LoginForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    // Retrieve user-related data and states from Redux.
     const userError = useSelector(getUserError);
     const loggedUser = useSelector(getUser);
     const isLog = useSelector(getIsLogged);
     const isLoading = useSelector(getUserLoading);
     
+    // Function to handle form submission.
     const onSubmit = (user) => {
         dispatch(login(user))
     }
-
+    // Redirect user to organization page if he is logged in.
     useEffect(() => {
         if (isLog) {
             const organizationId = loggedUser.organizationId
