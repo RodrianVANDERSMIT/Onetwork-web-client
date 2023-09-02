@@ -36,7 +36,6 @@ function LoginForm() {
         }
     }, [isLog]);
 
-
     return (
         <Box className="c-user-login" >
             <div id="connexion"></div>
