@@ -34,7 +34,7 @@ function LoginForm() {
                 navigate(`/${organizationId}`)
             }
         }
-    }, [isLog, loggedUser]);
+    }, [isLog]);
 
 
     return (
