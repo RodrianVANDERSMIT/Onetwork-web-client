@@ -1,5 +1,6 @@
-import { Routes, Route, Navigate, useParams,} from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import ProtectedRoute from '../Router/ProtectedRoute'
 import UserProfile from "../../views/UserProfile"
 import Home from '../../views/Home'
 import OrganizationCreation from '../../views/OrganizationCreation'
@@ -9,7 +10,7 @@ import Contact from '../../views/Contact'
 import SignUp from '../../views/SignUp'
 import ActivityFeed from '../../views/ActivityFeed'
 import { useSelector} from 'react-redux'
-import { getIsLogged, getUserRole } from '../../redux/selectors/user'
+import { getUserRole } from '../../redux/selectors/user'
 import Error401 from '../../views/Error401'
 import Error403 from '../../views/Error403'
 import Error404 from '../../views/Error404'
@@ -20,25 +21,9 @@ import Error500 from '../../views/Error500'
 
 function App() {
     
-    const isLog = useSelector(getIsLogged);
     const userRole = useSelector(getUserRole);
    
 
-    const ProtectedRoute = ({  children }) => {
-
-        const { organizationId } = useParams();
-        const organizationIdIsValid = Number.isInteger(parseInt(organizationId))
-        
-       
-        if (!organizationIdIsValid){
-            return <Navigate to="/error/404" replace/>
-        }
-        if (!isLog) {
-            return <Navigate to="/error/401" replace/>
-        }
-        
-        return children
-    };
     const AdminRoute = ({ children }) => {
         if (userRole.tag !== "admin"){
             return <Navigate to="/error/403" replace/>
