@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { fetchMembers } from '../../../redux/thunks/members';
 import { getMembersList, getMembersLoader } from '../../../redux/selectors/members';
 import { getUserOrganizationId } from '../../../redux/selectors/user';
+import { cleanMembersState } from '../../../redux/reducers/members';
 
 import './style.scss'
 
@@ -25,6 +26,10 @@ function AdminMembers () {
         }
         else {
             console.log("membres introuvable")
+        }
+
+        return () => {
+            dispatch(cleanMembersState());
         }
     }, [organizationId, dispatch])
 
