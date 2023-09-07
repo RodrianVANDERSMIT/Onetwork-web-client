@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getUserId, getUserOrganizationId } from "../../../redux/selectors/user"
 import {logout}  from "../../../redux/reducers/user"
 import { cleanOrganizationState } from "../../../redux/reducers/organization"
-import { cleanFeedState } from "../../../redux/reducers/feed"
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ContactMailIcon from '@mui/icons-material/ContactMail';

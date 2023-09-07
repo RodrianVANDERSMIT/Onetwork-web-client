@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { getIsLogged, getUserId, getUserOrganizationId } from '../../../redux/selectors/user';
 import { cleanOrganizationState } from '../../../redux/reducers/organization';
-import { cleanFeedState } from '../../../redux/reducers/feed';
 import { logout } from '../../../redux/reducers/user';
 
 
