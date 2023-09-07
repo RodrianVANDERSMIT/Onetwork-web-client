@@ -12,12 +12,11 @@ import './style.scss'
 
 function SelectedUserCard() {
     const dispatch = useDispatch();
-    const { userId } = useParams();
-    const userIdUrl = parseInt(userId, 10);
+    const userId = parseInt(useParams().userId, 10);
 
     const membersState = useSelector(getMembers);
     const membersList = membersState.list;
-    const selectedMember = membersList.find((member) => member.id === userIdUrl);
+    const selectedMember = membersList.find((member) => member.id === userId);
 
     const organizationId = useSelector(getUserOrganizationId);
 
