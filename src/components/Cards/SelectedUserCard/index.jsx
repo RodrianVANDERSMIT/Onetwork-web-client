@@ -1,32 +1,29 @@
 import { useParams } from "react-router-dom";
 import { Avatar, Box, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { getMembers } from "../../../redux/selectors/members";
-import { getUserOrganizationId } from "../../../redux/selectors/user";
-import { useEffect } from "react";
-import { fetchMembers } from "../../../redux/thunks/members";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Link as MuiLink } from '@mui/material'
+import { api } from "../../../services/api";
 
 import './style.scss'
 
 function SelectedUserCard() {
-    const dispatch = useDispatch();
     const userId = parseInt(useParams().userId, 10);
-
-    const membersState = useSelector(getMembers);
-    const membersList = membersState.list;
-    const selectedMember = membersList.find((member) => member.id === userId);
-
-    const organizationId = useSelector(getUserOrganizationId);
+    const [selectedMember, setSelectedMember] = useState(null);
 
     useEffect(() => {
-        if (organizationId) {
-            dispatch(fetchMembers(organizationId));
-        } else {
-            console.log("membres introuvable");
+        const fetchUser = async () => {
+            try {
+                const res = await api(`/users/${userId}`)
+                setSelectedMember(res.data)
+            }
+            catch {
+                console.log("membres introuvable");
+            }
         }
-    }, [organizationId, dispatch]);
+
+        fetchUser();
+    }, [userId]);
 
     if (!selectedMember) {
         return (
