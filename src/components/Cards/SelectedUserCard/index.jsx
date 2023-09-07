@@ -10,12 +10,15 @@ import './style.scss'
 function SelectedUserCard() {
     const userId = parseInt(useParams().userId, 10);
     const [selectedMember, setSelectedMember] = useState(null);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
+                setIsLoading(true)
                 const res = await api(`/users/${userId}`)
                 setSelectedMember(res.data)
+                setIsLoading(false)
             }
             catch {
                 console.log("membres introuvable");
@@ -24,6 +27,10 @@ function SelectedUserCard() {
 
         fetchUser();
     }, [userId]);
+
+    if (isLoading) {
+        return "";
+    }
 
     if (!selectedMember) {
         return (
