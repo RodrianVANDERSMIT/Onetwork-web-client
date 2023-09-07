@@ -21,7 +21,7 @@ function SelectedUserCard() {
                 setIsLoading(false)
             }
             catch {
-                console.log("membres introuvable");
+                console.log("membre introuvable");
             }
         }
 
