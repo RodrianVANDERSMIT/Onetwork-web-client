@@ -64,28 +64,28 @@ function SelectedUserCard() {
                         mx: 'auto'
                     }}
                 />
-            <Box
-                className= "c-user-card__info"
-                sx= {{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    pb: 1
-                }}
-            >
-                <Typography
-                    className= "c-user-card__identity"
-                    variant= "body1"
+                <Box
+                    className= "c-user-card__info"
+                    sx= {{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        pb: 1
+                    }}
                 >
-                    {selectedMember.name} {selectedMember.surname}
-                </Typography>
-                <Typography
-                    className= "c-user-card__job"
-                    variant= "body1"
-                >
-                    {selectedMember.job}
-                </Typography>
-            </Box>
+                    <Typography
+                        className= "c-user-card__identity"
+                        variant= "body1"
+                    >
+                        {selectedMember.name} {selectedMember.surname}
+                    </Typography>
+                    <Typography
+                        className= "c-user-card__job"
+                        variant= "body1"
+                    >
+                        {selectedMember.job}
+                    </Typography>
+                </Box>
             </MuiLink>
         </Box>
     );
