@@ -12,7 +12,7 @@ function UserCard() {
     return (
         <MuiLink 
             component={Link}
-            to={`/${userLogged.organizationId}/user/${userLogged.id}`}
+            to={`/${userLogged.organization.id}/user/${userLogged.id}`}
         >
             <Box
                 className= "c-user-card__group"

@@ -17,14 +17,14 @@ function Comment({ author,text,createdAt}) {
     return (
         <ListItem className="c-comment-list" alignItems="flex-start">
             <ListItemAvatar>
-                <Link to={`/${author.organizationId}/user/${author.id}`}>
+                <Link to={`/${author.organization.id}/user/${author.id}`}>
                     <Avatar alt="Remy Sharp" src={author.profilePicture} />
                 </Link>
             </ListItemAvatar>
             <Paper className="c-comment-list__paper" >
                 <MuiLink 
                     component={Link}
-                    to={`/${author.organizationId}/user/${author.id}`}
+                    to={`/${author.organization.id}/user/${author.id}`}
                 >
                     <Typography
                         className= "c-comment-list__identity"
