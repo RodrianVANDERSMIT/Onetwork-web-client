@@ -6,7 +6,6 @@ const initialState = {
 
     id: null,
     name: "",
-    loading: false,
     error: null,
 }
 
@@ -17,7 +16,6 @@ const slice = createSlice({
         cleanOrganizationState(state){
             state.id = null,
             state.name = "",
-            state.loading = false,
             state.error = null
         }
        
@@ -27,15 +25,10 @@ const slice = createSlice({
 
             .addCase(validateOrganization.fulfilled, (state, {payload: organizationName}) => {
                 state.name = organizationName
-                state.loading= false
                 state.error= null       
-            })
-            .addCase(validateOrganization.pending, (state) => {
-                state.loading = true;
             })
             .addCase(validateOrganization.rejected, (state, {payload: error}) => { 
                 state.name= ""
-                state.loading = false
                 state.error = error
             })
 
@@ -67,4 +60,3 @@ const slice = createSlice({
 export default slice.reducer
 export const {cleanOrganizationState} = slice.actions
 export { validateOrganization, createOrganization, fetchOrganization } 
-

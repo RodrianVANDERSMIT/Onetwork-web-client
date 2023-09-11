@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { TextField, Button, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import { cleanOrganizationState, validateOrganization } from '../../../redux/reducers/organization'
-import { getOrganizationName, getError, getOrganizationLoader} from '../../../redux/selectors/organization'
+import { getOrganizationName, getError } from '../../../redux/selectors/organization'
 
 
 import './style.scss'
@@ -18,7 +18,7 @@ function OrganizationForm() {
     const navigate = useNavigate();
     const organizationNameChoice = useSelector(getOrganizationName);
     const organizationError = useSelector(getError)
-    const isLoading = useSelector(getOrganizationLoader)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         dispatch(cleanOrganizationState())
@@ -30,8 +30,10 @@ function OrganizationForm() {
         }
     }, [organizationNameChoice, navigate]);
 
-    const onSubmit = ({ organizationName }) => {
-        dispatch(validateOrganization(organizationName));
+    const onSubmit = async ({ organizationName }) => {
+        setIsLoading(true)
+        await dispatch(validateOrganization(organizationName)).unwrap();
+        setIsLoading(false)
     };
 
     return (
