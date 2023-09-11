@@ -5,7 +5,7 @@ import { api } from "../../services/api"
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
 
     const currentPage = thunkApi.getState().feed.pagination.currentPage
-    const id = thunkApi.getState().user.organizationId;
+    const id = thunkApi.getState().user.organization?.id;
 
     try {
         const url = userIdUrl ?

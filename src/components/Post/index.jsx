@@ -65,7 +65,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
         >
             <CardHeader
                 avatar={
-                    <Link to={`/${userLogged.organizationId}/user/${author.id}`}>
+                    <Link to={`/${userLogged.organization.id}/user/${author.id}`}>
                         <Avatar className="c-avatar" alt="Remy Sharp" src={author.profilePicture} />
                     </Link>
                 }       
@@ -73,7 +73,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     <>
                     <MuiLink 
                     component={Link}
-                    to={`/${userLogged.organizationId}/user/${author.id}`}
+                    to={`/${userLogged.organization.id}/user/${author.id}`}
                     >
                         <Typography
                         className= "c-card-post__identity"

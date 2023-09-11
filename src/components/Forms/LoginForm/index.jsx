@@ -29,7 +29,7 @@ function LoginForm() {
     // Redirect user to organization page if he is logged in.
     useEffect(() => {
         if (isLog) {
-            const organizationId = loggedUser.organizationId
+            const organizationId = loggedUser.organization?.id
             
             if (organizationId){
                 navigate(`/${organizationId}`)

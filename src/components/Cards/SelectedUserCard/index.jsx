@@ -54,7 +54,7 @@ function SelectedUserCard() {
         >
             <MuiLink 
                 component={Link}
-                to={`/${selectedMember.organizationId}/user/${selectedMember.id}`}
+                to={`/${selectedMember.organization.id}/user/${selectedMember.id}`}
             >
                 <Avatar
                     className= "c-user-card__avatar"
