@@ -28,23 +28,27 @@ function OrganizationForm() {
             setOrganizationName(organizationName)
         }
         catch (error) {
-            if (error.response.status === 409) {
-                setError({
-                    status: 409,
-                    message: 'Cette organisation existe déjà. Merci de choisir un autre nom.'
-                });
-            }
-            else {
-                setError({
-                    status: error.response.status,
-                    message: "Une erreur s'est produite lors de la création de l'organisation."
-                });
-            }
+            handleError(error)
         }
         finally {
             setIsLoading(false)
         }
     };
+
+    const handleError = error => {
+        if (error.response.status === 409) {
+            setError({
+                status: 409,
+                message: 'Cette organisation existe déjà. Merci de choisir un autre nom.'
+            });
+        }
+        else {
+            setError({
+                status: error.response.status,
+                message: "Une erreur s'est produite lors de la création de l'organisation."
+            });
+        }
+    }
 
     useEffect(() => {
         if (organizationName) {
