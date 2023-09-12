@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { validateOrganization, createOrganization, fetchOrganization } from "../thunks/organization";
+import { createOrganization, fetchOrganization } from "../thunks/organization";
 
 
 const initialState = {
@@ -22,15 +22,6 @@ const slice = createSlice({
     },
     extraReducers: builder => { 
         builder
-
-            .addCase(validateOrganization.fulfilled, (state, {payload: organizationName}) => {
-                state.name = organizationName
-                state.error= null       
-            })
-            .addCase(validateOrganization.rejected, (state, {payload: error}) => { 
-                state.name= ""
-                state.error = error
-            })
 
             .addCase(createOrganization.fulfilled, (state, {payload: newOrganization })=>{
                 state.name = newOrganization.name
@@ -59,4 +50,4 @@ const slice = createSlice({
 
 export default slice.reducer
 export const {cleanOrganizationState} = slice.actions
-export { validateOrganization, createOrganization, fetchOrganization } 
+export { createOrganization, fetchOrganization }
