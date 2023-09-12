@@ -2,11 +2,10 @@ import AvatarForm from "../AvatarForm";
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { addUser, updateUser } from '../../../redux/reducers/user'
 import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
-import { getOrganizationName } from '../../../redux/selectors/organization'
 import { createOrganization } from "../../../redux/thunks/organization";
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { useState } from "react";
 
 import './style.scss'
@@ -15,10 +14,11 @@ import { cleanOrganizationState } from "../../../redux/reducers/organization";
 function ProfileForm() {
 
     const dispatch = useDispatch();
-    const isLog = useSelector(getIsLogged)
     const navigate = useNavigate();
+    const location = useLocation()
+    const isLog = useSelector(getIsLogged)
     const userError = useSelector(getUserError);
-    const organizationName = useSelector(getOrganizationName)
+    const { organizationName } = location.state
     const user = (useSelector(getUser));
     const surname = user.surname
     const name = user.name
