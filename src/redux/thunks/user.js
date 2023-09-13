@@ -73,13 +73,13 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
         }
         formData.append('organizationId', organizationId)
 
-        const response = await api.post('/users',formData, {
+        const { data: user } = await api.post('/users',formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
 
-        return response
+        return user
     }
     catch (error) {
         return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
