@@ -20,23 +20,3 @@ export const createOrganization = createAsyncThunk('organization/createOrganizat
         return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création de l'organisation." });  
     }
 });
-
-
-
-export const fetchOrganization = createAsyncThunk('organization/fetchOrganization', async( organizationId , thunkApi) =>{
-    
-    try {
-        const { data } = await api(`/organizations/${organizationId}`)
-                
-        const organization = data
-
-        return organization
-    }
-    catch (error) { 
-        
-        if (error.response.status === 404) {
-            return thunkApi.rejectWithValue({status: 404, message : "l'organisation avec cette id n'a pas été trouvée."});
-        }
-        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la recupération de l'organisation." });  
-    }
-})

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createOrganization, fetchOrganization } from "../thunks/organization";
+import { createOrganization } from "../thunks/organization";
 
 
 const initialState = {
@@ -34,20 +34,10 @@ const slice = createSlice({
                 state.name = ""
                 state.error = error
             })
-
-            .addCase(fetchOrganization.fulfilled, (state, {payload:  organization })=>{
-                state.id = organization.id
-                state.name = organization.name
-                state.error = null
-            })
-            .addCase(fetchOrganization.rejected, (state, {payload: error })=>{
-                state.name= "erreur de chargement du nom"
-                state.error = error
-            })
     },
 });
 
 
 export default slice.reducer
 export const {cleanOrganizationState} = slice.actions
-export { createOrganization, fetchOrganization }
+export { createOrganization }
