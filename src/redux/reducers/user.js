@@ -10,7 +10,7 @@ export const initialState = {
     job: "",
     role: null,
     profilePicture: "",
-    organizationId: null,
+    organization: null,
     disabled: false,
     loading: false,
     error: null,
