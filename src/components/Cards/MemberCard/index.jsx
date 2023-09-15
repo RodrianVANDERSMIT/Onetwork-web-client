@@ -11,7 +11,7 @@ import './style.scss'
 
 
 
-function MemberCard ({id, organizationId, name, surname, job, profilePicture, disabled}) {
+function MemberCard ({id, organization, name, surname, job, profilePicture, disabled}) {
 
     const dispatch = useDispatch();
     const { handleSubmit } = useForm();
@@ -47,7 +47,7 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
             >
                 <Avatar
                     component={Link}
-                    to={`/${organizationId}/user/${id}`}
+                    to={`/${organization.id}/user/${id}`}
                     className="c-member-card__avatar"
                     src={profilePicture}
                     sx={{
@@ -65,7 +65,7 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
                 >
                     <MuiLink 
                     component={Link}
-                    to={`/${organizationId}/user/${id}`}
+                    to={`/${organization.id}/user/${id}`}
                     >
                         <Typography 
                             className="c-member-card__identity"
@@ -103,7 +103,10 @@ function MemberCard ({id, organizationId, name, surname, job, profilePicture, di
 
 MemberCard.propTypes = {
     id: PropTypes.number,
-    organizationId: PropTypes.number,
+    organization: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+    }).isRequired,
     name: PropTypes.string,
     surname: PropTypes.string,
     job: PropTypes.string,

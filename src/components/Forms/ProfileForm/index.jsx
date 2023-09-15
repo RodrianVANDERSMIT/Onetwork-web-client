@@ -17,7 +17,6 @@ function ProfileForm() {
     const location = useLocation()
     const isLog = useSelector(getIsLogged)
     const userError = useSelector(getUserError);
-    const { organizationName } = location.state
     const user = (useSelector(getUser));
     const surname = user.surname
     const name = user.name
@@ -73,6 +72,8 @@ function ProfileForm() {
 
     const createOrganization = async () => {
         try {
+            const { organizationName } = location.state
+
             const { data: organization } = await api.post('/organizations', {
                 name: organizationName
             })
