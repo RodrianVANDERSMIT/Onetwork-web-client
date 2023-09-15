@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { cleanOrganizationState } from '../../../redux/reducers/organization';
 import { getIsLogged, getUserId, getUserOrganizationId } from '../../../redux/selectors/user';
 import BasicButton from '../../Buttons/BasicButton';
 import Button from '@mui/material/Button';
@@ -11,17 +10,11 @@ import { HashLink } from 'react-router-hash-link';
 import './style.scss';
 
 export default function ButtonHome() {
-    const dispatch = useDispatch();
     const location = useLocation();
     const isLog = useSelector(getIsLogged);
     const currentPath = location.pathname;
     const organizationId = useSelector(getUserOrganizationId);
     const userId = useSelector(getUserId);
-
-
-    const handleToHome = () => {
-        dispatch(cleanOrganizationState());
-    };
 
     return (
         <Box className="c-button-header" sx={{ flexGrow: 1 }}>
@@ -67,7 +60,6 @@ export default function ButtonHome() {
                     variant="outlined"
                     component={Link}
                     to="/"
-                    onClick={handleToHome}
                 >
                     {'Retour à l\'accueil'}
                 </Button>

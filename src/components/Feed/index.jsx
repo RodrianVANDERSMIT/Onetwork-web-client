@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getUser, getUserOrganizationId } from '../../redux/selectors/user'
+import { getUser, getUserOrganizationName } from '../../redux/selectors/user'
 import { getPosts, getAvailablePosts, getPostLoading } from '../../redux/selectors/feed'
 import { fetchPosts } from '../../redux/thunks/feed';
 import { cleanFeedState } from '../../redux/reducers/feed'
-import {fetchOrganization } from '../../redux/thunks/organization'
-import { getOrganizationName } from '../../redux/selectors/organization'
 
 import { Box,Typography, Avatar, Grid, CircularProgress} from '@mui/material'
 
@@ -22,8 +20,7 @@ function Feed({userIdUrl}) {
     const dispatch = useDispatch();
     const userLogged = useSelector(getUser);
 
-    const organizationName = useSelector(getOrganizationName);
-    const organizationId = useSelector(getUserOrganizationId);
+    const organizationName = useSelector(getUserOrganizationName);
 
     // fetch all posts
     const posts = useSelector(getPosts);
@@ -31,7 +28,6 @@ function Feed({userIdUrl}) {
     const isLoading = useSelector(getPostLoading)
 
     useEffect(() => {
-        dispatch(fetchOrganization(organizationId));
         dispatch(fetchPosts(userIdUrl))
 
         return () => {

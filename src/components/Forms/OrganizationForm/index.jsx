@@ -1,10 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { TextField, Button, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
-import { cleanOrganizationState, validateOrganization } from '../../../redux/reducers/organization'
-import { getOrganizationName, getError, getOrganizationLoader} from '../../../redux/selectors/organization'
+import { api } from '../../../services/api'
 
 
 import './style.scss'
@@ -14,25 +12,49 @@ import './style.scss'
 function OrganizationForm() {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const organizationNameChoice = useSelector(getOrganizationName);
-    const organizationError = useSelector(getError)
-    const isLoading = useSelector(getOrganizationLoader)
+    const [organizationName, setOrganizationName] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
 
-    useEffect(() => {
-        dispatch(cleanOrganizationState())
-    },[]);
-    
-    useEffect(() => {
-        if (organizationNameChoice !== "") {
-            navigate('/sign-up');
+    const onSubmit = async ({ organizationName }) => {
+        setIsLoading(true)
+
+        try {
+            await api('/organizations/validation', { params: {
+                name: organizationName
+            }})
+
+            setOrganizationName(organizationName)
         }
-    }, [organizationNameChoice, navigate]);
-
-    const onSubmit = ({ organizationName }) => {
-        dispatch(validateOrganization(organizationName));
+        catch (error) {
+            handleError(error)
+        }
+        finally {
+            setIsLoading(false)
+        }
     };
+
+    const handleError = error => {
+        if (error.response.status === 409) {
+            setError({
+                status: 409,
+                message: 'Cette organisation existe déjà. Merci de choisir un autre nom.'
+            });
+        }
+        else {
+            setError({
+                status: error.response.status,
+                message: "Une erreur s'est produite lors de la création de l'organisation."
+            });
+        }
+    }
+
+    useEffect(() => {
+        if (organizationName) {
+            navigate('/sign-up', { state: { organizationName } });
+        }
+    }, [organizationName, navigate]);
 
     return (
         <div className="c-organization-form">
@@ -60,8 +82,8 @@ function OrganizationForm() {
                 />
                 {isLoading ? <CircularProgress/> : null}
 
-                {organizationError !== null && (
-                    <p className="c-organization-form__error">{organizationError.message}</p>
+                {error !== null && (
+                    <p className="c-organization-form__error">{error.message}</p>
                 )}
 
                 <Button sx={{ m:1,}} className="c-organization-form__button" variant="contained" type="submit" >Valider</Button>
