@@ -64,14 +64,11 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
 export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {
     try {
-        const organizationId = thunkAPI.getState().organization.id;
-
         const formData = new FormData()
         for (let [key,value] of Object.entries(data)) {
             if (key === 'profilePicture' && !value) continue
             formData.append(key, value)
         }
-        formData.append('organizationId', organizationId)
 
         const { data: user } = await api.post('/users',formData, {
             headers: {

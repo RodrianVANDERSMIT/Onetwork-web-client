@@ -2,14 +2,13 @@ import AvatarForm from "../AvatarForm";
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { addUser, updateUser } from '../../../redux/reducers/user'
 import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
-import { createOrganization } from "../../../redux/thunks/organization";
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom"
 import { useState } from "react";
+import { api } from "../../../services/api";
 
 import './style.scss'
-import { cleanOrganizationState } from "../../../redux/reducers/organization";
 
 function ProfileForm() {
 
@@ -57,9 +56,10 @@ function ProfileForm() {
 
     const onSubmit = async (data) => {
         if (!isLog) {
-            await dispatch(createOrganization(organizationName)).unwrap()
+            const organizationId = await createOrganization()
+
+            data.organizationId = organizationId
             await dispatch(addUser(data)).unwrap()
-            dispatch(cleanOrganizationState())
             navigate(`/`)
         }
         if (isLog) {
@@ -70,6 +70,25 @@ function ProfileForm() {
             navigate(`/`)
         }
     };
+
+    const createOrganization = async () => {
+        try {
+            const { data: organization } = await api.post('/organizations', {
+                name: organizationName
+            })
+
+            return organization.id
+        }
+        catch (error) {
+            // TODO: instead of console logs, the errors must be displayed directly to the user
+            if (error.response.status === 409) {
+                throw new Error({ status: 409, message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
+            }
+            else {
+                throw new Error({ status: error.response.status, message: "Une erreur s'est produite lors de la création de l'organisation." });
+            }
+        }
+    }
 
     return (
         <Box
