@@ -20,6 +20,10 @@ const slice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        cleanUserState(state) {
+            localStorage.removeItem('user');
+            Object.assign(state, initialState);
+        },
         setError(state, {payload: error }){
             state.error = error
         }
@@ -40,8 +44,7 @@ const slice = createSlice({
             })
 
             .addCase(logout.fulfilled, (state) => {
-                localStorage.removeItem('user');
-                Object.assign(state, initialState);
+                slice.caseReducers.cleanUserState(state)
             })
             .addCase(logout.rejected, (state, { payload: error }) => {
                 state.error = error
@@ -63,5 +66,5 @@ const slice = createSlice({
 })
 
 export default slice.reducer
-export const {setError} = slice.actions
+export const {cleanUserState, setError} = slice.actions
 export {login, logout, addUser, updateUser}

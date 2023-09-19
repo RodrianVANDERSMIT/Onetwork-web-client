@@ -13,8 +13,12 @@ import Error401 from '../../views/Error401'
 import Error403 from '../../views/Error403'
 import Error404 from '../../views/Error404'
 import Error500 from '../../views/Error500'
+import useInterceptors from './hook'
 
 export default function Router() {
+    // Axios interceptors for all requests
+    useInterceptors()
+
     return (
         <Routes>
             <Route path="/" element={<Home />} />
