@@ -7,11 +7,18 @@ import { getIsLogged, getUserId, getUserOrganizationId } from '../../../redux/se
 import { logout } from '../../../redux/reducers/user';
 
 
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, ListItemIcon } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Menu, MenuItem } from '@mui/material';
 import UserCard from '../../Cards/UserCard';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import LogoutIcon from '@mui/icons-material/Logout';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ForumIcon from '@mui/icons-material/Forum';
+import PersonIcon from '@mui/icons-material/Person';
+
 
 export default function MobileMenu() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -70,22 +77,40 @@ export default function MobileMenu() {
                     <UserCard />
                 </Box>
                 <Divider />
-                <MenuItem component={Link} to={`/${organizationId}`} onClick={handleClose}>
+                <MenuItem component={Link} to={`/${organizationId}`} onClick={handleClose}> 
+                    <ListItemIcon>
+                        <ForumIcon /> 
+                    </ListItemIcon>
                     {'Flux d\'activité'}
                 </MenuItem>
                 <MenuItem component={Link} to={`/${organizationId}/user/${userId}`} onClick={handleClose}>
+                    <ListItemIcon>
+                        <PersonIcon/>
+                    </ListItemIcon>
                 Mon profil
                 </MenuItem>
                 <MenuItem component={Link} to={`/${organizationId}/user/${userId}/edit`} onClick={handleClose}>
+                    <ListItemIcon>
+                        <ManageAccountsIcon/>
+                    </ListItemIcon>
                 Editer mon profil
                 </MenuItem>
                 <MenuItem component={Link} to={`/${organizationId}/admin/members`} onClick={handleClose}>
+                    <ListItemIcon>
+                        <AdminPanelSettingsIcon />
+                    </ListItemIcon>
                 Administration
                 </MenuItem>
                 <MenuItem component={Link} to="/about" onClick={handleClose}>
+                    <ListItemIcon>
+                        <ContactMailIcon />
+                    </ListItemIcon>
                 Contact
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
+                    <ListItemIcon>
+                        <LogoutIcon />
+                    </ListItemIcon>
                 Déconnexion
                 </MenuItem>
             </Menu>
