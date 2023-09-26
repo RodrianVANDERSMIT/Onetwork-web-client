@@ -71,17 +71,29 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 }       
                 title={
                     <>
-                    <MuiLink 
-                    component={Link}
-                    to={`/${userLogged.organization.id}/user/${author.id}`}
-                    >
-                        <Typography
-                        className= "c-card-post__identity"
-                        variant= "body1"
+                        <MuiLink 
+                            component={Link}
+                            to={`/${userLogged.organization.id}/user/${author.id}`}
                         >
-                        {`${author.name} ${author.surname}`}
+                            <Typography
+                                className= "c-card-post__identity"
+                                variant= "body1"
+                            >
+                                {`${author.name} ${author.surname}`}
+                            </Typography>
+                        </MuiLink> 
+                        <Typography
+                            className= "c-card-post__separator"
+                            variant= "body2"
+                        >
+                            {' - '} 
                         </Typography>
-                    </MuiLink> - {date} à {time}
+                        <Typography
+                            className= "c-card-post__date"
+                            variant= "body2"
+                        >
+                            {date} à {time}
+                        </Typography>  
                     </>
                 }
                 subheader={author.job}
