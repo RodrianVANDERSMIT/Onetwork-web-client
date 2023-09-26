@@ -6,16 +6,11 @@
     display:flex;
     flex-wrap: wrap;
     
-    
-   
-    
     @media (min-width: b.$breakpoint-md) {
         flex-wrap: nowrap;
         margin-bottom: s.$footer-height;
                 
     }
-    
-    
 
     &__left,
     &__right
@@ -27,23 +22,12 @@
         padding: 2em;
         background-color: white;
         
-
         @media (min-width: b.$breakpoint-md)
         {
             flex-basis: 50%;
             
         }
     }
-
-    &__left{
-        display:flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content:center;
-        
-    }
-           
-    
 }
 
    
