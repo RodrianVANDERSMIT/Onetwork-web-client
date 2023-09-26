@@ -1,3 +1,4 @@
+@use '../../styles/settings/breakpoints' as b;
 @use '../../styles/settings/colors' as c;
 
 .c-comment-list {
@@ -13,10 +14,20 @@
     &__text {
         overflow-wrap: break-word;
     }
-
     &__identity {
         display: inline;
-        overflow-wrap: break-word;
+        @media (max-width: b.$breakpoint-sm) {
+            display:block;
+        }
+    }
+    &__separator {
+        display: inline;
+        @media (max-width: b.$breakpoint-sm) {
+            display:none;
+        }
+        }
+    &__date {
+        display: inline;  
     }
 
     &__job {
