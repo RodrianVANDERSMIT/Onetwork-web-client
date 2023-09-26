@@ -81,7 +81,19 @@ function Post({id, author,text,commentsCount,createdAt}) {
                             >
                                 {`${author.name} ${author.surname}`}
                             </Typography>
-                        </MuiLink> - {date} à {time}
+                        </MuiLink> 
+                        <Typography
+                            className= "c-card-post__separator"
+                            variant= "body2"
+                        >
+                            {' - '} 
+                        </Typography>
+                        <Typography
+                            className= "c-card-post__date"
+                            variant= "body2"
+                        >
+                            {date} à {time}
+                        </Typography>  
                     </>
                 }
                 subheader={author.job}

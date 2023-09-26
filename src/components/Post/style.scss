@@ -32,12 +32,21 @@
     &__text {
         overflow-wrap: break-word; 
     }
-
     &__identity {
         display: inline;
-        overflow-wrap: break-word;
+        @media (max-width: b.$breakpoint-sm) {
+            display:block;
+        }
     }
-
+    &__separator {
+        display: inline;
+        @media (max-width: b.$breakpoint-sm) {
+            display:none;
+        }
+        }
+    &__date {
+        display: inline;  
+    }
     &__action {
         padding: 8px 16px !important;
     }
@@ -51,4 +60,3 @@
 .MuiCardHeader-content {
     min-width: 0;
 }
-
