@@ -18,6 +18,7 @@ import { Grid, Typography, Button, Divider } from '@mui/material'
 import {Avatar, Collapse, List, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link as MuiLink } from '@mui/material'
+import { HashLink } from 'react-router-hash-link';
 
 import './style.scss'
 
@@ -131,6 +132,9 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     aria-label="show more"
                     className='c-btn footer' 
                     variant="outlined" 
+                    component={expanded ? 'span' : HashLink}
+                    smooth // Enable smooth scrolling
+                    to={expanded ? null : `#${id}-comment-form-anchor`}
                 >
                 Commenter
                 </ExpandMore>
@@ -150,7 +154,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     <Box className="c-feed-header">
                         <Box className="c-feed-header__textarea" >
                             <Avatar className="c-avatar" alt="Remy Sharp" src={userLogged.profilePicture} />
-                            <CommentForm postId={id}/>
+                            <CommentForm postId={id} />
                         </Box>
                     </Box>                                
                 </CardContent>
