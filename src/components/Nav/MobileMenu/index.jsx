@@ -87,31 +87,31 @@ export default function MobileMenu() {
                     <ListItemIcon>
                         <PersonIcon/>
                     </ListItemIcon>
-                Mon profil
+                    Mon profil
                 </MenuItem>
                 <MenuItem component={Link} to={`/${organizationId}/user/${userId}/edit`} onClick={handleClose}>
                     <ListItemIcon>
                         <ManageAccountsIcon/>
                     </ListItemIcon>
-                Editer mon profil
+                    Editer mon profil
                 </MenuItem>
                 <MenuItem component={Link} to={`/${organizationId}/admin/members`} onClick={handleClose}>
                     <ListItemIcon>
                         <AdminPanelSettingsIcon />
                     </ListItemIcon>
-                Administration
+                    Administration
                 </MenuItem>
                 <MenuItem component={Link} to="/about" onClick={handleClose}>
                     <ListItemIcon>
                         <ContactMailIcon />
                     </ListItemIcon>
-                Contact
+                    Contact
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                         <LogoutIcon />
                     </ListItemIcon>
-                Déconnexion
+                    Déconnexion
                 </MenuItem>
             </Menu>
         </>
