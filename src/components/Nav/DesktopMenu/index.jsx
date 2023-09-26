@@ -26,11 +26,11 @@ const DesktopMenu = () => {
     
 
     const data = [
-        { text: "Flux d'activité", index: <ForumIcon />, route: `/${organizationId}` },
-        { text: 'Mon profil', index: <PersonIcon/>, route: `/${organizationId}/user/${userId}`},
-        { text: 'Editer mon profil', index: <ManageAccountsIcon/>, route: `/${organizationId}/user/${userId}/edit`},
-        { text: 'Administration', index: <AdminPanelSettingsIcon />, route: `/${organizationId}/admin/members`},
-        { text: 'Contact', index: <ContactMailIcon />, route: "/about" },
+        { text: "Flux d'activité", icon: <ForumIcon />, route: `/${organizationId}` },
+        { text: 'Mon profil', icon: <PersonIcon/>, route: `/${organizationId}/user/${userId}`},
+        { text: 'Editer mon profil', icon: <ManageAccountsIcon/>, route: `/${organizationId}/user/${userId}/edit`},
+        { text: 'Administration', icon: <AdminPanelSettingsIcon />, route: `/${organizationId}/admin/members`},
+        { text: 'Contact', icon: <ContactMailIcon />, route: "/about" },
     
     ]
 
@@ -38,7 +38,7 @@ const DesktopMenu = () => {
        
         <List> 
             <Divider/>
-            {data.map(({ text, index, route }) => (
+            {data.map(({ text, icon, route }) => (
                 <ListItem key={text} 
                     component={Link} 
                     to={route} 
@@ -46,7 +46,7 @@ const DesktopMenu = () => {
                     style={{ textDecoration: 'none', color: 'inherit' }} 
                 >
                     <ListItemButton>
-                        <ListItemIcon>{index}</ListItemIcon>
+                        <ListItemIcon>{icon}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItemButton>
                 </ListItem>
