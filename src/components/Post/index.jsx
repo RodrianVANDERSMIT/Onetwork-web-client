@@ -133,7 +133,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     className='c-btn footer' 
                     variant="outlined" 
                     component={expanded ? 'span' : HashLink}
-                    smooth // Enable smooth scrolling
+                    smooth="true" // Enable smooth scrolling
                     to={expanded ? null : `#${id}-comment-form-anchor`}
                 >
                 Commenter
