@@ -46,7 +46,13 @@ function UserCard() {
                         className= "c-user-card__identity"
                         variant= "body1"
                     >
-                        {userLogged.name} {userLogged.surname}
+                        {userLogged.name}
+                    </Typography>
+                    <Typography
+                        className= "c-user-card__identity"
+                        variant= "body1"
+                    >
+                        {userLogged.surname}
                     </Typography>
                     <Typography
                         className= "c-user-card__job"
