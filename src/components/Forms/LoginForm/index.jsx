@@ -38,16 +38,16 @@ function LoginForm() {
     }, [isLog]);
 
     return (
-        <Box className="c-user-login" >
+        <Box className="c-user-login" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <div id="connexion"></div>
-            <Typography variant="h4" className="c-user-login__title">
+            <Typography variant="h4" className="c-user-login__title"  sx={{ mb: 2 , textAlign: 'center' }}>
             Connexion
             </Typography>
-            <Typography variant="body1" className="c-user-login__text">
+            <Typography variant="body1" className="c-user-login__text"  sx={{ mb: 2 , textAlign: 'center'}}>
             Si vous êtes déjà membre d'une organisation, veuillez remplir les champs ci-dessous pour vous connecter.
             </Typography>
 
-            <Box component="form" className="c-user-login__form" onSubmit={handleSubmit(onSubmit)}>
+            <Box component="form" className="c-user-login__form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection:'column', alignItems:'center' }}>
                 <TextField
                     name="email"
                     type="email"
@@ -68,10 +68,10 @@ function LoginForm() {
                     margin="normal"
                     variant="outlined"
                 />
-                {isLoading ? <CircularProgress/> : null}
+                {isLoading ? <CircularProgress sx={{ mb: 2 }} /> : null}
                 {userError !== null && <p className="c-user-login__error">{userError?.message}</p>}
 
-                <Button type="submit" sx={{ mt: 2 }} fullWidth variant="contained" color="primary">
+                <Button type="submit" sx={{ mt: 2}} variant="contained" color="primary">
                 Connexion
                 </Button>
             </Box>
