@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 
-import { getIsLogged, getUserId, getUserOrganizationId } from '../../../redux/selectors/user';
+import { getIsLogged, getIsAdmin, getUserId, getUserOrganizationId } from '../../../redux/selectors/user';
 import { logout } from '../../../redux/reducers/user';
 
 
@@ -29,6 +29,7 @@ export default function MobileMenu() {
 
     const organizationId = useSelector(getUserOrganizationId);
     const isLog = useSelector(getIsLogged);
+    const isAdmin = useSelector(getIsAdmin);
     const userId = useSelector(getUserId);
     
 
@@ -95,12 +96,16 @@ export default function MobileMenu() {
                     </ListItemIcon>
                     Editer mon profil
                 </MenuItem>
-                <MenuItem component={Link} to={`/${organizationId}/admin/members`} onClick={handleClose}>
-                    <ListItemIcon>
-                        <AdminPanelSettingsIcon />
-                    </ListItemIcon>
-                    Administration
-                </MenuItem>
+
+                { isAdmin &&
+                    <MenuItem component={Link} to={`/${organizationId}/admin/members`} onClick={handleClose}>
+                        <ListItemIcon>
+                            <AdminPanelSettingsIcon />
+                        </ListItemIcon>
+                        Administration
+                    </MenuItem>
+                }
+
                 <MenuItem component={Link} to="/about" onClick={handleClose}>
                     <ListItemIcon>
                         <ContactMailIcon />
