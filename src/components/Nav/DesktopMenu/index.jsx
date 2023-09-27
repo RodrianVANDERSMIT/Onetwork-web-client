@@ -1,7 +1,7 @@
 
 import {useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { getUserId, getUserOrganizationId } from "../../../redux/selectors/user"
+import { getUserId, getIsAdmin, getUserOrganizationId } from "../../../redux/selectors/user"
 import {logout}  from "../../../redux/reducers/user"
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
@@ -17,6 +17,7 @@ const DesktopMenu = () => {
     const navigate = useNavigate();
     const organizationId = useSelector(getUserOrganizationId);
     const userId = useSelector(getUserId);
+    const isAdmin = useSelector(getIsAdmin);
 
     const handleLogout = async () => {
         await dispatch(logout()).unwrap()
@@ -26,11 +27,11 @@ const DesktopMenu = () => {
     
 
     const data = [
-        { text: "Flux d'activité", index: <ForumIcon />, route: `/${organizationId}` },
-        { text: 'Mon profil', index: <PersonIcon/>, route: `/${organizationId}/user/${userId}`},
-        { text: 'Editer mon profil', index: <ManageAccountsIcon/>, route: `/${organizationId}/user/${userId}/edit`},
-        { text: 'Administration', index: <AdminPanelSettingsIcon />, route: `/${organizationId}/admin/members`},
-        { text: 'Contact', index: <ContactMailIcon />, route: "/about" },
+        { text: "Flux d'activité", icon: <ForumIcon />, route: `/${organizationId}`, show: true },
+        { text: 'Mon profil', icon: <PersonIcon/>, route: `/${organizationId}/user/${userId}`, show: true},
+        { text: 'Editer mon profil', icon: <ManageAccountsIcon/>, route: `/${organizationId}/user/${userId}/edit`, show: true},
+        { text: 'Administration', icon: <AdminPanelSettingsIcon />, route: `/${organizationId}/admin/members`, show: isAdmin },
+        { text: 'Contact', icon: <ContactMailIcon />, route: "/about", show: true },
     
     ]
 
@@ -38,19 +39,20 @@ const DesktopMenu = () => {
        
         <List> 
             <Divider/>
-            {data.map(({ text, index, route }) => (
-                <ListItem key={text} 
-                    component={Link} 
-                    to={route} 
-                    disablePadding    
-                    style={{ textDecoration: 'none', color: 'inherit' }} 
-                >
-                    <ListItemButton>
-                        <ListItemIcon>{index}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItemButton>
-                </ListItem>
-            ))}
+            {data.map(({ text, icon, route, show }) =>
+                show &&
+                    <ListItem key={text}
+                        component={Link}
+                        to={route}
+                        disablePadding
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                        <ListItemButton>
+                            <ListItemIcon>{icon}</ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItemButton>
+                    </ListItem>
+            )}
             <ListItem key="Déconnexion" 
                 disablePadding 
                 onClick={handleLogout}
