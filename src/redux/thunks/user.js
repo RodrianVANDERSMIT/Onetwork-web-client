@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { api } from "../../services/api"
+import { api, fetchCsrfCookie } from "../../services/api"
 
 export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
 
     try {
+        await fetchCsrfCookie()
         const { data } = await api.post('/session', {email: credentials.email, password: credentials.password} )
 
         const user = data
