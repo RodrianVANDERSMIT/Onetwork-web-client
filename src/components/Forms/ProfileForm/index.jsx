@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom"
 import { useState } from "react";
-import { api } from "../../../services/api";
+import { api, fetchCsrfCookie } from "../../../services/api";
 
 import './style.scss'
 
@@ -72,6 +72,8 @@ function ProfileForm() {
 
     const createOrganization = async () => {
         try {
+            await fetchCsrfCookie()
+
             const { organizationName } = location.state
 
             const { data: organization } = await api.post('/organizations', {
