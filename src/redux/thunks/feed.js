@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { setAvailablePosts } from '../reducers/feed'
-import { api } from "../../services/api"
+import { api, fetchCsrfCookie } from "../../services/api"
 
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
 
@@ -32,6 +32,8 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
 
 export const createPost = createAsyncThunk("feed/createPost", async (text, thunkApi) => {
     try {
+        await fetchCsrfCookie()
+
         const { data } = await api.post('/posts',  {text: text})
 
         const newPost = {
