@@ -66,6 +66,8 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
 export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {
     try {
+        await fetchCsrfCookie()
+
         const formData = new FormData()
         for (let [key,value] of Object.entries(data)) {
             if (key === 'profilePicture' && !value) continue
@@ -87,6 +89,8 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
 
 export const updateUser = createAsyncThunk("user/updateUser", async (data, thunkAPI) => {
     try {
+        await fetchCsrfCookie()
+
         const id = thunkAPI.getState().user.id;
         const formData = new FormData()
         for (let [key,value] of Object.entries(data)) {
