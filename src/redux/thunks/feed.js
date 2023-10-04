@@ -71,6 +71,7 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 
 export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text, postId}, thunkApi) => {
     try {
+        await fetchCsrfCookie()
         const { data : newComment } = await api.post(`/posts/${postId}/comments`,  {text: text})
 
         return {newComment, postId}
