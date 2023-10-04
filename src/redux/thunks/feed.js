@@ -87,6 +87,7 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
 
 export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
     try {
+        await fetchCsrfCookie()
         const { data : newReaction } = await api.post(`/posts/${postId}/reactions`,  {type: reaction})
 
         return {newReaction, postId}
@@ -104,6 +105,7 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction, reactionId}, thunkApi) => {
 
     try {
+        await fetchCsrfCookie()
         const { data : updatedReaction } = await api.patch(`/reactions/${reactionId}`,  {type: reaction})
     
         return {updatedReaction, postId, reactionId}
@@ -120,6 +122,7 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
 export const removeReaction = createAsyncThunk("post/removeReaction", async ({postId, reactionId}, thunkApi) => {
 
     try {
+        await fetchCsrfCookie()
         await api.delete(`/reactions/${reactionId}`,)
         
         return { postId, reactionId}
