@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { api } from "../../services/api"
+import { api, fetchCsrfCookie } from "../../services/api"
 
 export const fetchMembers = createAsyncThunk("members/fetchMembers", async (organizationId, thunkApi) => {
     try {
@@ -21,6 +21,8 @@ export const fetchMembers = createAsyncThunk("members/fetchMembers", async (orga
 
 export const updateMemberStatus = createAsyncThunk("user/updateMemberStatus", async ({ id, disabled }, thunkAPI) => {
     try {
+        await fetchCsrfCookie()
+
         const response = await api.patch(`/users/${id}`,{disabled: disabled}, )
        
         const updatedMember = response.data
