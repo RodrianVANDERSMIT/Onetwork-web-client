@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { api } from "../../services/api"
+import { api, fetchCsrfCookie } from "../../services/api"
 
 export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
 
     try {
+        await fetchCsrfCookie()
         const { data } = await api.post('/session', {email: credentials.email, password: credentials.password} )
 
         const user = data
@@ -34,6 +35,7 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
 export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
     try {
+        await fetchCsrfCookie()
         const { data } = await api.delete('/session', )
 
         const user = data
@@ -64,6 +66,8 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
 export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {
     try {
+        await fetchCsrfCookie()
+
         const formData = new FormData()
         for (let [key,value] of Object.entries(data)) {
             if (key === 'profilePicture' && !value) continue
@@ -85,6 +89,8 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
 
 export const updateUser = createAsyncThunk("user/updateUser", async (data, thunkAPI) => {
     try {
+        await fetchCsrfCookie()
+
         const id = thunkAPI.getState().user.id;
         const formData = new FormData()
         for (let [key,value] of Object.entries(data)) {

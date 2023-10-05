@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { setAvailablePosts } from '../reducers/feed'
-import { api } from "../../services/api"
+import { api, fetchCsrfCookie } from "../../services/api"
 
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
 
@@ -32,6 +32,8 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
 
 export const createPost = createAsyncThunk("feed/createPost", async (text, thunkApi) => {
     try {
+        await fetchCsrfCookie()
+
         const { data } = await api.post('/posts',  {text: text})
 
         const newPost = {
@@ -69,6 +71,7 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 
 export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text, postId}, thunkApi) => {
     try {
+        await fetchCsrfCookie()
         const { data : newComment } = await api.post(`/posts/${postId}/comments`,  {text: text})
 
         return {newComment, postId}
@@ -84,6 +87,7 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
 
 export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
     try {
+        await fetchCsrfCookie()
         const { data : newReaction } = await api.post(`/posts/${postId}/reactions`,  {type: reaction})
 
         return {newReaction, postId}
@@ -101,6 +105,7 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction, reactionId}, thunkApi) => {
 
     try {
+        await fetchCsrfCookie()
         const { data : updatedReaction } = await api.patch(`/reactions/${reactionId}`,  {type: reaction})
     
         return {updatedReaction, postId, reactionId}
@@ -117,6 +122,7 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
 export const removeReaction = createAsyncThunk("post/removeReaction", async ({postId, reactionId}, thunkApi) => {
 
     try {
+        await fetchCsrfCookie()
         await api.delete(`/reactions/${reactionId}`,)
         
         return { postId, reactionId}
