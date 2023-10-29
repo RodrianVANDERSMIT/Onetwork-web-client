@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "../../layout/AuthenticatedLayout"
-import Admin from "../../components/Admin"
+import AdminMembers from "../../components/Admin/AdminMembers"
 import ScrollTopButton from "../../components/Buttons/ScrollTopButton"
 import './style.scss'
 
@@ -8,7 +8,7 @@ function Administration() {
 
     return (
         <AuthenticatedLayout>
-            <Admin />
+            <AdminMembers />
             <ScrollTopButton/>
         </AuthenticatedLayout> 
     )
