@@ -1,19 +1,30 @@
+import { useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 // import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
+import { api, fetchCsrfCookie } from '../../../services/api';
 import './style.scss'
 
 function InvitForm() {
     
     // const dispatch = useDispatch();
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm();
 
-    const onSubmit = (data) => {console.log(data)}
+    const onSubmit = async ({ email }) => {
+        setIsLoading(true)
+        await fetchCsrfCookie()
+        await api.post('/invitations', { email })
+        setIsLoading(false)
+        reset()
+    }
 
     return (
         <Box
@@ -64,6 +75,7 @@ function InvitForm() {
                     className="c-invit-form__button"
                     variant="contained"
                     type="submit"
+                    disabled={isLoading}
                 >
                     {"Envoyer le lien d'invitation"}
                 </Button>
