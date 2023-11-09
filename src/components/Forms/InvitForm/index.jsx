@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 // import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
+import useServerErrors from '../useServerErrors'
 import { api, fetchCsrfCookie } from '../../../services/api';
 import './style.scss'
 
@@ -10,20 +11,31 @@ function InvitForm() {
     // const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false)
-
+    const { setFieldsServerErrors } = useServerErrors()
     const {
         register,
         handleSubmit,
         reset,
+        setError,
         formState: { errors }
     } = useForm();
 
     const onSubmit = async ({ email }) => {
         setIsLoading(true)
-        await fetchCsrfCookie()
-        await api.post('/invitations', { email })
-        setIsLoading(false)
-        reset()
+
+        try {
+            await fetchCsrfCookie()
+            await api.post('/invitations', { email })
+            reset()
+        }
+        catch (error) {
+            setFieldsServerErrors(setError, error)
+
+            // TODO: Notification toast for 500 errors
+        }
+        finally {
+            setIsLoading(false)
+        }
     }
 
     return (
