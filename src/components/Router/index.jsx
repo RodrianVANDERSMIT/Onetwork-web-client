@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
+import GuestRoute from './GuestRoute'
 import AdminRoute from './AdminRoute'
 import UserProfile from "../../views/UserProfile"
 import Home from '../../views/Home'
@@ -22,8 +23,16 @@ export default function Router() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/new-organization" element={<OrganizationCreation />} />
-            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/new-organization" element={
+                <GuestRoute>
+                    <OrganizationCreation />
+                </GuestRoute>
+            } />
+            <Route path="/sign-up" element={
+                <GuestRoute>
+                    <SignUp />
+                </GuestRoute>
+            } />
             <Route path="/about" element={<Contact />} />
             <Route path="/error/401" element={<Error401 />} />
             <Route path="/error/403" element={<Error403 />} />
