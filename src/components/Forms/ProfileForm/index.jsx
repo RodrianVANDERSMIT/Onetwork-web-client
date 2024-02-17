@@ -51,9 +51,19 @@ function ProfileForm() {
         }
 
         const fetchInvitation = async () => {
-            const { data } = await api.get(`/invitations/${token}`)
-            setInvitation(data)
-            setValue('email', data.email)
+            try {
+                const { data } = await api.get(`/invitations/${token}`)
+                setInvitation(data)
+                setValue('email', data.email)
+            }
+            catch (error) {
+                if (error.response.status === 404) {
+                    navigate('/error/404')
+                }
+                else {
+                    navigate('/error/500')
+                }
+            }
         }
 
         fetchInvitation()
