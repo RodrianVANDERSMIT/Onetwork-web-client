@@ -4,8 +4,8 @@ import { addUser, updateUser } from '../../../redux/reducers/user'
 import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom"
-import { useState } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom"
+import { useEffect, useState } from "react";
 import { api, fetchCsrfCookie } from "../../../services/api";
 
 import './style.scss'
@@ -22,9 +22,14 @@ function ProfileForm() {
     const name = user.name
     const job = user.job
 
+    const [queryParams] = useSearchParams()
+    const token = queryParams.get('token')
+    const [invitation, setInvitation] = useState(null)
+
     const {
         register,
         watch,
+        setValue,
         control,
         resetField,
         handleSubmit,
@@ -36,6 +41,19 @@ function ProfileForm() {
             job: job,
         }
     });
+
+    useEffect(() => {
+        if (token === null) return
+
+        const fetchInvitation = async () => {
+            const { data } = await api.get(`/invitations/${token}`)
+            setInvitation(data)
+            setValue('email', data.email)
+        }
+
+        fetchInvitation()
+    }, [])
+
 
     const newPassword = watch("newPassword");
     const currentPassword = watch("currentPassword");
@@ -142,6 +160,7 @@ function ProfileForm() {
                     <TextField
                         className="c-profile-form__input"
                         label="Email"
+                        disabled={!!invitation}
                         helperText= {errors.email?.message}
                         error = {!!errors.email}
                         type="email"{...register("email", {
