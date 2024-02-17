@@ -45,6 +45,11 @@ function ProfileForm() {
     useEffect(() => {
         if (token === null) return
 
+        if (!token.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/)) {
+            navigate('/error/404')
+            return
+        }
+
         const fetchInvitation = async () => {
             const { data } = await api.get(`/invitations/${token}`)
             setInvitation(data)
