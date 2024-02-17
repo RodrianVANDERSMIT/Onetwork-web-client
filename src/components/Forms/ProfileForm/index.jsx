@@ -148,7 +148,6 @@ function ProfileForm() {
             }}
             onSubmit={handleSubmit(onSubmit)}
         >
-            {/* ****************************** If is notLogged ******************************** */}
             <Typography
                 className="c-profile-form__title"
                 component="h1"
@@ -157,6 +156,8 @@ function ProfileForm() {
             >
                 {title(isLog)}
             </Typography>
+
+            {/* ****************************** If is notLogged ******************************** */}
             {isLog === false && (
                 <Box
                     className="c-profile-form__group"
