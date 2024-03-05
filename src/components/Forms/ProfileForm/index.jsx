@@ -157,114 +157,103 @@ function ProfileForm() {
                 {title(isLog)}
             </Typography>
 
-            {/* ****************************** If is notLogged ******************************** */}
-            {isLog === false && (
-                <Box
-                    className="c-profile-form__group"
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column'
-                    }}
+            <Box
+                className="c-profile-form__group"
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}
+            >
+                <Typography
+                    className="c-profile-form__subtitle"
+                    variant="body1"
+                    sx={{mb:1}}
                 >
-                    <Typography
-                        className="c-profile-form__subtitle"
-                        variant="body1"
-                        sx={{mb:1}}
-                    >
-                        Votre compte
-                    </Typography>
-                    <TextField
-                        className="c-profile-form__input"
-                        label="Email"
-                        disabled={!!invitation}
-                        helperText= {errors.email?.message}
-                        error = {!!errors.email}
-                        type="email"{...register("email", {
-                            required: "L'email est requis",
-                            pattern: {
-                                value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                                message: "L'email doit être valide.",
-                            },
-                            maxLength: {
-                                value : 255,
-                                message: "L'email doit comporter 255 lettres maximum.",
-                            }
-                        })}
-                    />
-                    <TextField
-                        className="c-profile-form__input"
-                        label="Mot de passe"
-                        helperText= {errors.password?.message}
-                        error = {!!errors.password}
-                        type="password" {...register("password",{
-                            required: "Le mot de passe est requis.",
-                            pattern: {
-                                value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
-                                message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
-                            },
-                            maxLength: {
-                                value : 64,
-                                message: "Le mot de passe doit contenir 64 caractères maximum.",
-                            }
-                        })}
-                    />
-                    {userError !== null && <p className="c-profile-form__error">{userError?.message}</p>}
-                </Box>
-            )}
-            {/* **************************** End if is notLogged ****************************** */}
+                    Votre compte
+                </Typography>
 
-            {/* ******************************** If is logged ********************************** */}
-            {isLog === true && (
-                <Box
-                    className="c-profile-form__group"
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column'
-                    }}
-                >
-                    <Typography
-                        className="c-profile-form__subtitle"
-                        variant="body1"
-                        sx={{mb:1}}
-                    >
-                        Votre compte
-                    </Typography>
-                    <TextField
-                        className="c-profile-form__input"
-                        label="Ancien mot de passe"
-                        helperText= {errors.currentPassword?.message}
-                        error = {!!errors.currentPassword}
-                        type="password" {...register("currentPassword",{
-                            required: newPassword ? "L'ancien mot de passe est requis." : null,
-                            maxLength: {
-                                value : 64,
-                                message: "Le mot de passe doit contenir 64 caractères maximum.",
-                            }
-                        })}
-                    />
-                    <TextField
-                        className="c-profile-form__input"
-                        label="Nouveau mot de passe"
-                        helperText= {errors.newPassword?.message}
-                        error = {!!errors.newPassword}
-                        type="password" {...register("newPassword",{
-                            required: currentPassword ? "Le nouveau mot de passe est requis." : null,
-                            pattern: {
-                                value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
-                                message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
-                            },
-                            maxLength: {
-                                value : 64,
-                                message: "Le mot de passe doit contenir 64 caractères maximum.",
-                            }
-                        })}
-                    />
+                {/* ****************************** If is notLogged ******************************** */}
+                {isLog === false && (
+                    <>
+                        <TextField
+                            className="c-profile-form__input"
+                            label="Email"
+                            disabled={!!invitation}
+                            helperText= {errors.email?.message}
+                            error = {!!errors.email}
+                            type="email"{...register("email", {
+                                required: "L'email est requis",
+                                pattern: {
+                                    value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                    message: "L'email doit être valide.",
+                                },
+                                maxLength: {
+                                    value : 255,
+                                    message: "L'email doit comporter 255 lettres maximum.",
+                                }
+                            })}
+                        />
+                        <TextField
+                            className="c-profile-form__input"
+                            label="Mot de passe"
+                            helperText= {errors.password?.message}
+                            error = {!!errors.password}
+                            type="password" {...register("password",{
+                                required: "Le mot de passe est requis.",
+                                pattern: {
+                                    value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
+                                    message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
+                                },
+                                maxLength: {
+                                    value : 64,
+                                    message: "Le mot de passe doit contenir 64 caractères maximum.",
+                                }
+                            })}
+                        />
+                    </>
+                )}
+                {/* **************************** End if is notLogged ****************************** */}
 
-                    {userError !== null && <p className="c-profile-form__error">{userError?.message}</p>}
+                {/* ******************************** If is logged ********************************** */}
+                {isLog === true && (
+                    <>
+                        <TextField
+                            className="c-profile-form__input"
+                            label="Ancien mot de passe"
+                            helperText= {errors.currentPassword?.message}
+                            error = {!!errors.currentPassword}
+                            type="password" {...register("currentPassword",{
+                                required: newPassword ? "L'ancien mot de passe est requis." : null,
+                                maxLength: {
+                                    value : 64,
+                                    message: "Le mot de passe doit contenir 64 caractères maximum.",
+                                }
+                            })}
+                        />
+                        <TextField
+                            className="c-profile-form__input"
+                            label="Nouveau mot de passe"
+                            helperText= {errors.newPassword?.message}
+                            error = {!!errors.newPassword}
+                            type="password" {...register("newPassword",{
+                                required: currentPassword ? "Le nouveau mot de passe est requis." : null,
+                                pattern: {
+                                    value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
+                                    message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
+                                },
+                                maxLength: {
+                                    value : 64,
+                                    message: "Le mot de passe doit contenir 64 caractères maximum.",
+                                }
+                            })}
+                        />
+                    </>
+                )}
+                {/* ****************************** End if is logged ******************************** */ }
 
-                </Box>
-            )}
-            {/* ****************************** End if is logged ******************************** */ }
+                {userError !== null && <p className="c-profile-form__error">{userError?.message}</p>}
+            </Box>
+
             <Box
                 className="c-profile-form__group"
                 sx={{
