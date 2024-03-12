@@ -92,15 +92,15 @@ function ProfileForm() {
 
             data.organizationId = organizationId
             await dispatch(addUser(data)).unwrap()
-            navigate(`/`)
         }
-        if (isLog) {
+        else {
             if (deleteUserPicture) {
                 data.profilePicture = "";
             }
             await dispatch(updateUser(data)).unwrap()
-            navigate(`/`)
         }
+
+        navigate(`/`)
     };
 
     const createOrganization = async () => {
