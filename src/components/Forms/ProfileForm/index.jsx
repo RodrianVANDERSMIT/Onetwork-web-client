@@ -88,9 +88,21 @@ function ProfileForm() {
 
     const onSubmit = async (data) => {
         if (!isLog) {
-            const organizationId = await createOrganization()
+            if (invitation) {
+                // For security purpose, we must ensure the user cannot modify
+                // the email related to an invitation, so the server will use
+                // the token to retrieve the one stored in Redis. But the email
+                // field is displayed to the user, though disabled, so this data
+                // is removed from the request to lighten it and reinforce the
+                // server validation.
+                data.invitationToken = invitation.token
+                delete data.email
+            }
+            else {
+                const organizationId = await createOrganization()
+                data.organizationId = organizationId
+            }
 
-            data.organizationId = organizationId
             await dispatch(addUser(data)).unwrap()
         }
         else {
