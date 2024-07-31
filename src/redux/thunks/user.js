@@ -83,6 +83,14 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
         return user
     }
     catch (error) {
+        // Laravel sends a custom 422 status code when the request is rejected
+        // with validation errors; they must be transmitted directly to the
+        // form, where each messages will be displayed under their corresponding
+        // fields.
+        if ([410, 422].includes(error.response.status)) {
+            return thunkAPI.rejectWithValue(error);
+        }
+
         return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
     }
 })
@@ -112,16 +120,15 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
     }
     catch (error) {
         console.log(error)
-        if (error.response.status === 422)
-            return thunkAPI.rejectWithValue({
-                status: 422,
-                message: "L'ancien mot de passe est incorrect"
-            })
 
-        if (error.response.status === 500)
-            return thunkAPI.rejectWithValue({
-                status: 500,
-                message: "Une erreur s'est produite"
-            })
+        // Laravel sends a custom 422 status code when the request is rejected
+        // with validation errors; they must be transmitted directly to the
+        // form, where each messages will be displayed under their corresponding
+        // fields.
+        if (error.response.status === 422) {
+            return thunkAPI.rejectWithValue(error);
+        }
+
+        return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
     }
 })

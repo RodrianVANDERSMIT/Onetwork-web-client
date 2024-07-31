@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { api, fetchCsrfCookie } from "../../../services/api";
+import useServerErrors from "../useServerErrors";
 
 import './style.scss'
 
@@ -17,6 +18,7 @@ function ProfileForm() {
     const location = useLocation()
     const isLog = useSelector(getIsLogged)
     const userError = useSelector(getUserError);
+    const { setFieldsServerErrors } = useServerErrors()
     const user = (useSelector(getUser));
     const surname = user.surname
     const name = user.name
@@ -30,6 +32,7 @@ function ProfileForm() {
         register,
         watch,
         setValue,
+        setError,
         control,
         resetField,
         handleSubmit,
@@ -103,16 +106,27 @@ function ProfileForm() {
                 data.organizationId = organizationId
             }
 
-            await dispatch(addUser(data)).unwrap()
+            try {
+                await dispatch(addUser(data)).unwrap()
+                navigate(`/`)
+            }
+            catch (error) {
+                setFieldsServerErrors(setError, error)
+            }
         }
         else {
             if (deleteUserPicture) {
                 data.profilePicture = "";
             }
-            await dispatch(updateUser(data)).unwrap()
-        }
 
-        navigate(`/`)
+            try {
+                await dispatch(updateUser(data)).unwrap()
+                navigate(`/`)
+            }
+            catch (error) {
+                setFieldsServerErrors(setError, error)
+            }
+        }
     };
 
     const createOrganization = async () => {
@@ -263,8 +277,6 @@ function ProfileForm() {
                             </>
                             // {/* **************************** End if is notLogged ****************************** */}
                         )}
-
-                        {userError !== null && <p className="c-profile-form__error">{userError?.message}</p>}
                     </Box>
 
                     <Box
@@ -361,6 +373,26 @@ function ProfileForm() {
                             })}
                         />
                     </Box>
+
+                    {/* This whole block for displaying global error messages is
+                    a bit ugly... but there is no way to simplify it without
+                    refactoring the way server errors are handled in the Redux
+                    thunks. Some explanations:
+                    - with a 422 status code (form validation errors from
+                      Laravel), no global message
+                    - with a 410 status code (invitation expired), the message
+                      is in the server response
+                    - in any other cases, the message is directly in
+                      userError.message (check the Redux thunks to learn more)
+                    */}
+                    {userError !== null && userError?.response?.status !== 422 &&
+                        <p className="c-profile-form__error">{
+                            userError?.response?.status === 410 ?
+                                userError?.response?.data?.message:
+                                userError?.message
+                        }</p>
+                    }
+
                     <Button
                         className="c-profile-form__button"
                         sx={{
