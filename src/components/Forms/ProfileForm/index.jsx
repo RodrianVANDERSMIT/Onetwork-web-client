@@ -89,45 +89,40 @@ function ProfileForm() {
         setDeleteUserPicture(value);
     };
 
+    // This same form is used to sign up or to edit a user account
     const onSubmit = async (data) => {
         if (!isLog) {
-            if (invitation) {
-                // For security purpose, we must ensure the user cannot modify
-                // the email related to an invitation, so the server will use
-                // the token to retrieve the one stored in Redis. But the email
-                // field is displayed to the user, though disabled, so this data
-                // is removed from the request to lighten it and reinforce the
-                // server validation.
-                data.invitationToken = invitation.token
-                delete data.email
-            }
-            else {
-                const organizationId = await createOrganization()
-                data.organizationId = organizationId
-            }
-
-            try {
-                await dispatch(addUser(data)).unwrap()
-                navigate(`/`)
-            }
-            catch (error) {
-                setFieldsServerErrors(setError, error)
-            }
+            onUserCreation(data)
         }
         else {
-            if (deleteUserPicture) {
-                data.profilePicture = "";
-            }
-
-            try {
-                await dispatch(updateUser(data)).unwrap()
-                navigate(`/`)
-            }
-            catch (error) {
-                setFieldsServerErrors(setError, error)
-            }
+            onUserEdit(data)
         }
     };
+
+    const onUserCreation = async data => {
+        if (invitation) {
+            // For security purpose, we must ensure the user cannot modify
+            // the email related to an invitation, so the server will use
+            // the token to retrieve the one stored in Redis. But the email
+            // field is displayed to the user, though disabled, so this data
+            // is removed from the request to lighten it and reinforce the
+            // server validation.
+            data.invitationToken = invitation.token
+            delete data.email
+        }
+        else {
+            const organizationId = await createOrganization()
+            data.organizationId = organizationId
+        }
+
+        try {
+            await dispatch(addUser(data)).unwrap()
+            navigate(`/`)
+        }
+        catch (error) {
+            setFieldsServerErrors(setError, error)
+        }
+    }
 
     const createOrganization = async () => {
         try {
@@ -149,6 +144,20 @@ function ProfileForm() {
             else {
                 throw new Error({ status: error.response.status, message: "Une erreur s'est produite lors de la création de l'organisation." });
             }
+        }
+    }
+
+    const onUserEdit = async data => {
+        if (deleteUserPicture) {
+            data.profilePicture = "";
+        }
+
+        try {
+            await dispatch(updateUser(data)).unwrap()
+            navigate(`/`)
+        }
+        catch (error) {
+            setFieldsServerErrors(setError, error)
         }
     }
 
