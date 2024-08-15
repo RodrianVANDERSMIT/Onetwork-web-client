@@ -1,12 +1,10 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { api } from '../../services/api'
 import { cleanUserState } from '../../redux/reducers/user'
 
 export default function useInterceptors() {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     useEffect(() => {
         // The first argument of that use() method is a callback to launch on
@@ -17,10 +15,9 @@ export default function useInterceptors() {
             // tab than the current one, or his/her account has been disabled
             // while using the app... or a lot of possible scenarios, the next
             // request will send back a 401 error. When it happens, we clean the
-            // user state and redirect to the home page.
+            // user state which redirects him/her to the 401 error page.
             if (error.response.status === 401) {
                 dispatch(cleanUserState())
-                navigate('/')
             }
 
             return Promise.reject(error)
