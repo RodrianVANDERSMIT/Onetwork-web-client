@@ -12,7 +12,7 @@ export default function Footer() {
         </Typography>
         <Box className='c-footerBtn'>
         <BasicButton 
-            className='c-btn footer' 
+            className='c-btn footer'
             variant="outlined" 
             name="Contact"
             component={Link} route="/about"/>

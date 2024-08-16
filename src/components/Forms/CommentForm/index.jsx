@@ -29,7 +29,7 @@ function CommentForm({postId}) {
             component="form"
             onSubmit={ handleSubmit(onSubmit)}
         >
-            <InputBase
+            <InputBase id={`${postId}-comment-form-anchor`}
                 sx={{ ml: 1, flex: 1 }}
                 placeholder="Commenter..."
                 multiline

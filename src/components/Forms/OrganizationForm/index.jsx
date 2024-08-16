@@ -1,10 +1,8 @@
-import { useEffect } from 'react'
-import { TextField, Button } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { TextField, Button, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
-import { validateOrganization } from '../../../redux/reducers/organization'
-import { getOrganizationName, getError} from '../../../redux/selectors/organization'
+import { api } from '../../../services/api'
 
 
 import './style.scss'
@@ -14,21 +12,49 @@ import './style.scss'
 function OrganizationForm() {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const organizationNameChoice = useSelector(getOrganizationName);
-    const organizationError = useSelector(getError)
+    const [organizationName, setOrganizationName] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
 
+    const onSubmit = async ({ organizationName }) => {
+        setIsLoading(true)
+
+        try {
+            await api('/organizations/validation', { params: {
+                name: organizationName
+            }})
+
+            setOrganizationName(organizationName)
+        }
+        catch (error) {
+            handleError(error)
+        }
+        finally {
+            setIsLoading(false)
+        }
+    };
+
+    const handleError = error => {
+        if (error.response.status === 409) {
+            setError({
+                status: 409,
+                message: 'Cette organisation existe déjà. Merci de choisir un autre nom.'
+            });
+        }
+        else {
+            setError({
+                status: error.response.status,
+                message: "Une erreur s'est produite lors de la création de l'organisation."
+            });
+        }
+    }
 
     useEffect(() => {
-        if (organizationNameChoice !== "") {
-            navigate('/sign-up');
+        if (organizationName) {
+            navigate('/sign-up', { state: { organizationName } });
         }
-    }, [organizationNameChoice, navigate]);
-
-    const onSubmit = ({ organizationName }) => {
-        dispatch(validateOrganization(organizationName));
-    };
+    }, [organizationName, navigate]);
 
     return (
         <div className="c-organization-form">
@@ -40,15 +66,24 @@ function OrganizationForm() {
                     name="organization"
                     type="text"
                     label="Nom de votre organisation"
-                    {...register('organizationName',{required:true, minLength: 3 })}
+                    helperText= {errors.organizationName?.message}
+                    error = {!!errors.organizationName}
+                    {...register('organizationName',{
+                        required:"Le nom de l'organisation est requis",
+                        minLength: {
+                            value : 3,
+                            message: "Le nom de l'organisation doit comporter au moins 3 caractères.",
+                        },
+                        maxLength: {
+                            value : 50,
+                            message: "Le nom de l'organisation doit comporter 50 caractères maximum.",
+                        }
+                    })}
                 />
+                {isLoading ? <CircularProgress/> : null}
 
-                {errors.organizationName && errors.organizationName.type === "minLength" && (
-                    <p className="c-organization-form__error">{"Le nom de l'organisation doit comporter au moins 3 caractères."}</p>
-                )}
-
-                {organizationError !== null && (
-                    <p className="c-organization-form__error">{organizationError.message}</p>
+                {error !== null && (
+                    <p className="c-organization-form__error">{error.message}</p>
                 )}
 
                 <Button sx={{ m:1,}} className="c-organization-form__button" variant="contained" type="submit" >Valider</Button>

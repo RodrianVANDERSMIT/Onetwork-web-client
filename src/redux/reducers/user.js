@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login } from "../thunks/user";
+import { login, logout } from "../thunks/user";
 import { addUser, updateUser } from "../../redux/thunks/user"
 
 export const initialState = {
@@ -10,20 +10,20 @@ export const initialState = {
     job: "",
     role: null,
     profilePicture: "",
-    organizationId: null,
+    organization: null,
     disabled: false,
-    error: null
+    loading: false,
+    error: null,
 }
 
 const slice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        logout(state){
-            Object.assign(state, initialState);
+        cleanUserState(state) {
             localStorage.removeItem('user');
+            Object.assign(state, initialState);
         },
-
         setError(state, {payload: error }){
             state.error = error
         }
@@ -32,12 +32,24 @@ const slice = createSlice({
         builder
             .addCase(login.fulfilled, (state, {payload: user}) => {
                 localStorage.setItem('user', JSON.stringify(user))
-                return { ...state, ...user, error: null
+                return { ...state, ...user, error: null, loading: false,
                 };
+            })
+            .addCase(login.pending, (state) => {
+                state.loading = true;
             })
             .addCase(login.rejected, (state, action) => {
                 state.error = action.payload
+                state.loading = false;
             })
+
+            .addCase(logout.fulfilled, (state) => {
+                slice.caseReducers.cleanUserState(state)
+            })
+            .addCase(logout.rejected, (state, { payload: error }) => {
+                state.error = error
+            })
+
             .addCase(addUser.fulfilled,state => {
                 state.error= null
             })
@@ -54,5 +66,5 @@ const slice = createSlice({
 })
 
 export default slice.reducer
-export const {logout, setError} = slice.actions
-export {login, addUser, updateUser}
+export const {cleanUserState, setError} = slice.actions
+export {login, logout, addUser, updateUser}

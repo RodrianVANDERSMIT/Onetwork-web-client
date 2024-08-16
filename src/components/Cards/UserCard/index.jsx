@@ -1,27 +1,30 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import { getUser } from "../../../redux/selectors/user";
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
+import { Link as MuiLink } from '@mui/material'
 
 import './style.scss'
-import { Link } from "react-router-dom";
 
 function UserCard() {
     const userLogged = useSelector(getUser)
 
     return (
-        <Box
-            className= "c-user-card__group"
-            sx= {{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                width: '170px',
-                height:'170px'
-            }}
+        <MuiLink 
+            component={Link}
+            to={`/${userLogged.organization.id}/user/${userLogged.id}`}
         >
-            <Link to={`/${userLogged.organizationId}/user/${userLogged.id}`}>
+            <Box
+                className= "c-user-card__group"
+                sx= {{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    width: '180px',
+                    margin: 'auto',
+                    padding: '0.5em'
+                }}
+            >
                 <Avatar
                     className= "c-user-card__avatar"
                     src= {userLogged.profilePicture}
@@ -32,30 +35,34 @@ function UserCard() {
                         my: 1
                     }}
                 />
-            </Link>
-            <Box
-                className= "c-user-card__info"
-                sx= {{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    pb: 1
-                }}
-            >
-                <Typography
-                    className= "c-user-card__identity"
-                    variant= "body1"
+                <Box
+                    className= "c-user-card__info"
+                    sx= {{
+                        textAlign: 'center',
+                        pb: 1
+                    }}
                 >
-                    {userLogged.name} {userLogged.surname}
-                </Typography>
-                <Typography
-                    className= "c-user-card__job"
-                    variant= "body1"
-                >
-                    {userLogged.job}
-                </Typography>
+                    <Typography
+                        className= "c-user-card__identity"
+                        variant= "body1"
+                    >
+                        {userLogged.name}
+                    </Typography>
+                    <Typography
+                        className= "c-user-card__identity"
+                        variant= "body1"
+                    >
+                        {userLogged.surname}
+                    </Typography>
+                    <Typography
+                        className= "c-user-card__job"
+                        variant= "body1"
+                    >
+                        {userLogged.job}
+                    </Typography>
+                </Box>
             </Box>
-        </Box>
+        </MuiLink>
     );
 }
 

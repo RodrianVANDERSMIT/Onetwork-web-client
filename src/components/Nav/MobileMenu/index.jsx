@@ -1,29 +1,35 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
-import { getIsLogged, getUserId, getUserOrganizationId } from '../../../redux/selectors/user';
-import { cleanOrganizationState } from '../../../redux/reducers/organization';
-import { cleanMembersState } from '../../../redux/reducers/members';
-import { cleanFeedState } from '../../../redux/reducers/feed';
+import { getIsLogged, getIsAdmin, getUserId, getUserOrganizationId } from '../../../redux/selectors/user';
 import { logout } from '../../../redux/reducers/user';
 
 
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, ListItemIcon } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Menu, MenuItem } from '@mui/material';
 import UserCard from '../../Cards/UserCard';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import LogoutIcon from '@mui/icons-material/Logout';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ForumIcon from '@mui/icons-material/Forum';
+import PersonIcon from '@mui/icons-material/Person';
+
 
 export default function MobileMenu() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
     const dispatch= useDispatch();
+    const navigate = useNavigate();
 
     const organizationId = useSelector(getUserOrganizationId);
     const isLog = useSelector(getIsLogged);
+    const isAdmin = useSelector(getIsAdmin);
     const userId = useSelector(getUserId);
     
 
@@ -35,12 +41,9 @@ export default function MobileMenu() {
         setAnchorEl(null);
     };
 
-    const handleLogout = () => {
-        
-        dispatch(cleanOrganizationState());
-        dispatch(cleanMembersState());
-        dispatch(cleanFeedState());
-        dispatch(logout());
+    const handleLogout = async () => {
+        await dispatch(logout()).unwrap()
+        navigate('/')
     }
 
     return (
@@ -75,23 +78,45 @@ export default function MobileMenu() {
                     <UserCard />
                 </Box>
                 <Divider />
-                <MenuItem component={Link} to={`/${organizationId}`} onClick={handleClose}>
+                <MenuItem component={Link} to={`/${organizationId}`} onClick={handleClose}> 
+                    <ListItemIcon>
+                        <ForumIcon /> 
+                    </ListItemIcon>
                     {'Flux d\'activité'}
                 </MenuItem>
                 <MenuItem component={Link} to={`/${organizationId}/user/${userId}`} onClick={handleClose}>
-                Mon profil
+                    <ListItemIcon>
+                        <PersonIcon/>
+                    </ListItemIcon>
+                    Mon profil
                 </MenuItem>
                 <MenuItem component={Link} to={`/${organizationId}/user/${userId}/edit`} onClick={handleClose}>
-                Editer mon profil
+                    <ListItemIcon>
+                        <ManageAccountsIcon/>
+                    </ListItemIcon>
+                    Editer mon profil
                 </MenuItem>
-                <MenuItem component={Link} to={`/${organizationId}/admin/members`} onClick={handleClose}>
-                Administration
-                </MenuItem>
+
+                { isAdmin &&
+                    <MenuItem component={Link} to={`/${organizationId}/admin/members`} onClick={handleClose}>
+                        <ListItemIcon>
+                            <AdminPanelSettingsIcon />
+                        </ListItemIcon>
+                        Administration
+                    </MenuItem>
+                }
+
                 <MenuItem component={Link} to="/about" onClick={handleClose}>
-                Contact
+                    <ListItemIcon>
+                        <ContactMailIcon />
+                    </ListItemIcon>
+                    Contact
                 </MenuItem>
-                <MenuItem component={Link} to="/" onClick={handleLogout}>
-                Déconnexion
+                <MenuItem onClick={handleLogout}>
+                    <ListItemIcon>
+                        <LogoutIcon />
+                    </ListItemIcon>
+                    Déconnexion
                 </MenuItem>
             </Menu>
         </>

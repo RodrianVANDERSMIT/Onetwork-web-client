@@ -1,32 +1,36 @@
 import { useParams } from "react-router-dom";
 import { Avatar, Box, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { getMembers } from "../../../redux/selectors/members";
-import { getUserOrganizationId } from "../../../redux/selectors/user";
-import { useEffect } from "react";
-import { fetchMembers } from "../../../redux/thunks/members";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Link as MuiLink } from '@mui/material'
+import { api } from "../../../services/api";
 
 import './style.scss'
 
 function SelectedUserCard() {
-    const dispatch = useDispatch();
-    const { userId } = useParams();
-    const userIdUrl = parseInt(userId, 10);
-
-    const membersState = useSelector(getMembers);
-    const membersList = membersState.list;
-    const selectedMember = membersList.find((member) => member.id === userIdUrl);
-
-    const organizationId = useSelector(getUserOrganizationId);
+    const userId = parseInt(useParams().userId, 10);
+    const [selectedMember, setSelectedMember] = useState(null);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        if (organizationId) {
-            dispatch(fetchMembers(organizationId));
-        } else {
-            console.log("membres introuvable");
+        const fetchUser = async () => {
+            try {
+                setIsLoading(true)
+                const res = await api(`/users/${userId}`)
+                setSelectedMember(res.data)
+                setIsLoading(false)
+            }
+            catch {
+                console.log("membre introuvable");
+            }
         }
-    }, [organizationId, dispatch]);
+
+        fetchUser();
+    }, [userId]);
+
+    if (isLoading) {
+        return "";
+    }
 
     if (!selectedMember) {
         return (
@@ -43,13 +47,15 @@ function SelectedUserCard() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                width: '170px',
-                height:'170px'
+                margin: 'auto',
+                maxWidth: '300px',
+                padding: '0.5em'
             }}
         >
-            <Link to={`/${selectedMember.organizationId}/user/${selectedMember.id}`}>
+            <MuiLink 
+                component={Link}
+                to={`/${selectedMember.organization.id}/user/${selectedMember.id}`}
+            >
                 <Avatar
                     className= "c-user-card__avatar"
                     src= {selectedMember.profilePicture}
@@ -57,32 +63,33 @@ function SelectedUserCard() {
                     sx= {{
                         width: '100px',
                         height: '100px',
-                        my: 1
+                        my: 1,
+                        mx: 'auto'
                     }}
                 />
-            </Link>
-            <Box
-                className= "c-user-card__info"
-                sx= {{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    pb: 1
-                }}
-            >
-                <Typography
-                    className= "c-user-card__identity"
-                    variant= "body1"
+                <Box
+                    className= "c-user-card__info"
+                    sx= {{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        pb: 1
+                    }}
                 >
-                    {selectedMember.name} {selectedMember.surname}
-                </Typography>
-                <Typography
-                    className= "c-user-card__job"
-                    variant= "body1"
-                >
-                    {selectedMember.job}
-                </Typography>
-            </Box>
+                    <Typography
+                        className= "c-user-card__identity"
+                        variant= "body1"
+                    >
+                        {selectedMember.name} {selectedMember.surname}
+                    </Typography>
+                    <Typography
+                        className= "c-user-card__job"
+                        variant= "body1"
+                    >
+                        {selectedMember.job}
+                    </Typography>
+                </Box>
+            </MuiLink>
         </Box>
     );
 }

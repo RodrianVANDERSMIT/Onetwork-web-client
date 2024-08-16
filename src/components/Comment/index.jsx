@@ -4,6 +4,8 @@ import moment from 'moment'
 import { ListItem, ListItemAvatar, Paper } from '@mui/material';
 import { Avatar, Typography, } from '@mui/material';
 import './style.scss'
+import { Link } from "react-router-dom";
+import { Link as MuiLink } from '@mui/material'
 
 
 function Comment({ author,text,createdAt}) {
@@ -15,13 +17,35 @@ function Comment({ author,text,createdAt}) {
     return (
         <ListItem className="c-comment-list" alignItems="flex-start">
             <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src={author.profilePicture} />
+                <Link to={`/${author.organization.id}/user/${author.id}`}>
+                    <Avatar alt="Remy Sharp" src={author.profilePicture} />
+                </Link>
             </ListItemAvatar>
             <Paper className="c-comment-list__paper" >
-                <Typography variant="body2">
-                    {`${author.name}  ${author.surname} - ${date} à ${time}`}
+                <MuiLink 
+                    component={Link}
+                    to={`/${author.organization.id}/user/${author.id}`}
+                >
+                    <Typography
+                        className= "c-comment-list__identity"
+                        variant= "body1"
+                    >
+                        {`${author.name} ${author.surname}`}
+                    </Typography>
+                </MuiLink>
+                <Typography
+                    className= "c-comment-list__separator"
+                    variant= "body2"
+                >
+                    {' - '} 
                 </Typography>
-                <Typography variant="body2">
+                <Typography
+                    className= "c-comment-list__date"
+                    variant= "body2"
+                >
+                    {date} à {time}
+                </Typography>  
+                <Typography className="c-comment-list__job" variant="body2">
                     {author.job}
                 </Typography>
                 <Typography className="c-comment-list__text" variant="body1" mt={2}>

@@ -22,7 +22,7 @@ function ReactionButton({postId}) {
     const userId = useSelector(getUserId)
 	
     const loggedUserReaction = postReactions.find( reaction => userId === reaction.author.id)
-	
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -36,10 +36,10 @@ function ReactionButton({postId}) {
 
     const handleReaction = (reaction)=>{
         if (loggedUserReaction && loggedUserReaction.type.tag === reaction){
-            dispatch(removeReaction({postId, reaction}))
+            dispatch(removeReaction({postId, reactionId: loggedUserReaction.id}))
         }
         else if (loggedUserReaction){
-            dispatch(updateReaction({postId, reaction}))
+            dispatch(updateReaction({postId, reaction, reactionId: loggedUserReaction.id}))
         }
         else {
             dispatch(addReaction({postId, reaction}))
@@ -55,7 +55,7 @@ function ReactionButton({postId}) {
                     <img className='c-reaction-selector__image-choice' src={`/assets/reactions/emoji-${loggedUserReaction.type.tag}.png`} alt={`Emoji ${loggedUserReaction.type.tag}`}/>
                 </Button>
                 : 
-                <Button variant="outlined" className='c-reaction-selector__choice-button' aria-describedby={id} onClick={handleClick}>
+                <Button variant="outlined" className='c-btn footer' aria-describedby={id} onClick={handleClick}>
                     {"J'aime"}
                 </Button>
             }

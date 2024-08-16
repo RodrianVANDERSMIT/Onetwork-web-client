@@ -7,6 +7,18 @@ import {getUserOrganizationId } from '../../redux/selectors/user'
 import { Box, Button } from '@mui/material';
 import { Popover, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+import Avatar from '@mui/material/Avatar';
+import { Link as MuiLink } from '@mui/material'
+
+
+const SmallAvatar = styled(Avatar)(({ theme }) => ({
+    width: 20,
+    height: 20,
+    background: `${theme.palette.background.paper}`,
+    padding: 2,
+}));
 
 function PostReaction({postId}) {
 
@@ -71,23 +83,47 @@ function PostReaction({postId}) {
                     horizontal: 'left',
                 }}
             >
-                <Box className ="c-reaction-post__info" sx={{ p: 2 }}>
+                <Box className ="c-reaction-post__info" >
                     {postReactions.map((reaction) => (
-                        <Box className ="c-reaction-post__info-emoji" key={reaction.id} sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
-                            <img src={`/assets/reactions/emoji-${reaction.type.tag}.png`}/>
-                            <Box className ="c-reaction-post__info-container-picture" sx={{ width: '30px', height: '30px', borderRadius: '50%', overflow: 'hidden', marginRight: '8px' }}>
-                                <Link to={`/${organizationId}/user/${reaction.author.id}`}>
-                                    <img className ="c-reaction-post__info-picture"
-                                        src={reaction.author.profilePicture}
-                                        alt={reaction.author.name}
-                                    />
-                                </Link>
+                        <Box 
+                            className ="c-reaction-post__info-emoji" 
+                            key={reaction.id} 
+                            sx={{ display: 'flex', alignItems: 'center', padding: '0', margin: 1 }}>
+                            <Badge
+                                className ="c-reaction-post__info-container-picture" 
+                                sx={{  marginRight: '0.5em' }}
+                                overlap="circular"
+                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                badgeContent={
+                                    <SmallAvatar src={`/assets/reactions/emoji-${reaction.type.tag}.png`} />
+                                }
+                            >
+                                <Avatar 
+                                    component={Link} 
+                                    to={`/${organizationId}/user/${reaction.author.id}`}
+                                    alt={reaction.author.name} 
+                                    src={reaction.author.profilePicture} 
+                                />
+                            </Badge>
+                            <Box>
+                                <MuiLink 
+                                    component={Link}
+                                    to={`/${organizationId}/user/${reaction.author.id}`}
+                                >
+                                    <Typography 
+                                        variant="body2" 
+                                        className ="c-reaction-post__identity"
+                                    >
+                                        {`${reaction.author.name} ${reaction.author.surname}`}
+                                    </Typography>
+                                </MuiLink>
+                                <Typography 
+                                    variant="body2"
+                                    className ="c-reaction-post__job"
+                                >
+                                    {reaction.author.job}
+                                </Typography>
                             </Box>
-                            <Typography 
-                                className ="c-reaction-post__info-user" variant="body2">{`${reaction.author.name} ${reaction.author.surname}`}
-                            </Typography>
-                            
-                            
                         </Box>
                     ))}
                 </Box>

@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { api } from "../../services/api"
+import { api, fetchCsrfCookie } from "../../services/api"
 
 export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
 
     try {
-        const { data } = await api.post('/users/session', {email: credentials.email, password: credentials.password} )
+        await fetchCsrfCookie()
+        const { data } = await api.post('/session', {email: credentials.email, password: credentials.password} )
 
         const user = data
         return user
@@ -33,9 +34,10 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
 
 export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
-    try {        
-        const { data } = await api.delete('/users/session', )
-        
+    try {
+        await fetchCsrfCookie()
+        const { data } = await api.delete('/session', )
+
         const user = data
         return user
 
@@ -64,36 +66,45 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
 export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {
     try {
-        const organizationId = thunkAPI.getState().organization.id;
+        await fetchCsrfCookie()
 
         const formData = new FormData()
         for (let [key,value] of Object.entries(data)) {
             if (key === 'profilePicture' && !value) continue
             formData.append(key, value)
         }
-        formData.append('organizationId', organizationId)
 
-        const response = await api.post('/users',formData, {
+        const { data: user } = await api.post('/users',formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
 
-        return response
+        return user
     }
     catch (error) {
+        // Laravel sends a custom 422 status code when the request is rejected
+        // with validation errors; they must be transmitted directly to the
+        // form, where each messages will be displayed under their corresponding
+        // fields.
+        if ([410, 422].includes(error.response.status)) {
+            return thunkAPI.rejectWithValue(error);
+        }
+
         return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
     }
 })
 
 export const updateUser = createAsyncThunk("user/updateUser", async (data, thunkAPI) => {
     try {
+        await fetchCsrfCookie()
+
         const id = thunkAPI.getState().user.id;
         const formData = new FormData()
         for (let [key,value] of Object.entries(data)) {
             if (key === 'currentPassword' && !value) continue
             if (key === 'newPassword' && !value) continue
-            if (key === 'profilePicture' && !value) continue
+            if (key === 'profilePicture' && value === undefined) continue
             formData.append(key, value)
         }
 
@@ -109,16 +120,15 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
     }
     catch (error) {
         console.log(error)
-        if (error.response.status === 422)
-            return thunkAPI.rejectWithValue({
-                status: 422,
-                message: "L'ancien mot de passe est incorrect"
-            })
 
-        if (error.response.status === 500)
-            return thunkAPI.rejectWithValue({
-                status: 500,
-                message: "Une erreur s'est produite"
-            })
+        // Laravel sends a custom 422 status code when the request is rejected
+        // with validation errors; they must be transmitted directly to the
+        // form, where each messages will be displayed under their corresponding
+        // fields.
+        if (error.response.status === 422) {
+            return thunkAPI.rejectWithValue(error);
+        }
+
+        return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
     }
 })

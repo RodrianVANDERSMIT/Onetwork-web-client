@@ -6,9 +6,13 @@ export const getIsLogged = state => getName(state) !== "";
 
 export const getUserError = state => getUser(state).error;
 
-export const getUserOrganizationId = state => getUser(state).organizationId;
+export const getUserOrganization = state => getUser(state).organization;
+export const getUserOrganizationId = state => getUserOrganization(state)?.id;
+export const getUserOrganizationName = state => getUserOrganization(state)?.name;
 
 export const getUserId = state => getUser(state).id;
 
 export const getUserRole = state => getUser(state).role;
+export const getIsAdmin = state => !!(getUser(state).role?.tag === 'admin');
 
+export const getUserLoading = state => getUser(state).loading;

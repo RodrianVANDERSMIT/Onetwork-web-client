@@ -18,6 +18,7 @@
     }
 
     &__authenticated {
+        background-color: v.$white !important;
         z-index: 1201!important;
     }
 }
