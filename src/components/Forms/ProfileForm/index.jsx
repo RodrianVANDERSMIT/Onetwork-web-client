@@ -180,11 +180,11 @@ function ProfileForm() {
                 className="c-profile-form__title"
                 component="h1"
                 variant="h4"
-                sx={{my:2}}
+                sx={{my:5}}
             >
                 {isLog ?
-                    "Bienvenue sur la modification votre profil utilisateur":
-                    "Bienvenue sur la création de votre profil utilisateur"
+                    "Votre profil":
+                    "Créez votre profil"
                 }
             </Typography>
 
