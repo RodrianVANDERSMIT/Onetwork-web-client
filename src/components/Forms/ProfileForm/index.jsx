@@ -362,7 +362,7 @@ function ProfileForm() {
                             variant="body1"
                             sx={{mb:2}}
                         >
-                            Indiquez ici l’intitulé du poste que vous occupez au sein de l’organisation (p. ex. : graphiste, responsable markteting, etc.)
+                            Indiquez ici l'intitulé du poste que vous occupez au sein de l'organisation (p. ex. : graphiste, responsable marketing, etc.)
                         </Typography>
                         <TextField
                             className="c-profile-form__input"
