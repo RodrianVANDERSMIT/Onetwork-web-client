@@ -76,13 +76,6 @@ function ProfileForm() {
     const newPassword = watch("newPassword");
     const currentPassword = watch("currentPassword");
 
-    const title = (isLog) => {
-        if (!isLog){
-            return "Bienvenue sur la création de votre profil utilisateur"
-        }
-        return "Bienvenue sur la modification votre profil utilisateur"
-    }
-
     const [deleteUserPicture, setDeleteUserPicture] = useState(false);
 
     const handleDeletePictureChange = (value) => {
@@ -189,7 +182,10 @@ function ProfileForm() {
                 variant="h4"
                 sx={{my:2}}
             >
-                {title(isLog)}
+                {isLog ?
+                    "Bienvenue sur la modification votre profil utilisateur":
+                    "Bienvenue sur la création de votre profil utilisateur"
+                }
             </Typography>
 
             {token && !invitation ?
