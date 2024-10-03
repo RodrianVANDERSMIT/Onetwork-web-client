@@ -184,7 +184,20 @@ function ProfileForm() {
             >
                 {isLog ?
                     "Votre profil":
-                    "Créez votre profil"
+                    invitation ? (
+                        <>
+                            Rejoignez <Typography
+                                component="strong"
+                                variant="inherit"
+                                fontStyle="italic"
+                                fontWeight="fontWeightMedium"
+                            >
+                                {invitation.organization.name}
+                            </Typography> sur O'Network
+                        </>
+                    ) : (
+                        "Créez votre profil"
+                    )
                 }
             </Typography>
 
