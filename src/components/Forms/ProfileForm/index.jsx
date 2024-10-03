@@ -176,253 +176,255 @@ function ProfileForm() {
             }}
             onSubmit={handleSubmit(onSubmit)}
         >
-            <Typography
-                className="c-profile-form__title"
-                component="h1"
-                variant="h4"
-                sx={{my:5}}
-            >
-                {isLog ?
-                    "Votre profil":
-                    invitation ? (
-                        <>
-                            Rejoignez <Typography
-                                component="strong"
-                                variant="inherit"
-                                fontStyle="italic"
-                                fontWeight="fontWeightMedium"
-                            >
-                                {invitation.organization.name}
-                            </Typography> sur O'Network
-                        </>
-                    ) : (
-                        "Créez votre profil"
-                    )
-                }
-            </Typography>
-
             {token && !invitation ?
-                <CircularProgress /> :
-                <Box className="c-profile-form__body">
-                    <Box
-                        className="c-profile-form__group"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column'
-                        }}
+                <CircularProgress sx={{my: 6}} /> :
+                <>
+                    <Typography
+                        className="c-profile-form__title"
+                        component="h1"
+                        variant="h4"
+                        sx={{my:5}}
                     >
-                        <Typography
-                            className="c-profile-form__subtitle"
-                            variant="body1"
-                            sx={{mb:1}}
-                        >
-                            Votre compte
-                        </Typography>
+                        {isLog ?
+                            "Votre profil":
+                            invitation ? (
+                                <>
+                                    Rejoignez <Typography
+                                        component="strong"
+                                        variant="inherit"
+                                        fontStyle="italic"
+                                        fontWeight="fontWeightMedium"
+                                    >
+                                        {invitation.organization.name}
+                                    </Typography> sur O'Network
+                                </>
+                            ) : (
+                                "Créez votre profil"
+                            )
+                        }
+                    </Typography>
 
-                        {isLog ? (
-                            // {/* ******************************** If is logged ********************************** */}
-                            <>
-                                <TextField
-                                    className="c-profile-form__input"
-                                    label="Ancien mot de passe"
-                                    helperText= {errors.currentPassword?.message}
-                                    error = {!!errors.currentPassword}
-                                    type="password" {...register("currentPassword",{
-                                        required: newPassword ? "L'ancien mot de passe est requis." : null,
-                                        maxLength: {
-                                            value : 64,
-                                            message: "Le mot de passe doit contenir 64 caractères maximum.",
-                                        }
-                                    })}
-                                />
-                                <TextField
-                                    className="c-profile-form__input"
-                                    label="Nouveau mot de passe"
-                                    helperText= {errors.newPassword?.message}
-                                    error = {!!errors.newPassword}
-                                    type="password" {...register("newPassword",{
-                                        required: currentPassword ? "Le nouveau mot de passe est requis." : null,
-                                        pattern: {
-                                            value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
-                                            message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
-                                        },
-                                        maxLength: {
-                                            value : 64,
-                                            message: "Le mot de passe doit contenir 64 caractères maximum.",
-                                        }
-                                    })}
-                                />
-                            </>
-                            // {/* ****************************** End if is logged ******************************** */ }
-                        ) : (
-                            // {/* ****************************** If is notLogged ******************************** */}
-                            <>
-                                <TextField
-                                    className="c-profile-form__input"
-                                    label="Email"
-                                    disabled={!!invitation}
-                                    helperText={errors.email?.message}
-                                    error={!!errors.email}
-                                    type="email"{...register("email", {
-                                        required: "L'email est requis",
-                                        pattern: {
-                                            value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                                            message: "L'email doit être valide.",
-                                        },
-                                        maxLength: {
-                                            value: 255,
-                                            message: "L'email doit comporter 255 lettres maximum.",
-                                        }
-                                    })}
-                                />
-                                <TextField
-                                    className="c-profile-form__input"
-                                    label="Mot de passe"
-                                    helperText={errors.password?.message}
-                                    error={!!errors.password}
-                                    type="password" {...register("password", {
-                                        required: "Le mot de passe est requis.",
-                                        pattern: {
-                                            value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
-                                            message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
-                                        },
-                                        maxLength: {
-                                            value: 64,
-                                            message: "Le mot de passe doit contenir 64 caractères maximum.",
-                                        }
-                                    })}
-                                />
-                            </>
-                            // {/* **************************** End if is notLogged ****************************** */}
-                        )}
+                    <Box className="c-profile-form__body">
+                        <Box
+                            className="c-profile-form__group"
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column'
+                            }}
+                        >
+                            <Typography
+                                className="c-profile-form__subtitle"
+                                variant="body1"
+                                sx={{mb:1}}
+                            >
+                                Votre compte
+                            </Typography>
+
+                            {isLog ? (
+                                // {/* ******************************** If is logged ********************************** */}
+                                <>
+                                    <TextField
+                                        className="c-profile-form__input"
+                                        label="Ancien mot de passe"
+                                        helperText= {errors.currentPassword?.message}
+                                        error = {!!errors.currentPassword}
+                                        type="password" {...register("currentPassword",{
+                                            required: newPassword ? "L'ancien mot de passe est requis." : null,
+                                            maxLength: {
+                                                value : 64,
+                                                message: "Le mot de passe doit contenir 64 caractères maximum.",
+                                            }
+                                        })}
+                                    />
+                                    <TextField
+                                        className="c-profile-form__input"
+                                        label="Nouveau mot de passe"
+                                        helperText= {errors.newPassword?.message}
+                                        error = {!!errors.newPassword}
+                                        type="password" {...register("newPassword",{
+                                            required: currentPassword ? "Le nouveau mot de passe est requis." : null,
+                                            pattern: {
+                                                value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
+                                                message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
+                                            },
+                                            maxLength: {
+                                                value : 64,
+                                                message: "Le mot de passe doit contenir 64 caractères maximum.",
+                                            }
+                                        })}
+                                    />
+                                </>
+                                // {/* ****************************** End if is logged ******************************** */ }
+                            ) : (
+                                // {/* ****************************** If is notLogged ******************************** */}
+                                <>
+                                    <TextField
+                                        className="c-profile-form__input"
+                                        label="Email"
+                                        disabled={!!invitation}
+                                        helperText={errors.email?.message}
+                                        error={!!errors.email}
+                                        type="email"{...register("email", {
+                                            required: "L'email est requis",
+                                            pattern: {
+                                                value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                                message: "L'email doit être valide.",
+                                            },
+                                            maxLength: {
+                                                value: 255,
+                                                message: "L'email doit comporter 255 lettres maximum.",
+                                            }
+                                        })}
+                                    />
+                                    <TextField
+                                        className="c-profile-form__input"
+                                        label="Mot de passe"
+                                        helperText={errors.password?.message}
+                                        error={!!errors.password}
+                                        type="password" {...register("password", {
+                                            required: "Le mot de passe est requis.",
+                                            pattern: {
+                                                value: /^(?=.*\d)(?=.*[!@#$%^?&*])(?=.*[a-zA-Z]).{8,}$/,
+                                                message: "Le mot de passe doit contenir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.",
+                                            },
+                                            maxLength: {
+                                                value: 64,
+                                                message: "Le mot de passe doit contenir 64 caractères maximum.",
+                                            }
+                                        })}
+                                    />
+                                </>
+                                // {/* **************************** End if is notLogged ****************************** */}
+                            )}
+                        </Box>
+
+                        <Box
+                            className="c-profile-form__group"
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <Typography
+                                className="c-profile-form__subtitle"
+                                variant="body1"
+                                sx={{mb:1}}
+                            >
+                                Vous
+                            </Typography>
+                            <AvatarForm
+                                className="c-profile-form__avatar"
+                                control={control}
+                                resetField={resetField}
+                                onDeletePictureChange={handleDeletePictureChange}
+                            />
+                            <TextField
+                                className="c-profile-form__input"
+                                label="Nom"
+                                helperText= {errors.surname?.message}
+                                error = {!!errors.surname}
+                                type= "text"{...register("surname", {
+                                    required: "Le nom est requis.",
+                                    minLength: {
+                                        value : 3,
+                                        message: "Le nom doit comporter 3 lettres minimum.",
+                                    },
+                                    maxLength: {
+                                        value : 50,
+                                        message: "Le nom doit contenir 50 caractères maximum.",
+                                    }
+                                })}
+                            />
+                            <TextField
+                                className="c-profile-form__input"
+                                label="Prénom"
+                                helperText= {errors.name?.message}
+                                error = {!!errors.name}
+                                type= "text"{...register("name", {
+                                    required: "Le prénom est requis.",
+                                    minLength: {
+                                        value : 3,
+                                        message: "Le prénom doit comporter 3 lettres minimum.",
+                                    },
+                                    maxLength: {
+                                        value : 50,
+                                        message: "Le prénom doit contenir 50 caractères maximum.",
+                                    }
+                                })}
+                            />
+                        </Box>
+                        <Box
+                            className="c-profile-form__group"
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <Typography
+                                className="c-profile-form__subtitle"
+                                variant="body1"
+                                sx={{mb:1}}
+                            >
+                                Votre poste
+                            </Typography>
+                            <Typography
+                                className="c-profile-form__textfield"
+                                variant="body1"
+                                sx={{mb:2}}
+                            >
+                                Indiquez ici l'intitulé du poste que vous occupez au sein de l'organisation (p. ex. : graphiste, responsable marketing, etc.)
+                            </Typography>
+                            <TextField
+                                className="c-profile-form__input"
+                                label="Intitulé de poste"
+                                helperText= {errors.job?.message}
+                                error = {!!errors.job}
+                                type= "text"{...register("job", {
+                                    required: "L'intitulé de poste est requis.",
+                                    minLength: {
+                                        value : 3,
+                                        message: "Le titre du poste.",
+                                    },
+                                    maxLength: {
+                                        value : 255,
+                                        message: "Le titre du poste doit contenir 255 caractères maximum.",
+                                    }
+                                })}
+                            />
+                        </Box>
+
+                        {/* This whole block for displaying global error messages is
+                        a bit ugly... but there is no way to simplify it without
+                        refactoring the way server errors are handled in the Redux
+                        thunks. Some explanations:
+                        - with a 422 status code (form validation errors from
+                        Laravel), no global message
+                        - with a 410 status code (invitation expired), the message
+                        is in the server response
+                        - in any other cases, the message is directly in
+                        userError.message (check the Redux thunks to learn more)
+                        */}
+                        {userError !== null && userError?.response?.status !== 422 &&
+                            <p className="c-profile-form__error">{
+                                userError?.response?.status === 410 ?
+                                    userError?.response?.data?.message:
+                                    userError?.message
+                            }</p>
+                        }
+
+                        <Button
+                            className="c-profile-form__button"
+                            sx={{
+                                mt:1,
+                                mb:3
+                            }}
+                            variant="contained"
+                            type="submit"
+                        >
+                            Enregistrer
+                        </Button>
                     </Box>
-
-                    <Box
-                        className="c-profile-form__group"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                        }}
-                    >
-                        <Typography
-                            className="c-profile-form__subtitle"
-                            variant="body1"
-                            sx={{mb:1}}
-                        >
-                            Vous
-                        </Typography>
-                        <AvatarForm
-                            className="c-profile-form__avatar"
-                            control={control}
-                            resetField={resetField}
-                            onDeletePictureChange={handleDeletePictureChange}
-                        />
-                        <TextField
-                            className="c-profile-form__input"
-                            label="Nom"
-                            helperText= {errors.surname?.message}
-                            error = {!!errors.surname}
-                            type= "text"{...register("surname", {
-                                required: "Le nom est requis.",
-                                minLength: {
-                                    value : 3,
-                                    message: "Le nom doit comporter 3 lettres minimum.",
-                                },
-                                maxLength: {
-                                    value : 50,
-                                    message: "Le nom doit contenir 50 caractères maximum.",
-                                }
-                            })}
-                        />
-                        <TextField
-                            className="c-profile-form__input"
-                            label="Prénom"
-                            helperText= {errors.name?.message}
-                            error = {!!errors.name}
-                            type= "text"{...register("name", {
-                                required: "Le prénom est requis.",
-                                minLength: {
-                                    value : 3,
-                                    message: "Le prénom doit comporter 3 lettres minimum.",
-                                },
-                                maxLength: {
-                                    value : 50,
-                                    message: "Le prénom doit contenir 50 caractères maximum.",
-                                }
-                            })}
-                        />
-                    </Box>
-                    <Box
-                        className="c-profile-form__group"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                        }}
-                    >
-                        <Typography
-                            className="c-profile-form__subtitle"
-                            variant="body1"
-                            sx={{mb:1}}
-                        >
-                            Votre poste
-                        </Typography>
-                        <Typography
-                            className="c-profile-form__textfield"
-                            variant="body1"
-                            sx={{mb:2}}
-                        >
-                            Indiquez ici l'intitulé du poste que vous occupez au sein de l'organisation (p. ex. : graphiste, responsable marketing, etc.)
-                        </Typography>
-                        <TextField
-                            className="c-profile-form__input"
-                            label="Intitulé de poste"
-                            helperText= {errors.job?.message}
-                            error = {!!errors.job}
-                            type= "text"{...register("job", {
-                                required: "L'intitulé de poste est requis.",
-                                minLength: {
-                                    value : 3,
-                                    message: "Le titre du poste.",
-                                },
-                                maxLength: {
-                                    value : 255,
-                                    message: "Le titre du poste doit contenir 255 caractères maximum.",
-                                }
-                            })}
-                        />
-                    </Box>
-
-                    {/* This whole block for displaying global error messages is
-                    a bit ugly... but there is no way to simplify it without
-                    refactoring the way server errors are handled in the Redux
-                    thunks. Some explanations:
-                    - with a 422 status code (form validation errors from
-                      Laravel), no global message
-                    - with a 410 status code (invitation expired), the message
-                      is in the server response
-                    - in any other cases, the message is directly in
-                      userError.message (check the Redux thunks to learn more)
-                    */}
-                    {userError !== null && userError?.response?.status !== 422 &&
-                        <p className="c-profile-form__error">{
-                            userError?.response?.status === 410 ?
-                                userError?.response?.data?.message:
-                                userError?.message
-                        }</p>
-                    }
-
-                    <Button
-                        className="c-profile-form__button"
-                        sx={{
-                            mt:1,
-                            mb:3
-                        }}
-                        variant="contained"
-                        type="submit"
-                    >
-                        Enregistrer
-                    </Button>
-                </Box>
+                </>
             }
         </Box>
     )
