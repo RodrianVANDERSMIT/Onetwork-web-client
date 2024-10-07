@@ -1,6 +1,7 @@
 .c-profile-form {
     &__group {
         width: 100%;
+        margin-bottom: 40px;
     }
 
     &__title {
@@ -9,6 +10,11 @@
     }
 
     &__subtitle {
+        font-size: 21px !important;
+    }
+
+    &__input:last-child {
+        margin-bottom: 0 !important;
     }
 
     &__textfield {
