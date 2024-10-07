@@ -164,13 +164,9 @@ function ProfileForm() {
                     mb: 2,
                     width: '100%'
                 },
-                maxWidth: '400px',
-                marginLeft: 'auto',
-                marginRight: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                px:'10px'
             }}
             onSubmit={handleSubmit(onSubmit)}
         >
@@ -181,7 +177,11 @@ function ProfileForm() {
                         className="c-profile-form__title"
                         component="h1"
                         variant="h4"
-                        sx={{my:5}}
+                        sx={{
+                            maxWidth: '600px',
+                            my: 5,
+                            px: 3
+                        }}
                     >
                         {isLog ?
                             "Votre profil":
@@ -202,7 +202,10 @@ function ProfileForm() {
                         }
                     </Typography>
 
-                    <Box className="c-profile-form__body">
+                    <Box className="c-profile-form__body" sx={{
+                        maxWidth: '400px',
+                        px: '10px'
+                    }}>
                         <Box className="c-profile-form__group">
                             <Typography
                                 className="c-profile-form__subtitle"
