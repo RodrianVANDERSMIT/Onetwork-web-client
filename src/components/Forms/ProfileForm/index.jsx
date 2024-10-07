@@ -165,12 +165,10 @@ function ProfileForm() {
                     width: '100%'
                 },
                 maxWidth: '400px',
-                width: '100%',
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
                 alignItems: 'center',
                 px:'10px'
             }}
@@ -205,13 +203,7 @@ function ProfileForm() {
                     </Typography>
 
                     <Box className="c-profile-form__body">
-                        <Box
-                            className="c-profile-form__group"
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column'
-                            }}
-                        >
+                        <Box className="c-profile-form__group">
                             <Typography
                                 className="c-profile-form__subtitle"
                                 variant="body1"
@@ -298,13 +290,7 @@ function ProfileForm() {
                             )}
                         </Box>
 
-                        <Box
-                            className="c-profile-form__group"
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                            }}
-                        >
+                        <Box className="c-profile-form__group">
                             <Typography
                                 className="c-profile-form__subtitle"
                                 variant="body1"
@@ -353,13 +339,7 @@ function ProfileForm() {
                                 })}
                             />
                         </Box>
-                        <Box
-                            className="c-profile-form__group"
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                            }}
-                        >
+                        <Box className="c-profile-form__group">
                             <Typography
                                 className="c-profile-form__subtitle"
                                 variant="body1"
