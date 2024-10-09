@@ -1,5 +1,6 @@
 import AvatarForm from "../AvatarForm";
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { grey } from "@mui/material/colors";
 import { addUser, updateUser } from '../../../redux/reducers/user'
 import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
 import { useDispatch, useSelector } from 'react-redux';
@@ -355,8 +356,13 @@ function ProfileForm() {
                             </Typography>
                             <Typography
                                 className="c-profile-form__textfield"
-                                variant="body1"
-                                sx={{mb:2}}
+                                variant="body2"
+                                sx={{
+                                    mb:2,
+                                    fontStyle: "italic",
+                                    color: grey[600],
+                                    maxWidth: "350px"
+                                }}
                             >
                                 Indiquez ici l'intitulé du poste que vous occupez au sein de l'organisation (p. ex. : graphiste, responsable marketing, etc.)
                             </Typography>
