@@ -209,6 +209,7 @@ function ProfileForm() {
                         <Box className="c-profile-form__group">
                             <Typography
                                 className="c-profile-form__subtitle"
+                                component="h2"
                                 variant="body1"
                                 sx={{mb:1}}
                             >
@@ -296,6 +297,7 @@ function ProfileForm() {
                         <Box className="c-profile-form__group">
                             <Typography
                                 className="c-profile-form__subtitle"
+                                component="h2"
                                 variant="body1"
                                 sx={{mb:1}}
                             >
@@ -345,6 +347,7 @@ function ProfileForm() {
                         <Box className="c-profile-form__group">
                             <Typography
                                 className="c-profile-form__subtitle"
+                                component="h2"
                                 variant="body1"
                                 sx={{mb:1}}
                             >
