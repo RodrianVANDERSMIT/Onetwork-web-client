@@ -57,6 +57,7 @@ const slice = createSlice({
                 state.error = error
             })
             .addCase(updateUser.fulfilled,(state, {payload: data}) => {
+                localStorage.setItem('user', JSON.stringify(data))
                 return {...state, ...data, error: null}
             })
             .addCase(updateUser.rejected, (state, {payload: error}) => {
