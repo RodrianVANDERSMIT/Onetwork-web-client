@@ -1,14 +1,17 @@
 import { Box, CircularProgress } from "@mui/material"
+import Logo from "../../components/Header/Logo"
 
 function LoadingLayout() {
     return (
         <Box sx={{
             height: '100vh',
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center'
         }}>
-            <CircularProgress size="3rem" />
+            <Logo />
+            <CircularProgress size="3rem" sx={{ mt: 5 }} />
         </Box>
     )
 }
