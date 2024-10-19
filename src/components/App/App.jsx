@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { fetchUser } from '../../redux/thunks/user'
 import Router from '../Router'
+import LoadingLayout from '../../layout/LoadingLayout'
 
 function App() {
     const dispatch = useDispatch()
@@ -16,7 +17,7 @@ function App() {
 
     return (
         isFetchingUser ?
-            "" :
+            <LoadingLayout/> :
             <Router/>
     )
 }
