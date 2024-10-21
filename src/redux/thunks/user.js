@@ -64,6 +64,18 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
     }
 })
 
+export const fetchUser = createAsyncThunk('user/fetchUser', async (_, thunkApi) => {
+    try {
+        const { data: user } = await api.get('/session/user')
+
+        // If the user is not authenticated, the response is just an empty
+        // string: it's converted to null for better reliability and consistency
+        return user || null
+    } catch (error) {
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite" });
+    }
+})
+
 export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {
     try {
         await fetchCsrfCookie()
