@@ -3,22 +3,33 @@ import { useDispatch } from 'react-redux'
 import { fetchUser } from '../../redux/thunks/user'
 import Router from '../Router'
 import LoadingLayout from '../../layout/LoadingLayout'
+import Error500 from '../../views/Error500'
 
 function App() {
     const dispatch = useDispatch()
     const [isFetchingUser, setIsFetchingUser] = useState(true)
+    const [userFetchingError, setUserFetchingError] = useState(null)
 
     useEffect(() => {
         (async () => {
-            await dispatch(fetchUser())
-            setIsFetchingUser(false)
+            try {
+                await dispatch(fetchUser()).unwrap()
+            }
+            catch (error) {
+                setUserFetchingError(error)
+            }
+            finally {
+                setIsFetchingUser(false)
+            }
         })()
     }, [dispatch])
 
     return (
-        isFetchingUser ?
-            <LoadingLayout/> :
-            <Router/>
+        userFetchingError ?
+            <Error500 /> :
+            isFetchingUser ?
+                <LoadingLayout/> :
+                <Router/>
     )
 }
 
