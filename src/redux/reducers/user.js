@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, logout } from "../thunks/user";
+import { login, logout, fetchUser } from "../thunks/user";
 import { addUser, updateUser } from "../../redux/thunks/user"
 
 export const initialState = {
@@ -21,7 +21,6 @@ const slice = createSlice({
     initialState,
     reducers: {
         cleanUserState(state) {
-            localStorage.removeItem('user');
             Object.assign(state, initialState);
         },
         setError(state, {payload: error }){
@@ -31,7 +30,6 @@ const slice = createSlice({
     extraReducers: builder => { 
         builder
             .addCase(login.fulfilled, (state, {payload: user}) => {
-                localStorage.setItem('user', JSON.stringify(user))
                 return { ...state, ...user, error: null, loading: false,
                 };
             })
@@ -48,6 +46,10 @@ const slice = createSlice({
             })
             .addCase(logout.rejected, (state, { payload: error }) => {
                 state.error = error
+            })
+
+            .addCase(fetchUser.fulfilled, (state, { payload: user }) => {
+                return { ...state, ...user  }
             })
 
             .addCase(addUser.fulfilled,state => {
@@ -67,4 +69,4 @@ const slice = createSlice({
 
 export default slice.reducer
 export const {cleanUserState, setError} = slice.actions
-export {login, logout, addUser, updateUser}
+export {login, logout, fetchUser, addUser, updateUser}

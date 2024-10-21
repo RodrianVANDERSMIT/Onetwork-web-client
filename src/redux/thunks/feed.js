@@ -96,7 +96,7 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
         if (error.response.status === 409){
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         }
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la réaction" });
     }
 })
 
@@ -114,7 +114,7 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
         if (error.response.status === 409){
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         }
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la réaction" });
     }
 })
 
@@ -131,6 +131,6 @@ export const removeReaction = createAsyncThunk("post/removeReaction", async ({po
         if (error.response.status === 409){
             return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
         }
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la reaction" });
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la réaction" });
     }
 });

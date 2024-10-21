@@ -22,7 +22,7 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
         if (error.response.status === 403)
             return thunkApi.rejectWithValue({
                 status: 403,
-                message: "Votre compte est desactivée. Veuillez contacté le gérant de l'organisation."
+                message: "Votre compte est désactivé. Veuillez contacter le gérant de l'organisation."
             })
 
         return thunkApi.rejectWithValue({ 
@@ -54,13 +54,25 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
         if (error.response.status === 403)
             return thunkApi.rejectWithValue({
                 status: 403,
-                message: "Votre compte est desactivée. Veuillez contacté le gérant de l'organisation."
+                message: "Votre compte est désactivé. Veuillez contacter le gérant de l'organisation."
             })
 
         return thunkApi.rejectWithValue({ 
             status: 500, 
             message: "Une erreur s'est produite lors de la connexion." 
         });
+    }
+})
+
+export const fetchUser = createAsyncThunk('user/fetchUser', async (_, thunkApi) => {
+    try {
+        const { data: user } = await api.get('/session/user')
+
+        // If the user is not authenticated, the response is just an empty
+        // string: it's converted to null for better reliability and consistency
+        return user || null
+    } catch (error) {
+        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite" });
     }
 })
 
