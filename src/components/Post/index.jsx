@@ -19,6 +19,7 @@ import {Avatar, Collapse, List, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link as MuiLink } from '@mui/material'
 import { HashLink } from 'react-router-hash-link';
+import Pluralize from 'react-pluralize'
 
 import './style.scss'
 
@@ -117,7 +118,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     aria-label="show more"
                     className='c-counter__btn' 
                 >
-                    {commentsCount}{" commentaires"}
+                    <Pluralize count={commentsCount} singular="commentaire" />
                 </ExpandMore>
             </CardContent>
             <Divider/>
