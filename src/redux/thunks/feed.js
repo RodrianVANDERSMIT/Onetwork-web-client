@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { setHasMorePosts } from '../reducers/feed'
 import { api, fetchCsrfCookie } from "../../services/api"
 
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
@@ -13,17 +12,11 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
             `/organizations/${id}/posts?page=${nextPage}`
 
         const { data: response } = await api.get(url);
-        const filteredPosts = response.data;
-        const meta = {
-            currentPage: response.meta.current_page, 
-            lastPage: response.meta.last_page
-        };
 
-        if (meta.currentPage === meta.lastPage) {
-            thunkApi.dispatch(setHasMorePosts(false));
-        }
-                     
-        return filteredPosts;
+        return {
+            posts: response.data,
+            meta: response.meta
+        };
 
     } catch (error) {
         return thunkApi.rejectWithValue({status: 500, message: "Une erreur s'est produite"});

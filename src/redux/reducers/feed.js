@@ -29,10 +29,10 @@ const slice = createSlice({
 
     extraReducers: builder => {
         builder
-            .addCase(fetchPosts.fulfilled, (state, action ) => {
-                const posts = state.posts
-                posts.push(...action.payload)
-                state.pagination.currentPage++
+            .addCase(fetchPosts.fulfilled, (state, { payload: { posts, meta } } ) => {
+                state.posts.push(...posts)
+                state.pagination.currentPage = meta.current_page
+                state.pagination.hasMorePosts = meta.current_page !== meta.last_page
                 state.error = null
                 state.loading = false;
             })
