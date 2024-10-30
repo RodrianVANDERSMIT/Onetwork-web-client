@@ -9,7 +9,7 @@ const initialState = {
     pagination: {
         currentPage: 1,
         postsPerPage: 10,
-        availablePosts: true,
+        hasMorePosts: true,
     },
     loading: false,
     error: null,
@@ -22,8 +22,8 @@ const slice = createSlice({
         cleanFeedState(state){
             Object.assign(state, initialState);
         },
-        setAvailablePosts(state, action) {
-            state.pagination.availablePosts = action.payload;
+        setHasMorePosts(state, action) {
+            state.pagination.hasMorePosts = action.payload;
         },
     },
 
@@ -107,5 +107,5 @@ const slice = createSlice({
 });
 
 
-export const { cleanFeedState, setAvailablePosts } = slice.actions
+export const { cleanFeedState, setHasMorePosts } = slice.actions
 export default slice.reducer

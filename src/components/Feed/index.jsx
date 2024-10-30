@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getUser, getUserOrganizationName } from '../../redux/selectors/user'
-import { getPosts, getAvailablePosts, getPostLoading } from '../../redux/selectors/feed'
+import { getPosts, getHasMorePosts, getPostLoading } from '../../redux/selectors/feed'
 import { fetchPosts } from '../../redux/thunks/feed';
 import { cleanFeedState } from '../../redux/reducers/feed'
 
@@ -24,7 +24,7 @@ function Feed({userIdUrl}) {
 
     // fetch all posts
     const posts = useSelector(getPosts);
-    const availablePosts = useSelector(getAvailablePosts)
+    const hasMorePosts = useSelector(getHasMorePosts)
     const isLoading = useSelector(getPostLoading)
 
     useEffect(() => {
@@ -36,7 +36,7 @@ function Feed({userIdUrl}) {
     }, [userIdUrl]);
 
     const handleScroll = () => {
-        if (!isLoading && availablePosts === true &&
+        if (!isLoading && hasMorePosts === true &&
             window.innerHeight + window.scrollY >=
             document.body.offsetHeight - 100
         ) {
@@ -50,7 +50,7 @@ function Feed({userIdUrl}) {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [isLoading, availablePosts]);
+    }, [isLoading, hasMorePosts]);
 
 
 
@@ -100,7 +100,7 @@ function Feed({userIdUrl}) {
                 {isLoading && (
                     <CircularProgress/>
                 )}
-                {!isLoading && !availablePosts && (
+                {!isLoading && !hasMorePosts && (
                     <Typography variant="body1">Pas de messages plus anciens</Typography>
                 )}
 

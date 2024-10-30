@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { setAvailablePosts } from '../reducers/feed'
+import { setHasMorePosts } from '../reducers/feed'
 import { api, fetchCsrfCookie } from "../../services/api"
 
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
@@ -20,7 +20,7 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
         };
 
         if (meta.currentPage === meta.lastPage) {
-            thunkApi.dispatch(setAvailablePosts(false));
+            thunkApi.dispatch(setHasMorePosts(false));
         }
                      
         return filteredPosts;
