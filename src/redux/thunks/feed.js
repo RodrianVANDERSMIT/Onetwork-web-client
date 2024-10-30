@@ -4,13 +4,13 @@ import { api, fetchCsrfCookie } from "../../services/api"
 
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
 
-    const currentPage = thunkApi.getState().feed.pagination.currentPage
+    const nextPage = thunkApi.getState().feed.pagination.currentPage + 1
     const id = thunkApi.getState().user.organization?.id;
 
     try {
         const url = userIdUrl ?
-            `/users/${userIdUrl}/posts?page=${currentPage}` :
-            `/organizations/${id}/posts?page=${currentPage}`
+            `/users/${userIdUrl}/posts?page=${nextPage}` :
+            `/organizations/${id}/posts?page=${nextPage}`
 
         const { data: response } = await api.get(url);
         const filteredPosts = response.data;

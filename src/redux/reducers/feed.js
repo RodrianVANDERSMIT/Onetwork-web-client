@@ -7,7 +7,7 @@ import { fetchPosts, fetchComments, createPost, addNewComment, addReaction, upda
 const initialState = {
     posts: [],
     pagination: {
-        currentPage: 1,
+        currentPage: 0,
         postsPerPage: 10,
         hasMorePosts: true,
     },
