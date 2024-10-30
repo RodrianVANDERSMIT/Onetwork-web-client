@@ -21,10 +21,7 @@ const slice = createSlice({
     reducers: {
         cleanFeedState(state){
             Object.assign(state, initialState);
-        },
-        setHasMorePosts(state, action) {
-            state.pagination.hasMorePosts = action.payload;
-        },
+        }
     },
 
     extraReducers: builder => {
@@ -107,5 +104,5 @@ const slice = createSlice({
 });
 
 
-export const { cleanFeedState, setHasMorePosts } = slice.actions
+export const { cleanFeedState } = slice.actions
 export default slice.reducer
