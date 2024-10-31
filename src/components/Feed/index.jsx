@@ -86,7 +86,7 @@ function Feed({userIdUrl}) {
                 )}
             </Box>
 
-            {posts.length === 0 ? (
+            {hasMorePosts === false && posts.length === 0 ? (
                 <Typography variant="body1">{"Cet utilisateur n'a pas encore rédigé de post"}</Typography>
             ) : (
                 posts.map((post) => (
