@@ -9,7 +9,7 @@ const initialState = {
     pagination: {
         currentPage: 0,
         postsPerPage: 10,
-        hasMorePosts: true,
+        hasMorePosts: null,
     },
     loading: false,
     error: null,

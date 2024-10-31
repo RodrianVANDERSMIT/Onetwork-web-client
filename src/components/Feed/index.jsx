@@ -100,7 +100,7 @@ function Feed({userIdUrl}) {
                 {isLoading && (
                     <CircularProgress/>
                 )}
-                {!isLoading && !hasMorePosts && (
+                {hasMorePosts === false && (
                     <Typography variant="body1">Pas de messages plus anciens</Typography>
                 )}
 
