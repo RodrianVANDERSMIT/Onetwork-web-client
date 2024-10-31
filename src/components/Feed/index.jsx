@@ -98,7 +98,9 @@ function Feed({userIdUrl}) {
                     : hasMorePosts === false &&
                         <Typography variant="body1">{posts.length > 0
                             ? "Pas de messages plus anciens"
-                            : "Cet utilisateur n'a pas encore rédigé de post"
+                            : userIdUrl
+                                ? "Cet utilisateur n'a pas encore rédigé de post"
+                                : "Aucun post n'a encore été publié dans cette organisation"
                         }</Typography>
                 }
             </Box>
