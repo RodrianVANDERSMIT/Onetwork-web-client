@@ -86,24 +86,21 @@ function Feed({userIdUrl}) {
                 )}
             </Box>
 
-            {hasMorePosts === false && posts.length === 0 ? (
-                <Typography variant="body1">{"Cet utilisateur n'a pas encore rédigé de post"}</Typography>
-            ) : (
-                posts.map((post) => (
-                    <Grid key={post.id} >
-                        <Post {...post} />
-                    </Grid>
-                ))
-            )}
-            <Box className="c-feed__loader" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+            {posts.map((post) => (
+                <Grid key={post.id} >
+                    <Post {...post} />
+                </Grid>
+            ))}
 
-                {isLoading && (
-                    <CircularProgress/>
-                )}
-                {hasMorePosts === false && posts.length > 0 && (
-                    <Typography variant="body1">Pas de messages plus anciens</Typography>
-                )}
-
+            <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                {isLoading
+                    ? <CircularProgress />
+                    : hasMorePosts === false &&
+                        <Typography variant="body1">{posts.length > 0
+                            ? "Pas de messages plus anciens"
+                            : "Cet utilisateur n'a pas encore rédigé de post"
+                        }</Typography>
+                }
             </Box>
 
 
