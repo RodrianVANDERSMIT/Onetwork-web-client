@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getUser, getUserOrganizationName } from '../../redux/selectors/user'
-import { getPosts, getAvailablePosts, getPostLoading } from '../../redux/selectors/feed'
+import { getPosts, getHasMorePosts, getPostLoading } from '../../redux/selectors/feed'
 import { fetchPosts } from '../../redux/thunks/feed';
 import { cleanFeedState } from '../../redux/reducers/feed'
 
@@ -14,6 +14,7 @@ import PostForm from '../Forms/PostForm';
 import Post from '../Post'
 
 import './style.scss'
+import FeedPlaceholder from '../FeedPlaceholder';
 
 function Feed({userIdUrl}) {
     // Fetch of logged-in user data
@@ -24,7 +25,7 @@ function Feed({userIdUrl}) {
 
     // fetch all posts
     const posts = useSelector(getPosts);
-    const availablePosts = useSelector(getAvailablePosts)
+    const hasMorePosts = useSelector(getHasMorePosts)
     const isLoading = useSelector(getPostLoading)
 
     useEffect(() => {
@@ -36,7 +37,7 @@ function Feed({userIdUrl}) {
     }, [userIdUrl]);
 
     const handleScroll = () => {
-        if (!isLoading && availablePosts === true &&
+        if (!isLoading && hasMorePosts === true &&
             window.innerHeight + window.scrollY >=
             document.body.offsetHeight - 100
         ) {
@@ -50,7 +51,7 @@ function Feed({userIdUrl}) {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [isLoading, availablePosts]);
+    }, [isLoading, hasMorePosts]);
 
 
 
@@ -86,24 +87,18 @@ function Feed({userIdUrl}) {
                 )}
             </Box>
 
-            {posts.length === 0 ? (
-                <Typography variant="body1">{"Cet utilisateur n'a pas encore rédigé de post"}</Typography>
-            ) : (
-                posts.map((post) => (
-                    <Grid key={post.id} >
-                        <Post {...post} />
-                    </Grid>
-                ))
-            )}
-            <Box className="c-feed__loader" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+            {posts.map((post) => (
+                <Grid key={post.id} >
+                    <Post {...post} />
+                </Grid>
+            ))}
 
-                {isLoading && (
-                    <CircularProgress/>
-                )}
-                {!isLoading && !availablePosts && (
-                    <Typography variant="body1">Pas de messages plus anciens</Typography>
-                )}
-
+            <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                {isLoading
+                    ? <CircularProgress />
+                    : hasMorePosts === false &&
+                        <FeedPlaceholder userId={userIdUrl} />
+                }
             </Box>
 
 

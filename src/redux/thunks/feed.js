@@ -1,29 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { setAvailablePosts } from '../reducers/feed'
 import { api, fetchCsrfCookie } from "../../services/api"
 
 export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, thunkApi) => {
 
-    const currentPage = thunkApi.getState().feed.pagination.currentPage
+    const nextPage = thunkApi.getState().feed.pagination.currentPage + 1
     const id = thunkApi.getState().user.organization?.id;
 
     try {
         const url = userIdUrl ?
-            `/users/${userIdUrl}/posts?page=${currentPage}` :
-            `/organizations/${id}/posts?page=${currentPage}`
+            `/users/${userIdUrl}/posts?page=${nextPage}` :
+            `/organizations/${id}/posts?page=${nextPage}`
 
         const { data: response } = await api.get(url);
-        const filteredPosts = response.data;
-        const meta = {
-            currentPage: response.meta.current_page, 
-            lastPage: response.meta.last_page
-        };
 
-        if (meta.currentPage === meta.lastPage) {
-            thunkApi.dispatch(setAvailablePosts(false));
-        }
-                     
-        return filteredPosts;
+        return {
+            posts: response.data,
+            meta: response.meta
+        };
 
     } catch (error) {
         return thunkApi.rejectWithValue({status: 500, message: "Une erreur s'est produite"});

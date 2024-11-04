@@ -7,9 +7,9 @@ import { fetchPosts, fetchComments, createPost, addNewComment, addReaction, upda
 const initialState = {
     posts: [],
     pagination: {
-        currentPage: 1,
+        currentPage: 0,
         postsPerPage: 10,
-        availablePosts: true,
+        hasMorePosts: null,
     },
     loading: false,
     error: null,
@@ -21,18 +21,15 @@ const slice = createSlice({
     reducers: {
         cleanFeedState(state){
             Object.assign(state, initialState);
-        },
-        setAvailablePosts(state, action) {
-            state.pagination.availablePosts = action.payload;
-        },
+        }
     },
 
     extraReducers: builder => {
         builder
-            .addCase(fetchPosts.fulfilled, (state, action ) => {
-                const posts = state.posts
-                posts.push(...action.payload)
-                state.pagination.currentPage++
+            .addCase(fetchPosts.fulfilled, (state, { payload: { posts, meta } } ) => {
+                state.posts.push(...posts)
+                state.pagination.currentPage = meta.current_page
+                state.pagination.hasMorePosts = meta.current_page !== meta.last_page
                 state.error = null
                 state.loading = false;
             })
@@ -95,7 +92,9 @@ const slice = createSlice({
             
 
             .addCase(addNewComment.fulfilled, (state, { payload: { postId, newComment } } ) => {
-                state.posts.find(post => post.id === postId).comments.push(newComment)
+                const post = state.posts.find(post => post.id === postId)
+                post.comments.push(newComment)
+                post.commentsCount++
             })
 
             .addCase(addNewComment.rejected, (state,action) => {
@@ -105,5 +104,5 @@ const slice = createSlice({
 });
 
 
-export const { cleanFeedState, setAvailablePosts } = slice.actions
+export const { cleanFeedState } = slice.actions
 export default slice.reducer
