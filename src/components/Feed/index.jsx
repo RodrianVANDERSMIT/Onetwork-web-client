@@ -14,6 +14,7 @@ import PostForm from '../Forms/PostForm';
 import Post from '../Post'
 
 import './style.scss'
+import FeedPlaceholder from '../FeedPlaceholder';
 
 function Feed({userIdUrl}) {
     // Fetch of logged-in user data
@@ -96,12 +97,7 @@ function Feed({userIdUrl}) {
                 {isLoading
                     ? <CircularProgress />
                     : hasMorePosts === false &&
-                        <Typography variant="body1">{posts.length > 0
-                            ? "Pas de messages plus anciens"
-                            : userIdUrl
-                                ? "Cet utilisateur n'a pas encore rédigé de post"
-                                : "Aucun post n'a encore été publié dans cette organisation"
-                        }</Typography>
+                        <FeedPlaceholder userId={userIdUrl} />
                 }
             </Box>
 
