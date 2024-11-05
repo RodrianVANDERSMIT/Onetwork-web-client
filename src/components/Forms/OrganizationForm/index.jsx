@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TextField, Button, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from "react-router-dom"
@@ -13,7 +13,6 @@ function OrganizationForm() {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate();
-    const [name, setName] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [globalFormError, setGlobalFormError] = useState(null)
 
@@ -22,7 +21,7 @@ function OrganizationForm() {
 
         try {
             await api('/organizations/validation', { params: { name }})
-            setName(name)
+            navigate('/sign-up', { state: { organizationName: name } });
         }
         catch (error) {
             handleError(error)
@@ -46,12 +45,6 @@ function OrganizationForm() {
             });
         }
     }
-
-    useEffect(() => {
-        if (name) {
-            navigate('/sign-up', { state: { organizationName: name } });
-        }
-    }, [name, navigate]);
 
     return (
         <div className="c-organization-form">
