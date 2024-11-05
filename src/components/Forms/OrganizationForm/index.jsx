@@ -63,7 +63,6 @@ function OrganizationForm() {
             
             <form className="c-organization-form__form" onSubmit={handleSubmit(onSubmit)}>
                 <TextField 
-                    name="organization"
                     type="text"
                     label="Nom de votre organisation"
                     helperText= {errors.organizationName?.message}
