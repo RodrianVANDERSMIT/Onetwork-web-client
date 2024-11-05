@@ -15,7 +15,7 @@ function OrganizationForm() {
     const navigate = useNavigate();
     const [organizationName, setOrganizationName] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const [globalFormError, setGlobalFormError] = useState(null)
 
     const onSubmit = async ({ organizationName }) => {
         setIsLoading(true)
@@ -37,13 +37,13 @@ function OrganizationForm() {
 
     const handleError = error => {
         if (error.response.status === 409) {
-            setError({
+            setGlobalFormError({
                 status: 409,
                 message: 'Cette organisation existe déjà. Merci de choisir un autre nom.'
             });
         }
         else {
-            setError({
+            setGlobalFormError({
                 status: error.response.status,
                 message: "Une erreur s'est produite lors de la création de l'organisation."
             });
@@ -82,8 +82,8 @@ function OrganizationForm() {
                 />
                 {isLoading ? <CircularProgress/> : null}
 
-                {error !== null && (
-                    <p className="c-organization-form__error">{error.message}</p>
+                {globalFormError !== null && (
+                    <p className="c-organization-form__error">{globalFormError.message}</p>
                 )}
 
                 <Button sx={{ m:1,}} className="c-organization-form__button" variant="contained" type="submit" >Valider</Button>
