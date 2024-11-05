@@ -13,19 +13,16 @@ function OrganizationForm() {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate();
-    const [organizationName, setOrganizationName] = useState(null)
+    const [name, setName] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [globalFormError, setGlobalFormError] = useState(null)
 
-    const onSubmit = async ({ organizationName }) => {
+    const onSubmit = async ({ name }) => {
         setIsLoading(true)
 
         try {
-            await api('/organizations/validation', { params: {
-                name: organizationName
-            }})
-
-            setOrganizationName(organizationName)
+            await api('/organizations/validation', { params: { name }})
+            setName(name)
         }
         catch (error) {
             handleError(error)
@@ -51,10 +48,10 @@ function OrganizationForm() {
     }
 
     useEffect(() => {
-        if (organizationName) {
-            navigate('/sign-up', { state: { organizationName } });
+        if (name) {
+            navigate('/sign-up', { state: { organizationName: name } });
         }
-    }, [organizationName, navigate]);
+    }, [name, navigate]);
 
     return (
         <div className="c-organization-form">
@@ -65,9 +62,9 @@ function OrganizationForm() {
                 <TextField 
                     type="text"
                     label="Nom de votre organisation"
-                    helperText= {errors.organizationName?.message}
-                    error = {!!errors.organizationName}
-                    {...register('organizationName',{
+                    helperText= {errors.name?.message}
+                    error = {!!errors.name}
+                    {...register('name',{
                         required:"Le nom de l'organisation est requis",
                         minLength: {
                             value : 3,
