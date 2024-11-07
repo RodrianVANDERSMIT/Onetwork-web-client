@@ -3,6 +3,7 @@ import { TextField, Button, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from "react-router-dom"
 import { api } from '../../../services/api'
+import useServerErrors from '../useServerErrors'
 
 
 import './style.scss'
@@ -11,40 +12,35 @@ import './style.scss'
 
 function OrganizationForm() {
 
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, setError, formState: { errors } } = useForm()
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false)
     const [globalFormError, setGlobalFormError] = useState(null)
+    const { setFieldsServerErrors } = useServerErrors()
 
     const onSubmit = async ({ name }) => {
         setIsLoading(true)
+        setGlobalFormError(null)
 
         try {
             await api('/organizations/validation', { params: { name }})
             navigate('/sign-up', { state: { organizationName: name } });
         }
         catch (error) {
-            handleError(error)
+            if ([409, 422].includes(error.response.status)) {
+                setFieldsServerErrors(setError, error)
+            }
+            else {
+                setGlobalFormError({
+                    status: error.response.status,
+                    message: "Une erreur s'est produite lors de la création de l'organisation."
+                });
+            }
         }
         finally {
             setIsLoading(false)
         }
     };
-
-    const handleError = error => {
-        if (error.response.status === 409) {
-            setGlobalFormError({
-                status: 409,
-                message: 'Cette organisation existe déjà. Merci de choisir un autre nom.'
-            });
-        }
-        else {
-            setGlobalFormError({
-                status: error.response.status,
-                message: "Une erreur s'est produite lors de la création de l'organisation."
-            });
-        }
-    }
 
     return (
         <div className="c-organization-form">
