@@ -48,7 +48,7 @@ function OrganizationForm() {
             <p className="c-organization-form__text">Merci de bien vouloir renseigner le nom de votre organisation et cliquer sur le bouton de validation pour continuer.</p>
             
             <form className="c-organization-form__form" onSubmit={handleSubmit(onSubmit)}>
-                <TextField 
+                <TextField fullWidth
                     type="text"
                     label="Nom de votre organisation"
                     helperText= {errors.name?.message}
