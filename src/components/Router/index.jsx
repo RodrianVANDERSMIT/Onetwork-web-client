@@ -10,7 +10,7 @@ import ProfileSettings from '../../views/ProfileSettings'
 import Contact from '../../views/Contact'
 import SignUp from '../../views/SignUp'
 import ActivityFeed from '../../views/ActivityFeed'
-import Error404 from '../../views/Error404'
+import NotFoundRoute from './NotFoundRoute'
 import useInterceptors from './hook'
 
 export default function Router() {
@@ -66,10 +66,7 @@ export default function Router() {
                     </ProtectedRoute>
                 }
             />
-            <Route
-                path="/*"
-                element={<Error404 />}
-            />
+            <Route path="/*" element={<NotFoundRoute />} />
         </Routes>
     )
 }
