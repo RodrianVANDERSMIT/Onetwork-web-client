@@ -66,10 +66,7 @@ export default function Router() {
                     </ProtectedRoute>
                 }
             />
-            <Route
-                path="/*"
-                element={<NotFoundRoute />}
-            />
+            <Route path="/*" element={<NotFoundRoute />} />
         </Routes>
     )
 }
