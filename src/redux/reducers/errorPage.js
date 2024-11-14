@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const ERROR_CODE = {
-    401: 401,
-    403: 403,
-    404: 404,
-    500: 500,
+const ErrorCode = {
+    UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
+    NOT_FOUND: 404,
+    INTERNAL_SERVER_ERROR: 500,
 }
 
 const initialState = {
@@ -21,6 +21,6 @@ const slice = createSlice({
     }
 })
 
-export { ERROR_CODE }
+export { ErrorCode }
 export const { setErrorPage } = slice.actions
 export default slice.reducer

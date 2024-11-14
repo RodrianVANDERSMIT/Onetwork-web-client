@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsLogged } from '../../../redux/selectors/user';
-import { ERROR_CODE, setErrorPage } from '../../../redux/reducers/errorPage';
+import { ErrorCode, setErrorPage } from '../../../redux/reducers/errorPage';
 import { useEffect } from 'react';
 
 export default function ProtectedRoute({ children }) {
@@ -18,12 +18,12 @@ export default function ProtectedRoute({ children }) {
     // interruption can lead to strange behaviors and fire an error in console.
     useEffect(() => {
         if (!organizationIdIsValid) {
-            dispatch(setErrorPage(ERROR_CODE[404]))
+            dispatch(setErrorPage(ErrorCode.NOT_FOUND))
             return
         }
 
         if (!isLog) {
-            dispatch(setErrorPage(ERROR_CODE[401]))
+            dispatch(setErrorPage(ErrorCode.UNAUTHORIZED))
             return
         }
     })

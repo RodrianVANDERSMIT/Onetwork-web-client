@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsAdmin } from '../../../redux/selectors/user';
-import { ERROR_CODE, setErrorPage } from '../../../redux/reducers/errorPage';
+import { ErrorCode, setErrorPage } from '../../../redux/reducers/errorPage';
 
 export default function AdminRoute({ children }) {
     const dispatch = useDispatch()
@@ -14,7 +14,7 @@ export default function AdminRoute({ children }) {
     // interruption can lead to strange behaviors and fire an error in console.
     useEffect(() => {
         if (!isAdmin) {
-            dispatch(setErrorPage(ERROR_CODE[403]))
+            dispatch(setErrorPage(ErrorCode.FORBIDDEN))
         }
     })
 

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsLogged } from '../../../redux/selectors/user'
-import { ERROR_CODE, setErrorPage } from '../../../redux/reducers/errorPage'
+import { ErrorCode, setErrorPage } from '../../../redux/reducers/errorPage'
 import { useEffect } from 'react'
 
 export default function GuestRoute({ children }) {
@@ -14,7 +14,7 @@ export default function GuestRoute({ children }) {
     // interruption can lead to strange behaviors and fire an error in console.
     useEffect(() => {
         if (isLog) {
-            dispatch(setErrorPage(ERROR_CODE[403]))
+            dispatch(setErrorPage(ErrorCode.FORBIDDEN))
         }
     })
 

@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { HashLink } from 'react-router-hash-link';
 import { getErrorPageCode } from '../../../redux/selectors/errorPage';
-import { ERROR_CODE } from '../../../redux/reducers/errorPage';
+import { ErrorCode } from '../../../redux/reducers/errorPage';
 
 import './style.scss';
 
@@ -25,7 +25,7 @@ export default function ButtonHome() {
             {isLog &&
                 (currentPath === '/about' ||
                 currentPath === `/${organizationId}/user/${userId}/edit` ||
-                [ERROR_CODE[403], ERROR_CODE[404], ERROR_CODE[500]].includes(errorCode)) && (
+                [ErrorCode.FORBIDDEN, ErrorCode.NOT_FOUND, ErrorCode.INTERNAL_SERVER_ERROR].includes(errorCode)) && (
                 <BasicButton
                     sx={{ display: { xs: 'none', sm: 'block' } }}
                     className="c-button-header_btn"
@@ -53,7 +53,7 @@ export default function ButtonHome() {
                 (currentPath === '/sign-up' ||
                 currentPath === '/new-organization' ||
                 currentPath === '/about' ||
-                [ERROR_CODE[401], ERROR_CODE[404], ERROR_CODE[500]].includes(errorCode)) && (
+                [ErrorCode.UNAUTHORIZED, ErrorCode.NOT_FOUND, ErrorCode.INTERNAL_SERVER_ERROR].includes(errorCode)) && (
                 <Button
                     className="c-button-header_btn"
                     variant="outlined"
