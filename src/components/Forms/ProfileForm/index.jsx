@@ -9,7 +9,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { api, fetchCsrfCookie } from "../../../services/api";
 import useServerErrors from "../useServerErrors";
-import { ERROR_CODE, setErrorPage } from "../../../redux/reducers/errorPage";
+import { ErrorCode, setErrorPage } from "../../../redux/reducers/errorPage";
 
 import './style.scss'
 
@@ -51,7 +51,7 @@ function ProfileForm() {
         if (token === null) return
 
         if (!token.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/)) {
-            dispatch(setErrorPage(ERROR_CODE[404]))
+            dispatch(setErrorPage(ErrorCode[404]))
             return
         }
 
@@ -63,10 +63,10 @@ function ProfileForm() {
             }
             catch (error) {
                 if (error.response.status === 404) {
-                    dispatch(setErrorPage(ERROR_CODE[404]))
+                    dispatch(setErrorPage(ErrorCode[404]))
                 }
                 else {
-                    dispatch(setErrorPage(ERROR_CODE[500]))
+                    dispatch(setErrorPage(ErrorCode[500]))
                 }
             }
         }

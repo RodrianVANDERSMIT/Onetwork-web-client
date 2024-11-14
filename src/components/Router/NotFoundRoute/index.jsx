@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { ERROR_CODE, setErrorPage } from "../../../redux/reducers/errorPage"
+import { ErrorCode, setErrorPage } from "../../../redux/reducers/errorPage"
 
 function NotFoundRoute() {
     const dispatch = useDispatch()
@@ -10,7 +10,7 @@ function NotFoundRoute() {
     // the rendering of every other one inside it once an error is set. Such an
     // interruption can lead to strange behaviors and fire an error in console.
     useEffect(() => {
-        dispatch(setErrorPage(ERROR_CODE[404]))
+        dispatch(setErrorPage(ErrorCode[404]))
     })
 
     return null
