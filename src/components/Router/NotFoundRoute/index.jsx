@@ -10,7 +10,7 @@ function NotFoundRoute() {
     // the rendering of every other one inside it once an error is set. Such an
     // interruption can lead to strange behaviors and fire an error in console.
     useEffect(() => {
-        dispatch(setErrorPage(ErrorCode[404]))
+        dispatch(setErrorPage(ErrorCode.NOT_FOUND))
     })
 
     return null

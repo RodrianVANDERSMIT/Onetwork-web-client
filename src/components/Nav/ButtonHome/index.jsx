@@ -25,7 +25,7 @@ export default function ButtonHome() {
             {isLog &&
                 (currentPath === '/about' ||
                 currentPath === `/${organizationId}/user/${userId}/edit` ||
-                [ErrorCode[403], ErrorCode[404], ErrorCode[500]].includes(errorCode)) && (
+                [ErrorCode.FORBIDDEN, ErrorCode.NOT_FOUND, ErrorCode.INTERNAL_SERVER_ERROR].includes(errorCode)) && (
                 <BasicButton
                     sx={{ display: { xs: 'none', sm: 'block' } }}
                     className="c-button-header_btn"
@@ -53,7 +53,7 @@ export default function ButtonHome() {
                 (currentPath === '/sign-up' ||
                 currentPath === '/new-organization' ||
                 currentPath === '/about' ||
-                [ErrorCode[401], ErrorCode[404], ErrorCode[500]].includes(errorCode)) && (
+                [ErrorCode.UNAUTHORIZED, ErrorCode.NOT_FOUND, ErrorCode.INTERNAL_SERVER_ERROR].includes(errorCode)) && (
                 <Button
                     className="c-button-header_btn"
                     variant="outlined"

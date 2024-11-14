@@ -51,7 +51,7 @@ function ProfileForm() {
         if (token === null) return
 
         if (!token.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/)) {
-            dispatch(setErrorPage(ErrorCode[404]))
+            dispatch(setErrorPage(ErrorCode.NOT_FOUND))
             return
         }
 
@@ -63,10 +63,10 @@ function ProfileForm() {
             }
             catch (error) {
                 if (error.response.status === 404) {
-                    dispatch(setErrorPage(ErrorCode[404]))
+                    dispatch(setErrorPage(ErrorCode.NOT_FOUND))
                 }
                 else {
-                    dispatch(setErrorPage(ErrorCode[500]))
+                    dispatch(setErrorPage(ErrorCode.INTERNAL_SERVER_ERROR))
                 }
             }
         }

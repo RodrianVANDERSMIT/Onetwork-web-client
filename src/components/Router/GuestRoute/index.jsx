@@ -14,7 +14,7 @@ export default function GuestRoute({ children }) {
     // interruption can lead to strange behaviors and fire an error in console.
     useEffect(() => {
         if (isLog) {
-            dispatch(setErrorPage(ErrorCode[403]))
+            dispatch(setErrorPage(ErrorCode.FORBIDDEN))
         }
     })
 

@@ -18,12 +18,12 @@ export default function ProtectedRoute({ children }) {
     // interruption can lead to strange behaviors and fire an error in console.
     useEffect(() => {
         if (!organizationIdIsValid) {
-            dispatch(setErrorPage(ErrorCode[404]))
+            dispatch(setErrorPage(ErrorCode.NOT_FOUND))
             return
         }
 
         if (!isLog) {
-            dispatch(setErrorPage(ErrorCode[401]))
+            dispatch(setErrorPage(ErrorCode.UNAUTHORIZED))
             return
         }
     })
