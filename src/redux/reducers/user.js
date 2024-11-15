@@ -36,8 +36,8 @@ const slice = createSlice({
             .addCase(login.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(login.rejected, (state, action) => {
-                state.error = action.payload
+            .addCase(login.rejected, (state, { payload: error }) => {
+                state.error = error
                 state.loading = false;
             })
 
