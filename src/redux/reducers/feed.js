@@ -48,7 +48,7 @@ const slice = createSlice({
                 state.error = error
             })
 
-            .addCase(fetchComments.fulfilled, (state, { payload: { postId, postComments } } ) => {
+            .addCase(fetchComments.fulfilled, (state, { payload: { postId, postComments } }) => {
                 state.posts.find(post => post.id === postId).comments = postComments
                 state.loading = false;
             })
@@ -60,7 +60,7 @@ const slice = createSlice({
                 state.loading = false;
             })
 
-            .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction }}) => {
+            .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 post.reactions.push(newReaction)
             })
@@ -69,7 +69,7 @@ const slice = createSlice({
                 state.error = error
             })
 
-            .addCase(updateReaction.fulfilled, (state, { payload: { postId, reactionId, updatedReaction}}) => {
+            .addCase(updateReaction.fulfilled, (state, { payload: { postId, reactionId, updatedReaction } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
                 post.reactions[reactionIndex] = updatedReaction;
@@ -79,7 +79,7 @@ const slice = createSlice({
                 state.error = error
             })
 
-            .addCase(removeReaction.fulfilled, (state, { payload: { postId, reactionId}}) => {
+            .addCase(removeReaction.fulfilled, (state, { payload: { postId, reactionId } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
                 post.reactions.splice(reactionIndex, 1);
@@ -91,7 +91,7 @@ const slice = createSlice({
 
             
 
-            .addCase(addNewComment.fulfilled, (state, { payload: { postId, newComment } } ) => {
+            .addCase(addNewComment.fulfilled, (state, { payload: { postId, newComment } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 post.comments.push(newComment)
                 post.commentsCount++
