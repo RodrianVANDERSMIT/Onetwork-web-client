@@ -27,9 +27,12 @@ const slice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(fetchPosts.fulfilled, (state, { payload: { posts, meta } } ) => {
+                posts.forEach(post => post.isLoadingComments = false)
                 state.posts.push(...posts)
+
                 state.pagination.currentPage = meta.current_page
                 state.pagination.hasMorePosts = meta.current_page !== meta.last_page
+
                 state.error = null
                 state.loading = false;
             })
@@ -41,6 +44,7 @@ const slice = createSlice({
                 state.loading = false;
             })
             .addCase(createPost.fulfilled, (state, { payload: post }) => {
+                post.isLoadingComments = false
                 state.posts.unshift(post)
             })
 
@@ -49,15 +53,16 @@ const slice = createSlice({
             })
 
             .addCase(fetchComments.fulfilled, (state, { payload: { postId, postComments } }) => {
-                state.posts.find(post => post.id === postId).comments = postComments
-                state.loading = false;
+                const post = state.posts.find(post => post.id === postId)
+                post.comments = postComments
+                post.isLoadingComments = false;
             })
-            .addCase(fetchComments.pending, (state) => {
-                state.loading = true;
+            .addCase(fetchComments.pending, (state, { meta: { arg: postId } }) => {
+                state.posts.find(post => post.id === postId).isLoadingComments = true;
             })
-            .addCase(fetchComments.rejected, (state, { payload: error }) => {
+            .addCase(fetchComments.rejected, (state, { meta: { arg: postId }, payload: error }) => {
                 state.error = error
-                state.loading = false;
+                state.posts.find(post => post.id === postId).isLoadingComments = false;
             })
 
             .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction } }) => {

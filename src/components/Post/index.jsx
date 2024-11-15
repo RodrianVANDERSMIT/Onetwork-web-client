@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPostComments, getPostLoading } from '../../redux/selectors/feed'
+import { getPostComments, getPostIsLoadingComments } from '../../redux/selectors/feed'
 import { fetchComments } from '../../redux/thunks/feed';
 import { getUser } from '../../redux/selectors/user'
 
@@ -50,7 +50,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
 
     // fetch all comments by post    
     const comments = useSelector(getPostComments(id));
-    const commentsLoading = useSelector(getPostLoading)
+    const isLoadingComments = useSelector(getPostIsLoadingComments(id))
 
     const handleExpandClick = () => {
         if (!comments) {
@@ -143,7 +143,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent sx={{padding: '0 16px'}} className="c-post-card__list">
                     <Box className="c-admin-members__loader">
-                        {commentsLoading ? <CircularProgress/> : null}
+                        {isLoadingComments ? <CircularProgress/> : null}
                     </Box>
                     <List>
                         {comments?.map(comment => (   
