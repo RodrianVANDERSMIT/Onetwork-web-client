@@ -52,12 +52,18 @@ function Post({id, author,text,commentsCount,createdAt}) {
     const comments = useSelector(getPostComments(id));
     const isLoadingComments = useSelector(getPostIsLoadingComments(id))
 
-    const handleExpandClick = () => {
-        if (!comments) {
-            dispatch(fetchComments(id));
-        }
-
+    const handleExpandClick = async () => {
         setExpanded(!expanded);
+
+        if (!comments) {
+            try {
+                await dispatch(fetchComments(id)).unwrap();
+            }
+            catch (error) {
+                setExpanded(false)
+                console.error(error); // TODO: instead of console logs, errors must be displayed directly to user
+            }
+        }
     };
 
     return (
