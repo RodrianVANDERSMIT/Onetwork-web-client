@@ -142,9 +142,11 @@ function Post({id, author,text,commentsCount,createdAt}) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent sx={{padding: '0 16px'}} className="c-card-post__list">
-                    <Box className="c-card-post__loader">
-                        {isLoadingComments ? <CircularProgress/> : null}
-                    </Box>
+                    {isLoadingComments &&
+                        <Box className="c-card-post__loader">
+                            <CircularProgress />
+                        </Box>
+                    }
                     <List>
                         {comments?.map(comment => (   
                             <Grid key={comment.id}>
