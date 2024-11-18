@@ -18,7 +18,7 @@ const slice = createSlice({
     },
     extraReducers: builder => { 
         builder
-            .addCase(fetchMembers.fulfilled,(state, {payload: data}) => {
+            .addCase(fetchMembers.fulfilled,(state, { payload: data }) => {
                 state.list = data,
                 state.loading = false,
                 state.error = null
@@ -26,12 +26,12 @@ const slice = createSlice({
             .addCase(fetchMembers.pending, (state) => {
                 state.loading = true
             })
-            .addCase(fetchMembers.rejected, (state, {payload: error}) => {
+            .addCase(fetchMembers.rejected, (state, { payload: error }) => {
                 state.loading = false,
                 state.error = error
             })
 
-            .addCase(updateMemberStatus.fulfilled,(state, {payload: data}) => {
+            .addCase(updateMemberStatus.fulfilled,(state, { payload: data }) => {
                 
                 state.list.find(member => member.id === data.id).disabled = data.disabled
 
@@ -40,7 +40,7 @@ const slice = createSlice({
             .addCase(updateMemberStatus.pending, (state) => {
                 state.loading = true
             })
-            .addCase(updateMemberStatus.rejected, (state, {payload: error}) => {
+            .addCase(updateMemberStatus.rejected, (state, { payload: error }) => {
                 state.error = error
                 state.loading = false
             })

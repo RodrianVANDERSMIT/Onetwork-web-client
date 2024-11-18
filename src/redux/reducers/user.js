@@ -23,21 +23,21 @@ const slice = createSlice({
         cleanUserState(state) {
             Object.assign(state, initialState);
         },
-        setError(state, {payload: error }){
+        setError(state, { payload: error }){
             state.error = error
         }
     },
     extraReducers: builder => { 
         builder
-            .addCase(login.fulfilled, (state, {payload: user}) => {
+            .addCase(login.fulfilled, (state, { payload: user }) => {
                 return { ...state, ...user, error: null, loading: false,
                 };
             })
             .addCase(login.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(login.rejected, (state, action) => {
-                state.error = action.payload
+            .addCase(login.rejected, (state, { payload: error }) => {
+                state.error = error
                 state.loading = false;
             })
 
@@ -55,13 +55,13 @@ const slice = createSlice({
             .addCase(addUser.fulfilled,state => {
                 state.error= null
             })
-            .addCase(addUser.rejected, (state, {payload: error}) => {
+            .addCase(addUser.rejected, (state, { payload: error }) => {
                 state.error = error
             })
-            .addCase(updateUser.fulfilled,(state, {payload: data}) => {
+            .addCase(updateUser.fulfilled,(state, { payload: data }) => {
                 return {...state, ...data, error: null}
             })
-            .addCase(updateUser.rejected, (state, {payload: error}) => {
+            .addCase(updateUser.rejected, (state, { payload: error }) => {
                 state.error = error
             })
     },

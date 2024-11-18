@@ -27,78 +27,83 @@ const slice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(fetchPosts.fulfilled, (state, { payload: { posts, meta } } ) => {
+                posts.forEach(post => post.isLoadingComments = false)
                 state.posts.push(...posts)
+
                 state.pagination.currentPage = meta.current_page
                 state.pagination.hasMorePosts = meta.current_page !== meta.last_page
+
                 state.error = null
                 state.loading = false;
             })
             .addCase(fetchPosts.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(fetchPosts.rejected, (state, action) => {
-                state.error = action.payload
+            .addCase(fetchPosts.rejected, (state, { payload: error }) => {
+                state.error = error
                 state.loading = false;
             })
-            .addCase(createPost.fulfilled, (state, action) => {
-                state.posts.unshift(action.payload)
+            .addCase(createPost.fulfilled, (state, { payload: post }) => {
+                post.isLoadingComments = false
+                state.posts.unshift(post)
             })
 
-            .addCase(createPost.rejected, (state,action) => {
-                state.error = action.payload
+            .addCase(createPost.rejected, (state, { payload: error }) => {
+                state.error = error
             })
 
-            .addCase(fetchComments.fulfilled, (state, { payload: { postId, postComments } } ) => {
-                state.posts.find(post => post.id === postId).comments = postComments
-                state.loading = false;
+            .addCase(fetchComments.fulfilled, (state, { payload: { postId, postComments } }) => {
+                const post = state.posts.find(post => post.id === postId)
+                post.comments = postComments
+                post.isLoadingComments = false;
             })
-            .addCase(fetchComments.pending, (state) => {
-                state.loading = true;
+            .addCase(fetchComments.pending, (state, { meta: { arg: postId } }) => {
+                state.posts.find(post => post.id === postId).isLoadingComments = true;
             })
-            .addCase(fetchComments.rejected, (state,action) => {
-                state.error = action.payload
-                state.loading = false;
+            .addCase(fetchComments.rejected, (state, { meta: { arg: postId }, payload: error }) => {
+                state.error = error
+                state.posts.find(post => post.id === postId).isLoadingComments = false;
             })
 
-            .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction }}) => {
+            .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 post.reactions.push(newReaction)
             })
 
-            .addCase(addReaction.rejected, ( state,action) => {
-                state.error = action.payload
+            .addCase(addReaction.rejected, (state, { payload: error }) => {
+                state.error = error
             })
 
-            .addCase(updateReaction.fulfilled, (state, { payload: { postId, reactionId, updatedReaction}}) => {
+            .addCase(updateReaction.fulfilled, (state, { payload: { postId, reactionId, updatedReaction } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
                 post.reactions[reactionIndex] = updatedReaction;
 
             })
-            .addCase(updateReaction.rejected, (state,action) => {
-                state.error = action.payload
+            .addCase(updateReaction.rejected, (state, { payload: error }) => {
+                state.error = error
             })
 
-            .addCase(removeReaction.fulfilled, (state, { payload: { postId, reactionId}}) => {
+            .addCase(removeReaction.fulfilled, (state, { payload: { postId, reactionId } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
                 post.reactions.splice(reactionIndex, 1);
 
             })
-            .addCase(removeReaction.rejected, (state,action) => {
-                state.error = action.payload
+            .addCase(removeReaction.rejected, (state, { payload: error }) => {
+                state.error = error
             })
 
             
 
-            .addCase(addNewComment.fulfilled, (state, { payload: { postId, newComment } } ) => {
+            .addCase(addNewComment.fulfilled, (state, { payload: { postId, newComment } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 post.comments.push(newComment)
                 post.commentsCount++
             })
 
-            .addCase(addNewComment.rejected, (state,action) => {
-                state.error = action.payload
+            .addCase(addNewComment.rejected, (state, { payload: error }) => {
+                state.error = error
             })
     },
 });
