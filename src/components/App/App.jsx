@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux'
 import { fetchUser } from '../../redux/thunks/user'
 import Router from '../Router'
 import LoadingLayout from '../../layout/LoadingLayout'
-import Error500 from '../../views/Error500'
+import ErrorPageHandler from '../Router/ErrorPageHandler'
+import { ErrorCode, setErrorPage } from '../../redux/reducers/errorPage'
 
 function App() {
     const dispatch = useDispatch()
     const [isFetchingUser, setIsFetchingUser] = useState(true)
-    const [userFetchingError, setUserFetchingError] = useState(null)
 
     useEffect(() => {
         (async () => {
@@ -16,7 +16,7 @@ function App() {
                 await dispatch(fetchUser()).unwrap()
             }
             catch (error) {
-                setUserFetchingError(error)
+                dispatch(setErrorPage(ErrorCode.INTERNAL_SERVER_ERROR))
             }
             finally {
                 setIsFetchingUser(false)
@@ -25,11 +25,11 @@ function App() {
     }, [dispatch])
 
     return (
-        userFetchingError ?
-            <Error500 /> :
-            isFetchingUser ?
-                <LoadingLayout/> :
+        isFetchingUser ?
+            <LoadingLayout/> :
+            <ErrorPageHandler>
                 <Router/>
+            </ErrorPageHandler>
     )
 }
 

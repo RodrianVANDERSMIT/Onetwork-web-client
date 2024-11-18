@@ -1,15 +1,24 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types'
-import { Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { getUserRole } from '../../../redux/selectors/user';
+import { useDispatch, useSelector } from 'react-redux'
+import { getIsAdmin } from '../../../redux/selectors/user';
+import { ErrorCode, setErrorPage } from '../../../redux/reducers/errorPage';
 
 export default function AdminRoute({ children }) {
-    const userRole = useSelector(getUserRole);
+    const dispatch = useDispatch()
+    const isAdmin = useSelector(getIsAdmin);
 
-    if (userRole.tag !== "admin"){
-        return <Navigate to="/error/403" replace/>
-    }
-    return children
+    // A useEffect is required here to dispatch the action AFTER the rendering
+    // of the component, because the ErrorPageHandler component can interrupt
+    // the rendering of every other one inside it once an error is set. Such an
+    // interruption can lead to strange behaviors and fire an error in console.
+    useEffect(() => {
+        if (!isAdmin) {
+            dispatch(setErrorPage(ErrorCode.FORBIDDEN))
+        }
+    })
+
+    return isAdmin && children
 }
 
 AdminRoute.propTypes = {

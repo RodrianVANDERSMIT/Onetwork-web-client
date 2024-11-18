@@ -19,6 +19,8 @@ export const getPostLoading = state => getFeed(state).loading;
     }
 }*/
 
+export const getPostIsLoadingComments = postId => state => getPost(postId)(state).isLoadingComments
+
 export const  getPostComments = postId => state => getPost(postId)(state).comments;
 
 export const getPostReactions = postId => state => getPost(postId)(state).reactions;
