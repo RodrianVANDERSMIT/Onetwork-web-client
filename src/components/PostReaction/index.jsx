@@ -44,8 +44,8 @@ function PostReaction({postId}) {
     
     
     return (
-        <div className="c-reaction-post">
-            <Button onClick={handleClick} className ="c-reaction-post__button" sx={{ p: 0  }}>
+        <>
+            <Button onClick={handleClick} className ="c-reaction-post" sx={{ p: 0  }}>
                 {postReactions.length === 0 ? (
                     <Typography variant="body2" color="text.secondary">
                         {postReactions.length} réactions 
@@ -128,7 +128,7 @@ function PostReaction({postId}) {
                     ))}
                 </Box>
             </Popover>
-        </div>
+        </>
     )
 }
 
