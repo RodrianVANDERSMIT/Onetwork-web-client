@@ -114,9 +114,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
             </CardContent>
             <Divider/>
             <CardContent className='c-counter'>
-                <Box >
-                    <PostReaction postId={id} />
-                </Box>
+                <PostReaction postId={id} />
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
