@@ -122,7 +122,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 </ExpandMore>
             </CardContent>
             <Divider/>
-            <CardActions className="c-post-card__action"  disableSpacing>
+            <CardActions className="c-card-post__action"  disableSpacing>
                 <ReactionButton
                     postId={id}   
                 />
@@ -141,7 +141,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent sx={{padding: '0 16px'}} className="c-post-card__list">
+                <CardContent sx={{padding: '0 16px'}} className="c-card-post__list">
                     <Box className="c-card-post__loader">
                         {isLoadingComments ? <CircularProgress/> : null}
                     </Box>
