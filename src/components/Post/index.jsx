@@ -142,7 +142,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent sx={{padding: '0 16px'}} className="c-post-card__list">
-                    <Box className="c-admin-members__loader">
+                    <Box className="c-card-post__loader">
                         {isLoadingComments ? <CircularProgress/> : null}
                     </Box>
                     <List>
