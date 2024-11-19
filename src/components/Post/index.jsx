@@ -11,7 +11,7 @@ import moment from 'moment'
 import CommentForm from '../Forms/CommentForm';
 import Comment from '../Comment';
 import ReactionButton from '../Buttons/ReactionButton'
-import PostReaction from '../PostReaction'
+import PostReactionsCounter from '../PostReactionsCounter'
 
 import { Card, CardActions, CardHeader, CardContent, CircularProgress } from '@mui/material';
 import { Grid, Typography, Button, Divider } from '@mui/material'
@@ -120,7 +120,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     <Divider/>
                     <CardContent className='c-counter'>
                         {reactions.length > 0 &&
-                            <PostReaction postId={id} />
+                            <PostReactionsCounter postId={id} />
                         }
                         {commentsCount > 0 &&
                             <ExpandMore

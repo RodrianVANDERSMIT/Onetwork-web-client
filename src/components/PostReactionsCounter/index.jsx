@@ -20,7 +20,7 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
     padding: 2,
 }));
 
-function PostReaction({postId}) {
+function PostReactionsCounter({postId}) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const postReactions = useSelector(getPostReactions(postId));
@@ -124,8 +124,8 @@ function PostReaction({postId}) {
     )
 }
 
-PostReaction.propTypes = {
+PostReactionsCounter.propTypes = {
     postId: PropTypes.number.isRequired,
 };
 
-export default PostReaction
+export default PostReactionsCounter
