@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPostComments, getPostIsLoadingComments } from '../../redux/selectors/feed'
+import { getPostComments, getPostIsLoadingComments, getPostReactions } from '../../redux/selectors/feed'
 import { fetchComments } from '../../redux/thunks/feed';
 import { getUser } from '../../redux/selectors/user'
 
@@ -51,6 +51,8 @@ function Post({id, author,text,commentsCount,createdAt}) {
     // fetch all comments by post    
     const comments = useSelector(getPostComments(id));
     const isLoadingComments = useSelector(getPostIsLoadingComments(id))
+
+    const reactions = useSelector(getPostReactions(id))
 
     const handleExpandClick = async () => {
         setExpanded(!expanded);
@@ -112,19 +114,29 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     {text}
                 </Typography>
             </CardContent>
-            <Divider/>
-            <CardContent className='c-counter'>
-                <PostReaction postId={id} />
-                <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                    className='c-counter__btn' 
-                >
-                    <Pluralize count={commentsCount} singular="commentaire" />
-                </ExpandMore>
-            </CardContent>
+
+            {(reactions.length > 0 || commentsCount > 0) &&
+                <>
+                    <Divider/>
+                    <CardContent className='c-counter'>
+                        {reactions.length > 0 &&
+                            <PostReaction postId={id} />
+                        }
+                        {commentsCount > 0 &&
+                            <ExpandMore
+                                expand={expanded}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                                className='c-counter__btn'
+                            >
+                                <Pluralize count={commentsCount} singular="commentaire" />
+                            </ExpandMore>
+                        }
+                    </CardContent>
+                </>
+            }
+
             <Divider/>
             <CardActions className="c-card-post__action"  disableSpacing>
                 <ReactionButton
