@@ -40,7 +40,7 @@ function PostReactionsCounter({postId}) {
     
     return (
         <>
-            <Button onClick={handleClick} className ="c-reaction-post" sx={{ p: 0  }}>
+            <Button onClick={handleClick} className ="c-reaction-post">
                 {['like', 'love', 'haha', 'wow', 'sad', 'angry'].map(reactionType =>
                     hasReactionType(postReactions, reactionType) && (
                         <img className='c-reaction-post__image' src={`/assets/reactions/emoji-${reactionType}.png`} alt={`Emoji ${reactionType}`} key={reactionType} />
