@@ -33,8 +33,8 @@ function PostReactionsCounter({postId}) {
         setAnchorEl(null);
     };
 
-    const tagExists = (reactions, tagToCheck) => {
-        return reactions.some(reaction => reaction.type.tag === tagToCheck)
+    const hasReactionType = (reactions, type) => {
+        return reactions.some(reaction => reaction.type.tag === type)
     };
     
     
@@ -42,7 +42,7 @@ function PostReactionsCounter({postId}) {
         <>
             <Button onClick={handleClick} className ="c-reaction-post" sx={{ p: 0  }}>
                 {['like', 'love', 'haha', 'wow', 'sad', 'angry'].map(reactionType =>
-                    tagExists(postReactions, reactionType) && (
+                    hasReactionType(postReactions, reactionType) && (
                         <img className='c-reaction-post__image' src={`/assets/reactions/emoji-${reactionType}.png`} alt={`Emoji ${reactionType}`} key={reactionType} />
                     )
                 )}
