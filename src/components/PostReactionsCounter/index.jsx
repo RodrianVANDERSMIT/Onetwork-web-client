@@ -34,12 +34,7 @@ function PostReactionsCounter({postId}) {
     };
 
     const tagExists = (reactions, tagToCheck) => {
-        for (const reaction of reactions) {
-            if (reaction.type && reaction.type.tag === tagToCheck) {
-                return true;
-            }
-        }
-        return false;
+        return reactions.some(reaction => reaction.type.tag === tagToCheck)
     };
     
     
