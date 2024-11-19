@@ -46,23 +46,10 @@ function PostReactionsCounter({postId}) {
     return (
         <>
             <Button onClick={handleClick} className ="c-reaction-post" sx={{ p: 0  }}>
-                {tagExists(postReactions, 'like') && (
-                    <img className='c-reaction-post__image' src="/assets/reactions/emoji-like.png" alt="Emoji like" />
-                )}
-                {tagExists(postReactions, 'love') && (
-                    <img className='c-reaction-post__image' src="/assets/reactions/emoji-love.png" alt="Emoji love" />
-                )}
-                {tagExists(postReactions, 'haha') && (
-                    <img className='c-reaction-post__image' src="/assets/reactions/emoji-haha.png" alt="Emoji haha" />
-                )}
-                {tagExists(postReactions, 'wow') && (
-                    <img className='c-reaction-post__image' src="/assets/reactions/emoji-wow.png" alt="Emoji wow" />
-                )}
-                {tagExists(postReactions, 'sad') && (
-                    <img className='c-reaction-post__image' src="/assets/reactions/emoji-sad.png" alt="Emoji sad" />
-                )}
-                {tagExists(postReactions, 'angry') && (
-                    <img className='c-reaction-post__image' src="/assets/reactions/emoji-angry.png" alt="Emoji angry" />
+                {['like', 'love', 'haha', 'wow', 'sad', 'angry'].map(reactionType =>
+                    tagExists(postReactions, reactionType) && (
+                        <img className='c-reaction-post__image' src={`/assets/reactions/emoji-${reactionType}.png`} alt={`Emoji ${reactionType}`} key={reactionType} />
+                    )
                 )}
                 {postReactions.length}
             </Button>
