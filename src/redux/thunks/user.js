@@ -43,8 +43,6 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
     }
     catch (error) {
-        console.log(error)
-
         return thunkApi.rejectWithValue({ 
             status: 500, 
             message: "Une erreur s'est produite lors de la connexion." 
