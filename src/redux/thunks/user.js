@@ -32,7 +32,7 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
     }
 })
 
-export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
+export const logout = createAsyncThunk("users/logout", async (_, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
