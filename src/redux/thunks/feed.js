@@ -51,8 +51,8 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 
     }
     catch (error) {
-        if (error.response.status === 409){
-            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        if (error.response.status === 404){
+            return thunkApi.rejectWithValue({ status: 404, message: "Ce post n'existe pas" });
         }
         return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la récupération des commentaires." });
     }
@@ -67,8 +67,8 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
         return {newComment, postId}
     }
     catch (error) {
-        if (error.response.status === 409){
-            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        if (error.response.status === 404){
+            return thunkApi.rejectWithValue({ status: 404, message: "Ce post n'existe pas" });
         }
         return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création du commentaire." });
     }
