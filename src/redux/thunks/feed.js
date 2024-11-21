@@ -104,8 +104,8 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
         return {updatedReaction, postId, reactionId}
     }
     catch (error) { 
-        if (error.response.status === 409){
-            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        if (error.response.status === 404){
+            return thunkApi.rejectWithValue({ status: 404, message: "Cette réaction n'existe pas" });
         }
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la réaction" });
     }
@@ -121,8 +121,8 @@ export const removeReaction = createAsyncThunk("post/removeReaction", async ({po
         return { postId, reactionId}
     }
     catch (error) {
-        if (error.response.status === 409){
-            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+        if (error.response.status === 404){
+            return thunkApi.rejectWithValue({ status: 404, message: "Cette réaction n'existe pas" });
         }
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la réaction" });
     }
