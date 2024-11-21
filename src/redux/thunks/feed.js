@@ -83,8 +83,11 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
         return {newReaction, postId}
     }
     catch (error) {
+        if (error.response.status === 404){
+            return thunkApi.rejectWithValue({ status: 404, message: "Ce post n'existe pas" });
+        }
         if (error.response.status === 409){
-            return thunkApi.rejectWithValue({ status: 409, message: "Ce post n'existe pas" });
+            return thunkApi.rejectWithValue({ status: 409, message: "Vous avez déjà réagi à ce post" });
         }
         return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la réaction" });
     }
