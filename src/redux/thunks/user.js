@@ -45,7 +45,7 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
     catch (error) {
         return thunkApi.rejectWithValue({ 
             status: 500, 
-            message: "Une erreur s'est produite lors de la connexion." 
+            message: "Une erreur s'est produite lors de la déconnexion."
         });
     }
 })
