@@ -12,10 +12,10 @@ export const fetchMembers = createAsyncThunk("members/fetchMembers", async (orga
     catch (error) {
         
         if (error.response.status === 404) {
-            return thunkApi.rejectWithValue({status: 404, message : "Il n'y a aucun membre dans cette organisation"});
+            return thunkApi.rejectWithValue({status: error.response.status, message : "Il n'y a aucun membre dans cette organisation"});
         }
        
-        return thunkApi.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
+        return thunkApi.rejectWithValue({status: error.response.status, message: "Une erreur s'est produite"});
     }
 })
 
@@ -32,10 +32,10 @@ export const updateMemberStatus = createAsyncThunk("user/updateMemberStatus", as
     catch(error) {   
         
         if (error.response.status === 404){
-            return thunkAPI.rejectWithValue({status: 404, message: "Ce membre n'existe pas"})
+            return thunkAPI.rejectWithValue({status: error.response.status, message: "Ce membre n'existe pas"})
         }
 
-        return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
+        return thunkAPI.rejectWithValue({status: error.response.status, message: "Une erreur s'est produite"});
                
     }
 })

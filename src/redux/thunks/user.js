@@ -15,24 +15,24 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
 
         if (error.response.status === 401)
             return thunkApi.rejectWithValue({
-                status: 401,
+                status: error.response.status,
                 message: 'Identifiants invalides'
             })
 
         if (error.response.status === 403)
             return thunkApi.rejectWithValue({
-                status: 403,
+                status: error.response.status,
                 message: "Votre compte est désactivé. Veuillez contacter le gérant de l'organisation."
             })
 
         return thunkApi.rejectWithValue({ 
-            status: 500, 
+            status: error.response.status,
             message: "Une erreur s'est produite lors de la connexion." 
         });
     }
 })
 
-export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
+export const logout = createAsyncThunk("users/logout", async (_, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
@@ -43,23 +43,9 @@ export const logout = createAsyncThunk("users/logout", async ( thunkApi) => {
 
     }
     catch (error) {
-        console.log(error)
-
-        if (error.response.status === 401)
-            return thunkApi.rejectWithValue({
-                status: 401,
-                message: 'Identifiants invalides'
-            })
-
-        if (error.response.status === 403)
-            return thunkApi.rejectWithValue({
-                status: 403,
-                message: "Votre compte est désactivé. Veuillez contacter le gérant de l'organisation."
-            })
-
         return thunkApi.rejectWithValue({ 
-            status: 500, 
-            message: "Une erreur s'est produite lors de la connexion." 
+            status: error.response.status,
+            message: "Une erreur s'est produite lors de la déconnexion."
         });
     }
 })
@@ -72,7 +58,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (_, thunkApi) 
         // string: it's converted to null for better reliability and consistency
         return user || null
     } catch (error) {
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite" });
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite" });
     }
 })
 
@@ -103,7 +89,7 @@ export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) =
             return thunkAPI.rejectWithValue(error);
         }
 
-        return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
+        return thunkAPI.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite"});
     }
 })
 
@@ -141,6 +127,6 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
             return thunkAPI.rejectWithValue(error);
         }
 
-        return thunkAPI.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
+        return thunkAPI.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite"});
     }
 })

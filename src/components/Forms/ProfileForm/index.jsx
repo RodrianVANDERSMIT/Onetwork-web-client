@@ -134,7 +134,7 @@ function ProfileForm() {
         catch (error) {
             // TODO: instead of console logs, the errors must be displayed directly to the user
             if (error.response.status === 409) {
-                throw new Error({ status: 409, message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
+                throw new Error({ status: error.response.status, message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
             }
             else {
                 throw new Error({ status: error.response.status, message: "Une erreur s'est produite lors de la création de l'organisation." });
