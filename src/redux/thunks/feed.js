@@ -19,7 +19,7 @@ export const fetchPosts = createAsyncThunk("feed/fetchPosts", async (userIdUrl, 
         };
 
     } catch (error) {
-        return thunkApi.rejectWithValue({status: 500, message: "Une erreur s'est produite"});
+        return thunkApi.rejectWithValue({status: error.response.status, message: "Une erreur s'est produite"});
     }
 });
 
@@ -52,7 +52,7 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
     }
     catch (error) {
         if (error.response.status === 404){
-            return thunkApi.rejectWithValue({ status: 404, message: "Ce post n'existe pas" });
+            return thunkApi.rejectWithValue({ status: error.response.status, message: "Ce post n'existe pas" });
         }
         return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la récupération des commentaires." });
     }
@@ -68,7 +68,7 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
     }
     catch (error) {
         if (error.response.status === 404){
-            return thunkApi.rejectWithValue({ status: 404, message: "Ce post n'existe pas" });
+            return thunkApi.rejectWithValue({ status: error.response.status, message: "Ce post n'existe pas" });
         }
         return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la création du commentaire." });
     }
@@ -84,12 +84,12 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
     }
     catch (error) {
         if (error.response.status === 404){
-            return thunkApi.rejectWithValue({ status: 404, message: "Ce post n'existe pas" });
+            return thunkApi.rejectWithValue({ status: error.response.status, message: "Ce post n'existe pas" });
         }
         if (error.response.status === 409){
-            return thunkApi.rejectWithValue({ status: 409, message: "Vous avez déjà réagi à ce post" });
+            return thunkApi.rejectWithValue({ status: error.response.status, message: "Vous avez déjà réagi à ce post" });
         }
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de l'ajout de la réaction" });
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de l'ajout de la réaction" });
     }
 })
 
@@ -105,9 +105,9 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
     }
     catch (error) { 
         if (error.response.status === 404){
-            return thunkApi.rejectWithValue({ status: 404, message: "Cette réaction n'existe pas" });
+            return thunkApi.rejectWithValue({ status: error.response.status, message: "Cette réaction n'existe pas" });
         }
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la mise à jour de la réaction" });
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la mise à jour de la réaction" });
     }
 })
 
@@ -122,8 +122,8 @@ export const removeReaction = createAsyncThunk("post/removeReaction", async ({po
     }
     catch (error) {
         if (error.response.status === 404){
-            return thunkApi.rejectWithValue({ status: 404, message: "Cette réaction n'existe pas" });
+            return thunkApi.rejectWithValue({ status: error.response.status, message: "Cette réaction n'existe pas" });
         }
-        return thunkApi.rejectWithValue({ status: 500, message: "Une erreur s'est produite lors de la suppression de la réaction" });
+        return thunkApi.rejectWithValue({ status: error.response.status, message: "Une erreur s'est produite lors de la suppression de la réaction" });
     }
 });
