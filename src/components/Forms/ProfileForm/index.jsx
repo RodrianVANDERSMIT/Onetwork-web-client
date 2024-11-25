@@ -1,7 +1,7 @@
 import AvatarForm from "../AvatarForm";
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
 import { grey } from "@mui/material/colors";
-import { addUser, updateUser } from '../../../redux/reducers/user'
+import { createUser, updateUser } from '../../../redux/reducers/user'
 import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
@@ -111,7 +111,7 @@ function ProfileForm() {
         }
 
         try {
-            await dispatch(addUser(data)).unwrap()
+            await dispatch(createUser(data)).unwrap()
             navigate(`/`)
         }
         catch (error) {

@@ -62,7 +62,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (_, thunkApi) 
     }
 })
 
-export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {
+export const createUser = createAsyncThunk("user/createUser", async (data, thunkAPI) => {
     try {
         await fetchCsrfCookie()
 

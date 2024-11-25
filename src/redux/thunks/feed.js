@@ -59,7 +59,7 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 })
 
 
-export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text, postId}, thunkApi) => {
+export const createComment = createAsyncThunk("feed/createComment", async ({text, postId}, thunkApi) => {
     try {
         await fetchCsrfCookie()
         const { data : newComment } = await api.post(`/posts/${postId}/comments`,  {text: text})
@@ -75,7 +75,7 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
 })
 
 
-export const addReaction = createAsyncThunk("feed/addReaction", async ({postId, reaction}, thunkApi) => {
+export const createReaction = createAsyncThunk("feed/createReaction", async ({postId, reaction}, thunkApi) => {
     try {
         await fetchCsrfCookie()
         const { data : newReaction } = await api.post(`/posts/${postId}/reactions`,  {type: reaction})

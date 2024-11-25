@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPosts, fetchComments, createPost, addNewComment, addReaction, updateReaction, removeReaction} from '../thunks/feed'
+import { fetchPosts, fetchComments, createPost, createComment, createReaction, updateReaction, removeReaction} from '../thunks/feed'
 
 
 
@@ -65,12 +65,12 @@ const slice = createSlice({
                 state.posts.find(post => post.id === postId).isLoadingComments = false;
             })
 
-            .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction } }) => {
+            .addCase(createReaction.fulfilled, (state, { payload: { postId, newReaction } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 post.reactions.push(newReaction)
             })
 
-            .addCase(addReaction.rejected, (state, { payload: error }) => {
+            .addCase(createReaction.rejected, (state, { payload: error }) => {
                 state.error = error
             })
 
@@ -96,13 +96,13 @@ const slice = createSlice({
 
             
 
-            .addCase(addNewComment.fulfilled, (state, { payload: { postId, newComment } }) => {
+            .addCase(createComment.fulfilled, (state, { payload: { postId, newComment } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 post.comments.push(newComment)
                 post.commentsCount++
             })
 
-            .addCase(addNewComment.rejected, (state, { payload: error }) => {
+            .addCase(createComment.rejected, (state, { payload: error }) => {
                 state.error = error
             })
     },

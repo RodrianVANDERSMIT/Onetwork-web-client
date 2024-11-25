@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getPostReactions } from '../../../redux/selectors/feed';
 import { getUserId } from '../../../redux/selectors/user';
-import { addReaction, updateReaction, removeReaction } from '../../../redux/thunks/feed';
+import { createReaction, updateReaction, removeReaction } from '../../../redux/thunks/feed';
 import './style.scss'
 
 
@@ -42,7 +42,7 @@ function ReactionButton({postId}) {
             dispatch(updateReaction({postId, reaction, reactionId: loggedUserReaction.id}))
         }
         else {
-            dispatch(addReaction({postId, reaction}))
+            dispatch(createReaction({postId, reaction}))
         }
         setAnchorEl(null);
     }
