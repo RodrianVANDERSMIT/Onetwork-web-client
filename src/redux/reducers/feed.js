@@ -65,19 +65,19 @@ const slice = createSlice({
                 state.posts.find(post => post.id === postId).isLoadingComments = false;
             })
 
-            .addCase(createReaction.fulfilled, (state, { payload: { postId, newReaction } }) => {
+            .addCase(createReaction.fulfilled, (state, { payload: { postId, reaction } }) => {
                 const post = state.posts.find(post => post.id === postId)
-                post.reactions.push(newReaction)
+                post.reactions.push(reaction)
             })
 
             .addCase(createReaction.rejected, (state, { payload: error }) => {
                 state.error = error
             })
 
-            .addCase(updateReaction.fulfilled, (state, { payload: { postId, reactionId, updatedReaction } }) => {
+            .addCase(updateReaction.fulfilled, (state, { payload: { postId, reactionId, reaction } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
-                post.reactions[reactionIndex] = updatedReaction;
+                post.reactions[reactionIndex] = reaction;
 
             })
             .addCase(updateReaction.rejected, (state, { payload: error }) => {

@@ -75,12 +75,12 @@ export const createComment = createAsyncThunk("feed/createComment", async ({text
 })
 
 
-export const createReaction = createAsyncThunk("feed/createReaction", async ({postId, reaction}, thunkApi) => {
+export const createReaction = createAsyncThunk("feed/createReaction", async ({postId, type}, thunkApi) => {
     try {
         await fetchCsrfCookie()
-        const { data : newReaction } = await api.post(`/posts/${postId}/reactions`,  {type: reaction})
+        const { data: reaction } = await api.post(`/posts/${postId}/reactions`,  { type })
 
-        return {newReaction, postId}
+        return { reaction, postId }
     }
     catch (error) {
         if (error.response.status === 404){
@@ -95,13 +95,13 @@ export const createReaction = createAsyncThunk("feed/createReaction", async ({po
 
 
 
-export const updateReaction = createAsyncThunk("feed/updateReaction", async ({postId, reaction, reactionId}, thunkApi) => {
+export const updateReaction = createAsyncThunk("feed/updateReaction", async ({postId, type, reactionId}, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
-        const { data : updatedReaction } = await api.patch(`/reactions/${reactionId}`,  {type: reaction})
+        const { data: reaction } = await api.patch(`/reactions/${reactionId}`,  { type })
     
-        return {updatedReaction, postId, reactionId}
+        return { reaction, postId, reactionId }
     }
     catch (error) { 
         if (error.response.status === 404){
