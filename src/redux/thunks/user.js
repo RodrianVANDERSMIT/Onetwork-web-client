@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { api, fetchCsrfCookie } from "../../services/api"
 
-export const login = createAsyncThunk("users/login", async (credentials, thunkApi) => {
+export const login = createAsyncThunk("user/login", async (credentials, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
@@ -32,7 +32,7 @@ export const login = createAsyncThunk("users/login", async (credentials, thunkAp
     }
 })
 
-export const logout = createAsyncThunk("users/logout", async (_, thunkApi) => {
+export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
@@ -62,7 +62,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (_, thunkApi) 
     }
 })
 
-export const addUser = createAsyncThunk("user/addUser", async (data, thunkAPI) => {
+export const createUser = createAsyncThunk("user/createUser", async (data, thunkAPI) => {
     try {
         await fetchCsrfCookie()
 

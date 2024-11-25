@@ -19,7 +19,7 @@ export const fetchMembers = createAsyncThunk("members/fetchMembers", async (orga
     }
 })
 
-export const updateMemberStatus = createAsyncThunk("user/updateMemberStatus", async ({ id, disabled }, thunkAPI) => {
+export const updateMemberStatus = createAsyncThunk("members/updateMemberStatus", async ({ id, disabled }, thunkAPI) => {
     try {
         await fetchCsrfCookie()
 

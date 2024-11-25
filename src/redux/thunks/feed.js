@@ -59,7 +59,7 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
 })
 
 
-export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text, postId}, thunkApi) => {
+export const createComment = createAsyncThunk("feed/createComment", async ({text, postId}, thunkApi) => {
     try {
         await fetchCsrfCookie()
         const { data : newComment } = await api.post(`/posts/${postId}/comments`,  {text: text})
@@ -75,12 +75,12 @@ export const addNewComment = createAsyncThunk("feed/addNewComment", async ({text
 })
 
 
-export const addReaction = createAsyncThunk("post/addReaction", async ({postId, reaction}, thunkApi) => {
+export const createReaction = createAsyncThunk("feed/createReaction", async ({postId, type}, thunkApi) => {
     try {
         await fetchCsrfCookie()
-        const { data : newReaction } = await api.post(`/posts/${postId}/reactions`,  {type: reaction})
+        const { data: reaction } = await api.post(`/posts/${postId}/reactions`,  { type })
 
-        return {newReaction, postId}
+        return { reaction, postId }
     }
     catch (error) {
         if (error.response.status === 404){
@@ -95,13 +95,13 @@ export const addReaction = createAsyncThunk("post/addReaction", async ({postId, 
 
 
 
-export const updateReaction = createAsyncThunk("post/updateReaction", async ({postId, reaction, reactionId}, thunkApi) => {
+export const updateReaction = createAsyncThunk("feed/updateReaction", async ({postId, type, reactionId}, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
-        const { data : updatedReaction } = await api.patch(`/reactions/${reactionId}`,  {type: reaction})
+        const { data: reaction } = await api.patch(`/reactions/${reactionId}`,  { type })
     
-        return {updatedReaction, postId, reactionId}
+        return { reaction, postId, reactionId }
     }
     catch (error) { 
         if (error.response.status === 404){
@@ -112,7 +112,7 @@ export const updateReaction = createAsyncThunk("post/updateReaction", async ({po
 })
 
 
-export const removeReaction = createAsyncThunk("post/removeReaction", async ({postId, reactionId}, thunkApi) => {
+export const removeReaction = createAsyncThunk("feed/removeReaction", async ({postId, reactionId}, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
