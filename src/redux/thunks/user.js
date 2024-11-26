@@ -5,9 +5,8 @@ export const login = createAsyncThunk("user/login", async (credentials, thunkApi
 
     try {
         await fetchCsrfCookie()
-        const { data } = await api.post('/session', {email: credentials.email, password: credentials.password} )
+        const { data: user } = await api.post('/session', {email: credentials.email, password: credentials.password} )
 
-        const user = data
         return user
     }
     catch (error) {
@@ -36,11 +35,9 @@ export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
-        const { data } = await api.delete('/session', )
+        const { data: user } = await api.delete('/session', )
 
-        const user = data
         return user
-
     }
     catch (error) {
         return thunkApi.rejectWithValue({ 
@@ -106,7 +103,7 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
             formData.append(key, value)
         }
 
-        const response = await api.post(`/users/${id}`,formData, {
+        const { data: user } = await api.post(`/users/${id}`,formData, {
             params: {
                 _method: 'PATCH'
             },
@@ -114,7 +111,8 @@ export const updateUser = createAsyncThunk("user/updateUser", async (data, thunk
                 'Content-Type': 'multipart/form-data',
             }
         })
-        return response.data
+
+        return user
     }
     catch (error) {
         console.log(error)

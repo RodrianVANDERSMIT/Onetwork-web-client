@@ -52,9 +52,9 @@ const slice = createSlice({
                 state.error = error
             })
 
-            .addCase(fetchComments.fulfilled, (state, { meta: { arg: postId }, payload: postComments }) => {
+            .addCase(fetchComments.fulfilled, (state, { meta: { arg: postId }, payload: comments }) => {
                 const post = state.posts.find(post => post.id === postId)
-                post.comments = postComments
+                post.comments = comments
                 post.isLoadingComments = false;
             })
             .addCase(fetchComments.pending, (state, { meta: { arg: postId } }) => {

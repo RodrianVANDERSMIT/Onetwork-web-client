@@ -23,11 +23,9 @@ export const updateMemberStatus = createAsyncThunk("members/updateMemberStatus",
     try {
         await fetchCsrfCookie()
 
-        const response = await api.patch(`/users/${id}`,{disabled: disabled}, )
-       
-        const updatedMember = response.data
-        
-        return updatedMember;
+        const { data: member } = await api.patch(`/users/${id}`,{disabled: disabled}, )
+
+        return member
     }
     catch(error) {   
         
