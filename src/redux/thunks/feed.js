@@ -47,7 +47,7 @@ export const fetchComments = createAsyncThunk("feed/fetchComments", async (postI
         const response = await api.get(`/posts/${postId}/comments`);
         const postComments = response.data;
         
-        return {postComments, postId}
+        return postComments
 
     }
     catch (error) {
@@ -64,7 +64,7 @@ export const createComment = createAsyncThunk("feed/createComment", async ({text
         await fetchCsrfCookie()
         const { data : newComment } = await api.post(`/posts/${postId}/comments`,  {text: text})
 
-        return {newComment, postId}
+        return newComment
     }
     catch (error) {
         if (error.response.status === 404){
@@ -80,7 +80,7 @@ export const createReaction = createAsyncThunk("feed/createReaction", async ({po
         await fetchCsrfCookie()
         const { data: reaction } = await api.post(`/posts/${postId}/reactions`,  { type })
 
-        return { reaction, postId }
+        return reaction
     }
     catch (error) {
         if (error.response.status === 404){
@@ -95,13 +95,13 @@ export const createReaction = createAsyncThunk("feed/createReaction", async ({po
 
 
 
-export const updateReaction = createAsyncThunk("feed/updateReaction", async ({postId, type, reactionId}, thunkApi) => {
+export const updateReaction = createAsyncThunk("feed/updateReaction", async ({ type, reactionId }, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
         const { data: reaction } = await api.patch(`/reactions/${reactionId}`,  { type })
     
-        return { reaction, postId, reactionId }
+        return reaction
     }
     catch (error) { 
         if (error.response.status === 404){
@@ -112,13 +112,11 @@ export const updateReaction = createAsyncThunk("feed/updateReaction", async ({po
 })
 
 
-export const removeReaction = createAsyncThunk("feed/removeReaction", async ({postId, reactionId}, thunkApi) => {
+export const removeReaction = createAsyncThunk("feed/removeReaction", async ({ reactionId }, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
         await api.delete(`/reactions/${reactionId}`,)
-        
-        return { postId, reactionId}
     }
     catch (error) {
         if (error.response.status === 404){

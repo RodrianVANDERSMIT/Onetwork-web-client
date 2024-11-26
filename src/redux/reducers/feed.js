@@ -52,7 +52,7 @@ const slice = createSlice({
                 state.error = error
             })
 
-            .addCase(fetchComments.fulfilled, (state, { payload: { postId, postComments } }) => {
+            .addCase(fetchComments.fulfilled, (state, { meta: { arg: postId }, payload: postComments }) => {
                 const post = state.posts.find(post => post.id === postId)
                 post.comments = postComments
                 post.isLoadingComments = false;
@@ -65,8 +65,8 @@ const slice = createSlice({
                 state.posts.find(post => post.id === postId).isLoadingComments = false;
             })
 
-            .addCase(createReaction.fulfilled, (state, { payload: { postId, reaction } }) => {
-                const post = state.posts.find(post => post.id === postId)
+            .addCase(createReaction.fulfilled, (state, { payload: reaction }) => {
+                const post = state.posts.find(post => post.id === reaction.postId)
                 post.reactions.push(reaction)
             })
 
@@ -74,9 +74,9 @@ const slice = createSlice({
                 state.error = error
             })
 
-            .addCase(updateReaction.fulfilled, (state, { payload: { postId, reactionId, reaction } }) => {
-                const post = state.posts.find(post => post.id === postId)
-                const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
+            .addCase(updateReaction.fulfilled, (state, { payload: reaction }) => {
+                const post = state.posts.find(post => post.id === reaction.postId)
+                const reactionIndex = post.reactions.findIndex(currentReaction => currentReaction.id === reaction.id);
                 post.reactions[reactionIndex] = reaction;
 
             })
@@ -84,7 +84,7 @@ const slice = createSlice({
                 state.error = error
             })
 
-            .addCase(removeReaction.fulfilled, (state, { payload: { postId, reactionId } }) => {
+            .addCase(removeReaction.fulfilled, (state, { meta: { arg: { postId, reactionId } } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
                 post.reactions.splice(reactionIndex, 1);
@@ -96,9 +96,9 @@ const slice = createSlice({
 
             
 
-            .addCase(createComment.fulfilled, (state, { payload: { postId, newComment } }) => {
-                const post = state.posts.find(post => post.id === postId)
-                post.comments.push(newComment)
+            .addCase(createComment.fulfilled, (state, { payload: comment }) => {
+                const post = state.posts.find(post => post.id === comment.postId)
+                post.comments.push(comment)
                 post.commentsCount++
             })
 

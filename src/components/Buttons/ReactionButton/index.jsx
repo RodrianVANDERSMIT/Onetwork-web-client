@@ -39,7 +39,7 @@ function ReactionButton({postId}) {
             dispatch(removeReaction({postId, reactionId: loggedUserReaction.id}))
         }
         else if (loggedUserReaction){
-            dispatch(updateReaction({postId, type, reactionId: loggedUserReaction.id}))
+            dispatch(updateReaction({type, reactionId: loggedUserReaction.id}))
         }
         else {
             dispatch(createReaction({postId, type}))
