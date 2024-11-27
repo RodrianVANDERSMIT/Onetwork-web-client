@@ -21,12 +21,7 @@ function AdminMembers () {
     const memberList = list.filter(member => member.role && member.role.tag !=="admin")
     
     useEffect(() => {
-        if (organizationId) {
-            dispatch(fetchMembers(organizationId))
-        }
-        else {
-            console.log("membres introuvable")
-        }
+        dispatch(fetchMembers(organizationId))
 
         return () => {
             dispatch(cleanMembersState());
