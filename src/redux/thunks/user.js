@@ -35,9 +35,7 @@ export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
 
     try {
         await fetchCsrfCookie()
-        const { data: user } = await api.delete('/session', )
-
-        return user
+        await api.delete('/session')
     }
     catch (error) {
         return thunkApi.rejectWithValue({ 
