@@ -10,8 +10,7 @@ const initialState = {
         currentPage: 0,
         hasMorePosts: null,
     },
-    loading: false,
-    error: null,
+    loading: false
 }
 
 const slice = createSlice({
@@ -32,23 +31,17 @@ const slice = createSlice({
                 state.pagination.currentPage = meta.current_page
                 state.pagination.hasMorePosts = meta.current_page !== meta.last_page
 
-                state.error = null
                 state.loading = false;
             })
             .addCase(fetchPosts.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(fetchPosts.rejected, (state, { payload: error }) => {
-                state.error = error
+            .addCase(fetchPosts.rejected, (state) => {
                 state.loading = false;
             })
             .addCase(createPost.fulfilled, (state, { payload: post }) => {
                 post.isLoadingComments = false
                 state.posts.unshift(post)
-            })
-
-            .addCase(createPost.rejected, (state, { payload: error }) => {
-                state.error = error
             })
 
             .addCase(fetchComments.fulfilled, (state, { meta: { arg: postId }, payload: comments }) => {
@@ -59,8 +52,7 @@ const slice = createSlice({
             .addCase(fetchComments.pending, (state, { meta: { arg: postId } }) => {
                 state.posts.find(post => post.id === postId).isLoadingComments = true;
             })
-            .addCase(fetchComments.rejected, (state, { meta: { arg: postId }, payload: error }) => {
-                state.error = error
+            .addCase(fetchComments.rejected, (state, { meta: { arg: postId } }) => {
                 state.posts.find(post => post.id === postId).isLoadingComments = false;
             })
 
@@ -69,18 +61,11 @@ const slice = createSlice({
                 post.reactions.push(reaction)
             })
 
-            .addCase(createReaction.rejected, (state, { payload: error }) => {
-                state.error = error
-            })
-
             .addCase(updateReaction.fulfilled, (state, { payload: reaction }) => {
                 const post = state.posts.find(post => post.id === reaction.postId)
                 const reactionIndex = post.reactions.findIndex(currentReaction => currentReaction.id === reaction.id);
                 post.reactions[reactionIndex] = reaction;
 
-            })
-            .addCase(updateReaction.rejected, (state, { payload: error }) => {
-                state.error = error
             })
 
             .addCase(removeReaction.fulfilled, (state, { meta: { arg: { postId, reactionId } } }) => {
@@ -89,9 +74,6 @@ const slice = createSlice({
                 post.reactions.splice(reactionIndex, 1);
 
             })
-            .addCase(removeReaction.rejected, (state, { payload: error }) => {
-                state.error = error
-            })
 
             
 
@@ -99,10 +81,6 @@ const slice = createSlice({
                 const post = state.posts.find(post => post.id === comment.postId)
                 post.comments.push(comment)
                 post.commentsCount++
-            })
-
-            .addCase(createComment.rejected, (state, { payload: error }) => {
-                state.error = error
             })
     },
 });
