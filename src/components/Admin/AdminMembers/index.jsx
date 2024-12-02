@@ -4,13 +4,14 @@ import {Box, CircularProgress, Grid, Typography} from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { api } from '../../../services/api';
-import { getUserOrganizationId } from '../../../redux/selectors/user';
+import { getUserId, getUserOrganizationId } from '../../../redux/selectors/user';
 
 import './style.scss'
 
 function AdminMembers () {
     const [members, setMembers] = useState([])
     const organizationId = useSelector(getUserOrganizationId)
+    const userId = useSelector(getUserId)
     const [isLoading, setIsLoading] = useState(false)
 
     const setMember = member => {
@@ -23,9 +24,7 @@ function AdminMembers () {
 
             try {
                 let { data: members } = await api(`/organizations/${organizationId}/users`)
-
-                //filter the organization member withn't the admin
-                members = members.filter(member => member.role && member.role.tag !=="admin")
+                members = members.filter(member => member.id !== userId)
                 setMembers(members)
             }
             catch (error) {
@@ -41,7 +40,7 @@ function AdminMembers () {
                 setIsLoading(false)
             }
         })()
-    }, [organizationId, setMembers])
+    }, [organizationId, userId, setMembers])
 
     return (
         <Box
