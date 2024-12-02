@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {Avatar, Box, Button, Typography, Paper} from '@mui/material';
-import { useForm } from "react-hook-form";
 import CircularProgress from '@mui/material/CircularProgress';
 import { Link as MuiLink } from '@mui/material'
 import { api, fetchCsrfCookie } from '../../../services/api';
@@ -11,10 +10,9 @@ import './style.scss'
 
 
 function MemberCard ({id, organization, name, surname, job, profilePicture, disabled, setMember}) {
-    const { handleSubmit } = useForm();
     const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = async () => {
+    const onStatusButtonClick = async () => {
         setIsLoading(true);
 
         try {
@@ -40,14 +38,11 @@ function MemberCard ({id, organization, name, surname, job, profilePicture, disa
     return (
         <Paper
             className="c-member-card__group"
-            component="form"
-            noValidate
             elevation={3}
             sx={{
                 display: 'flex',
                 alignItems: 'center',
             }}
-            onSubmit={handleSubmit(onSubmit)}
         >
             <Box
                 className="c-member-card__profil"
@@ -102,8 +97,8 @@ function MemberCard ({id, organization, name, surname, job, profilePicture, disa
                 className="c-member-card__button"
                 variant="outlined"
                 sx={{m:2}}
-                type="submit"
                 disabled={isLoading}
+                onClick={onStatusButtonClick}
             >
                 {isLoading ? (
                     <CircularProgress size={24}/>
