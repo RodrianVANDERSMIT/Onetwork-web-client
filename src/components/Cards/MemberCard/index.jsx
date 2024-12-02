@@ -126,8 +126,7 @@ MemberCard.propTypes = {
     job: PropTypes.string,
     profilePicture: PropTypes.string,
     disabled: PropTypes.bool,
-    setMember: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool
+    setMember: PropTypes.func.isRequired
 };
 
 export default MemberCard
