@@ -2,25 +2,39 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {Avatar, Box, Button, Typography, Paper} from '@mui/material';
-import { useDispatch, } from 'react-redux';
 import { useForm } from "react-hook-form";
-import { updateMemberStatus } from '../../../redux/thunks/members'
 import CircularProgress from '@mui/material/CircularProgress';
 import { Link as MuiLink } from '@mui/material'
+import { api, fetchCsrfCookie } from '../../../services/api';
 import './style.scss'
 
 
 
-function MemberCard ({id, organization, name, surname, job, profilePicture, disabled}) {
-
-    const dispatch = useDispatch();
+function MemberCard ({id, organization, name, surname, job, profilePicture, disabled, setMember}) {
     const { handleSubmit } = useForm();
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = async () => {
         setIsLoading(true);
-        await dispatch(updateMemberStatus({ id, disabled: !disabled }));
-        setIsLoading(false);
+
+        try {
+            await fetchCsrfCookie()
+            const { data: member } = await api.patch(`/users/${id}`, { disabled: !disabled })
+            setMember(member)
+        }
+        catch (error) {
+            // TODO: instead of console logs, errors must be displayed directly to user
+            if (error.response.status === 404) {
+                console.error({ status: error.response.status, message: "Ce membre n'existe pas" })
+            }
+            else {
+                console.error({ status: error.response.status, message: "Une erreur s'est produite" });
+            }
+
+        }
+        finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -112,6 +126,7 @@ MemberCard.propTypes = {
     job: PropTypes.string,
     profilePicture: PropTypes.string,
     disabled: PropTypes.bool,
+    setMember: PropTypes.func.isRequired,
     isLoading: PropTypes.bool
 };
 

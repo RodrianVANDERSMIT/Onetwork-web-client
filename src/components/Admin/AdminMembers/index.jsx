@@ -1,32 +1,47 @@
 import InvitForm from '../../Forms/InvitForm';
 import MemberCard from '../../Cards/MemberCard';
 import {Box, CircularProgress, Grid, Typography} from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchMembers } from '../../../redux/thunks/members';
-import { getMembersList, getMembersLoader } from '../../../redux/selectors/members';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { api } from '../../../services/api';
 import { getUserOrganizationId } from '../../../redux/selectors/user';
-import { cleanMembersState } from '../../../redux/reducers/members';
 
 import './style.scss'
 
 function AdminMembers () {
-
-    const dispatch = useDispatch()
+    const [members, setMembers] = useState([])
     const organizationId = useSelector(getUserOrganizationId)
-    const list = useSelector(getMembersList)
-    const isLoading = useSelector(getMembersLoader)
+    const [isLoading, setIsLoading] = useState(false)
 
-    //filter the organization member withn't the admin
-    const memberList = list.filter(member => member.role && member.role.tag !=="admin")
-    
+    const setMember = member => {
+        setMembers(members.map(m => m.id === member.id ? member : m))
+    }
+
     useEffect(() => {
-        dispatch(fetchMembers(organizationId))
+        (async () => {
+            setIsLoading(true)
 
-        return () => {
-            dispatch(cleanMembersState());
-        }
-    }, [organizationId, dispatch])
+            try {
+                let { data: members } = await api(`/organizations/${organizationId}/users`)
+
+                //filter the organization member withn't the admin
+                members = members.filter(member => member.role && member.role.tag !=="admin")
+                setMembers(members)
+            }
+            catch (error) {
+                // TODO: instead of console logs, errors must be displayed directly to user
+                if (error.response.status === 404) {
+                    console.error({ status: error.response.status, message: "Il n'y a aucun membre dans cette organisation" });
+                }
+                else {
+                    console.error({ status: error.response.status, message: "Une erreur s'est produite" });
+                }
+            }
+            finally {
+                setIsLoading(false)
+            }
+        })()
+    }, [organizationId, setMembers])
 
     return (
         <Box
@@ -74,9 +89,9 @@ function AdminMembers () {
                     className="c-admin-members__cards"
                     container spacing={2}
                 >
-                    {memberList.map(member => (
+                    {members.map(member => (
                         <Grid key={member.id} item xs={12} lg={6} >
-                            <MemberCard {...member} />
+                            <MemberCard {...member} setMember={setMember} />
                         </Grid>
                     ))}
                 </Grid>
