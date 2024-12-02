@@ -8,7 +8,6 @@ const initialState = {
     posts: [],
     pagination: {
         currentPage: 0,
-        postsPerPage: 10,
         hasMorePosts: null,
     },
     loading: false,
