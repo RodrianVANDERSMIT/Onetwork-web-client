@@ -25,7 +25,6 @@ const slice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(fetchPosts.fulfilled, (state, { payload: { posts, meta } } ) => {
-                posts.forEach(post => post.isLoadingComments = false)
                 state.posts.push(...posts)
 
                 state.pagination.currentPage = meta.current_page
@@ -40,20 +39,12 @@ const slice = createSlice({
                 state.loading = false;
             })
             .addCase(createPost.fulfilled, (state, { payload: post }) => {
-                post.isLoadingComments = false
                 state.posts.unshift(post)
             })
 
             .addCase(fetchComments.fulfilled, (state, { meta: { arg: postId }, payload: comments }) => {
                 const post = state.posts.find(post => post.id === postId)
                 post.comments = comments
-                post.isLoadingComments = false;
-            })
-            .addCase(fetchComments.pending, (state, { meta: { arg: postId } }) => {
-                state.posts.find(post => post.id === postId).isLoadingComments = true;
-            })
-            .addCase(fetchComments.rejected, (state, { meta: { arg: postId } }) => {
-                state.posts.find(post => post.id === postId).isLoadingComments = false;
             })
 
             .addCase(createReaction.fulfilled, (state, { payload: reaction }) => {
