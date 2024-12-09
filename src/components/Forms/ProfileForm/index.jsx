@@ -150,7 +150,7 @@ function ProfileForm() {
 
         try {
             await dispatch(updateUser(data)).unwrap()
-            navigate(`/`)
+            navigate(`/${user.organization.id}`)
         }
         catch (error) {
             setGlobalFormError(error)
