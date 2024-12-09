@@ -2,7 +2,7 @@ import AvatarForm from "../AvatarForm";
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
 import { grey } from "@mui/material/colors";
 import { createUser, updateUser } from '../../../redux/reducers/user'
-import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
+import { getUser, getIsLogged } from '../../../redux/selectors/user'
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom"
@@ -19,7 +19,7 @@ function ProfileForm() {
     const navigate = useNavigate();
     const location = useLocation()
     const isLog = useSelector(getIsLogged)
-    const userError = useSelector(getUserError);
+    const [globalFormError, setGlobalFormError] = useState(null);
     const { setFieldsServerErrors } = useServerErrors()
     const user = (useSelector(getUser));
     const surname = user.surname
@@ -115,6 +115,7 @@ function ProfileForm() {
             navigate(`/`)
         }
         catch (error) {
+            setGlobalFormError(error)
             setFieldsServerErrors(setError, error)
         }
     }
@@ -152,6 +153,7 @@ function ProfileForm() {
             navigate(`/`)
         }
         catch (error) {
+            setGlobalFormError(error)
             setFieldsServerErrors(setError, error)
         }
     }
@@ -397,11 +399,11 @@ function ProfileForm() {
                         - in any other cases, the message is directly in
                         userError.message (check the Redux thunks to learn more)
                         */}
-                        {userError !== null && userError?.response?.status !== 422 &&
+                        {globalFormError !== null && globalFormError?.response?.status !== 422 &&
                             <p className="c-profile-form__error">{
-                                userError?.response?.status === 410 ?
-                                    userError?.response?.data?.message:
-                                    userError?.message
+                                globalFormError?.response?.status === 410 ?
+                                    globalFormError?.response?.data?.message:
+                                    globalFormError?.message
                             }</p>
                         }
 

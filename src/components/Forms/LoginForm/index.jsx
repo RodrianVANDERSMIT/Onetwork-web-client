@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import {login} from "../../../redux/reducers/user"
-import { getIsLogged, getUser, getUserError, getUserLoading } from '../../../redux/selectors/user'
+import { getIsLogged, getUser, getUserLoading } from '../../../redux/selectors/user'
 
 import './style.scss'
 
@@ -16,14 +16,19 @@ function LoginForm() {
     const navigate = useNavigate();
 
     // Retrieve user-related data and states from Redux.
-    const userError = useSelector(getUserError);
+    const [globalFormError, setGlobalFormError] = useState(null);
     const loggedUser = useSelector(getUser);
     const isLog = useSelector(getIsLogged);
     const isLoading = useSelector(getUserLoading);
     
     // Function to handle form submission.
-    const onSubmit = (user) => {
-        dispatch(login(user))
+    const onSubmit = async (user) => {
+        try {
+            await dispatch(login(user)).unwrap()
+        }
+        catch (error) {
+            setGlobalFormError(error)
+        }
     }
     
     // Redirect user to organization page if he is logged in.
@@ -69,7 +74,7 @@ function LoginForm() {
                     variant="outlined"
                 />
                 {isLoading ? <CircularProgress sx={{ mb: 2 }} /> : null}
-                {userError !== null && <p className="c-user-login__error">{userError?.message}</p>}
+                {globalFormError !== null && <p className="c-user-login__error">{globalFormError?.message}</p>}
 
                 <Button type="submit" sx={{ mt: 2}} variant="contained" color="primary">
                 Connexion
