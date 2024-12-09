@@ -11,8 +11,7 @@ export const initialState = {
     role: null,
     profilePicture: "",
     organization: null,
-    disabled: false,
-    loading: false
+    disabled: false
 }
 
 const slice = createSlice({
@@ -26,14 +25,7 @@ const slice = createSlice({
     extraReducers: builder => { 
         builder
             .addCase(login.fulfilled, (state, { payload: user }) => {
-                return { ...state, ...user, loading: false,
-                };
-            })
-            .addCase(login.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(login.rejected, (state) => {
-                state.loading = false;
+                return { ...state, ...user };
             })
 
             .addCase(logout.fulfilled, (state) => {

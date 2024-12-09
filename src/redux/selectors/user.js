@@ -12,5 +12,3 @@ export const getUserId = state => getUser(state).id;
 
 export const getUserRole = state => getUser(state).role;
 export const getIsAdmin = state => !!(getUser(state).role?.tag === 'admin');
-
-export const getUserLoading = state => getUser(state).loading;

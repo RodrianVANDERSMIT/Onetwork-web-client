@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import {login} from "../../../redux/reducers/user"
-import { getIsLogged, getUser, getUserLoading } from '../../../redux/selectors/user'
+import { getIsLogged, getUser } from '../../../redux/selectors/user'
 
 import './style.scss'
 
@@ -19,15 +19,20 @@ function LoginForm() {
     const [globalFormError, setGlobalFormError] = useState(null);
     const loggedUser = useSelector(getUser);
     const isLog = useSelector(getIsLogged);
-    const isLoading = useSelector(getUserLoading);
+    const [isLoading, setIsLoading] = useState(false);
     
     // Function to handle form submission.
     const onSubmit = async (user) => {
+        setIsLoading(true)
+
         try {
             await dispatch(login(user)).unwrap()
         }
         catch (error) {
             setGlobalFormError(error)
+        }
+        finally {
+            setIsLoading(false)
         }
     }
     
