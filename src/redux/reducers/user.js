@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, logout, fetchUser } from "../thunks/user";
-import { createUser, updateUser } from "../../redux/thunks/user"
+import { login, logout, fetchUser, createUser, updateUser } from "../thunks/user";
 
 export const initialState = {
     id: null,
