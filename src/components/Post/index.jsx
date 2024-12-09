@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPostComments, getPostIsLoadingComments, getPostReactions } from '../../redux/selectors/feed'
+import { getPostComments, getPostReactions } from '../../redux/selectors/feed'
 import { fetchComments } from '../../redux/thunks/feed';
 import { getUser } from '../../redux/selectors/user'
 
@@ -50,7 +50,7 @@ function Post({id, author,text,commentsCount,createdAt}) {
 
     // fetch all comments by post    
     const comments = useSelector(getPostComments(id));
-    const isLoadingComments = useSelector(getPostIsLoadingComments(id))
+    const [isLoadingComments, setIsLoadingComments] = useState(false)
 
     const reactions = useSelector(getPostReactions(id))
 
@@ -58,12 +58,17 @@ function Post({id, author,text,commentsCount,createdAt}) {
         setExpanded(!expanded);
 
         if (!comments) {
+            setIsLoadingComments(true)
+
             try {
                 await dispatch(fetchComments(id)).unwrap();
             }
             catch (error) {
                 setExpanded(false)
                 console.error(error); // TODO: instead of console logs, errors must be displayed directly to user
+            }
+            finally {
+                setIsLoadingComments(false)
             }
         }
     };
