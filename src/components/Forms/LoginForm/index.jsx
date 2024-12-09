@@ -48,8 +48,7 @@ function LoginForm() {
     }, [isLog]);
 
     return (
-        <Box className="c-user-login" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <div id="connexion"></div>
+        <Box className="c-user-login" id="connexion" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Typography variant="h4" className="c-user-login__title"  sx={{ mb: 2 , textAlign: 'center' }}>
                 Connexion
             </Typography>
