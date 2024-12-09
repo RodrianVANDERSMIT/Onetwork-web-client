@@ -20,7 +20,7 @@ function LoginForm() {
     const loggedUser = useSelector(getUser);
     const isLog = useSelector(getIsLogged);
     const [isLoading, setIsLoading] = useState(false);
-    
+
     // Function to handle form submission.
     const onSubmit = async (user) => {
         setIsLoading(true)
@@ -35,12 +35,12 @@ function LoginForm() {
             setIsLoading(false)
         }
     }
-    
+
     // Redirect user to organization page if he is logged in.
     useEffect(() => {
         if (isLog) {
             const organizationId = loggedUser.organization?.id
-            
+
             if (organizationId){
                 navigate(`/${organizationId}`)
             }
@@ -51,10 +51,10 @@ function LoginForm() {
         <Box className="c-user-login" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <div id="connexion"></div>
             <Typography variant="h4" className="c-user-login__title"  sx={{ mb: 2 , textAlign: 'center' }}>
-            Connexion
+                Connexion
             </Typography>
             <Typography variant="body1" className="c-user-login__text"  sx={{ mb: 2 , textAlign: 'center'}}>
-            Si vous êtes déjà membre d'une organisation, veuillez remplir les champs ci-dessous pour vous connecter.
+                Si vous êtes déjà membre d'une organisation, veuillez remplir les champs ci-dessous pour vous connecter.
             </Typography>
 
             <Box component="form" className="c-user-login__form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection:'column', alignItems:'center' }}>
@@ -82,11 +82,11 @@ function LoginForm() {
                 {globalFormError !== null && <p className="c-user-login__error">{globalFormError?.message}</p>}
 
                 <Button type="submit" sx={{ mt: 2}} variant="contained" color="primary">
-                Connexion
+                    Connexion
                 </Button>
             </Box>
         </Box>
     );
 }
-    
+
 export default LoginForm;
