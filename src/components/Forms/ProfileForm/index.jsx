@@ -1,8 +1,8 @@
 import AvatarForm from "../AvatarForm";
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
 import { grey } from "@mui/material/colors";
-import { addUser, updateUser } from '../../../redux/reducers/user'
-import { getUser, getIsLogged, getUserError } from '../../../redux/selectors/user'
+import { createUser, updateUser } from '../../../redux/reducers/user'
+import { getUser, getIsLogged } from '../../../redux/selectors/user'
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom"
@@ -19,7 +19,7 @@ function ProfileForm() {
     const navigate = useNavigate();
     const location = useLocation()
     const isLog = useSelector(getIsLogged)
-    const userError = useSelector(getUserError);
+    const [globalFormError, setGlobalFormError] = useState(null);
     const { setFieldsServerErrors } = useServerErrors()
     const user = (useSelector(getUser));
     const surname = user.surname
@@ -111,10 +111,11 @@ function ProfileForm() {
         }
 
         try {
-            await dispatch(addUser(data)).unwrap()
+            await dispatch(createUser(data)).unwrap()
             navigate(`/`)
         }
         catch (error) {
+            setGlobalFormError(error)
             setFieldsServerErrors(setError, error)
         }
     }
@@ -134,7 +135,7 @@ function ProfileForm() {
         catch (error) {
             // TODO: instead of console logs, the errors must be displayed directly to the user
             if (error.response.status === 409) {
-                throw new Error({ status: 409, message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
+                throw new Error({ status: error.response.status, message: 'Cette organisation existe déjà. Merci de choisir un autre nom.' });
             }
             else {
                 throw new Error({ status: error.response.status, message: "Une erreur s'est produite lors de la création de l'organisation." });
@@ -149,9 +150,10 @@ function ProfileForm() {
 
         try {
             await dispatch(updateUser(data)).unwrap()
-            navigate(`/`)
+            navigate(`/${user.organization.id}`)
         }
         catch (error) {
+            setGlobalFormError(error)
             setFieldsServerErrors(setError, error)
         }
     }
@@ -397,11 +399,11 @@ function ProfileForm() {
                         - in any other cases, the message is directly in
                         userError.message (check the Redux thunks to learn more)
                         */}
-                        {userError !== null && userError?.response?.status !== 422 &&
+                        {globalFormError !== null && globalFormError?.response?.status !== 422 &&
                             <p className="c-profile-form__error">{
-                                userError?.response?.status === 410 ?
-                                    userError?.response?.data?.message:
-                                    userError?.message
+                                globalFormError?.response?.status === 410 ?
+                                    globalFormError?.response?.data?.message:
+                                    globalFormError?.message
                             }</p>
                         }
 

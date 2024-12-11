@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { useForm } from 'react-hook-form'
 import { useDispatch} from 'react-redux'
 
-import { addNewComment } from '../../../redux/thunks/feed';
+import { createComment } from '../../../redux/thunks/feed';
 
 import { Paper, InputBase } from '@mui/material'
 import { IconButton } from '@mui/material'
@@ -17,7 +17,7 @@ function CommentForm({postId}) {
 
     const onSubmit = ({text}) => {
     
-        dispatch(addNewComment({text, postId}));
+        dispatch(createComment({text, postId}));
         reset();
         
     };
