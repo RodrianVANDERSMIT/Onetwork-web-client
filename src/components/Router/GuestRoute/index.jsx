@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getIsLogged } from '../../../redux/selectors/user'
 import { ErrorCode, setErrorPage } from '../../../redux/reducers/errorPage'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function GuestRoute({ children }) {
+export default function GuestRoute({ redirectTo, children }) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const isLog = useSelector(getIsLogged)
 
     // A useEffect is required here to dispatch the action AFTER the rendering
@@ -14,7 +16,12 @@ export default function GuestRoute({ children }) {
     // interruption can lead to strange behaviors and fire an error in console.
     useEffect(() => {
         if (isLog) {
-            dispatch(setErrorPage(ErrorCode.FORBIDDEN))
+            if (redirectTo) {
+                navigate(redirectTo)
+            }
+            else {
+                dispatch(setErrorPage(ErrorCode.FORBIDDEN))
+            }
         }
     })
 
@@ -22,5 +29,6 @@ export default function GuestRoute({ children }) {
 }
 
 GuestRoute.propTypes = {
+    redirectTo: PropTypes.string,
     children: PropTypes.node,
 }

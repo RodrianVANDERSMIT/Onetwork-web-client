@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import {login} from "../../../redux/reducers/user"
-import { getIsLogged, getUser } from '../../../redux/selectors/user'
 
 import './style.scss'
 
@@ -17,8 +16,6 @@ function LoginForm() {
 
     // Retrieve user-related data and states from Redux.
     const [globalFormError, setGlobalFormError] = useState(null);
-    const loggedUser = useSelector(getUser);
-    const isLog = useSelector(getIsLogged);
     const [isLoading, setIsLoading] = useState(false);
 
     // Function to handle form submission.
@@ -26,7 +23,8 @@ function LoginForm() {
         setIsLoading(true)
 
         try {
-            await dispatch(login(credentials)).unwrap()
+            const user = await dispatch(login(credentials)).unwrap()
+            navigate(`/${user.organization.id}`)
         }
         catch (error) {
             setGlobalFormError(error)
@@ -35,17 +33,6 @@ function LoginForm() {
             setIsLoading(false)
         }
     }
-
-    // Redirect user to organization page if he is logged in.
-    useEffect(() => {
-        if (isLog) {
-            const organizationId = loggedUser.organization?.id
-
-            if (organizationId){
-                navigate(`/${organizationId}`)
-            }
-        }
-    }, [isLog]);
 
     return (
         <Box className="c-user-login" id="connexion" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
