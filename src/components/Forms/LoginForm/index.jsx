@@ -64,7 +64,6 @@ function LoginForm() {
                     autoComplete="email"
                     fullWidth
                     margin="normal"
-                    variant="outlined"
                 />
 
                 <TextField
@@ -73,12 +72,11 @@ function LoginForm() {
                     {...register('password', { required: 'Mot de passe requis' })}
                     fullWidth
                     margin="normal"
-                    variant="outlined"
                 />
                 {isLoading ? <CircularProgress sx={{ mb: 2 }} /> : null}
                 {globalFormError !== null && <p className="c-user-login__error">{globalFormError?.message}</p>}
 
-                <Button type="submit" sx={{ mt: 2}} variant="contained" color="primary">
+                <Button type="submit" sx={{ mt: 2}} variant="contained">
                     Connexion
                 </Button>
             </Box>
