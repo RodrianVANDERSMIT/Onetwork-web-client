@@ -58,7 +58,6 @@ function LoginForm() {
 
             <Box component="form" className="c-user-login__form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection:'column', alignItems:'center' }}>
                 <TextField
-                    name="email"
                     type="email"
                     label="Email"
                     {...register('email', { required: 'Email requis' })}
@@ -69,7 +68,6 @@ function LoginForm() {
                 />
 
                 <TextField
-                    name="password"
                     label="Mot de passe"
                     type="password"
                     {...register('password', { required: 'Mot de passe requis' })}
