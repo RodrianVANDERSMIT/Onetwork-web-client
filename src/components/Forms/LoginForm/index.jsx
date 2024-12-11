@@ -22,11 +22,11 @@ function LoginForm() {
     const [isLoading, setIsLoading] = useState(false);
 
     // Function to handle form submission.
-    const onSubmit = async (user) => {
+    const onSubmit = async (credentials) => {
         setIsLoading(true)
 
         try {
-            await dispatch(login(user)).unwrap()
+            await dispatch(login(credentials)).unwrap()
         }
         catch (error) {
             setGlobalFormError(error)
