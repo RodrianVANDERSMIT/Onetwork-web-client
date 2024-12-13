@@ -51,7 +51,7 @@ export default function Router() {
                     }
                 />
                 <Route
-                    path={`user/:userId`}
+                    path="user/:userId"
                     element={
                         <ProtectedRoute >
                             <UserProfile />
@@ -60,7 +60,7 @@ export default function Router() {
                 />
 
                 <Route
-                    path={`user/:userId/edit`}
+                    path="user/:userId/edit"
                     element={
                         <ProtectedRoute >
                             <ProfileSettings />
@@ -68,7 +68,7 @@ export default function Router() {
                     }
                 />
                 <Route
-                    path={`admin/members`}
+                    path="admin/members"
                     element={
                         <ProtectedRoute >
                             <AdminRoute>
