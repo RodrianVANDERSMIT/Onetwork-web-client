@@ -14,6 +14,7 @@ import SignUp from '../../views/SignUp'
 import ActivityFeed from '../../views/ActivityFeed'
 import NotFoundRoute from './NotFoundRoute'
 import useInterceptors from './hook'
+import OrganizationRouteValidator from './OrganizationRouteValidator'
 
 export default function Router() {
     // Axios interceptors for all requests
@@ -39,41 +40,45 @@ export default function Router() {
                 </GuestRoute>
             } />
             <Route path="/about" element={<Contact />} />
-            <Route
-                path={`/:organizationId`}
-                element={
-                    <ProtectedRoute >
-                        <ActivityFeed />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                path={`/:organizationId/user/:userId`}
-                element={
-                    <ProtectedRoute >
-                        <UserProfile />
-                    </ProtectedRoute>
-                }
-            />
 
-            <Route
-                path={`/:organizationId/user/:userId/edit`}
-                element={
-                    <ProtectedRoute >
-                        <ProfileSettings />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                path={`/:organizationId/admin/members`}
-                element={
-                    <ProtectedRoute >
-                        <AdminRoute>
-                            <Administration />
-                        </AdminRoute>
-                    </ProtectedRoute>
-                }
-            />
+            <Route path="/:organizationId" element={<OrganizationRouteValidator />}>
+                <Route
+                    index
+                    element={
+                        <ProtectedRoute >
+                            <ActivityFeed />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path={`user/:userId`}
+                    element={
+                        <ProtectedRoute >
+                            <UserProfile />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path={`user/:userId/edit`}
+                    element={
+                        <ProtectedRoute >
+                            <ProfileSettings />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path={`admin/members`}
+                    element={
+                        <ProtectedRoute >
+                            <AdminRoute>
+                                <Administration />
+                            </AdminRoute>
+                        </ProtectedRoute>
+                    }
+                />
+            </Route>
+
             <Route path="/*" element={<NotFoundRoute />} />
         </Routes>
     )
