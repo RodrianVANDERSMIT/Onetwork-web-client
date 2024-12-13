@@ -42,41 +42,28 @@ export default function Router() {
             <Route path="/about" element={<Contact />} />
 
             <Route path="/:organizationId" element={<OrganizationRouteValidator />}>
-                <Route
-                    index
-                    element={
-                        <ProtectedRoute >
-                            <ActivityFeed />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="user/:userId"
-                    element={
-                        <ProtectedRoute >
-                            <UserProfile />
-                        </ProtectedRoute>
-                    }
-                />
-
-                <Route
-                    path="user/:userId/edit"
-                    element={
-                        <ProtectedRoute >
-                            <ProfileSettings />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="admin/members"
-                    element={
-                        <ProtectedRoute >
-                            <AdminRoute>
-                                <Administration />
-                            </AdminRoute>
-                        </ProtectedRoute>
-                    }
-                />
+                <Route index element={
+                    <ProtectedRoute >
+                        <ActivityFeed />
+                    </ProtectedRoute>
+                } />
+                <Route path="user/:userId" element={
+                    <ProtectedRoute >
+                        <UserProfile />
+                    </ProtectedRoute>
+                } />
+                <Route path="user/:userId/edit" element={
+                    <ProtectedRoute >
+                        <ProfileSettings />
+                    </ProtectedRoute>
+                } />
+                <Route path="admin/members" element={
+                    <ProtectedRoute >
+                        <AdminRoute>
+                            <Administration />
+                        </AdminRoute>
+                    </ProtectedRoute>
+                } />
             </Route>
 
             <Route path="/*" element={<NotFoundRoute />} />
