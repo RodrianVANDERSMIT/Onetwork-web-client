@@ -1,26 +1,25 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsAdmin } from '../../../redux/selectors/user';
 import { ErrorCode, setErrorPage } from '../../../redux/reducers/errorPage';
+import ConditionalRoute from '../ConditionalRoute';
 
-export default function AdminRoute({ children }) {
+export default function AdminRoute({ redirectTo, children }) {
     const dispatch = useDispatch()
     const isAdmin = useSelector(getIsAdmin);
 
-    // A useEffect is required here to dispatch the action AFTER the rendering
-    // of the component, because the ErrorPageHandler component can interrupt
-    // the rendering of every other one inside it once an error is set. Such an
-    // interruption can lead to strange behaviors and fire an error in console.
-    useEffect(() => {
-        if (!isAdmin) {
-            dispatch(setErrorPage(ErrorCode.FORBIDDEN))
-        }
-    })
-
-    return isAdmin && children
+    return (
+        <ConditionalRoute
+            condition={isAdmin}
+            redirectTo={redirectTo}
+            onError={() => dispatch(setErrorPage(ErrorCode.FORBIDDEN))}
+        >
+            {children}
+        </ConditionalRoute>
+    )
 }
 
 AdminRoute.propTypes = {
+    redirectTo: PropTypes.string,
     children: PropTypes.node,
 }
