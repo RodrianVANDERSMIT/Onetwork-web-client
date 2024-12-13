@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { getUserOrganizationId } from '../../redux/selectors/user'
-import ProtectedRoute from './ProtectedRoute'
+import AuthenticatedRoute from './AuthenticatedRoute'
 import GuestRoute from './GuestRoute'
 import AdminRoute from './AdminRoute'
 import UserProfile from "../../views/UserProfile"
@@ -43,26 +43,26 @@ export default function Router() {
 
             <Route path="/:organizationId" element={<OrganizationRouteValidator />}>
                 <Route index element={
-                    <ProtectedRoute >
+                    <AuthenticatedRoute >
                         <ActivityFeed />
-                    </ProtectedRoute>
+                    </AuthenticatedRoute>
                 } />
                 <Route path="user/:userId" element={
-                    <ProtectedRoute >
+                    <AuthenticatedRoute >
                         <UserProfile />
-                    </ProtectedRoute>
+                    </AuthenticatedRoute>
                 } />
                 <Route path="user/:userId/edit" element={
-                    <ProtectedRoute >
+                    <AuthenticatedRoute >
                         <ProfileSettings />
-                    </ProtectedRoute>
+                    </AuthenticatedRoute>
                 } />
                 <Route path="admin/members" element={
-                    <ProtectedRoute >
+                    <AuthenticatedRoute >
                         <AdminRoute>
                             <Administration />
                         </AdminRoute>
-                    </ProtectedRoute>
+                    </AuthenticatedRoute>
                 } />
             </Route>
 

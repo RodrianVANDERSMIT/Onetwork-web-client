@@ -4,7 +4,7 @@ import { getIsLogged } from '../../../redux/selectors/user';
 import { ErrorCode, setErrorPage } from '../../../redux/reducers/errorPage';
 import ConditionalRoute from '../ConditionalRoute';
 
-export default function ProtectedRoute({ redirectTo, children }) {
+export default function AuthenticatedRoute({ redirectTo, children }) {
     const dispatch = useDispatch()
     const isLog = useSelector(getIsLogged);
 
@@ -19,7 +19,7 @@ export default function ProtectedRoute({ redirectTo, children }) {
     )
 }
 
-ProtectedRoute.propTypes = {
+AuthenticatedRoute.propTypes = {
     redirectTo: PropTypes.string,
     children: PropTypes.node
 }
