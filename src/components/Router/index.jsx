@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { getUserOrganizationId } from '../../redux/selectors/user'
 import ProtectedRoute from './ProtectedRoute'
 import GuestRoute from './GuestRoute'
 import AdminRoute from './AdminRoute'
@@ -17,9 +19,15 @@ export default function Router() {
     // Axios interceptors for all requests
     useInterceptors()
 
+    const organizationId = useSelector(getUserOrganizationId)
+
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={
+                <GuestRoute redirectTo={`/${organizationId}`}>
+                    <Home />
+                </GuestRoute>
+            } />
             <Route path="/new-organization" element={
                 <GuestRoute>
                     <OrganizationCreation />
