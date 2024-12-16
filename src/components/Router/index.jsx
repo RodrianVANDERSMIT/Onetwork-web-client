@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { getUserOrganizationId } from '../../redux/selectors/user'
-import AuthenticatedRoute from './AuthenticatedRoute'
-import GuestRoute from './GuestRoute'
-import AdminRoute from './AdminRoute'
+import AuthenticatedRoute from './ConditionalRoute/AuthenticatedRoute'
+import GuestRoute from './ConditionalRoute/GuestRoute'
+import AdminRoute from './ConditionalRoute/AdminRoute'
 import UserProfile from "../../views/UserProfile"
 import Home from '../../views/Home'
 import OrganizationCreation from '../../views/OrganizationCreation'
