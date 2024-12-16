@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { getUserOrganizationId } from '../../redux/selectors/user'
-import ProtectedRoute from './ProtectedRoute'
-import GuestRoute from './GuestRoute'
-import AdminRoute from './AdminRoute'
+import AuthenticatedRoute from './ConditionalRoute/AuthenticatedRoute'
+import GuestRoute from './ConditionalRoute/GuestRoute'
+import AdminRoute from './ConditionalRoute/AdminRoute'
 import UserProfile from "../../views/UserProfile"
 import Home from '../../views/Home'
 import OrganizationCreation from '../../views/OrganizationCreation'
@@ -14,6 +14,7 @@ import SignUp from '../../views/SignUp'
 import ActivityFeed from '../../views/ActivityFeed'
 import NotFoundRoute from './NotFoundRoute'
 import useInterceptors from './hook'
+import OrganizationRouteValidator from './OrganizationRouteValidator'
 
 export default function Router() {
     // Axios interceptors for all requests
@@ -39,41 +40,32 @@ export default function Router() {
                 </GuestRoute>
             } />
             <Route path="/about" element={<Contact />} />
-            <Route
-                path={`/:organizationId`}
-                element={
-                    <ProtectedRoute >
-                        <ActivityFeed />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                path={`/:organizationId/user/:userId`}
-                element={
-                    <ProtectedRoute >
-                        <UserProfile />
-                    </ProtectedRoute>
-                }
-            />
 
-            <Route
-                path={`/:organizationId/user/:userId/edit`}
-                element={
-                    <ProtectedRoute >
+            <Route path="/:organizationId" element={<OrganizationRouteValidator />}>
+                <Route index element={
+                    <AuthenticatedRoute >
+                        <ActivityFeed />
+                    </AuthenticatedRoute>
+                } />
+                <Route path="user/:userId" element={
+                    <AuthenticatedRoute >
+                        <UserProfile />
+                    </AuthenticatedRoute>
+                } />
+                <Route path="user/:userId/edit" element={
+                    <AuthenticatedRoute >
                         <ProfileSettings />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                path={`/:organizationId/admin/members`}
-                element={
-                    <ProtectedRoute >
+                    </AuthenticatedRoute>
+                } />
+                <Route path="admin/members" element={
+                    <AuthenticatedRoute >
                         <AdminRoute>
                             <Administration />
                         </AdminRoute>
-                    </ProtectedRoute>
-                }
-            />
+                    </AuthenticatedRoute>
+                } />
+            </Route>
+
             <Route path="/*" element={<NotFoundRoute />} />
         </Routes>
     )
