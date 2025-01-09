@@ -13,10 +13,7 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/men/72.jpg',
             disabled: true,
         },
-        type:{
-            tag: 'wow',
-            name: 'Wouah',
-        },
+        type: 'wow'
     },
     {
         id: 2,
@@ -32,10 +29,7 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             disabled: false,
         },
-        type:{
-            tag: 'haha',
-            name: 'Haha',
-        },
+        type: 'haha'
     },
     {
         id: 3,
@@ -51,10 +45,7 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/men/0.jpg',
             disabled: true,
         },
-        type:{
-            tag: 'love',
-            name: 'J\'adore',
-        },
+        type: 'love'
     },
     {
         id: 4,
@@ -70,10 +61,7 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             disabled: false,
         },
-        type:{
-            tag: 'haha',
-            name: 'Haha',
-        },
+        type: 'haha'
     },
     {
         id: 5,
@@ -89,10 +77,7 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             disabled: false,
         },
-        type:{
-            tag: 'love',
-            name: 'J\'adore',
-        },
+        type: 'love'
     },
     {
         id: 6,
@@ -108,10 +93,7 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/men/72.jpg',
             disabled: true,
         },
-        type:{
-            tag: 'like',
-            name: 'J\'aime',
-        },
+        type: 'like'
     },
     {
         id: 7,
@@ -127,10 +109,7 @@ export default [
             profilePicture: 'https://randomuser.me/api/portraits/men/0.jpg',
             disabled: true,
         },
-        type:{
-            tag: 'like',
-            name: 'J\'aime',
-        },
+        type: 'like'
     },
     
 ];

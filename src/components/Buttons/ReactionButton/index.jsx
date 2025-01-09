@@ -35,7 +35,7 @@ function ReactionButton({postId}) {
     const id = open ? 'simple-popover' : undefined;
 
     const handleReaction = (type)=>{
-        if (loggedUserReaction && loggedUserReaction.type.tag === type){
+        if (loggedUserReaction?.type === type){
             dispatch(removeReaction({postId, reactionId: loggedUserReaction.id}))
         }
         else if (loggedUserReaction){
@@ -52,7 +52,7 @@ function ReactionButton({postId}) {
         <div className="c-reaction-selector">
             {loggedUserReaction ? 
                 <Button className='c-reaction-selector__emoji-button' aria-describedby={id} onClick={handleClick}>
-                    <img className='c-reaction-selector__image-choice' src={`/assets/reactions/emoji-${loggedUserReaction.type.tag}.png`} alt={`Emoji ${loggedUserReaction.type.tag}`}/>
+                    <img className='c-reaction-selector__image-choice' src={`/assets/reactions/emoji-${loggedUserReaction.type}.png`} alt={`Emoji ${loggedUserReaction.type}`}/>
                 </Button>
                 : 
                 <Button variant="outlined" className='c-btn footer' aria-describedby={id} onClick={handleClick}>
