@@ -9,17 +9,11 @@ export default [
             name: 'Mike',
             surname: 'Wilson',
             job: 'Actor',
-            role: {
-                tag: 'member',
-                name: 'Membre',
-            },
+            role: 'member',
             profilePicture: 'https://randomuser.me/api/portraits/men/72.jpg',
             disabled: true,
         },
-        type:{
-            tag: 'wow',
-            name: 'Wouah',
-        },
+        type: 'wow'
     },
     {
         id: 2,
@@ -31,17 +25,11 @@ export default [
             name: 'Jane',
             surname: 'smith',
             job: 'Nurse',
-            role: {
-                tag: 'member',
-                name: 'Membre',
-            },
+            role: 'member',
             profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             disabled: false,
         },
-        type:{
-            tag: 'haha',
-            name: 'Haha',
-        },
+        type: 'haha'
     },
     {
         id: 3,
@@ -53,17 +41,11 @@ export default [
             name: 'John',
             surname: 'Doe',
             job: 'Chef',
-            role: {
-                tag: 'admin',
-                name: 'Administrateur',
-            },
+            role: 'admin',
             profilePicture: 'https://randomuser.me/api/portraits/men/0.jpg',
             disabled: true,
         },
-        type:{
-            tag: 'love',
-            name: 'J\'adore',
-        },
+        type: 'love'
     },
     {
         id: 4,
@@ -75,17 +57,11 @@ export default [
             name: 'Jane',
             surname: 'smith',
             job: 'Nurse',
-            role: {
-                tag: 'member',
-                name: 'Membre',
-            },
+            role: 'member',
             profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             disabled: false,
         },
-        type:{
-            tag: 'haha',
-            name: 'Haha',
-        },
+        type: 'haha'
     },
     {
         id: 5,
@@ -97,17 +73,11 @@ export default [
             name: 'Jane',
             surname: 'smith',
             job: 'Nurse',
-            role: {
-                tag: 'member',
-                name: 'Membre',
-            },
+            role: 'member',
             profilePicture: 'https://randomuser.me/api/portraits/women/68.jpg',
             disabled: false,
         },
-        type:{
-            tag: 'love',
-            name: 'J\'adore',
-        },
+        type: 'love'
     },
     {
         id: 6,
@@ -119,17 +89,11 @@ export default [
             name: 'Mike',
             surname: 'Wilson',
             job: 'Actor',
-            role: {
-                tag: 'member',
-                name: 'Membre',
-            },
+            role: 'member',
             profilePicture: 'https://randomuser.me/api/portraits/men/72.jpg',
             disabled: true,
         },
-        type:{
-            tag: 'like',
-            name: 'J\'aime',
-        },
+        type: 'like'
     },
     {
         id: 7,
@@ -141,17 +105,11 @@ export default [
             name: 'John',
             surname: 'Doe',
             job: 'Chef',
-            role: {
-                tag: 'admin',
-                name: 'Administrateur',
-            },
+            role: 'admin',
             profilePicture: 'https://randomuser.me/api/portraits/men/0.jpg',
             disabled: true,
         },
-        type:{
-            tag: 'like',
-            name: 'J\'aime',
-        },
+        type: 'like'
     },
     
 ];
