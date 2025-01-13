@@ -34,7 +34,7 @@ function PostReactionsCounter({postId}) {
     };
 
     const hasReactionType = (reactions, type) => {
-        return reactions.some(reaction => reaction.type.tag === type)
+        return reactions.some(reaction => reaction.type === type)
     };
     
     
@@ -69,7 +69,7 @@ function PostReactionsCounter({postId}) {
                                 overlap="circular"
                                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                 badgeContent={
-                                    <SmallAvatar src={`/assets/reactions/emoji-${reaction.type.tag}.png`} />
+                                    <SmallAvatar src={`/assets/reactions/emoji-${reaction.type}.png`} />
                                 }
                             >
                                 <Avatar 

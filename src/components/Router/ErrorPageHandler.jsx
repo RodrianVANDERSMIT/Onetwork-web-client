@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from 'react-router-dom'
-import { getErrorPageCode } from "../../../redux/selectors/errorPage"
-import Error401 from "../../../views/Error401"
-import Error403 from "../../../views/Error403"
-import Error404 from "../../../views/Error404"
-import Error500 from "../../../views/Error500"
-import { setErrorPage } from '../../../redux/reducers/errorPage'
+import { getErrorPageCode } from "../../redux/selectors/errorPage"
+import Error401 from "../../views/Error401"
+import Error403 from "../../views/Error403"
+import Error404 from "../../views/Error404"
+import Error500 from "../../views/Error500"
+import { setErrorPage } from '../../redux/reducers/errorPage'
 
 function ErrorPageHandler({ children }) {
     const dispatch = useDispatch()
