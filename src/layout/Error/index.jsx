@@ -1,15 +1,9 @@
-import { useSelector } from 'react-redux';
 import PropTypes from "prop-types"
 import SimplePageLayout from '../SimplePageLayout';
-import { getUserError } from '../../redux/selectors/user';
 import {  Box } from "@mui/material"
 import './style.scss';
 
 const Error = ({code , message, image }) => {
-
-    const error= useSelector(getUserError)
-    console.log(error)
-
     return (
         <SimplePageLayout>
             <Box className="c-error">

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPosts, fetchComments, createPost, addNewComment, addReaction, updateReaction, removeReaction} from '../thunks/feed'
+import { fetchPosts, fetchComments, createPost, createComment, createReaction, updateReaction, removeReaction} from '../thunks/feed'
 
 
 
@@ -7,12 +7,10 @@ import { fetchPosts, fetchComments, createPost, addNewComment, addReaction, upda
 const initialState = {
     posts: [],
     pagination: {
-        currentPage: 1,
-        postsPerPage: 10,
-        availablePosts: true,
+        currentPage: 0,
+        hasMorePosts: null,
     },
-    loading: false,
-    error: null,
+    loading: false
 }
 
 const slice = createSlice({
@@ -21,89 +19,63 @@ const slice = createSlice({
     reducers: {
         cleanFeedState(state){
             Object.assign(state, initialState);
-        },
-        setAvailablePosts(state, action) {
-            state.pagination.availablePosts = action.payload;
-        },
+        }
     },
 
     extraReducers: builder => {
         builder
-            .addCase(fetchPosts.fulfilled, (state, action ) => {
-                const posts = state.posts
-                posts.push(...action.payload)
-                state.pagination.currentPage++
-                state.error = null
+            .addCase(fetchPosts.fulfilled, (state, { payload: { posts, meta } } ) => {
+                state.posts.push(...posts)
+
+                state.pagination.currentPage = meta.current_page
+                state.pagination.hasMorePosts = meta.current_page !== meta.last_page
+
                 state.loading = false;
             })
             .addCase(fetchPosts.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(fetchPosts.rejected, (state, action) => {
-                state.error = action.payload
+            .addCase(fetchPosts.rejected, (state) => {
                 state.loading = false;
             })
-            .addCase(createPost.fulfilled, (state, action) => {
-                state.posts.unshift(action.payload)
+            .addCase(createPost.fulfilled, (state, { payload: post }) => {
+                state.posts.unshift(post)
             })
 
-            .addCase(createPost.rejected, (state,action) => {
-                state.error = action.payload
-            })
-
-            .addCase(fetchComments.fulfilled, (state, { payload: { postId, postComments } } ) => {
-                state.posts.find(post => post.id === postId).comments = postComments
-                state.loading = false;
-            })
-            .addCase(fetchComments.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(fetchComments.rejected, (state,action) => {
-                state.error = action.payload
-                state.loading = false;
-            })
-
-            .addCase(addReaction.fulfilled, (state, { payload: { postId, newReaction }}) => {
+            .addCase(fetchComments.fulfilled, (state, { meta: { arg: postId }, payload: comments }) => {
                 const post = state.posts.find(post => post.id === postId)
-                post.reactions.push(newReaction)
+                post.comments = comments
             })
 
-            .addCase(addReaction.rejected, ( state,action) => {
-                state.error = action.payload
+            .addCase(createReaction.fulfilled, (state, { payload: reaction }) => {
+                const post = state.posts.find(post => post.id === reaction.postId)
+                post.reactions.push(reaction)
             })
 
-            .addCase(updateReaction.fulfilled, (state, { payload: { postId, reactionId, updatedReaction}}) => {
-                const post = state.posts.find(post => post.id === postId)
-                const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
-                post.reactions[reactionIndex] = updatedReaction;
+            .addCase(updateReaction.fulfilled, (state, { payload: reaction }) => {
+                const post = state.posts.find(post => post.id === reaction.postId)
+                const reactionIndex = post.reactions.findIndex(currentReaction => currentReaction.id === reaction.id);
+                post.reactions[reactionIndex] = reaction;
 
             })
-            .addCase(updateReaction.rejected, (state,action) => {
-                state.error = action.payload
-            })
 
-            .addCase(removeReaction.fulfilled, (state, { payload: { postId, reactionId}}) => {
+            .addCase(removeReaction.fulfilled, (state, { meta: { arg: { postId, reactionId } } }) => {
                 const post = state.posts.find(post => post.id === postId)
                 const reactionIndex = post.reactions.findIndex(reaction => reaction.id === reactionId);
                 post.reactions.splice(reactionIndex, 1);
 
             })
-            .addCase(removeReaction.rejected, (state,action) => {
-                state.error = action.payload
-            })
 
             
 
-            .addCase(addNewComment.fulfilled, (state, { payload: { postId, newComment } } ) => {
-                state.posts.find(post => post.id === postId).comments.push(newComment)
-            })
-
-            .addCase(addNewComment.rejected, (state,action) => {
-                state.error = action.payload
+            .addCase(createComment.fulfilled, (state, { payload: comment }) => {
+                const post = state.posts.find(post => post.id === comment.postId)
+                post.comments.push(comment)
+                post.commentsCount++
             })
     },
 });
 
 
-export const { cleanFeedState, setAvailablePosts } = slice.actions
+export const { cleanFeedState } = slice.actions
 export default slice.reducer

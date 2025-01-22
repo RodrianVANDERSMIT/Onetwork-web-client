@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getPostReactions } from '../../../redux/selectors/feed';
 import { getUserId } from '../../../redux/selectors/user';
-import { addReaction, updateReaction, removeReaction } from '../../../redux/thunks/feed';
+import { createReaction, updateReaction, removeReaction } from '../../../redux/thunks/feed';
 import './style.scss'
 
 
@@ -34,15 +34,15 @@ function ReactionButton({postId}) {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    const handleReaction = (reaction)=>{
-        if (loggedUserReaction && loggedUserReaction.type.tag === reaction){
+    const handleReaction = (type)=>{
+        if (loggedUserReaction?.type === type){
             dispatch(removeReaction({postId, reactionId: loggedUserReaction.id}))
         }
         else if (loggedUserReaction){
-            dispatch(updateReaction({postId, reaction, reactionId: loggedUserReaction.id}))
+            dispatch(updateReaction({type, reactionId: loggedUserReaction.id}))
         }
         else {
-            dispatch(addReaction({postId, reaction}))
+            dispatch(createReaction({postId, type}))
         }
         setAnchorEl(null);
     }
@@ -52,7 +52,7 @@ function ReactionButton({postId}) {
         <div className="c-reaction-selector">
             {loggedUserReaction ? 
                 <Button className='c-reaction-selector__emoji-button' aria-describedby={id} onClick={handleClick}>
-                    <img className='c-reaction-selector__image-choice' src={`/assets/reactions/emoji-${loggedUserReaction.type.tag}.png`} alt={`Emoji ${loggedUserReaction.type.tag}`}/>
+                    <img className='c-reaction-selector__image-choice' src={`/assets/reactions/emoji-${loggedUserReaction.type}.png`} alt={`Emoji ${loggedUserReaction.type}`}/>
                 </Button>
                 : 
                 <Button variant="outlined" className='c-btn footer' aria-describedby={id} onClick={handleClick}>

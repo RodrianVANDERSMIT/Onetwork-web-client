@@ -84,12 +84,6 @@ export default function MobileMenu() {
                     </ListItemIcon>
                     {'Flux d\'activité'}
                 </MenuItem>
-                <MenuItem component={Link} to={`/${organizationId}/user/${userId}`} onClick={handleClose}>
-                    <ListItemIcon>
-                        <PersonIcon/>
-                    </ListItemIcon>
-                    Mon profil
-                </MenuItem>
                 <MenuItem component={Link} to={`/${organizationId}/user/${userId}/edit`} onClick={handleClose}>
                     <ListItemIcon>
                         <ManageAccountsIcon/>

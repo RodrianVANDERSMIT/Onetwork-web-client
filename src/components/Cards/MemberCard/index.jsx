@@ -2,38 +2,47 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {Avatar, Box, Button, Typography, Paper} from '@mui/material';
-import { useDispatch, } from 'react-redux';
-import { useForm } from "react-hook-form";
-import { updateMemberStatus } from '../../../redux/thunks/members'
 import CircularProgress from '@mui/material/CircularProgress';
 import { Link as MuiLink } from '@mui/material'
+import { api, fetchCsrfCookie } from '../../../services/api';
 import './style.scss'
 
 
 
-function MemberCard ({id, organization, name, surname, job, profilePicture, disabled}) {
-
-    const dispatch = useDispatch();
-    const { handleSubmit } = useForm();
+function MemberCard ({id, organization, name, surname, job, profilePicture, disabled, setMember}) {
     const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = async () => {
+    const onStatusButtonClick = async () => {
         setIsLoading(true);
-        await dispatch(updateMemberStatus({ id, disabled: !disabled }));
-        setIsLoading(false);
+
+        try {
+            await fetchCsrfCookie()
+            const { data: member } = await api.patch(`/users/${id}`, { disabled: !disabled })
+            setMember(member)
+        }
+        catch (error) {
+            // TODO: instead of console logs, errors must be displayed directly to user
+            if (error.response.status === 404) {
+                console.error({ status: error.response.status, message: "Ce membre n'existe pas" })
+            }
+            else {
+                console.error({ status: error.response.status, message: "Une erreur s'est produite" });
+            }
+
+        }
+        finally {
+            setIsLoading(false);
+        }
     };
 
     return (
         <Paper
             className="c-member-card__group"
-            component="form"
-            noValidate
             elevation={3}
             sx={{
                 display: 'flex',
                 alignItems: 'center',
             }}
-            onSubmit={handleSubmit(onSubmit)}
         >
             <Box
                 className="c-member-card__profil"
@@ -88,8 +97,8 @@ function MemberCard ({id, organization, name, surname, job, profilePicture, disa
                 className="c-member-card__button"
                 variant="outlined"
                 sx={{m:2}}
-                type="submit"
                 disabled={isLoading}
+                onClick={onStatusButtonClick}
             >
                 {isLoading ? (
                     <CircularProgress size={24}/>
@@ -112,7 +121,7 @@ MemberCard.propTypes = {
     job: PropTypes.string,
     profilePicture: PropTypes.string,
     disabled: PropTypes.bool,
-    isLoading: PropTypes.bool
+    setMember: PropTypes.func.isRequired
 };
 
 export default MemberCard

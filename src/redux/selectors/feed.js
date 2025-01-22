@@ -7,7 +7,7 @@ export const getPost  = postId => state => getPosts(state).find((post) => post.i
 
 export const getCurrentPage = state => getFeed(state).pagination.currentPage;
 
-export const getAvailablePosts = state => getFeed(state).pagination.availablePosts;
+export const getHasMorePosts = state => getFeed(state).pagination.hasMorePosts;
 
 export const getPostLoading = state => getFeed(state).loading;
 
@@ -22,4 +22,3 @@ export const getPostLoading = state => getFeed(state).loading;
 export const  getPostComments = postId => state => getPost(postId)(state).comments;
 
 export const getPostReactions = postId => state => getPost(postId)(state).reactions;
-

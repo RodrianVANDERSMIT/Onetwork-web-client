@@ -20,7 +20,7 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
     padding: 2,
 }));
 
-function PostReaction({postId}) {
+function PostReactionsCounter({postId}) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const postReactions = useSelector(getPostReactions(postId));
@@ -33,46 +33,20 @@ function PostReaction({postId}) {
         setAnchorEl(null);
     };
 
-    const tagExists = (reactions, tagToCheck) => {
-        for (const reaction of reactions) {
-            if (reaction.type && reaction.type.tag === tagToCheck) {
-                return true;
-            }
-        }
-        return false;
+    const hasReactionType = (reactions, type) => {
+        return reactions.some(reaction => reaction.type === type)
     };
     
     
     return (
-        <div className="c-reaction-post">
-            <Button onClick={handleClick} className ="c-reaction-post__button" sx={{ p: 0  }}>
-                {postReactions.length === 0 ? (
-                    <Typography variant="body2" color="text.secondary">
-                        {postReactions.length} réactions 
-                    </Typography>
-                ) : (
-                    <>
-                        {tagExists(postReactions, 'like') && (
-                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-like.png" alt="Emoji like" />
-                        )}
-                        {tagExists(postReactions, 'love') && (
-                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-love.png" alt="Emoji love" />
-                        )}
-                        {tagExists(postReactions, 'haha') && (
-                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-haha.png" alt="Emoji haha" />
-                        )}
-                        {tagExists(postReactions, 'wow') && (
-                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-wow.png" alt="Emoji wow" />
-                        )}
-                        {tagExists(postReactions, 'sad') && (
-                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-sad.png" alt="Emoji sad" />
-                        )}
-                        {tagExists(postReactions, 'angry') && (
-                            <img className='c-reaction-post__image' src="/assets/reactions/emoji-angry.png" alt="Emoji angry" />
-                        )}
-                        {postReactions.length}
-                    </>
+        <>
+            <Button onClick={handleClick} className ="c-reaction-post">
+                {['like', 'love', 'haha', 'wow', 'sad', 'angry'].map(reactionType =>
+                    hasReactionType(postReactions, reactionType) && (
+                        <img className='c-reaction-post__image' src={`/assets/reactions/emoji-${reactionType}.png`} alt={`Emoji ${reactionType}`} key={reactionType} />
+                    )
                 )}
+                {postReactions.length}
             </Button>
             <Popover
                 open={Boolean(anchorEl)}
@@ -95,7 +69,7 @@ function PostReaction({postId}) {
                                 overlap="circular"
                                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                 badgeContent={
-                                    <SmallAvatar src={`/assets/reactions/emoji-${reaction.type.tag}.png`} />
+                                    <SmallAvatar src={`/assets/reactions/emoji-${reaction.type}.png`} />
                                 }
                             >
                                 <Avatar 
@@ -128,12 +102,12 @@ function PostReaction({postId}) {
                     ))}
                 </Box>
             </Popover>
-        </div>
+        </>
     )
 }
 
-PostReaction.propTypes = {
+PostReactionsCounter.propTypes = {
     postId: PropTypes.number.isRequired,
 };
 
-export default PostReaction
+export default PostReactionsCounter

@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPostComments, getPostLoading } from '../../redux/selectors/feed'
+import { getPostComments, getPostReactions } from '../../redux/selectors/feed'
 import { fetchComments } from '../../redux/thunks/feed';
 import { getUser } from '../../redux/selectors/user'
 
@@ -11,7 +11,7 @@ import moment from 'moment'
 import CommentForm from '../Forms/CommentForm';
 import Comment from '../Comment';
 import ReactionButton from '../Buttons/ReactionButton'
-import PostReaction from '../PostReaction'
+import PostReactionsCounter from '../PostReactionsCounter'
 
 import { Card, CardActions, CardHeader, CardContent, CircularProgress } from '@mui/material';
 import { Grid, Typography, Button, Divider } from '@mui/material'
@@ -19,6 +19,7 @@ import {Avatar, Collapse, List, Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link as MuiLink } from '@mui/material'
 import { HashLink } from 'react-router-hash-link';
+import Pluralize from 'react-pluralize'
 
 import './style.scss'
 
@@ -49,14 +50,27 @@ function Post({id, author,text,commentsCount,createdAt}) {
 
     // fetch all comments by post    
     const comments = useSelector(getPostComments(id));
-    const commentsLoading = useSelector(getPostLoading)
+    const [isLoadingComments, setIsLoadingComments] = useState(false)
 
-    const handleExpandClick = () => {
-        if (!comments) {
-            dispatch(fetchComments(id));
-        }
+    const reactions = useSelector(getPostReactions(id))
 
+    const handleExpandClick = async () => {
         setExpanded(!expanded);
+
+        if (!comments) {
+            setIsLoadingComments(true)
+
+            try {
+                await dispatch(fetchComments(id)).unwrap();
+            }
+            catch (error) {
+                setExpanded(false)
+                console.error(error); // TODO: instead of console logs, errors must be displayed directly to user
+            }
+            finally {
+                setIsLoadingComments(false)
+            }
+        }
     };
 
     return (
@@ -105,23 +119,31 @@ function Post({id, author,text,commentsCount,createdAt}) {
                     {text}
                 </Typography>
             </CardContent>
+
+            {(reactions.length > 0 || commentsCount > 0) &&
+                <>
+                    <Divider/>
+                    <CardContent className='c-counter'>
+                        {reactions.length > 0 &&
+                            <PostReactionsCounter postId={id} />
+                        }
+                        {commentsCount > 0 &&
+                            <ExpandMore
+                                expand={expanded}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                                className='c-counter__btn'
+                            >
+                                <Pluralize count={commentsCount} singular="commentaire" />
+                            </ExpandMore>
+                        }
+                    </CardContent>
+                </>
+            }
+
             <Divider/>
-            <CardContent className='c-counter'>
-                <Box >
-                    <PostReaction postId={id} />
-                </Box>
-                <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                    className='c-counter__btn' 
-                >
-                    {commentsCount}{" commentaires"}
-                </ExpandMore>
-            </CardContent>
-            <Divider/>
-            <CardActions className="c-post-card__action"  disableSpacing>
+            <CardActions className="c-card-post__action"  disableSpacing>
                 <ReactionButton
                     postId={id}   
                 />
@@ -140,10 +162,12 @@ function Post({id, author,text,commentsCount,createdAt}) {
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent sx={{padding: '0 16px'}} className="c-post-card__list">
-                    <Box className="c-admin-members__loader">
-                        {commentsLoading ? <CircularProgress/> : null}
-                    </Box>
+                <CardContent sx={{padding: '0 16px'}} className="c-card-post__list">
+                    {isLoadingComments &&
+                        <Box className="c-card-post__loader">
+                            <CircularProgress />
+                        </Box>
+                    }
                     <List>
                         {comments?.map(comment => (   
                             <Grid key={comment.id}>
